@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name LT1675CGNPBF)(type Legacy)(uri ${KIPRJMOD}/snapeda/LT1675CGNPBF.lib)(options "")(descr ""))
+)

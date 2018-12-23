@@ -1,0 +1,42 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#(c) SnapEDA 2016 (snapeda.com)
+#This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0
+#
+# LT1675CGNPBF
+#
+DEF LT1675CGNPBF U 0 40 Y Y 1 L N
+F0 "U" -600 500 50 H V L BNN
+F1 "LT1675CGNPBF" -601 -701 50 H V L BNN
+F2 "SOP63P600X172-16N" 0 0 50 H I L BNN
+F3 "https://www.digikey.com/product-detail/en/linear-technology-analog-devices/LT1675CGN-PBF/LT1675CGN-PBF-ND/889847?utm_source=snapeda&utm_medium=aggregator&utm_campaign=symbol" 0 0 50 H I L BNN
+F4 "Linear Technology" 0 0 50 H I L BNN
+F5 "LT1675CGN#PBF-ND" 0 0 50 H I L BNN
+F6 "SSOP-16 Linear Technology" 0 0 50 H I L BNN
+F7 "LT1675CGN#PBF" 0 0 50 H I L BNN
+F8 "Linear IC - Video editing Linear Technology LT1675CGN#PBF Multiplexer SSOP 16" 0 0 50 H I L BNN
+DRAW
+P 2 0 0 6 -600 500 600 500 N
+P 2 0 0 6 600 500 600 -600 N
+P 2 0 0 6 600 -600 -600 -600 N
+P 2 0 0 6 -600 -600 -600 500 N
+X RED1 1 -800 100 200 R 40 40 0 0 I 
+X GREEN1 2 -800 0 200 R 40 40 0 0 I 
+X BLUE1 3 -800 -100 200 R 40 40 0 0 I 
+X GND 4 800 -500 200 L 40 40 0 0 W 
+X GND 5 800 -500 200 L 40 40 0 0 W 
+X RED2 6 -800 -200 200 R 40 40 0 0 I 
+X GREEN2 7 -800 -300 200 R 40 40 0 0 I 
+X BLUE2 8 -800 -400 200 R 40 40 0 0 I 
+X ~ENABLE~ 9 -800 300 200 R 40 40 0 0 I 
+X SELECT 10 -800 200 200 R 40 40 0 0 I 
+X VOUT_RED 15 800 0 200 L 40 40 0 0 O 
+X VOUT_GREEN 14 800 -100 200 L 40 40 0 0 O 
+X VOUT_BLUE 13 800 -200 200 L 40 40 0 0 O 
+X V- 11 800 300 200 L 40 40 0 0 W 
+X V- 12 800 300 200 L 40 40 0 0 W 
+X V+ 16 800 400 200 L 40 40 0 0 W 
+ENDDRAW
+ENDDEF
+#
+# End Library

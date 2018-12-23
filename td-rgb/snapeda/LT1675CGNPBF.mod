@@ -1,0 +1,166 @@
+PCBNEW-LibModule-V1  
+# encoding utf-8
+Units mm
+$INDEX
+SOP63P600X172-16N
+$EndINDEX
+$MODULE SOP63P600X172-16N
+Po 0 0 0 15 00000000 00000000 ~~
+Li SOP63P600X172-16N
+Cd 
+Sc 00000000
+At SMD
+Op 0 0 0
+.SolderMask 0
+.SolderPaste 0
+T0 -0.90029 -3.50115 0.787661 0.787661 0 0.05 N V 21 "SOP63P600X172-16N"
+T1 -0.300135 3.80157 0.787724 0.787724 0 0.05 N V 21 "VAL**"
+DS -1.99 -2.49 -1.99 2.49 0.127 24
+DS -1.99 2.49 1.99 2.49 0.127 24
+DS 1.99 2.49 1.99 -2.49 0.127 24
+DS 1.99 -2.49 -1.99 -2.49 0.127 24
+DS -1.99 -2.608 1.99 -2.608 0.127 21
+DS -1.99 2.608 1.99 2.608 0.127 21
+DS -3.71 -2.68 -3.71 2.68 0.05 26
+DS -3.71 2.68 -2.25 2.68 0.05 26
+DS -2.25 2.68 -2.25 2.74 0.05 26
+DS -2.25 2.74 2.25 2.74 0.05 26
+DS 2.25 2.74 2.25 2.68 0.05 26
+DS 2.25 2.68 3.71 2.68 0.05 26
+DS 3.71 2.68 3.71 -2.68 0.05 26
+DS 3.71 -2.68 2.25 -2.68 0.05 26
+DS 2.25 -2.68 2.25 -2.74 0.05 26
+DS 2.25 -2.74 -2.25 -2.74 0.05 26
+DS -2.25 -2.74 -2.25 -2.68 0.05 26
+DS -2.25 -2.68 -3.71 -2.68 0.05 26
+DC -3.91 -2.24 -3.81 -2.24 0.2 21
+DC -1.51 -2.14 -1.41 -2.14 0.2 24
+$PAD
+Sh "1" R 1.96 0.41 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -2.475 -2.2225
+$EndPAD
+$PAD
+Sh "2" R 1.96 0.41 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -2.475 -1.5875
+$EndPAD
+$PAD
+Sh "3" R 1.96 0.41 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -2.475 -0.9525
+$EndPAD
+$PAD
+Sh "4" R 1.96 0.41 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -2.475 -0.3175
+$EndPAD
+$PAD
+Sh "5" R 1.96 0.41 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -2.475 0.3175
+$EndPAD
+$PAD
+Sh "6" R 1.96 0.41 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -2.475 0.9525
+$EndPAD
+$PAD
+Sh "7" R 1.96 0.41 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -2.475 1.5875
+$EndPAD
+$PAD
+Sh "8" R 1.96 0.41 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po -2.475 2.2225
+$EndPAD
+$PAD
+Sh "9" R 1.96 0.41 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 2.475 2.2225
+$EndPAD
+$PAD
+Sh "10" R 1.96 0.41 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 2.475 1.5875
+$EndPAD
+$PAD
+Sh "11" R 1.96 0.41 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 2.475 0.9525
+$EndPAD
+$PAD
+Sh "12" R 1.96 0.41 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 2.475 0.3175
+$EndPAD
+$PAD
+Sh "13" R 1.96 0.41 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 2.475 -0.3175
+$EndPAD
+$PAD
+Sh "14" R 1.96 0.41 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 2.475 -0.9525
+$EndPAD
+$PAD
+Sh "15" R 1.96 0.41 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 2.475 -1.5875
+$EndPAD
+$PAD
+Sh "16" R 1.96 0.41 0 0 0
+At SMD N 00888000
+.SolderMask 0
+.SolderPaste 0
+Ne 0 ""
+Po 2.475 -2.2225
+$EndPAD
+$EndMODULE SOP63P600X172-16N
