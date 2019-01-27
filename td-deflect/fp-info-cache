@@ -1,64 +1,218 @@
-13904046001532
-Connector_Audio
-Jack_3.5mm_CUI_SJ1-3533NG_Horizontal
-TRS 3.5mm, horizontal, through-hole, https://www.cui.com/product/resource/sj1-353xng.pdf
-TRS audio jack stereo horizontal
+47891714001441
+Connector_Wire
+SolderWirePad_1x01_Drill0.8mm
+Wire solder connection
+connector
+0
+1
+1
+Connector_Wire
+SolderWirePad_1x01_Drill1.2mm
+Wire solder connection
+connector
+0
+1
+1
+Connector_Wire
+SolderWirePad_1x01_Drill1.5mm
+Wire solder connection
+connector
+0
+1
+1
+Connector_Wire
+SolderWirePad_1x01_Drill1mm
+Wire solder connection
+connector
+0
+1
+1
+Connector_Wire
+SolderWirePad_1x01_Drill2.5mm
+Wire solder connection
+connector
+0
+1
+1
+Connector_Wire
+SolderWirePad_1x01_Drill2mm
+Wire solder connection
+connector
+0
+1
+1
+Connector_Wire
+SolderWirePad_1x01_SMD_5x10mm
+Wire Pad, Square, SMD Pad,  5mm x 10mm,
+MesurementPoint Square SMDPad 5mmx10mm 
+0
+1
+1
+Connector_Wire
+SolderWirePad_1x02_P3.81mm_Drill0.8mm
+Wire solder connection
+connector
+0
+2
+2
+Connector_Wire
+SolderWirePad_1x02_P3.81mm_Drill1.2mm
+Wire solder connection
+connector
+0
+2
+2
+Connector_Wire
+SolderWirePad_1x02_P3.81mm_Drill1mm
+Wire solder connection
+connector
+0
+2
+2
+Connector_Wire
+SolderWirePad_1x02_P5.08mm_Drill1.5mm
+Wire solder connection
+connector
+0
+2
+2
+Connector_Wire
+SolderWirePad_1x02_P7.62mm_Drill2.5mm
+Wire solder connection
+connector
+0
+2
+2
+Connector_Wire
+SolderWirePad_1x02_P7.62mm_Drill2mm
+Wire solder connection
+connector
+0
+2
+2
+Connector_Wire
+SolderWirePad_1x03_P3.81mm_Drill1.2mm
+Wire solder connection
+connector
 0
 3
 3
-Connector_Audio
-Jack_3.5mm_CUI_SJ1-3533NG_Horizontal_CircularHoles
-TRS 3.5mm, horizontal, through-hole, , circular holeshttps://www.cui.com/product/resource/sj1-353xng.pdf
-TRS audio jack stereo horizontal circular
+Connector_Wire
+SolderWirePad_1x03_P3.175mm_Drill0.8mm
+Wire solder connection
+connector
 0
 3
 3
-Connector_Audio
-Jack_3.5mm_Ledino_KB3SPRS_Horizontal
-https://www.reichelt.de/index.html?ACTION=7&LA=3&OPEN=0&INDEX=0&FILENAME=C160%252FKB3SPRS.pdf
-jack stereo TRS
+Connector_Wire
+SolderWirePad_1x03_P3.175mm_Drill1mm
+Wire solder connection
+connector
 0
-5
-5
-Connector_Audio
-Jack_3.5mm_Neutrik_NMJ6HCD2_Horizontal
-NMJ6HCD2, TRS 1/4in (http://www.neutrik.com/en/audio/plugs-and-jacks/m-series/nmj6hcd2)
-NMJ6HCD2 TRS stereo jack connector
+3
+3
+Connector_Wire
+SolderWirePad_1x03_P4.445mm_Drill1.5mm
+Wire solder connection
+connector
 0
-6
-6
-Connector_Audio
-Jack_3.5mm_PJ311_Horizontal
-PJ311 6pin SMD 3.5mm stereo headphones jack.
-headphones jack plug stereo 3.5mm PJ311
+3
+3
+Connector_Wire
+SolderWirePad_1x03_P5.715mm_Drill2mm
+Wire solder connection
+connector
 0
-6
-6
-Connector_Audio
-Jack_3.5mm_PJ320D_Horizontal
-Headphones with microphone connector, 3.5mm, 4 pins (http://www.qingpu-electronics.com/en/products/WQP-PJ320D-72.html)
-3.5mm jack mic microphone phones headphones 4pins audio plug
+3
+3
+Connector_Wire
+SolderWirePad_1x03_P7.62mm_Drill2.5mm
+Wire solder connection
+connector
+0
+3
+3
+Connector_Wire
+SolderWirePad_1x04_P3.81mm_Drill1.2mm
+Wire solder connection
+connector
 0
 4
 4
-Connector_Audio
-Jack_3.5mm_PJ320E_Horizontal
-Headphones with microphone connector, 3.5mm, 4 pins (http://www.qingpu-electronics.com/en/products/WQP-PJ320E-177.html)
-3.5mm jack mic microphone phones headphones 4pins audio plug
+Connector_Wire
+SolderWirePad_1x04_P3.81mm_Drill1mm
+Wire solder connection
+connector
 0
-5
 4
-Connector_Audio
-Jack_3.5mm_PJ31060-I_Horizontal
-PJ31060-I 6pin SMD 3.5mm headphones jack (http://www.china-bsun.com/Product48/1577.html)
-headphones jack plug stereo 3.5mm PJ31060-I PJ31060
+4
+Connector_Wire
+SolderWirePad_1x04_P3.175mm_Drill0.8mm
+Wire solder connection
+connector
 0
-6
-6
-Connector_Audio
-Jack_3.5mm_QingPu_WQP-PJ398SM_Vertical_CircularHoles
-TRS 3.5mm, vertical, Thonkiconn, PCB mount, (http://www.qingpu-electronics.com/en/products/WQP-PJ398SM-362.html)
-WQP-PJ398SM TRS 3.5mm mono vertical jack thonkiconn qingpu
+4
+4
+Connector_Wire
+SolderWirePad_1x04_P5.08mm_Drill1.5mm
+Wire solder connection
+connector
 0
-3
-3
+4
+4
+Connector_Wire
+SolderWirePad_1x04_P6.35mm_Drill2mm
+Wire solder connection
+connector
+0
+4
+4
+Connector_Wire
+SolderWirePad_1x04_P7.62mm_Drill2.5mm
+Wire solder connection
+connector
+0
+4
+4
+Connector_Wire
+SolderWirePad_2x02_P2.54mm_Drill0.8mm
+Wire solder connection
+connector
+0
+4
+4
+Connector_Wire
+SolderWirePad_2x02_P3.81mm_Drill1.2mm
+Wire solder connection
+connector
+0
+4
+4
+Connector_Wire
+SolderWirePad_2x02_P3.81mm_Drill1mm
+Wire solder connection
+connector
+0
+4
+4
+Connector_Wire
+SolderWirePad_2x02_P5.08mm_Drill1.5mm
+Wire solder connection
+connector
+0
+4
+4
+Connector_Wire
+SolderWirePad_2x02_P6.35mm_Drill2mm
+Wire solder connection
+connector
+0
+4
+4
+Connector_Wire
+SolderWirePad_2x02_P7.62mm_Drill2.5mm
+Wire solder connection
+connector
+0
+4
+4

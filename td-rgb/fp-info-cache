@@ -1,4 +1,4 @@
-15180127892717508
+15178584269675974
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -48096,6 +48096,13 @@ Yellow 5381 Series LED
 0
 2
 2
+LT1675CGNPBF
+SOP63P600X172-16N
+
+
+0
+16
+16
 Module
 A20_OLINUXINO_LIME2
 A20 Olinuxino LIME2, 1.2GHz, 512-1024MB RAM, Micro-SD, NAND or eMMC, 1000Mbit Ethernet
@@ -68767,17 +68774,3 @@ varistor SIOV
 0
 2
 2
-x68k
-midiori_logo
-Imported from ../midiori_logo.svg
-svg2mod
-0
-0
-0
-x68k
-x68000_expansion
-
-
-0
-100
-100
