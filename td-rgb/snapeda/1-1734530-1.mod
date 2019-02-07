@@ -1,0 +1,170 @@
+PCBNEW-LibModule-V1  
+# encoding utf-8
+Units mm
+$INDEX
+TE_1-1734530-1
+$EndINDEX
+$MODULE TE_1-1734530-1
+Po 0 0 0 15 00000000 00000000 ~~
+Li TE_1-1734530-1
+Cd 
+Sc 00000000
+At STD
+Op 0 0 0
+.SolderMask 0
+.SolderPaste 0
+T0 -11.623 -6.68293 1.40272 1.40272 0 0.05 N V 21 "TE_1-1734530-1"
+T1 -10.6574 19.1088 1.40189 1.40189 0 0.05 N V 21 "VAL**"
+DC 5.055 -5.531 5.255 -5.531 0.4 21
+DS -15.4 -4.57 15.4 -4.57 0.127 21
+DS 15.4 -4.57 15.4 11.43 0.127 21
+DS -15.4 11.43 -15.4 -4.57 0.127 21
+DS 15.4 11.43 -15.4 11.43 0.127 21
+DS -15.4 17.43 15.4 17.43 0.127 27
+DS 15.4 17.43 15.4 11.43 0.127 27
+DS 15.4 11.43 15.4 -4.57 0.127 27
+DS 15.4 -4.57 -15.4 -4.57 0.127 27
+DS -15.4 -4.57 -15.4 11.43 0.127 27
+DS -15.4 11.43 -15.4 17.43 0.127 27
+DS -15.4 11.43 15.4 11.43 0.127 27
+DS -15.65 17.68 15.65 17.68 0.05 26
+DS 15.65 17.68 15.65 -4.82 0.05 26
+DS 15.65 -4.82 -15.65 -4.82 0.05 26
+DS -15.65 -4.82 -15.65 17.68 0.05 26
+$PAD
+Sh "8" C 1.785 1.785 0 0 0
+Dr 1.19 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po 0.895 0
+$EndPAD
+$PAD
+Sh "1" R 1.785 1.785 0 0 0
+Dr 1.19 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po 4.315 -2.54
+$EndPAD
+$PAD
+Sh "12" C 1.785 1.785 0 0 0
+Dr 1.19 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po 2.035 2.54
+$EndPAD
+$PAD
+Sh "2" C 1.785 1.785 0 0 0
+Dr 1.19 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po 2.035 -2.54
+$EndPAD
+$PAD
+Sh "3" C 1.785 1.785 0 0 0
+Dr 1.19 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po -0.245 -2.54
+$EndPAD
+$PAD
+Sh "4" C 1.785 1.785 0 0 0
+Dr 1.19 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po -2.525 -2.54
+$EndPAD
+$PAD
+Sh "5" C 1.785 1.785 0 0 0
+Dr 1.19 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po -4.805 -2.54
+$EndPAD
+$PAD
+Sh "6" C 1.785 1.785 0 0 0
+Dr 1.19 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po 5.455 0
+$EndPAD
+$PAD
+Sh "7" C 1.785 1.785 0 0 0
+Dr 1.19 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po 3.175 0
+$EndPAD
+$PAD
+Sh "9" C 1.785 1.785 0 0 0
+Dr 1.19 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po -1.385 0
+$EndPAD
+$PAD
+Sh "10" C 1.785 1.785 0 0 0
+Dr 1.19 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po -3.665 0
+$EndPAD
+$PAD
+Sh "11" C 1.785 1.785 0 0 0
+Dr 1.19 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po 4.315 2.54
+$EndPAD
+$PAD
+Sh "13" C 1.785 1.785 0 0 0
+Dr 1.19 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po -0.245 2.54
+$EndPAD
+$PAD
+Sh "14" C 1.785 1.785 0 0 0
+Dr 1.19 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po -2.525 2.54
+$EndPAD
+$PAD
+Sh "15" C 1.785 1.785 0 0 0
+Dr 1.19 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po -4.805 2.54
+$EndPAD
+$PAD
+Sh "SH1" C 4.196 4.196 0 0 0
+Dr 3.18 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po -12.5 0
+$EndPAD
+$PAD
+Sh "SH2" C 4.196 4.196 0 0 0
+Dr 3.18 0 0
+At STD N 00C0FFFF
+.SolderMask 0
+Ne 0 ""
+Po 12.5 0
+$EndPAD
+$EndMODULE TE_1-1734530-1
