@@ -1,0 +1,34 @@
+[package]
+authors = ["Thomas Daede <daede003@umn.edu>"]
+edition = "2018"
+readme = "README.md"
+name = "td-deflect-firmware"
+version = "0.1.0"
+
+[dependencies]
+cortex-m = "0.5.8"
+cortex-m-rt = "0.6.5"
+cortex-m-semihosting = "0.3.2"
+panic-halt = "0.2.0"
+
+[dependencies.stm32f4]
+features = ["stm32f401","rt"]
+version = "0.6.0"
+
+[dependencies.stm32f4xx-hal]
+features = ["stm32f401"]
+git = "https://github.com/stm32-rs/stm32f4xx-hal.git"
+
+[dependencies.num-traits]
+version = "0.2"
+default-features = false
+
+[[bin]]
+name = "td-deflect-firmware"
+test = false
+bench = false
+
+[profile.release]
+codegen-units = 1 # better optimizations
+debug = true # symbols are nice and they don't increase the size on Flash
+lto = true # better optimizations
