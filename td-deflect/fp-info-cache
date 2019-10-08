@@ -1,217 +1,217 @@
 47891714001441
 Connector_Wire
 SolderWirePad_1x01_Drill0.8mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 1
 1
 Connector_Wire
 SolderWirePad_1x01_Drill1.2mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 1
 1
 Connector_Wire
 SolderWirePad_1x01_Drill1.5mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 1
 1
 Connector_Wire
 SolderWirePad_1x01_Drill1mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 1
 1
 Connector_Wire
 SolderWirePad_1x01_Drill2.5mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 1
 1
 Connector_Wire
 SolderWirePad_1x01_Drill2mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 1
 1
 Connector_Wire
 SolderWirePad_1x01_SMD_5x10mm
-Wire Pad, Square, SMD Pad,  5mm x 10mm,
-MesurementPoint Square SMDPad 5mmx10mm 
+Wire{space}Pad,{space}Square,{space}SMD{space}Pad,{space}{space}5mm{space}x{space}10mm,
+MesurementPoint{space}Square{space}SMDPad{space}5mmx10mm{space}
 0
 1
 1
 Connector_Wire
 SolderWirePad_1x02_P3.81mm_Drill0.8mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 2
 2
 Connector_Wire
 SolderWirePad_1x02_P3.81mm_Drill1.2mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 2
 2
 Connector_Wire
 SolderWirePad_1x02_P3.81mm_Drill1mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 2
 2
 Connector_Wire
 SolderWirePad_1x02_P5.08mm_Drill1.5mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 2
 2
 Connector_Wire
 SolderWirePad_1x02_P7.62mm_Drill2.5mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 2
 2
 Connector_Wire
 SolderWirePad_1x02_P7.62mm_Drill2mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 2
 2
 Connector_Wire
 SolderWirePad_1x03_P3.81mm_Drill1.2mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 3
 3
 Connector_Wire
 SolderWirePad_1x03_P3.175mm_Drill0.8mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 3
 3
 Connector_Wire
 SolderWirePad_1x03_P3.175mm_Drill1mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 3
 3
 Connector_Wire
 SolderWirePad_1x03_P4.445mm_Drill1.5mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 3
 3
 Connector_Wire
 SolderWirePad_1x03_P5.715mm_Drill2mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 3
 3
 Connector_Wire
 SolderWirePad_1x03_P7.62mm_Drill2.5mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 3
 3
 Connector_Wire
 SolderWirePad_1x04_P3.81mm_Drill1.2mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 4
 4
 Connector_Wire
 SolderWirePad_1x04_P3.81mm_Drill1mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 4
 4
 Connector_Wire
 SolderWirePad_1x04_P3.175mm_Drill0.8mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 4
 4
 Connector_Wire
 SolderWirePad_1x04_P5.08mm_Drill1.5mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 4
 4
 Connector_Wire
 SolderWirePad_1x04_P6.35mm_Drill2mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 4
 4
 Connector_Wire
 SolderWirePad_1x04_P7.62mm_Drill2.5mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 4
 4
 Connector_Wire
 SolderWirePad_2x02_P2.54mm_Drill0.8mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 4
 4
 Connector_Wire
 SolderWirePad_2x02_P3.81mm_Drill1.2mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 4
 4
 Connector_Wire
 SolderWirePad_2x02_P3.81mm_Drill1mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 4
 4
 Connector_Wire
 SolderWirePad_2x02_P5.08mm_Drill1.5mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 4
 4
 Connector_Wire
 SolderWirePad_2x02_P6.35mm_Drill2mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 4
 4
 Connector_Wire
 SolderWirePad_2x02_P7.62mm_Drill2.5mm
-Wire solder connection
+Wire{space}solder{space}connection
 connector
 0
 4
