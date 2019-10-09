@@ -1,0 +1,385 @@
+EESchema Schematic File Version 5
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 3 3
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+Comment5 ""
+Comment6 ""
+Comment7 ""
+Comment8 ""
+Comment9 ""
+$EndDescr
+$Comp
+L power:+48V #PWR?
+U 1 1 5D9DC0A4
+P 3050 1800
+F 0 "#PWR?" H 3050 1650 50  0001 C CNN
+F 1 "+48V" H 3065 1973 50  0000 C CNN
+F 2 "" H 3050 1800 50  0001 C CNN
+F 3 "" H 3050 1800 50  0001 C CNN
+	1    3050 1800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5D9DC903
+P 1500 2350
+F 0 "R?" H 1570 2396 50  0000 L CNN
+F 1 "1M" H 1570 2305 50  0000 L CNN
+F 2 "" V 1430 2350 50  0001 C CNN
+F 3 "~" H 1500 2350 50  0001 C CNN
+	1    1500 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5D9DC903
+P 1500 2700
+F 0 "R?" H 1570 2746 50  0000 L CNN
+F 1 "37.4k" H 1570 2655 50  0000 L CNN
+F 2 "" V 1430 2700 50  0001 C CNN
+F 3 "~" H 1500 2700 50  0001 C CNN
+	1    1500 2700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1500 2500 1500 2550
+Wire Wire Line
+	2650 2550 1500 2550
+Connection ~ 1500 2550
+$Comp
+L power:GND #PWR?
+U 1 1 5D9DD502
+P 3050 3350
+F 0 "#PWR?" H 3050 3100 50  0001 C CNN
+F 1 "GND" H 3055 3177 50  0000 C CNN
+F 2 "" H 3050 3350 50  0001 C CNN
+F 3 "" H 3050 3350 50  0001 C CNN
+	1    3050 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3050 3250 3050 3350
+Connection ~ 3050 3250
+Wire Wire Line
+	3050 1800 3050 2150
+Wire Wire Line
+	1500 2200 1500 2150
+Wire Wire Line
+	1500 2150 3050 2150
+Connection ~ 3050 2150
+$Comp
+L Regulator_Switching:LT3757AEMSE U?
+U 1 1 5D9DB5D2
+P 3050 2650
+F 0 "U?" H 3100 3331 50  0000 C CNN
+F 1 "LT3758AEMSE" H 3100 3240 50  0000 C CNN
+F 2 "Package_SO:MSOP-10-1EP_3x3mm_P0.5mm_EP1.68x1.88mm" H 3100 2100 50  0001 L CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/3757Afe.pdf" H 3050 2650 50  0001 C CNN
+	1    3050 2650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2650 2650 2550 2650
+Wire Wire Line
+	2550 2650 2550 3250
+Wire Wire Line
+	2550 3250 3050 3250
+$Comp
+L Device:R R?
+U 1 1 5D9DDAA1
+P 2000 3050
+F 0 "R?" V 1793 3050 50  0000 C CNN
+F 1 "50k" V 1884 3050 50  0000 C CNN
+F 2 "" V 1930 3050 50  0001 C CNN
+F 3 "~" H 2000 3050 50  0001 C CNN
+	1    2000 3050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2150 3050 2200 3050
+$Comp
+L Device:C C?
+U 1 1 5D9DE442
+P 2200 3200
+F 0 "C?" H 2315 3246 50  0000 L CNN
+F 1 "100pF" H 2315 3155 50  0000 L CNN
+F 2 "" H 2238 3050 50  0001 C CNN
+F 3 "~" H 2200 3200 50  0001 C CNN
+	1    2200 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 5D9DEDB3
+P 1850 3200
+F 0 "C?" H 1965 3246 50  0000 L CNN
+F 1 "10nF" H 1965 3155 50  0000 L CNN
+F 2 "" H 1888 3050 50  0001 C CNN
+F 3 "~" H 1850 3200 50  0001 C CNN
+	1    1850 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1850 3350 2200 3350
+Wire Wire Line
+	2200 3350 2400 3350
+Connection ~ 2200 3350
+Connection ~ 3050 3350
+Wire Wire Line
+	1850 3350 1650 3350
+Wire Wire Line
+	1500 3350 1500 2850
+Connection ~ 1850 3350
+$Comp
+L Device:C C?
+U 1 1 5D9DFEAB
+P 2400 3000
+F 0 "C?" H 2515 3046 50  0000 L CNN
+F 1 "10uF" H 2515 2955 50  0000 L CNN
+F 2 "" H 2438 2850 50  0001 C CNN
+F 3 "~" H 2400 3000 50  0001 C CNN
+	1    2400 3000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2400 2850 2650 2850
+Wire Wire Line
+	2400 3150 2400 3350
+Connection ~ 2400 3350
+Wire Wire Line
+	2400 3350 3050 3350
+$Comp
+L Device:R R?
+U 1 1 5D9E07BB
+P 1650 3200
+F 0 "R?" H 1720 3246 50  0000 L CNN
+F 1 "49.9k" H 1720 3155 50  0000 L CNN
+F 2 "" V 1580 3200 50  0001 C CNN
+F 3 "~" H 1650 3200 50  0001 C CNN
+	1    1650 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1700 3050 1650 3050
+Wire Wire Line
+	2650 2750 1700 2750
+Wire Wire Line
+	1700 2750 1700 3050
+$Comp
+L Device:C C?
+U 1 1 5D9E1097
+P 3550 3200
+F 0 "C?" H 3665 3246 50  0000 L CNN
+F 1 "4.7uF" H 3665 3155 50  0000 L CNN
+F 2 "" H 3588 3050 50  0001 C CNN
+F 3 "~" H 3550 3200 50  0001 C CNN
+	1    3550 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3050 3350 3550 3350
+$Comp
+L Transistor_FET:BSC082N10LSG Q?
+U 1 1 5D9E18B0
+P 4000 2450
+F 0 "Q?" H 4204 2496 50  0000 L CNN
+F 1 "BSC082N10LSG" H 4204 2405 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TDSON-8-1" H 4200 2375 50  0001 L CIN
+F 3 "http://www.infineon.com/dgdl/Infineon-BSC082N10LS-DS-v01_07-en.pdf?fileId=db3a3043163797a6011647faad240719" V 4000 2450 50  0001 L CNN
+	1    4000 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5D9EA484
+P 4100 3150
+F 0 "R?" H 4170 3196 50  0000 L CNN
+F 1 "0.01" H 4170 3105 50  0000 L CNN
+F 2 "" V 4030 3150 50  0001 C CNN
+F 3 "~" H 4100 3150 50  0001 C CNN
+	1    4100 3150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4100 2650 3550 2650
+Wire Wire Line
+	4100 2650 4100 3000
+Connection ~ 4100 2650
+Wire Wire Line
+	3550 3350 4100 3350
+Wire Wire Line
+	4100 3350 4100 3300
+Connection ~ 3550 3350
+$Comp
+L Device:L L?
+U 1 1 5D9EAD84
+P 3650 2150
+F 0 "L?" V 3840 2150 50  0000 C CNN
+F 1 "33uH" V 3749 2150 50  0000 C CNN
+F 2 "" H 3650 2150 50  0001 C CNN
+F 3 "~" H 3650 2150 50  0001 C CNN
+	1    3650 2150
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	3050 2150 3500 2150
+Wire Wire Line
+	3800 2150 4100 2150
+Wire Wire Line
+	4100 2150 4100 2250
+Wire Wire Line
+	3550 2450 3800 2450
+Wire Wire Line
+	4250 2150 4100 2150
+Connection ~ 4100 2150
+$Comp
+L Device:R R?
+U 1 1 5D9EC90B
+P 4900 2300
+F 0 "R?" H 4970 2346 50  0000 L CNN
+F 1 "70K" H 4970 2255 50  0000 L CNN
+F 2 "" V 4830 2300 50  0001 C CNN
+F 3 "~" H 4900 2300 50  0001 C CNN
+	1    4900 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5D9ECEC9
+P 4900 3050
+F 0 "R?" H 4970 3096 50  0000 L CNN
+F 1 "470" H 4970 3005 50  0000 L CNN
+F 2 "" V 4830 3050 50  0001 C CNN
+F 3 "~" H 4900 3050 50  0001 C CNN
+	1    4900 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4900 3200 4900 3350
+Wire Wire Line
+	4900 3350 4100 3350
+Connection ~ 4100 3350
+$Comp
+L Device:C C?
+U 1 1 5D9ED334
+P 5250 2800
+F 0 "C?" H 5365 2846 50  0000 L CNN
+F 1 "10uF" H 5365 2755 50  0000 L CNN
+F 2 "" H 5288 2650 50  0001 C CNN
+F 3 "~" H 5250 2800 50  0001 C CNN
+	1    5250 2800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5250 2650 5250 2150
+Wire Wire Line
+	5250 2950 5250 3350
+Wire Wire Line
+	5250 3350 4900 3350
+Connection ~ 4900 3350
+$Comp
+L Device:C C?
+U 1 1 5D9ED8A0
+P 5650 2800
+F 0 "C?" H 5765 2846 50  0000 L CNN
+F 1 "4.7uF" H 5765 2755 50  0000 L CNN
+F 2 "" H 5688 2650 50  0001 C CNN
+F 3 "~" H 5650 2800 50  0001 C CNN
+	1    5650 2800
+	1    0    0    -1  
+$EndComp
+Connection ~ 5250 2150
+Wire Wire Line
+	5650 2950 5650 3350
+Wire Wire Line
+	5650 3350 5250 3350
+Connection ~ 5250 3350
+$Comp
+L Device:C C?
+U 1 1 5D9EE026
+P 1000 2650
+F 0 "C?" H 1115 2696 50  0000 L CNN
+F 1 "4.7uF" H 1115 2605 50  0000 L CNN
+F 2 "" H 1038 2500 50  0001 C CNN
+F 3 "~" H 1000 2650 50  0001 C CNN
+	1    1000 2650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1000 2500 1000 2150
+Wire Wire Line
+	1000 2150 1500 2150
+Connection ~ 1500 2150
+Wire Wire Line
+	1000 2800 1000 3350
+Wire Wire Line
+	1000 3350 1500 3350
+Connection ~ 1500 3350
+Wire Wire Line
+	4550 2150 4900 2150
+Connection ~ 4900 2150
+Wire Wire Line
+	4900 2150 5250 2150
+$Comp
+L Device:R_POT RV?
+U 1 1 5D9EE8DD
+P 4900 2750
+F 0 "RV?" H 4830 2704 50  0000 R CNN
+F 1 "1k" H 4830 2795 50  0000 R CNN
+F 2 "" H 4900 2750 50  0001 C CNN
+F 3 "~" H 4900 2750 50  0001 C CNN
+	1    4900 2750
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4900 2600 4900 2450
+Wire Wire Line
+	4750 2800 4750 2750
+Wire Wire Line
+	4750 2800 3550 2800
+Wire Wire Line
+	3550 2800 3550 2850
+$Comp
+L Diode:1N5402 D?
+U 1 1 5D9EF938
+P 4400 2150
+F 0 "D?" H 4400 1934 50  0000 C CNN
+F 1 "1N5402" H 4400 2025 50  0000 C CNN
+F 2 "Diode_THT:D_DO-201AD_P15.24mm_Horizontal" H 4400 1975 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88516/1n5400.pdf" H 4400 2150 50  0001 C CNN
+	1    4400 2150
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:HT #PWR?
+U 1 1 5D9F142A
+P 5650 2150
+F 0 "#PWR?" H 5650 2270 50  0001 C CNN
+F 1 "HT" H 5670 2293 50  0000 C CNN
+F 2 "" H 5650 2150 50  0001 C CNN
+F 3 "" H 5650 2150 50  0001 C CNN
+	1    5650 2150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5650 2150 5250 2150
+Wire Wire Line
+	5650 2650 5650 2150
+Connection ~ 2200 3050
+Wire Wire Line
+	2200 3050 2650 3050
+Connection ~ 1650 3350
+Wire Wire Line
+	1650 3350 1500 3350
+Connection ~ 5650 2150
+$EndSCHEMATC

@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 2
+Sheet 2 3
 Title ""
 Date ""
 Rev ""
@@ -175,9 +175,11 @@ Wire Wire Line
 Wire Wire Line
 	3600 2450 3600 2300
 $Comp
-L Connector:Conn_ARM_JTAG_SWD_10 J4
+L td-deflect-rescue:Conn_ARM_JTAG_SWD_10-Connector J4
 U 1 1 5C38642A
 P 7200 3550
+AR Path="/5C38642A" Ref="J4"  Part="1" 
+AR Path="/5C37BEF7/5C38642A" Ref="J4"  Part="1" 
 F 0 "J4" H 6757 3596 50  0000 R CNN
 F 1 "Conn_ARM_JTAG_SWD_10" H 6757 3505 50  0000 R CNN
 F 2 "Connector_PinHeader_1.27mm:PinHeader_2x05_P1.27mm_Vertical_SMD" H 7250 3000 50  0001 L TNN
