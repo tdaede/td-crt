@@ -410,14 +410,6 @@ F 3 "" H 3350 2650 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3350 2350 3950 2350
-Text GLabel 5250 2750 2    50   Input ~ 0
-S_HI
-Text GLabel 5250 4950 2    50   Input ~ 0
-S_LI
-Text GLabel 3950 4250 0    50   Input ~ 0
-B_HI
-Text GLabel 5250 2450 2    50   Input ~ 0
-B_LI
 $Comp
 L Regulator_Linear:TPS76933 U4
 U 1 1 5C2A75E9
