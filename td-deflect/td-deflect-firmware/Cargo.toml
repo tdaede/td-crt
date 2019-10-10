@@ -13,11 +13,11 @@ panic-halt = "0.2.0"
 
 [dependencies.stm32f4]
 features = ["stm32f401","rt"]
-version = "0.6.0"
+version = "0.7.0"
 
 [dependencies.stm32f4xx-hal]
 features = ["stm32f401"]
-version = "0.4.0"
+version = "0.5.0"
 
 [dependencies.num-traits]
 version = "0.2"

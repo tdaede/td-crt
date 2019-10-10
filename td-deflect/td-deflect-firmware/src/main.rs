@@ -25,7 +25,7 @@ impl HOTDriver {
     fn new(t: TIM10) -> HOTDriver {
         t.ccmr1_output.write(|w| { unsafe { w.oc1m().bits(0b110) }}); // PWM1
         t.ccer.write(|w| { w.cc1e().set_bit() });
-        t.ccr1.write(|w| { unsafe { w.ccr1().bits(2680) }});
+        t.ccr1.write(|w| { unsafe { w.ccr().bits(2680) }});
         t.arr.write(|w| { unsafe { w.arr().bits(2680*2) }});
         t.cr1.write(|w| { w.cen().enabled() });
         t.egr.write(|w| { w.ug().set_bit() });
@@ -37,7 +37,7 @@ impl HOTDriver {
         period = clamp(period, 84_000_000/MAX_H_FREQ, 84_000_000/MIN_H_FREQ);
         let turn_on_time = period / 2;
         self.t.arr.write(|w| { unsafe { w.arr().bits(period as u16) }});
-        self.t.ccr1.write(|w| { unsafe { w.ccr1().bits(turn_on_time as u16) }});
+        self.t.ccr1.write(|w| { unsafe { w.ccr().bits(turn_on_time as u16) }});
     }
     fn set_frequency(&self, mut f: u32) {
         f = clamp(f, MIN_H_FREQ, MAX_H_FREQ);
@@ -62,10 +62,10 @@ impl CSyncCapture {
         }
     }
     fn get_period(&self) -> u32 {
-        self.t.ccr1.read().ccr1().bits() & 0xFFFF
+        self.t.ccr1.read().ccr().bits() & 0xFFFF
     }
     fn get_sync_len(&self) -> u32 {
-        self.t.ccr2.read().ccr2().bits() & 0xFFFF
+        self.t.ccr2.read().ccr().bits() & 0xFFFF
     }
 }
 
