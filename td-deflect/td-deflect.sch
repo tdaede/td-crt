@@ -638,31 +638,6 @@ S2
 Text GLabel 7250 5150 0    50   Input ~ 0
 S3
 $Comp
-L Device:D_TVS D?
-U 1 1 5D9EBF26
-P 9800 3650
-F 0 "D?" V 9754 3729 50  0000 L CNN
-F 1 "D_TVS" V 9845 3729 50  0000 L CNN
-F 2 "" H 9800 3650 50  0001 C CNN
-F 3 "~" H 9800 3650 50  0001 C CNN
-	1    9800 3650
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	9100 3500 9800 3500
-Connection ~ 9100 3500
-$Comp
-L power:GND #PWR?
-U 1 1 5D9ECF79
-P 9800 3800
-F 0 "#PWR?" H 9800 3550 50  0001 C CNN
-F 1 "GND" H 9805 3627 50  0000 C CNN
-F 2 "" H 9800 3800 50  0001 C CNN
-F 3 "" H 9800 3800 50  0001 C CNN
-	1    9800 3800
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R?
 U 1 1 5D9ED70D
 P 3800 3850
@@ -795,4 +770,163 @@ Wire Wire Line
 Wire Wire Line
 	9250 3800 9250 3850
 Connection ~ 9100 3800
+$Comp
+L Amplifier_Video:AD813 U?
+U 1 1 5D9F2C9A
+P 4450 1200
+F 0 "U?" H 4450 1567 50  0000 C CNN
+F 1 "AD813" H 4450 1476 50  0000 C CNN
+F 2 "" H 4450 1200 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/AD813.pdf" H 4450 1200 50  0001 C CNN
+	1    4450 1200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:DB15_Female_HighDensity J?
+U 1 1 5D9F6269
+P 1800 1750
+F 0 "J?" H 1800 2617 50  0000 C CNN
+F 1 "DB15_Female_HighDensity" H 1800 2526 50  0000 C CNN
+F 2 "" H 850 2150 50  0001 C CNN
+F 3 " ~" H 850 2150 50  0001 C CNN
+	1    1800 1750
+	1    0    0    -1  
+$EndComp
+Text Label 1500 1350 2    50   ~ 0
+red
+Text Label 1500 1550 2    50   ~ 0
+green
+Text Label 1500 1750 2    50   ~ 0
+blue
+Text Label 2100 1750 0    50   ~ 0
+hsync
+Text Label 2100 1950 0    50   ~ 0
+vsync
+$Comp
+L power:GND #PWR?
+U 1 1 5D9F853D
+P 1100 2250
+F 0 "#PWR?" H 1100 2000 50  0001 C CNN
+F 1 "GND" H 1105 2077 50  0000 C CNN
+F 2 "" H 1100 2250 50  0001 C CNN
+F 3 "" H 1100 2250 50  0001 C CNN
+	1    1100 2250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1100 1250 1500 1250
+Wire Wire Line
+	1500 1450 1100 1450
+Connection ~ 1100 1450
+Wire Wire Line
+	1100 1450 1100 1250
+Wire Wire Line
+	1500 1650 1100 1650
+Wire Wire Line
+	1100 1450 1100 1650
+Connection ~ 1100 1650
+Wire Wire Line
+	1500 2150 1100 2150
+Connection ~ 1100 2150
+Wire Wire Line
+	1100 2150 1100 2250
+Wire Wire Line
+	1500 2050 1100 2050
+Wire Wire Line
+	1100 1650 1100 2050
+Connection ~ 1100 2050
+Wire Wire Line
+	1100 2050 1100 2150
+$Comp
+L Memory_EEPROM:24LC08 U?
+U 1 1 5D9FB930
+P 3200 1400
+F 0 "U?" H 3200 1881 50  0000 C CNN
+F 1 "24LC08" H 3200 1790 50  0000 C CNN
+F 2 "" H 3200 1400 50  0001 C CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/21710J.pdf" H 3200 1400 50  0001 C CNN
+	1    3200 1400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1150 700  3200 700 
+Wire Wire Line
+	3200 700  3200 1100
+Wire Wire Line
+	1150 1850 1500 1850
+Wire Wire Line
+	1150 700  1150 1850
+$Comp
+L power:GND #PWR?
+U 1 1 5D9FE30E
+P 3200 1700
+F 0 "#PWR?" H 3200 1450 50  0001 C CNN
+F 1 "GND" H 3205 1527 50  0000 C CNN
+F 2 "" H 3200 1700 50  0001 C CNN
+F 3 "" H 3200 1700 50  0001 C CNN
+	1    3200 1700
+	1    0    0    -1  
+$EndComp
+Connection ~ 3200 1700
+Wire Wire Line
+	3600 1500 3600 1700
+Wire Wire Line
+	3600 1700 3200 1700
+Wire Wire Line
+	2800 1300 2800 1400
+Wire Wire Line
+	2800 1400 2800 1500
+Connection ~ 2800 1400
+Wire Wire Line
+	2800 1500 2800 1700
+Wire Wire Line
+	2800 1700 3200 1700
+Connection ~ 2800 1500
+Wire Wire Line
+	3600 1300 3600 1050
+Wire Wire Line
+	3600 1050 2450 1050
+Wire Wire Line
+	2450 1050 2450 1550
+Wire Wire Line
+	2450 1550 2100 1550
+Wire Wire Line
+	2100 2150 3700 2150
+Wire Wire Line
+	3700 2150 3700 1400
+Wire Wire Line
+	3700 1400 3600 1400
+$Comp
+L power:+12V #PWR?
+U 1 1 5D9FF195
+P 2200 3650
+F 0 "#PWR?" H 2200 3500 50  0001 C CNN
+F 1 "+12V" H 2215 3823 50  0000 C CNN
+F 2 "" H 2200 3650 50  0001 C CNN
+F 3 "" H 2200 3650 50  0001 C CNN
+	1    2200 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 5D9FF1A3
+P 2200 3800
+F 0 "C?" H 2315 3846 50  0000 L CNN
+F 1 "C" H 2315 3755 50  0000 L CNN
+F 2 "" H 2238 3650 50  0001 C CNN
+F 3 "~" H 2200 3800 50  0001 C CNN
+	1    2200 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5D9FF1B4
+P 2200 3950
+F 0 "#PWR?" H 2200 3700 50  0001 C CNN
+F 1 "GND" H 2205 3777 50  0000 C CNN
+F 2 "" H 2200 3950 50  0001 C CNN
+F 3 "" H 2200 3950 50  0001 C CNN
+	1    2200 3950
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

@@ -568,4 +568,42 @@ F 3 "" H 7000 1350 50  0001 C CNN
 	1    7000 1350
 	1    0    0    -1  
 $EndComp
+Text GLabel 5250 4450 2    50   Input ~ 0
+HOT_IN
+$Comp
+L Connector:Conn_01x06_Male J?
+U 1 1 5DA029B8
+P 1800 4200
+F 0 "J?" H 1908 4581 50  0000 C CNN
+F 1 "Conn_01x06_Male" H 1908 4490 50  0000 C CNN
+F 2 "" H 1800 4200 50  0001 C CNN
+F 3 "~" H 1800 4200 50  0001 C CNN
+	1    1800 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DA039F2
+P 2350 4000
+F 0 "#PWR?" H 2350 3750 50  0001 C CNN
+F 1 "GND" H 2355 3827 50  0000 C CNN
+F 2 "" H 2350 4000 50  0001 C CNN
+F 3 "" H 2350 4000 50  0001 C CNN
+	1    2350 4000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2000 4000 2350 4000
+Text Label 2000 4400 0    50   ~ 0
+tx
+Text Label 2000 4300 0    50   ~ 0
+rx
+Text GLabel 5250 2550 2    50   Input ~ 0
+HSYNC_UC
+Text GLabel 5250 2650 2    50   Input ~ 0
+VSYNC_UC
+Text Label 5250 2850 0    50   ~ 0
+tx
+Text Label 5250 2950 0    50   ~ 0
+rx
 $EndSCHEMATC

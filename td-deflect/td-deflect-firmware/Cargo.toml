@@ -17,7 +17,7 @@ version = "0.6.0"
 
 [dependencies.stm32f4xx-hal]
 features = ["stm32f401"]
-git = "https://github.com/stm32-rs/stm32f4xx-hal.git"
+version = "0.4.0"
 
 [dependencies.num-traits]
 version = "0.2"
