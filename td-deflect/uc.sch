@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 3
+Sheet 2 4
 Title ""
 Date ""
 Rev ""
@@ -75,8 +75,9 @@ U 1 1 5C3802F3
 P 6100 2150
 F 0 "C36" H 6215 2196 50  0000 L CNN
 F 1 "0.1uF" H 6215 2105 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 6138 2000 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6138 2000 50  0001 C CNN
 F 3 "~" H 6100 2150 50  0001 C CNN
+F 4 "10V" H 6100 2150 50  0001 C CNN "Voltage"
 	1    6100 2150
 	1    0    0    -1  
 $EndComp
@@ -86,8 +87,9 @@ U 1 1 5C38064E
 P 6500 2150
 F 0 "C37" H 6615 2196 50  0000 L CNN
 F 1 "0.1uF" H 6615 2105 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 6538 2000 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6538 2000 50  0001 C CNN
 F 3 "~" H 6500 2150 50  0001 C CNN
+F 4 "10V" H 6500 2150 50  0001 C CNN "Voltage"
 	1    6500 2150
 	1    0    0    -1  
 $EndComp
@@ -97,8 +99,9 @@ U 1 1 5C380AF7
 P 6900 2150
 F 0 "C38" H 7015 2196 50  0000 L CNN
 F 1 "0.1uF" H 7015 2105 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 6938 2000 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6938 2000 50  0001 C CNN
 F 3 "~" H 6900 2150 50  0001 C CNN
+F 4 "10V" H 6900 2150 50  0001 C CNN "Voltage"
 	1    6900 2150
 	1    0    0    -1  
 $EndComp
@@ -108,8 +111,9 @@ U 1 1 5C38130B
 P 7300 2150
 F 0 "C39" H 7415 2196 50  0000 L CNN
 F 1 "0.1uF" H 7415 2105 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 7338 2000 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7338 2000 50  0001 C CNN
 F 3 "~" H 7300 2150 50  0001 C CNN
+F 4 "10V" H 7300 2150 50  0001 C CNN "Voltage"
 	1    7300 2150
 	1    0    0    -1  
 $EndComp
@@ -271,8 +275,9 @@ U 1 1 5C38F5FE
 P 9250 2300
 F 0 "C42" H 9365 2346 50  0000 L CNN
 F 1 "4.7uF" H 9365 2255 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 9288 2150 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9288 2150 50  0001 C CNN
 F 3 "~" H 9250 2300 50  0001 C CNN
+F 4 "10V" H 9250 2300 50  0001 C CNN "Voltage"
 	1    9250 2300
 	1    0    0    -1  
 $EndComp
@@ -293,8 +298,9 @@ U 1 1 5C393F7C
 P 8150 2300
 F 0 "C40" H 8265 2346 50  0000 L CNN
 F 1 "4.7uF" H 8265 2255 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 8188 2150 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8188 2150 50  0001 C CNN
 F 3 "~" H 8150 2300 50  0001 C CNN
+F 4 "10V" H 8150 2300 50  0001 C CNN "Voltage"
 	1    8150 2300
 	1    0    0    -1  
 $EndComp
@@ -367,8 +373,9 @@ U 1 1 5C39A4D5
 P 8250 3600
 F 0 "C41" H 8365 3646 50  0000 L CNN
 F 1 "0.1uF" H 8365 3555 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 8288 3450 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8288 3450 50  0001 C CNN
 F 3 "~" H 8250 3600 50  0001 C CNN
+F 4 "10V" H 8250 3600 50  0001 C CNN "Voltage"
 	1    8250 3600
 	1    0    0    -1  
 $EndComp
@@ -392,8 +399,9 @@ U 1 1 5C39CB1D
 P 3350 2500
 F 0 "C35" H 3465 2546 50  0000 L CNN
 F 1 "4.7uF" H 3465 2455 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 3388 2350 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3388 2350 50  0001 C CNN
 F 3 "~" H 3350 2500 50  0001 C CNN
+F 4 "10V" H 3350 2500 50  0001 C CNN "Voltage"
 	1    3350 2500
 	1    0    0    -1  
 $EndComp
@@ -483,24 +491,14 @@ $EndComp
 Text Label 7750 5000 0    50   ~ 0
 hot_current_adc
 $Comp
-L Regulator_Linear:AMS1117-5.0 U?
-U 1 1 5C39D593
-P 8700 1200
-F 0 "U?" H 8700 1442 50  0000 C CNN
-F 1 "AMS1117-5.0" H 8700 1351 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-223-3_TabPin2" H 8700 1400 50  0001 C CNN
-F 3 "http://www.advanced-monolithic.com/pdf/ds1117.pdf" H 8800 950 50  0001 C CNN
-	1    8700 1200
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C C?
+L Device:C C17
 U 1 1 5C39EDB0
 P 8200 1350
-F 0 "C?" H 8315 1396 50  0000 L CNN
+F 0 "C17" H 8315 1396 50  0000 L CNN
 F 1 "4.7uF" H 8315 1305 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 8238 1200 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8238 1200 50  0001 C CNN
 F 3 "~" H 8200 1350 50  0001 C CNN
+F 4 "25V" H 8200 1350 50  0001 C CNN "Voltage"
 	1    8200 1350
 	1    0    0    -1  
 $EndComp
@@ -511,10 +509,10 @@ Wire Wire Line
 Wire Wire Line
 	8700 1550 8700 1500
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0163
 U 1 1 5C3A0A6F
 P 9000 1200
-F 0 "#PWR?" H 9000 1050 50  0001 C CNN
+F 0 "#PWR0163" H 9000 1050 50  0001 C CNN
 F 1 "+5V" H 9015 1373 50  0000 C CNN
 F 2 "" H 9000 1200 50  0001 C CNN
 F 3 "" H 9000 1200 50  0001 C CNN
@@ -524,10 +522,10 @@ $EndComp
 Wire Wire Line
 	8200 1200 8400 1200
 $Comp
-L power:+12V #PWR?
+L power:+12V #PWR0164
 U 1 1 5C3A25E8
 P 8200 1200
-F 0 "#PWR?" H 8200 1050 50  0001 C CNN
+F 0 "#PWR0164" H 8200 1050 50  0001 C CNN
 F 1 "+12V" H 8215 1373 50  0000 C CNN
 F 2 "" H 8200 1200 50  0001 C CNN
 F 3 "" H 8200 1200 50  0001 C CNN
@@ -535,57 +533,24 @@ F 3 "" H 8200 1200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 8200 1200
-$Comp
-L Connector:Conn_01x02_Male J?
-U 1 1 5C3A314E
-P 6800 1250
-F 0 "J?" H 6908 1431 50  0000 C CNN
-F 1 "Conn_01x02_Male" H 6908 1340 50  0000 C CNN
-F 2 "Connector_Wire:SolderWirePad_1x02_P7.62mm_Drill2.5mm" H 6800 1250 50  0001 C CNN
-F 3 "~" H 6800 1250 50  0001 C CNN
-	1    6800 1250
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+12V #PWR?
-U 1 1 5C3A38A5
-P 7000 1250
-F 0 "#PWR?" H 7000 1100 50  0001 C CNN
-F 1 "+12V" H 7015 1423 50  0000 C CNN
-F 2 "" H 7000 1250 50  0001 C CNN
-F 3 "" H 7000 1250 50  0001 C CNN
-	1    7000 1250
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5C3A3E16
-P 7000 1350
-F 0 "#PWR?" H 7000 1100 50  0001 C CNN
-F 1 "GND" H 7005 1177 50  0000 C CNN
-F 2 "" H 7000 1350 50  0001 C CNN
-F 3 "" H 7000 1350 50  0001 C CNN
-	1    7000 1350
-	1    0    0    -1  
-$EndComp
 Text GLabel 5250 4450 2    50   Input ~ 0
 HOT_IN
 $Comp
-L Connector:Conn_01x06_Male J?
+L Connector:Conn_01x06_Male J6
 U 1 1 5DA029B8
 P 1800 4200
-F 0 "J?" H 1908 4581 50  0000 C CNN
+F 0 "J6" H 1908 4581 50  0000 C CNN
 F 1 "Conn_01x06_Male" H 1908 4490 50  0000 C CNN
-F 2 "" H 1800 4200 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 1800 4200 50  0001 C CNN
 F 3 "~" H 1800 4200 50  0001 C CNN
 	1    1800 4200
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0167
 U 1 1 5DA039F2
 P 2350 4000
-F 0 "#PWR?" H 2350 3750 50  0001 C CNN
+F 0 "#PWR0167" H 2350 3750 50  0001 C CNN
 F 1 "GND" H 2355 3827 50  0000 C CNN
 F 2 "" H 2350 4000 50  0001 C CNN
 F 3 "" H 2350 4000 50  0001 C CNN
@@ -606,4 +571,15 @@ Text Label 5250 2850 0    50   ~ 0
 tx
 Text Label 5250 2950 0    50   ~ 0
 rx
+$Comp
+L Regulator_Linear:LM1117-3.3 U12
+U 1 1 5DA9881E
+P 8700 1200
+F 0 "U12" H 8700 1442 50  0000 C CNN
+F 1 "LM1117-3.3" H 8700 1351 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:TO-252-2" H 8700 1200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm1117.pdf" H 8700 1200 50  0001 C CNN
+	1    8700 1200
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
