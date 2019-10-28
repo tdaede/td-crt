@@ -960,24 +960,24 @@ F 3 "" H 1500 1850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Transistor_BJT:BD250A Q7
+L Transistor_BJT:BD140 Q7
 U 1 1 5DA3CB2C
 P 5650 6700
 F 0 "Q7" H 5842 6746 50  0000 L CNN
-F 1 "MJD45" H 5842 6655 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-252-2" H 5855 6620 50  0001 L CIN
-F 3 "http://www.mospec.com.tw/pdf/power/BD249.pdf" H 5650 6700 50  0001 L CNN
+F 1 "BD140" H 5842 6655 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-126-3_Vertical" H 5855 6620 50  0001 L CIN
+F 3 "http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00001225.pdf" H 5650 6700 50  0001 L CNN
 	1    5650 6700
 	1    0    0    -1  
 $EndComp
 $Comp
-L Transistor_BJT:BD249A Q6
+L Transistor_BJT:BD139 Q6
 U 1 1 5DA3D22D
 P 5650 5500
 F 0 "Q6" H 5842 5546 50  0000 L CNN
-F 1 "MJD44" H 5842 5455 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-252-2" H 5900 5425 50  0001 L CIN
-F 3 "http://www.mospec.com.tw/pdf/power/BD249.pdf" H 5650 5500 50  0001 L CNN
+F 1 "BD139" H 5842 5455 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-126-3_Vertical" H 5900 5425 50  0001 L CIN
+F 3 "http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00001225.pdf" H 5650 5500 50  0001 L CNN
 	1    5650 5500
 	1    0    0    -1  
 $EndComp
@@ -1736,4 +1736,68 @@ U 5DBCE206
 F0 "rgb" 50
 F1 "rgb.sch" 50
 $EndSheet
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5DBAF035
+P 9900 900
+F 0 "H?" H 10000 903 50  0000 L CNN
+F 1 "MountingHole_Pad" H 10000 858 50  0001 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 9900 900 50  0001 C CNN
+F 3 "~" H 9900 900 50  0001 C CNN
+	1    9900 900 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5DBAF035
+P 10200 900
+F 0 "H?" H 10300 903 50  0000 L CNN
+F 1 "MountingHole_Pad" H 10300 858 50  0001 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 10200 900 50  0001 C CNN
+F 3 "~" H 10200 900 50  0001 C CNN
+	1    10200 900 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5DBB0FA7
+P 10500 900
+F 0 "H?" H 10600 903 50  0000 L CNN
+F 1 "MountingHole_Pad" H 10600 858 50  0001 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 10500 900 50  0001 C CNN
+F 3 "~" H 10500 900 50  0001 C CNN
+	1    10500 900 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H?
+U 1 1 5DBB1105
+P 10800 900
+F 0 "H?" H 10900 903 50  0000 L CNN
+F 1 "MountingHole_Pad" H 10900 858 50  0001 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 10800 900 50  0001 C CNN
+F 3 "~" H 10800 900 50  0001 C CNN
+	1    10800 900 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9900 1000 10200 1000
+Wire Wire Line
+	10500 1000 10200 1000
+Connection ~ 10200 1000
+Wire Wire Line
+	10500 1000 10800 1000
+Connection ~ 10500 1000
+$Comp
+L power:GND #PWR?
+U 1 1 5DBB13D6
+P 9900 1000
+F 0 "#PWR?" H 9900 750 50  0001 C CNN
+F 1 "GND" H 9905 827 50  0000 C CNN
+F 2 "" H 9900 1000 50  0001 C CNN
+F 3 "" H 9900 1000 50  0001 C CNN
+	1    9900 1000
+	1    0    0    -1  
+$EndComp
+Connection ~ 9900 1000
 $EndSCHEMATC
