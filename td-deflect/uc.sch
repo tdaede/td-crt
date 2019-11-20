@@ -26,6 +26,7 @@ F 0 "U2" H 4600 5531 50  0000 C CNN
 F 1 "STM32F722RETx" H 4600 5440 50  0000 C CNN
 F 2 "Package_QFP:LQFP-64_10x10mm_P0.5mm" H 4050 1850 50  0001 R CNN
 F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00330506.pdf" H 4650 3550 50  0001 C CNN
+F 4 "497-17184-ND" H 4650 3550 50  0001 C CNN "Digikey"
 	1    4650 3550
 	1    0    0    -1  
 $EndComp
@@ -233,6 +234,7 @@ F 0 "R6" H 4020 1846 50  0000 L CNN
 F 1 "10k" H 4020 1755 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3880 1800 50  0001 C CNN
 F 3 "~" H 3950 1800 50  0001 C CNN
+F 4 "311-1.00CRCT-ND" H 3950 1800 50  0001 C CNN "Digikey"
 	1    3950 1800
 	1    0    0    -1  
 $EndComp
@@ -319,6 +321,7 @@ F 0 "X1" H 9194 3646 50  0000 L CNN
 F 1 "SG-8002CA" H 9194 3555 50  0000 L CNN
 F 2 "Oscillator:Oscillator_SMD_SeikoEpson_SG8002CA-4Pin_7.0x5.0mm" H 9550 3250 50  0001 C CNN
 F 3 "https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8002DC" H 8750 3600 50  0001 C CNN
+F 4 " CTX270LVCT-ND " H 8850 3600 50  0001 C CNN "Digikey"
 	1    8850 3600
 	1    0    0    -1  
 $EndComp
@@ -405,9 +408,10 @@ L Regulator_Linear:TPS76933 U4
 U 1 1 5C2A75E9
 P 10250 2700
 F 0 "U4" H 10250 3042 50  0000 C CNN
-F 1 "TPS76933" H 10250 2951 50  0000 C CNN
+F 1 "TPS70933" H 10250 2951 50  0000 C CNN
 F 2 "Package_TO_SOT_SMD:SOT-23-5" H 10250 3025 50  0001 C CIN
 F 3 "http://www.ti.com/lit/ds/symlink/tps769.pdf" H 10250 2650 50  0001 C CNN
+F 4 "296-35483-1-ND" H 10250 2700 50  0001 C CNN "Digikey"
 	1    10250 2700
 	1    0    0    -1  
 $EndComp
@@ -436,6 +440,7 @@ F 0 "U3" H 7794 5046 50  0000 L CNN
 F 1 "INA193" H 7794 4955 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23-5" H 7450 5000 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/ina193.pdf" H 7450 5000 50  0001 C CNN
+F 4 "296-26065-1-ND" H 7450 5000 50  0001 C CNN "Digikey"
 	1    7450 5000
 	1    0    0    -1  
 $EndComp
@@ -557,6 +562,7 @@ F 0 "U12" H 8700 1442 50  0000 C CNN
 F 1 "LM1117-3.3" H 8700 1351 50  0000 C CNN
 F 2 "Package_TO_SOT_SMD:TO-252-2" H 8700 1200 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/lm1117.pdf" H 8700 1200 50  0001 C CNN
+F 4 "LM1117IDTX-3.3/NOPBCT-ND" H 8700 1200 50  0001 C CNN "Digikey"
 	1    8700 1200
 	1    0    0    -1  
 $EndComp
@@ -605,6 +611,7 @@ F 0 "R96" H 9120 1396 50  0000 L CNN
 F 1 "1" H 9120 1305 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 8980 1350 50  0001 C CNN
 F 3 "~" H 9050 1350 50  0001 C CNN
+F 4 " 311-1.00CRCT-ND" H 9050 1350 50  0001 C CNN "Digikey"
 	1    9050 1350
 	1    0    0    -1  
 $EndComp
