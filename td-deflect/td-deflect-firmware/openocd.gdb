@@ -1,4 +1,7 @@
-target extended-remote :3333
+target extended-remote /dev/ttyACM0
+monitor swdp_scan
+monitor connect_srst enable
+attach 1
 
 # print demangled symbols
 set print asm-demangle on
@@ -14,7 +17,7 @@ break rust_begin_unwind
 # *try* to stop at the user entry point (it might be gone due to inlining)
 #break main
 
-monitor arm semihosting enable
+#monitor arm semihosting enable
 
 # # send captured ITM to the file itm.fifo
 # # (the microcontroller SWO pin must be connected to the programmer SWO pin)
@@ -30,5 +33,5 @@ monitor arm semihosting enable
 # monitor itm port 0 on
 
 load
-
+compare-sections
 run
