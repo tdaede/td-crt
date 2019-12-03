@@ -977,7 +977,7 @@ F 2 "Package_TO_SOT_THT:TO-126-3_Vertical" H 5855 6620 50  0001 L CIN
 F 3 "http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00001225.pdf" H 5650 6700 50  0001 L CNN
 F 4 " 497-14760-5-ND " H 5650 6700 50  0001 C CNN "Digikey"
 	1    5650 6700
-	1    0    0    -1  
+	1    0    0    1   
 $EndComp
 $Comp
 L Transistor_BJT:BD139 Q6
@@ -1059,7 +1059,7 @@ F 2 "Package_TO_SOT_SMD:SOT-223-3_TabPin2" H 5550 6825 50  0001 L CIN
 F 3 "http://www.onsemi.com/pub_link/Collateral/BCP53T1-D.PDF" H 5350 6900 50  0001 L CNN
 F 4 "BCP53-16T1GOSCT-ND " H 5350 6900 50  0001 C CNN "Digikey"
 	1    5350 6900
-	1    0    0    -1  
+	1    0    0    1   
 $EndComp
 Wire Wire Line
 	5450 7100 5600 7100
