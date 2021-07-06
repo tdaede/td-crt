@@ -13,88 +13,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L Connector:Conn_01x02_Male J18
-U 1 1 5DC2E1D1
-P 8000 1225
-F 0 "J18" H 8108 1406 50  0000 C CNN
-F 1 "Conn_01x02_Male" H 8108 1315 50  0000 C CNN
-F 2 "Connector_Phoenix_MSTB:PhoenixContact_MSTBVA_2,5_2-G_1x02_P5.00mm_Vertical" H 8000 1225 50  0001 C CNN
-F 3 "277-1150-ND " H 8000 1225 50  0001 C CNN
-F 4 "277-1150-ND " H 8000 1225 50  0001 C CNN "Digikey"
-	1    8000 1225
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR0119
-U 1 1 5DC2E1F0
-P 7800 1225
-F 0 "#PWR0119" H 7800 975 50  0001 C CNN
-F 1 "GND" H 7805 1052 50  0000 C CNN
-F 2 "" H 7800 1225 50  0001 C CNN
-F 3 "" H 7800 1225 50  0001 C CNN
-	1    7800 1225
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+48V #PWR0181
-U 1 1 5DC2E736
-P 7450 1125
-F 0 "#PWR0181" H 7450 975 50  0001 C CNN
-F 1 "+48V" H 7465 1298 50  0000 C CNN
-F 2 "" H 7450 1125 50  0001 C CNN
-F 3 "" H 7450 1125 50  0001 C CNN
-	1    7450 1125
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:PWR_FLAG #FLG0104
-U 1 1 5DC2EB43
-P 7800 1125
-F 0 "#FLG0104" H 7800 1200 50  0001 C CNN
-F 1 "PWR_FLAG" H 7800 1298 50  0000 C CNN
-F 2 "" H 7800 1125 50  0001 C CNN
-F 3 "~" H 7800 1125 50  0001 C CNN
-	1    7800 1125
-	1    0    0    -1  
-$EndComp
-Connection ~ 7800 1125
-Wire Wire Line
-	7450 1125 7800 1125
-$Comp
-L power:GND #PWR0102
-U 1 1 5C3770B4
-P 6200 1300
-F 0 "#PWR0102" H 6200 1050 50  0001 C CNN
-F 1 "GND" H 6205 1127 50  0000 C CNN
-F 2 "" H 6200 1300 50  0001 C CNN
-F 3 "" H 6200 1300 50  0001 C CNN
-	1    6200 1300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:HT #PWR0101
-U 1 1 5C3769B2
-P 6200 1200
-F 0 "#PWR0101" H 6200 1320 50  0001 C CNN
-F 1 "HT" H 6220 1343 50  0000 C CNN
-F 2 "" H 6200 1200 50  0001 C CNN
-F 3 "" H 6200 1200 50  0001 C CNN
-	1    6200 1200
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Male J2
-U 1 1 5C375524
-P 6400 1300
-F 0 "J2" H 6508 1481 50  0000 C CNN
-F 1 "Conn_01x02_Male" H 6508 1390 50  0000 C CNN
-F 2 "Connector_Phoenix_MSTB:PhoenixContact_MSTBVA_2,5_2-G_1x02_P5.00mm_Vertical" H 6400 1300 50  0001 C CNN
-F 3 "277-1150-ND " H 6400 1300 50  0001 C CNN
-F 4 "277-1150-ND " H 6400 1300 50  0001 C CNN "Digikey"
-	1    6400 1300
-	-1   0    0    1   
-$EndComp
 Connection ~ 4100 1650
 $Comp
 L Transistor_FET:IPD50R3K0CE Q1
@@ -106,17 +24,6 @@ F 2 "Package_TO_SOT_SMD:TO-252-2" H 4200 1375 50  0001 L CIN
 F 3 "https://www.infineon.com/dgdl/IPx50R3K0CE_2_0.pdf?folderId=db3a3043163797a6011637d4bae7003b&fileId=db3a304339dcf4b10139e7e9ff592ce4" H 4000 1450 50  0001 L CNN
 	1    4000 1450
 	1    0    0    -1  
-$EndComp
-$Comp
-L Diode:BAS21 D1
-U 1 1 60CCF117
-P 4400 1150
-F 0 "D1" H 4400 933 50  0000 C CNN
-F 1 "BAS21" H 4400 1024 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 4400 975 50  0001 C CNN
-F 3 "https://www.diodes.com/assets/Datasheets/Ds12004.pdf" H 4400 1150 50  0001 C CNN
-	1    4400 1150
-	-1   0    0    1   
 $EndComp
 $Comp
 L power:+48V #PWR0170
@@ -497,6 +404,79 @@ F 4 "587-2631-1-ND" V 3650 1150 50  0001 C CNN "Digikey"
 	1    3650 1150
 	0    -1   -1   0   
 $EndComp
-Entry Wire Line
-	4250 1600 4350 1700
+$Comp
+L Diode:C3D02060E D1
+U 1 1 60E13622
+P 4400 1150
+F 0 "D1" H 4400 933 50  0000 C CNN
+F 1 "C3D02060E" H 4400 1024 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:TO-252-2_TabPin1" H 4400 975 50  0001 C CNN
+F 3 "https://www.wolfspeed.com/media/downloads/116/C3D02060E.pdf" H 4400 1150 50  0001 C CNN
+	1    4400 1150
+	-1   0    0    1   
+$EndComp
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 60E164B2
+P 5500 3050
+F 0 "H1" H 5600 3096 50  0000 L CNN
+F 1 "MountingHole" H 5600 3005 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 5500 3050 50  0001 C CNN
+F 3 "~" H 5500 3050 50  0001 C CNN
+	1    5500 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 60E16BE7
+P 6300 3000
+F 0 "H2" H 6400 3046 50  0000 L CNN
+F 1 "MountingHole" H 6400 2955 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6300 3000 50  0001 C CNN
+F 3 "~" H 6300 3000 50  0001 C CNN
+	1    6300 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x05_Male J1
+U 1 1 60E1A185
+P 2650 3150
+F 0 "J1" H 2758 3531 50  0000 C CNN
+F 1 "Conn_01x05_Male" H 2758 3440 50  0000 C CNN
+F 2 "Connector_JST:JST_XH_S5B-XH-A_1x05_P2.50mm_Horizontal" H 2650 3150 50  0001 C CNN
+F 3 "~" H 2650 3150 50  0001 C CNN
+	1    2650 3150
+	1    0    0    -1  
+$EndComp
+Text Label 2850 2950 0    50   ~ 0
+160v_in
+NoConn ~ 2850 3050
+$Comp
+L power:GND #PWR0103
+U 1 1 60E1BD74
+P 3250 3150
+F 0 "#PWR0103" H 3250 2900 50  0001 C CNN
+F 1 "GND" H 3255 2977 50  0000 C CNN
+F 2 "" H 3250 3150 50  0001 C CNN
+F 3 "" H 3250 3150 50  0001 C CNN
+	1    3250 3150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3250 3150 2850 3150
+Text Label 2850 3350 0    50   ~ 0
+g1
+Text Label 2850 3250 0    50   ~ 0
+heater
+$Comp
+L Connector:Conn_01x05_Male J3
+U 1 1 60E1DC4D
+P 4000 3150
+F 0 "J3" H 4108 3531 50  0000 C CNN
+F 1 "Conn_01x05_Male" H 4108 3440 50  0000 C CNN
+F 2 "Connector_JST:JST_XH_B5B-XH-A_1x05_P2.50mm_Vertical" H 4000 3150 50  0001 C CNN
+F 3 "~" H 4000 3150 50  0001 C CNN
+	1    4000 3150
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
