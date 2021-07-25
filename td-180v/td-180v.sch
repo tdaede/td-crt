@@ -300,7 +300,7 @@ F 1 "0.1uF" H 7115 3005 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" H 7038 2900 50  0001 C CNN
 F 3 "~" H 7000 3050 50  0001 C CNN
 F 4 "200V" H 7000 3050 50  0001 C CNN "Voltage"
-F 5 "1276-3084-1-ND " H 7000 3050 50  0001 C CNN "Digikey"
+F 5 "732-12118-1-ND" H 7000 3050 50  0001 C CNN "Digikey"
 	1    7000 3050
 	1    0    0    -1  
 $EndComp
@@ -384,6 +384,7 @@ F 0 "D1" H 5750 2183 50  0000 C CNN
 F 1 "C3D02060E" H 5750 2274 50  0000 C CNN
 F 2 "Package_TO_SOT_SMD:TO-252-2_TabPin1" H 5750 2225 50  0001 C CNN
 F 3 "https://www.wolfspeed.com/media/downloads/116/C3D02060E.pdf" H 5750 2400 50  0001 C CNN
+F 4 "C3D02060E-ND" H 5750 2400 50  0001 C CNN "Digikey"
 	1    5750 2400
 	-1   0    0    1   
 $EndComp
@@ -417,6 +418,7 @@ F 0 "J1" H 4108 4781 50  0000 C CNN
 F 1 "Conn_01x05_Male" H 4108 4690 50  0000 C CNN
 F 2 "Connector_JST:JST_XH_S5B-XH-A_1x05_P2.50mm_Horizontal" H 4000 4400 50  0001 C CNN
 F 3 "~" H 4000 4400 50  0001 C CNN
+F 4 "455-2242-ND" H 4000 4400 50  0001 C CNN "Digikey"
 	1    4000 4400
 	1    0    0    -1  
 $EndComp
@@ -552,6 +554,7 @@ F 0 "U1" H 2600 5392 50  0000 C CNN
 F 1 "AMS1117CD" H 2600 5301 50  0000 C CNN
 F 2 "Package_TO_SOT_SMD:TO-252-3_TabPin2" H 2600 5350 50  0001 C CNN
 F 3 "http://www.advanced-monolithic.com/pdf/ds1117.pdf" H 2700 4900 50  0001 C CNN
+F 4 "NCP1117DT33T5GOSCT-ND" H 2600 5150 50  0001 C CNN "Digikey"
 	1    2600 5150
 	1    0    0    -1  
 $EndComp

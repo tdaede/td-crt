@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name td-hv)(type KiCad)(uri ${KIPRJMOD}/td-hv.pretty)(options "")(descr ""))
+)
