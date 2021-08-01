@@ -21,6 +21,7 @@ const DAC_MIDPOINT: i32 = 2047;
 const APP: () = {
     struct Resources {
         dac: DAC,
+        gpiob: GPIOB,
         hot_driver: HOTDriver,
         hsync_capture: HSyncCapture,
         crt_state: CRTState,
@@ -95,6 +96,10 @@ const APP: () = {
         gpioa.moder.modify(|_,w| {w.moder10().alternate() });
         let serial = Serial::new(usart1);
 
+        // sync inputs
+        gpiob.moder.modify(|_,w| {w.moder0().input()});
+        gpiob.pupdr.modify(|_,w| {w.pupdr0().pull_up()});
+
         // horizontal PWM
         gpioa.afrh.modify(|_,w| {w.afrh8().af1()});
         gpioa.moder.modify(|_,w| {w.moder8().alternate()});
@@ -130,15 +135,16 @@ const APP: () = {
         let crt_stats_live = CRTStats::default();
         let crt_stats = CRTStats::default();
         let crt_state = CRTState::default();
-        init::LateResources { dac, hot_driver, hsync_capture, crt_stats_live, crt_stats, crt_state, serial }
+        init::LateResources { gpiob, dac, hot_driver, hsync_capture, crt_stats_live, crt_stats, crt_state, serial }
     }
 
     // internal hsync timer interrupt
-    #[task(binds = TIM1_UP_TIM10, resources = [dac, hot_driver, hsync_capture, crt_state, crt_stats_live], spawn = [update_double_buffers], priority = 15)]
+    #[task(binds = TIM1_UP_TIM10, resources = [gpiob, dac, hot_driver, hsync_capture, crt_state, crt_stats_live], spawn = [update_double_buffers], priority = 15)]
     fn tim1_up_tim10(cx: tim1_up_tim10::Context) {
         let crt_state = cx.resources.crt_state;
-        let h_line = &mut crt_state.h_line;
+        let current_scanline = &mut crt_state.current_scanline;
         let dac = cx.resources.dac;
+        let gpiob = cx.resources.gpiob;
         let hot_driver = cx.resources.hot_driver;
         let hsync_capture = cx.resources.hsync_capture;
         let crt_stats = cx.resources.crt_stats_live;
@@ -174,11 +180,20 @@ const APP: () = {
         // vertical advance
         let total_lines = 262;
         let center_line = total_lines / 2;
-        let hline_scaler = 1;
-        let dac_value = ((*h_line) - center_line) * hline_scaler + DAC_MIDPOINT;
+        let hline_scaler = 4;
+        let dac_value = ((*current_scanline) - center_line) * hline_scaler + DAC_MIDPOINT;
         dac.dhr12r1.write(|w| { unsafe { w.bits(dac_value as u32) }});
-        *h_line += 1;
-        if *h_line >= total_lines { *h_line = 0 };
+
+        // vertical counter
+        let vga_vsync = gpiob.idr.read().idr0().bit();
+        // negative edge triggered
+        if (vga_vsync == false) && (crt_state.previous_vga_vsync == true) {
+            *current_scanline = 0;
+        } else {
+            *current_scanline += 1;
+        }
+        crt_state.previous_vga_vsync = vga_vsync;
+        if *current_scanline >= total_lines { *current_scanline = 0 };
         // clear interrupt flag for tim10
         hot_driver.t.sr.write(|w| w.uif().bit(false));
 
@@ -220,7 +235,8 @@ pub struct HOTDriver {
 
 #[derive(Default)]
 pub struct CRTState {
-    h_line: i32,
+    current_scanline: i32,
+    previous_vga_vsync: bool,
 }
 
 #[derive(Default, Copy, Clone)]
