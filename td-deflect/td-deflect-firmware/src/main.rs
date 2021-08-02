@@ -3,7 +3,6 @@
 
 use panic_halt as _;
 use stm32f7::stm32f7x2::*;
-use num_traits::clamp;
 use rtfm::app;
 
 const AHB_CLOCK: u32 = 216_000_000;
@@ -276,7 +275,7 @@ impl HOTDriver {
         }
     }
     fn set_period(&self, mut period: u32) {
-        period = clamp(period, AHB_CLOCK/MAX_H_FREQ, AHB_CLOCK/MIN_H_FREQ);
+        period = period.clamp(AHB_CLOCK/MAX_H_FREQ, AHB_CLOCK/MIN_H_FREQ);
         let turn_off_time = period * 1 / 4;
         self.t.arr.write(|w| { unsafe { w.arr().bits(period as u16 - 1) }});
         self.t.ccr1.write(|w| { unsafe { w.ccr().bits(turn_off_time as u16) }});
@@ -285,7 +284,7 @@ impl HOTDriver {
         self.t.arr.read().bits() + 1
     }
     fn set_frequency(&self, mut f: u32) {
-        f = clamp(f, MIN_H_FREQ, MAX_H_FREQ);
+        f = f.clamp(MIN_H_FREQ, MAX_H_FREQ);
         let timer_freq = AHB_CLOCK;
         let period = timer_freq / f;
         self.set_period(period)
