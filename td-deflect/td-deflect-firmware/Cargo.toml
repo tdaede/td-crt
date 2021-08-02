@@ -18,7 +18,7 @@ version = "0.13.0"
 
 [dependencies.stm32f7xx-hal]
 features = ["stm32f722","rt"]
-version = "0.1.0"
+version = "0.3.0"
 
 [[bin]]
 name = "td-deflect-firmware"
