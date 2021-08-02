@@ -3,7 +3,7 @@
 
 use panic_halt as _;
 use stm32f7::stm32f7x2::*;
-use rtfm::app;
+use rtic::app;
 
 const AHB_CLOCK: u32 = 216_000_000;
 const APB2_CLOCK: u32 = AHB_CLOCK / 2;
