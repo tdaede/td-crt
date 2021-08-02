@@ -111,7 +111,7 @@ const APP: () = {
         gpioc.odr.modify(|_,w| {w.odr14().bit(true)});
 
         // S-cap lines
-        gpioc.odr.modify(|_,w| { w.odr0().bit(false).odr1().bit(false).odr2().bit(false).odr3().bit(false) });
+        gpioc.odr.modify(|_,w| { w.odr0().bit(true).odr1().bit(true).odr2().bit(true).odr3().bit(true) });
         gpioc.moder.modify(|_,w| { w.moder0().output().moder1().output().moder2().output().moder3().output() });
 
         // Vertical DAC output
@@ -177,11 +177,17 @@ const APP: () = {
             hot_driver.set_period(new_period as u32);
         }
 
+        let VERTICAL_MAX_AMPS = 0.5;
+        let VERTICAL_MAGNITUDE_AMPS = 0.45;
         // vertical advance
         let total_lines = 262;
         let center_line = total_lines / 2;
-        let hline_scaler = 4;
-        let dac_value = ((*current_scanline) - center_line) * hline_scaler + DAC_MIDPOINT;
+        // convert scanline to a (+1, -1) range coordinate (+1 is top of screen)
+        let horizontal_pos_coordinate = ((*current_scanline) - center_line) as f32 / (total_lines as f32) * -2.0;
+        let horizontal_amps = (horizontal_pos_coordinate * VERTICAL_MAGNITUDE_AMPS).clamp(-1.0*VERTICAL_MAX_AMPS, VERTICAL_MAX_AMPS);
+        let AMPS_TO_VOLTS = 1.0;
+        let VOLTS_TO_DAC_VALUE = 1.0/(3.3/4095.0);
+        let dac_value = ((horizontal_amps * AMPS_TO_VOLTS * VOLTS_TO_DAC_VALUE) as i32 + DAC_MIDPOINT).clamp(0, 4095);
         dac.dhr12r1.write(|w| { unsafe { w.bits(dac_value as u32) }});
 
         // vertical counter
