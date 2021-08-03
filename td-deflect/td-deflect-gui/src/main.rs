@@ -3,7 +3,16 @@ use gtk::{Application, ApplicationWindow, Label, Box, Orientation, ComboBoxText,
 use glib::{Continue, MainContext, PRIORITY_DEFAULT};
 use gtk::glib;
 use std::{thread, time::Duration};
+use std::io::BufReader;
+use std::io::BufRead;
 use serialport;
+use serde::Deserialize;
+
+#[derive(Default, Copy, Clone, Deserialize)]
+pub struct CRTStats {
+    h_output_period: i32,
+    h_input_period: i32,
+}
 
 fn main() {
     // Create a new application
@@ -57,21 +66,26 @@ fn build_ui(app: &Application) {
 
     window.set_child(Some(&stats_box));
 
-    let (sender, receiver) = MainContext::channel::<u32>(PRIORITY_DEFAULT);
+    let (sender, receiver) = MainContext::channel::<CRTStats>(PRIORITY_DEFAULT);
+
+    let serial_port_string = String::from(serial_selector.active_text().unwrap());
 
     thread::spawn(move || {
-        let mut counter = 0;
-        loop {
-            sender.send(counter).expect("Could not send through channel");
-            thread::sleep(Duration::from_millis(16));
-            counter += 1;
+        let mut serial = serialport::new(serial_port_string, 115200).open().expect("Failed to open port");
+        serial.set_timeout(Duration::from_millis(100)).unwrap();
+        let reader = BufReader::new(serial);
+        for line in reader.lines() {
+            if let Ok(l) = line {
+                let stats: CRTStats = serde_json::from_str(&l).unwrap();
+                sender.send(stats).expect("Could not send through channel");
+            }
         }
     });
 
     receiver.attach(
         None,
         move |a| {
-            sync_freq_label.set_label(&format!("Horizontal sync width: {}us", a));
+            sync_freq_label.set_label(&format!("Horizontal line width: {}us", a.h_input_period as f32 * 1_000_000.0 / (216000000.0)));
             Continue(true)
         }
     );

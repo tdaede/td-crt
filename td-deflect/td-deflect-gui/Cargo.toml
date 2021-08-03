@@ -7,7 +7,12 @@ edition = "2018"
 
 [dependencies]
 serialport = "4.0"
+serde_json = "1.0"
 
 [dependencies.gtk]
 version = "0.1"
 package = "gtk4"
+
+[dependencies.serde]
+version = "1.0"
+features = ["derive"]

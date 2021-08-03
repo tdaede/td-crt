@@ -332,7 +332,7 @@ pub struct Serial {
 
 impl Serial {
     fn new(usart: USART1) -> Serial {
-        usart.brr.write(|w| { w.brr().bits((APB2_CLOCK/16/115200) as u16)});
+        usart.brr.write(|w| { w.brr().bits((APB2_CLOCK/16/115200*2*8) as u16)});
         usart.cr1.write(|w| { w.te().enabled().re().enabled().ue().enabled() });
         Serial { usart }
     }
