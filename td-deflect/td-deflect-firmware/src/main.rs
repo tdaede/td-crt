@@ -4,6 +4,7 @@
 use panic_halt as _;
 use stm32f7::stm32f7x2::*;
 use rtic::app;
+use serde::{Serialize};
 
 const AHB_CLOCK: u32 = 216_000_000;
 const APB2_CLOCK: u32 = AHB_CLOCK / 2;
@@ -207,7 +208,9 @@ const APP: () = {
         crt_stats.h_output_period = output_period;
 
         // dispatch double buffer updates
-        cx.spawn.update_double_buffers().unwrap();
+        if *current_scanline == 0 {
+            cx.spawn.update_double_buffers().unwrap();
+        }
     }
 
     #[task(resources = [crt_stats_live, crt_stats], priority = 14, spawn = [send_stats])]
@@ -220,9 +223,18 @@ const APP: () = {
     }
 
     #[task(resources = [crt_stats, serial])]
-    fn send_stats(c: send_stats::Context) {
+    fn send_stats(mut c: send_stats::Context) {
         let serial = c.resources.serial;
-        serial.write_blocking(b"test\n");
+        let mut json_stats: [u8; 256] = [0; 256];
+        let mut json_stats_len = 0;
+        c.resources.crt_stats.lock(|crt_stats| {
+            match serde_json_core::to_slice(&crt_stats, &mut json_stats) {
+                Ok(c) => json_stats_len = c,
+                Err(_) => (),
+            };
+        });
+        serial.write_blocking(&json_stats[..json_stats_len]);
+        serial.write_blocking(b"\n");
     }
 
     // Interrupt handlers used to dispatch software tasks
@@ -244,7 +256,7 @@ pub struct CRTState {
     previous_vga_vsync: bool,
 }
 
-#[derive(Default, Copy, Clone)]
+#[derive(Default, Copy, Clone, Serialize)]
 pub struct CRTStats {
     h_output_period: i32,
     h_input_period: i32,
