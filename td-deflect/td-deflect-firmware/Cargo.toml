@@ -17,10 +17,6 @@ serde-json-core = "0.4.0"
 features = ["stm32f7x2","rt"]
 version = "0.13.0"
 
-[dependencies.stm32f7xx-hal]
-features = ["stm32f722","rt"]
-version = "0.3.0"
-
 [dependencies.serde]
 version = "1.0"
 default-features = false
