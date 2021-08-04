@@ -37,7 +37,9 @@ fn build_ui(app: &Application) {
     }
     serial_selector.set_active(Some(0));
     stats_box.append(&serial_selector);
-    let sync_freq_label = Label::new(Some("Horizontal line width: 0us"));
+    let input_horizontal_period_label = Label::new(Some("Input horizontal period: 0us"));
+    stats_box.append(&input_horizontal_period_label);
+    let sync_freq_label = Label::new(Some("Output horizontal period: 0us"));
     stats_box.append(&sync_freq_label);
     let field_lines_label = Label::new(Some("Lines in last field: 0"));
     stats_box.append(&field_lines_label);
@@ -85,7 +87,8 @@ fn build_ui(app: &Application) {
     receiver.attach(
         None,
         move |a| {
-            sync_freq_label.set_label(&format!("Horizontal line width: {}us", a.h_input_period as f32 * 1_000_000.0 / (216000000.0)));
+            sync_freq_label.set_label(&format!("Output horizontal period: {}us", a.h_output_period as f32 * 1_000_000.0 / (216000000.0)));
+            input_horizontal_period_label.set_label(&format!("Input horizontal period: {}us", a.h_input_period as f32 * 1_000_000.0 / (216000000.0)));
             Continue(true)
         }
     );
