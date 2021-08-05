@@ -184,11 +184,11 @@ const APP: () = {
         let cycles_since_sync = hsync_capture.get_cycles_since_sync() as i32;
         let input_period = hsync_capture.get_period() as i32;
         let output_period = hot_driver.get_period() as i32;
-        // if we are really far away frequency wise, just reset the period entirely
+        // if we are really far away frequency wise, just ignore this sync entirely
         if (output_period - input_period).abs() > ((MIN_H_PERIOD as i32) / 10){
-            //hot_driver.set_period(input_period as u32);
+            // yolo
         } else {
-            // this error's magnitude is precisely wrong - values near
+            // values near
             // 0 are the largest error
             let error = if cycles_since_sync < (input_period / 2) {
                 cycles_since_sync.max(1)
