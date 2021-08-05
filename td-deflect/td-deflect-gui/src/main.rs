@@ -7,11 +7,19 @@ use std::io::BufReader;
 use std::io::BufRead;
 use serialport;
 use serde::Deserialize;
+use gtk::pango::{AttrList, Attribute};
 
 #[derive(Default, Copy, Clone, Deserialize)]
 pub struct CRTStats {
     h_output_period: i32,
+    h_output_period_min: i32,
+    h_output_period_max: i32,
     h_input_period: i32,
+    h_input_period_min: i32,
+    h_input_period_max: i32,
+    hot_source_current: u16,
+    v_lines: u16,
+    s_voltage: u16,
 }
 
 fn main() {
@@ -35,24 +43,39 @@ fn build_ui(app: &Application) {
     for port in serialport::available_ports().unwrap() {
         serial_selector.append_text(&port.port_name);
     }
-    serial_selector.set_active(Some(0));
+    let tnum = AttrList::new();
+    tnum.insert(Attribute::new_font_features("tnum"));
+    serial_selector.set_active(Some(2));
     stats_box.append(&serial_selector);
+    let line_stats_grid = Grid::new();
+    line_stats_grid.set_column_spacing(10);
+    line_stats_grid.attach(&Label::new(Some("Min")), 1, 0, 1, 1);
+    line_stats_grid.attach(&Label::new(Some("Max")), 2, 0, 1, 1);
+    line_stats_grid.attach(&Label::new(Some("Input horizontal period")), 0, 1, 1, 1);
+    let input_horizontal_period_min_label = Label::new(None);
+    line_stats_grid.attach(&input_horizontal_period_min_label, 1, 1, 1, 1);
+    let input_horizontal_period_max_label = Label::new(None);
+    line_stats_grid.attach(&input_horizontal_period_max_label, 2, 1, 1, 1);
+    stats_box.append(&line_stats_grid);
+    line_stats_grid.attach(&Label::new(Some("Output horizontal period")), 0, 2, 1, 1);
+    let output_horizontal_period_min_label = Label::builder().attributes(&tnum).build();
+    line_stats_grid.attach(&output_horizontal_period_min_label, 1, 2, 1, 1);
+    let output_horizontal_period_max_label = Label::builder().attributes(&tnum).build();
+    line_stats_grid.attach(&output_horizontal_period_max_label, 2, 2, 1, 1);
+    stats_box.append(&line_stats_grid);
     let input_horizontal_period_label = Label::new(Some("Input horizontal period: 0us"));
     stats_box.append(&input_horizontal_period_label);
     let sync_freq_label = Label::new(Some("Output horizontal period: 0us"));
     stats_box.append(&sync_freq_label);
     let field_lines_label = Label::new(Some("Lines in last field: 0"));
     stats_box.append(&field_lines_label);
+    let vertical_period_label = Label::new(Some("Vertical period: 0 ms"));
+    stats_box.append(&vertical_period_label);
     let last_field_phase_label = Label::new(Some("Last field phase: Even"));
     stats_box.append(&last_field_phase_label);
-    let vertical_peak_current_label = Label::new(Some("Peak vertical current: 0 A"));
-    stats_box.append(&vertical_peak_current_label);
-    let horizontal_peak_current_label = Label::new(Some("Peak horizontal current: 0 A"));
-    stats_box.append(&horizontal_peak_current_label);
-    let hot_peak_current_label = Label::new(Some("Peak HOT current: 0 A"));
-    stats_box.append(&hot_peak_current_label);
-    let eht_peak_current_label = Label::new(Some("Peak EHT current: 0 mA"));
-    stats_box.append(&eht_peak_current_label);
+    let s_voltage_label = Label::new(Some("S-cap voltage: 0 V"));
+    s_voltage_label.set_attributes(Some(&tnum));
+    stats_box.append(&s_voltage_label);
     let geometry_settings_grid = Grid::new();
     geometry_settings_grid.set_column_spacing(10);
     let vertical_current_magnitude_label = Label::new(Some("Vertical current magnitude:"));
@@ -73,13 +96,15 @@ fn build_ui(app: &Application) {
     let serial_port_string = String::from(serial_selector.active_text().unwrap());
 
     thread::spawn(move || {
-        let mut serial = serialport::new(serial_port_string, 115200).open().expect("Failed to open port");
+        let mut serial = serialport::new(serial_port_string, 230400).open().expect("Failed to open port");
         serial.set_timeout(Duration::from_millis(100)).unwrap();
         let reader = BufReader::new(serial);
         for line in reader.lines() {
             if let Ok(l) = line {
-                let stats: CRTStats = serde_json::from_str(&l).unwrap();
-                sender.send(stats).expect("Could not send through channel");
+                let parse_result: Result<CRTStats, serde_json::Error> = serde_json::from_str(&l);
+                if let Ok(stats) = parse_result {
+                    sender.send(stats).expect("Could not send through channel");
+                }
             }
         }
     });
@@ -87,8 +112,16 @@ fn build_ui(app: &Application) {
     receiver.attach(
         None,
         move |a| {
-            sync_freq_label.set_label(&format!("Output horizontal period: {}us", a.h_output_period as f32 * 1_000_000.0 / (216000000.0)));
-            input_horizontal_period_label.set_label(&format!("Input horizontal period: {}us", a.h_input_period as f32 * 1_000_000.0 / (216000000.0)));
+            let output_horizontal_period_us = a.h_output_period as f32 * 1_000_000.0 / (216000000.0);
+            sync_freq_label.set_label(&format!("Output horizontal period: {:.2} us", output_horizontal_period_us));
+            input_horizontal_period_label.set_label(&format!("Input horizontal period: {:.2} us", a.h_input_period as f32 * 1_000_000.0 / (216000000.0)));
+            input_horizontal_period_min_label.set_label(&format!("{:.2} us", a.h_input_period_min as f32 * 1_000_000.0 / (216000000.0)));
+            input_horizontal_period_max_label.set_label(&format!("{:.2} us", a.h_input_period_max as f32 * 1_000_000.0 / (216000000.0)));
+            output_horizontal_period_min_label.set_label(&format!("{:.2} us", a.h_output_period_min as f32 * 1_000_000.0 / (216000000.0)));
+            output_horizontal_period_max_label.set_label(&format!("{:.2} us", a.h_output_period_max as f32 * 1_000_000.0 / (216000000.0)));
+            field_lines_label.set_label(&format!("Lines in last field: {:.2}", a.v_lines));
+            vertical_period_label.set_label(&format!("Vertical period: {:.2} ms", output_horizontal_period_us * a.v_lines as f32 / 1000.0));
+            s_voltage_label.set_label(&format!("S-cap voltage: {:.2} V", a.s_voltage as f32 * 3.3 / 4096.0 * 101.0));
             Continue(true)
         }
     );

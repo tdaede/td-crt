@@ -15,7 +15,7 @@ rustflags = [
   "-C", "link-arg=--nmagic",
 
   # LLD (shipped with the Rust toolchain) is used as the default linker
-  # "-C", "link-arg=-Tlink.x",
+  "-C", "link-arg=-Tlink.x",
 
   # if you run into problems with LLD switch to the GNU linker by commenting out
   # this line

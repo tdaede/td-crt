@@ -1,10 +1,11 @@
 #![no_main]
 #![no_std]
 
-use panic_halt as _;
 use stm32f7::stm32f7x2::*;
 use rtic::app;
 use serde::{Serialize};
+use core::sync::atomic::{self, Ordering};
+use core::panic::PanicInfo;
 
 const AHB_CLOCK: u32 = 216_000_000;
 const APB2_CLOCK: u32 = AHB_CLOCK / 2;
@@ -17,6 +18,22 @@ const MIN_H_PERIOD: u32 = AHB_CLOCK / MAX_H_FREQ;
 
 const DAC_MIDPOINT: i32 = 2047;
 
+/// Immediately blanks the video signal.
+/// Used in case of deflection failure to prevent burn-in.
+fn fault_blank() {
+    // read-modify-write is a bit unfortunate here
+    unsafe { (*GPIOC::ptr()).odr.modify(|_,w| {w.odr14().bit(true)}); }
+}
+
+#[inline(never)]
+#[panic_handler]
+fn panic(_info: &PanicInfo) -> ! {
+    fault_blank();
+    loop {
+        atomic::compiler_fence(Ordering::SeqCst);
+    }
+}
+
 #[app(device = stm32f7::stm32f7x2, peripherals = true)]
 const APP: () = {
     struct Resources {
@@ -28,6 +45,7 @@ const APP: () = {
         crt_stats_live: CRTStats,
         crt_stats: CRTStats,
         serial: Serial,
+        adc: ADC,
     }
     #[init]
     fn init(cx: init::Context) -> init::LateResources {
@@ -41,6 +59,7 @@ const APP: () = {
         let flash = s.FLASH;
         let pwr = s.PWR;
         let usart1 = s.USART1;
+        let adc1 = s.ADC1;
 
         // enable pwr clock
         rcc.apb1enr.write(|w| { w.pwren().bit(true) });
@@ -76,6 +95,7 @@ const APP: () = {
         rcc.ahb1enr.modify(|_,w| { w.gpioaen().bit(true) });
         rcc.ahb1enr.modify(|_,w| { w.gpioben().bit(true) });
         rcc.ahb1enr.modify(|_,w| { w.gpiocen().bit(true) });
+        rcc.apb2enr.modify(|_,w| { w.adc1en().bit(true) });
         rcc.apb2enr.modify(|_,w| { w.tim1en().bit(true) });
         rcc.apb1enr.modify(|_,w| { w.dacen().bit(true) });
         rcc.apb2enr.modify(|_,w| { w.tim10en().bit(true) });
@@ -108,7 +128,7 @@ const APP: () = {
 
         // blanking output to m51387
         gpioc.moder.modify(|_,w| {w.moder14().output()});
-        gpioc.odr.modify(|_,w| {w.odr14().bit(true)});
+        gpioc.odr.modify(|_,w| {w.odr14().bit(true)}); // start up with blanking enabled
 
         // S-cap lines
         gpioc.odr.modify(|_,w| { w.odr0().bit(true).odr1().bit(true).odr2().bit(true).odr3().bit(true) });
@@ -118,6 +138,15 @@ const APP: () = {
         gpioa.moder.modify(|_,w| { w.moder4().analog() });
         dac.cr.write(|w| { w.en1().enabled().boff1().enabled() });
         dac.dhr12r1.write(|w| { unsafe { w.bits(DAC_MIDPOINT as u32) }});
+
+        // adc lines
+        gpioa.moder.modify(|_,w| { w.moder0().analog() }); // h current transformer
+        gpioa.moder.modify(|_,w| { w.moder1().analog() }); // hot source current
+        gpioa.moder.modify(|_,w| { w.moder2().analog() }); // s cap voltage
+        gpioa.moder.modify(|_,w| { w.moder3().analog() }); // eht voltage
+        gpioa.moder.modify(|_,w| { w.moder5().analog() }); // eht current
+
+        let adc = ADC::new(adc1);
 
         //nvic.enable(Interrupt::EXTI0);
 
@@ -135,11 +164,11 @@ const APP: () = {
         let crt_stats_live = CRTStats::default();
         let crt_stats = CRTStats::default();
         let crt_state = CRTState::default();
-        init::LateResources { gpiob, dac, hot_driver, hsync_capture, crt_stats_live, crt_stats, crt_state, serial }
+        init::LateResources { gpiob, dac, hot_driver, hsync_capture, crt_stats_live, crt_stats, crt_state, serial, adc }
     }
 
     // internal hsync timer interrupt
-    #[task(binds = TIM1_UP_TIM10, resources = [gpiob, dac, hot_driver, hsync_capture, crt_state, crt_stats_live], spawn = [update_double_buffers], priority = 15)]
+    #[task(binds = TIM1_UP_TIM10, resources = [gpiob, dac, hot_driver, hsync_capture, crt_state, crt_stats_live, adc], spawn = [update_double_buffers], priority = 15)]
     fn tim1_up_tim10(cx: tim1_up_tim10::Context) {
         let crt_state = cx.resources.crt_state;
         let current_scanline = &mut crt_state.current_scanline;
@@ -148,6 +177,7 @@ const APP: () = {
         let hot_driver = cx.resources.hot_driver;
         let hsync_capture = cx.resources.hsync_capture;
         let crt_stats = cx.resources.crt_stats_live;
+        let adc = cx.resources.adc;
 
         // horizontal sync PLL
         // TODO: replace this software capture with a hardware capture
@@ -165,8 +195,7 @@ const APP: () = {
             } else {
                 (cycles_since_sync - input_period).min(-1)
             };
-            let error_mag = (error.abs() * 1 / 4).max(2);
-            //let error_mag = 2;
+            let error_mag = (error.abs() * 1 / 32).max(2);
             let new_period = if error > 0 {
                 input_period - error_mag
             } else if error < 0 {
@@ -180,8 +209,18 @@ const APP: () = {
         let VERTICAL_MAX_AMPS = 0.5;
         let VERTICAL_MAGNITUDE_AMPS = 0.45;
         // vertical advance
+        // vertical counter
+        let vga_vsync = gpiob.idr.read().idr0().bit();
+        // negative edge triggered
         let total_lines = 262;
         let center_line = total_lines / 2;
+        if (vga_vsync == false) && (crt_state.previous_vga_vsync == true) {
+            //crt_stats.v_lines = *current_scanline as u16;
+            crt_stats.v_lines = *current_scanline as u16;
+            *current_scanline = 0;
+        }
+        crt_state.previous_vga_vsync = vga_vsync;
+        if *current_scanline >= (total_lines + 10) { *current_scanline = 0 };
         // convert scanline to a (+1, -1) range coordinate (+1 is top of screen)
         let horizontal_pos_coordinate = ((*current_scanline) - center_line) as f32 / (total_lines as f32) * -2.0;
         let horizontal_amps = (horizontal_pos_coordinate * VERTICAL_MAGNITUDE_AMPS).clamp(-1.0*VERTICAL_MAX_AMPS, VERTICAL_MAX_AMPS);
@@ -190,27 +229,32 @@ const APP: () = {
         let dac_value = ((horizontal_amps * AMPS_TO_VOLTS * VOLTS_TO_DAC_VALUE) as i32 + DAC_MIDPOINT).clamp(0, 4095);
         dac.dhr12r1.write(|w| { unsafe { w.bits(dac_value as u32) }});
 
-        // vertical counter
-        let vga_vsync = gpiob.idr.read().idr0().bit();
-        // negative edge triggered
-        if (vga_vsync == false) && (crt_state.previous_vga_vsync == true) {
-            *current_scanline = 0;
-        } else {
-            *current_scanline += 1;
-        }
-        crt_state.previous_vga_vsync = vga_vsync;
-        if *current_scanline >= total_lines { *current_scanline = 0 };
         // clear interrupt flag for tim10
         hot_driver.t.sr.write(|w| w.uif().bit(false));
 
         // update stats
         crt_stats.h_input_period = input_period;
+        crt_stats.h_input_period_max = crt_stats.h_input_period_max.max(input_period);
+        if crt_stats.h_input_period_min == 0 {
+            crt_stats.h_input_period_min = input_period;
+        }
+        crt_stats.h_input_period_min = crt_stats.h_input_period_min.min(input_period);
         crt_stats.h_output_period = output_period;
+        crt_stats.h_output_period_max = crt_stats.h_output_period_max.max(output_period);
+        if crt_stats.h_output_period_min == 0 {
+            crt_stats.h_output_period_min = output_period;
+        }
+        crt_stats.h_output_period_min = crt_stats.h_output_period_min.min(output_period);
+
+        // perform analog reads
+        // todo: trigger these with timer
+        crt_stats.s_voltage = adc.read_blocking(2);
 
         // dispatch double buffer updates
         if *current_scanline == 0 {
-            cx.spawn.update_double_buffers().unwrap();
+            let _ = cx.spawn.update_double_buffers();
         }
+        *current_scanline += 1;
     }
 
     #[task(resources = [crt_stats_live, crt_stats], priority = 14, spawn = [send_stats])]
@@ -218,14 +262,15 @@ const APP: () = {
         let crt_stats = c.resources.crt_stats;
         c.resources.crt_stats_live.lock(|crt_stats_live| {
             *crt_stats = *crt_stats_live;
+            *crt_stats_live = CRTStats::default(); // reset stats on new field
         });
-        c.spawn.send_stats().unwrap();
+        let _ = c.spawn.send_stats();
     }
 
     #[task(resources = [crt_stats, serial])]
     fn send_stats(mut c: send_stats::Context) {
         let serial = c.resources.serial;
-        let mut json_stats: [u8; 256] = [0; 256];
+        let mut json_stats: [u8; 1024] = [0; 1024];
         let mut json_stats_len = 0;
         c.resources.crt_stats.lock(|crt_stats| {
             match serde_json_core::to_slice(&crt_stats, &mut json_stats) {
@@ -244,12 +289,6 @@ const APP: () = {
     }
 };
 
-#[allow(unused)]
-pub struct HOTDriver {
-    t: TIM10, // HOT output transistor timer
-    tp: TIM1, // horizontal supply buck converter PWM
-}
-
 #[derive(Default)]
 pub struct CRTState {
     current_scanline: i32,
@@ -259,15 +298,29 @@ pub struct CRTState {
 #[derive(Default, Copy, Clone, Serialize)]
 pub struct CRTStats {
     h_output_period: i32,
+    h_output_period_min: i32,
+    h_output_period_max: i32,
     h_input_period: i32,
+    h_input_period_min: i32,
+    h_input_period_max: i32,
+    hot_source_current: u16,
+    v_lines: u16,
+    s_voltage: u16,
+}
+
+
+#[allow(unused)]
+pub struct HOTDriver {
+    t: TIM10, // HOT output transistor timer
+    tp: TIM1, // horizontal supply buck converter PWM
 }
 
 impl HOTDriver {
     fn new(t: TIM10, tp: TIM1) -> HOTDriver {
         t.ccmr1_output().write(|w| { unsafe { w.oc1m().bits(0b111) }}); // PWM2
         t.ccer.write(|w| { w.cc1e().set_bit() });
-        t.ccr1.write(|w| { unsafe { w.ccr().bits(2680) }});
-        t.arr.write(|w| { unsafe { w.arr().bits(2680*2) }});
+        t.ccr1.write(|w| { unsafe { w.ccr().bits((AHB_CLOCK/15700*1/2) as u16) }});
+        t.arr.write(|w| { unsafe { w.arr().bits((AHB_CLOCK/15700) as u16) }});
         t.cr1.write(|w| { w.cen().enabled().urs().bit(true) });
         t.egr.write(|w| { w.ug().set_bit() });
         t.dier.write(|w| { w.uie().set_bit() });
@@ -275,8 +328,8 @@ impl HOTDriver {
         tp.ccmr1_output().write(|w| {unsafe{w.oc1m().bits(0b110) }}); // PWM1
         tp.ccer.write(|w| { w.cc1e().set_bit().cc1ne().set_bit() });
         // initialize to 50% duty cycle at 100khz
-        tp.ccr1.write(|w| { w.ccr().bits((AHB_CLOCK/15700*1/2) as u16) });
-        tp.arr.write(|w| { w.arr().bits((AHB_CLOCK/15700) as u16) });
+        tp.ccr1.write(|w| { w.ccr().bits(2680) });
+        tp.arr.write(|w| { w.arr().bits(2680*2) });
         // minimum dead time experimentally seems to be 0x0D
         tp.bdtr.write(|w| { unsafe { w.moe().enabled().dtg().bits(0x20) }}); // uwu
         tp.cr1.write(|w| { w.cen().enabled() });
@@ -332,7 +385,7 @@ pub struct Serial {
 
 impl Serial {
     fn new(usart: USART1) -> Serial {
-        usart.brr.write(|w| { w.brr().bits((APB2_CLOCK/16/115200*2*8) as u16)});
+        usart.brr.write(|w| { w.brr().bits((APB2_CLOCK*2*8/16/230400) as u16)});
         usart.cr1.write(|w| { w.te().enabled().re().enabled().ue().enabled() });
         Serial { usart }
     }
@@ -341,5 +394,22 @@ impl Serial {
             while self.usart.isr.read().txe() == false {}
             self.usart.tdr.write(|w| { unsafe { w.tdr().bits((*c).into()) }});
         }
+    }
+}
+
+pub struct ADC {
+    adc1: ADC1
+}
+
+impl ADC {
+    fn new(adc1: ADC1) -> ADC {
+        adc1.cr2.modify(|_,w| {w.adon().bit(true)});
+        ADC { adc1 }
+    }
+    fn read_blocking(&self, channel: u8) -> u16 {
+        self.adc1.sqr3.modify(|_,w| { unsafe { w.sq1().bits(channel) } });
+        self.adc1.cr2.modify(|_,w| { w.swstart().set_bit() });
+        while !self.adc1.sr.read().eoc().bit() {};
+        self.adc1.dr.read().data().bits()
     }
 }
