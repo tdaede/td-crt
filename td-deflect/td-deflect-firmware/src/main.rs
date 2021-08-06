@@ -38,6 +38,7 @@ fn panic(_info: &PanicInfo) -> ! {
 const APP: () = {
     struct Resources {
         dac: DAC,
+        gpioa: GPIOA,
         gpiob: GPIOB,
         hot_driver: HOTDriver,
         hsync_capture: HSyncCapture,
@@ -119,6 +120,8 @@ const APP: () = {
         // sync inputs
         gpiob.moder.modify(|_,w| {w.moder0().input()});
         gpiob.pupdr.modify(|_,w| {w.pupdr0().pull_up()});
+        gpioa.moder.modify(|_,w| {w.moder7().input()});
+        gpioa.pupdr.modify(|_,w| {w.pupdr7().pull_up()});
 
         // horizontal PWM
         gpioa.afrh.modify(|_,w| {w.afrh8().af1()});
@@ -164,16 +167,17 @@ const APP: () = {
         let crt_stats_live = CRTStats::default();
         let crt_stats = CRTStats::default();
         let crt_state = CRTState::default();
-        init::LateResources { gpiob, dac, hot_driver, hsync_capture, crt_stats_live, crt_stats, crt_state, serial, adc }
+        init::LateResources { gpioa, gpiob, dac, hot_driver, hsync_capture, crt_stats_live, crt_stats, crt_state, serial, adc }
     }
 
     // internal hsync timer interrupt
-    #[task(binds = TIM1_UP_TIM10, resources = [gpiob, dac, hot_driver, hsync_capture, crt_state, crt_stats_live, adc], spawn = [update_double_buffers], priority = 15)]
+    #[task(binds = TIM1_UP_TIM10, resources = [gpioa, gpiob, dac, hot_driver, hsync_capture, crt_state, crt_stats_live, adc], spawn = [update_double_buffers], priority = 15)]
     fn tim1_up_tim10(cx: tim1_up_tim10::Context) {
         let crt_state = cx.resources.crt_state;
         let current_scanline = &mut crt_state.current_scanline;
         let dac = cx.resources.dac;
-        let gpiob = cx.resources.gpiob;
+        let gpioa = cx.resources.gpioa;
+        let _gpiob = cx.resources.gpiob;
         let hot_driver = cx.resources.hot_driver;
         let hsync_capture = cx.resources.hsync_capture;
         let crt_stats = cx.resources.crt_stats_live;
@@ -210,7 +214,8 @@ const APP: () = {
         let VERTICAL_MAGNITUDE_AMPS = 0.45;
         // vertical advance
         // vertical counter
-        let vga_vsync = gpiob.idr.read().idr0().bit();
+        //let vga_vsync = gpiob.idr.read().idr0().bit();
+        let vga_vsync = gpioa.idr.read().idr7().bit();
         // negative edge triggered
         let total_lines = 262;
         let center_line = total_lines / 2;
