@@ -141,6 +141,8 @@ const APP: () = {
         gpioa.moder.modify(|_,w| { w.moder4().analog() });
         dac.cr.write(|w| { w.en1().enabled().boff1().enabled() });
         dac.dhr12r1.write(|w| { unsafe { w.bits(DAC_MIDPOINT as u32) }});
+        gpiob.odr.modify(|_,w| { w.odr14().set_bit() });
+        gpiob.moder.modify(|_,w| { w.moder14().output() });
 
         // adc lines
         gpioa.moder.modify(|_,w| { w.moder0().analog() }); // h current transformer
@@ -332,9 +334,9 @@ impl HOTDriver {
 
         tp.ccmr1_output().write(|w| {unsafe{w.oc1m().bits(0b110) }}); // PWM1
         tp.ccer.write(|w| { w.cc1e().set_bit().cc1ne().set_bit() });
-        // initialize to 50% duty cycle at 100khz
-        tp.ccr1.write(|w| { w.ccr().bits(2680) });
-        tp.arr.write(|w| { w.arr().bits(2680*2) });
+        // initialize to 50% duty cycle at 200khz
+        tp.ccr1.write(|w| { w.ccr().bits(2680*0/10) });
+        tp.arr.write(|w| { w.arr().bits(2680) });
         // minimum dead time experimentally seems to be 0x0D
         tp.bdtr.write(|w| { unsafe { w.moe().enabled().dtg().bits(0x20) }}); // uwu
         tp.cr1.write(|w| { w.cen().enabled() });
