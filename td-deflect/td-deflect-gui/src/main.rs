@@ -56,7 +56,6 @@ fn build_ui(app: &Application) {
     line_stats_grid.attach(&input_horizontal_period_min_label, 1, 1, 1, 1);
     let input_horizontal_period_max_label = Label::new(None);
     line_stats_grid.attach(&input_horizontal_period_max_label, 2, 1, 1, 1);
-    stats_box.append(&line_stats_grid);
     line_stats_grid.attach(&Label::new(Some("Output horizontal period")), 0, 2, 1, 1);
     let output_horizontal_period_min_label = Label::builder().attributes(&tnum).build();
     line_stats_grid.attach(&output_horizontal_period_min_label, 1, 2, 1, 1);
