@@ -3,10 +3,11 @@
 
 use stm32f7::stm32f7x2::*;
 use rtic::app;
-use serde::{Serialize};
+use serde::{Serialize, Deserialize};
 use core::sync::atomic::{self, Ordering};
 use core::panic::PanicInfo;
 use heapless::Vec;
+use heapless::spsc::{Queue, Producer, Consumer};
 
 const AHB_CLOCK: u32 = 216_000_000;
 const APB2_CLOCK: u32 = AHB_CLOCK / 2;
@@ -46,8 +47,11 @@ const APP: () = {
         crt_state: CRTState,
         crt_stats_live: CRTStats,
         crt_stats: CRTStats,
-        serial: Serial,
+        serial_protocol: SerialProtocol,
         adc: ADC,
+        config: Config,
+        config_queue_in: Producer<'static, Config, 2>,
+        config_queue_out: Consumer<'static, Config, 2>,
     }
     #[init]
     fn init(cx: init::Context) -> init::LateResources {
@@ -117,6 +121,7 @@ const APP: () = {
         gpioa.afrh.modify(|_,w| {w.afrh10().af7() });
         gpioa.moder.modify(|_,w| {w.moder10().alternate() });
         let serial = Serial::new(usart1);
+        let serial_protocol = SerialProtocol::new(serial);
 
         // sync inputs
         gpiob.moder.modify(|_,w| {w.moder0().input()});
@@ -170,11 +175,31 @@ const APP: () = {
         let crt_stats_live = CRTStats::default();
         let crt_stats = CRTStats::default();
         let crt_state = CRTState::default();
-        init::LateResources { gpioa, gpiob, dac, hot_driver, hsync_capture, crt_stats_live, crt_stats, crt_state, serial, adc }
+        let config = Config { crt: CRT_CONFIG_PANASONIC_S901Y };
+
+        // config queue for purposes of "double buffering" config
+        static mut CONFIG_QUEUE: Queue<Config, 2> = Queue::new();
+        // unsafe: we can fix this with rtic 0.6
+        let (config_queue_in, config_queue_out) = unsafe { CONFIG_QUEUE.split() };
+        init::LateResources {
+            gpioa,
+            gpiob,
+            dac,
+            hot_driver,
+            hsync_capture,
+            crt_stats_live,
+            crt_stats,
+            crt_state,
+            config,
+            config_queue_in,
+            config_queue_out,
+            serial_protocol,
+            adc
+        }
     }
 
     // internal hsync timer interrupt
-    #[task(binds = TIM1_UP_TIM10, resources = [gpioa, gpiob, dac, hot_driver, hsync_capture, crt_state, crt_stats_live, adc], spawn = [update_double_buffers], priority = 15)]
+    #[task(binds = TIM1_UP_TIM10, resources = [gpioa, gpiob, dac, hot_driver, hsync_capture, crt_state, config, config_queue_out, crt_stats_live, adc], spawn = [update_double_buffers], priority = 15)]
     fn tim1_up_tim10(cx: tim1_up_tim10::Context) {
         let crt_state = cx.resources.crt_state;
         let current_scanline = &mut crt_state.current_scanline;
@@ -185,6 +210,7 @@ const APP: () = {
         let hsync_capture = cx.resources.hsync_capture;
         let crt_stats = cx.resources.crt_stats_live;
         let adc = cx.resources.adc;
+        let config = cx.resources.config;
 
         // horizontal sync PLL
         // TODO: replace this software capture with a hardware capture
@@ -214,7 +240,6 @@ const APP: () = {
         }
 
         let VERTICAL_MAX_AMPS = 0.5;
-        let VERTICAL_MAGNITUDE_AMPS = 0.45;
         // vertical advance
         // vertical counter
         //let vga_vsync = gpiob.idr.read().idr0().bit();
@@ -231,7 +256,7 @@ const APP: () = {
         if *current_scanline >= (total_lines + 10) { *current_scanline = 0 };
         // convert scanline to a (+1, -1) range coordinate (+1 is top of screen)
         let horizontal_pos_coordinate = ((*current_scanline) - center_line) as f32 / (total_lines as f32) * -2.0;
-        let horizontal_amps = (horizontal_pos_coordinate * VERTICAL_MAGNITUDE_AMPS).clamp(-1.0*VERTICAL_MAX_AMPS, VERTICAL_MAX_AMPS);
+        let horizontal_amps = (horizontal_pos_coordinate * config.crt.v_mag_amps).clamp(-1.0*VERTICAL_MAX_AMPS, VERTICAL_MAX_AMPS);
         let AMPS_TO_VOLTS = 1.0;
         let VOLTS_TO_DAC_VALUE = 1.0/(3.3/4095.0);
         let dac_value = ((horizontal_amps * AMPS_TO_VOLTS * VOLTS_TO_DAC_VALUE) as i32 + DAC_MIDPOINT).clamp(0, 4095);
@@ -263,6 +288,11 @@ const APP: () = {
             let _ = cx.spawn.update_double_buffers();
         }
         *current_scanline += 1;
+
+        // update config if there's one in the queue
+        if let Some(new_config) = cx.resources.config_queue_out.dequeue() {
+            *config = new_config;
+        }
     }
 
     #[task(resources = [crt_stats_live, crt_stats], priority = 14, spawn = [send_stats])]
@@ -275,9 +305,15 @@ const APP: () = {
         let _ = c.spawn.send_stats();
     }
 
-    #[task(resources = [crt_stats, serial])]
+    #[task(binds = USART1, resources = [serial_protocol, config_queue_in])]
+    fn serial_rx(c: serial_rx::Context) {
+        let serial_protocol = c.resources.serial_protocol;
+        serial_protocol.process_byte(c.resources.config_queue_in);
+    }
+
+    #[task(resources = [crt_stats, serial_protocol])]
     fn send_stats(mut c: send_stats::Context) {
-        let serial = c.resources.serial;
+        let serial = &c.resources.serial_protocol.serial;
         let mut json_stats: [u8; 1024] = [0; 1024];
         let mut json_stats_len = 0;
         c.resources.crt_stats.lock(|crt_stats| {
@@ -316,6 +352,22 @@ pub struct CRTStats {
     s_voltage: u16,
 }
 
+/// Configuration to match driver board to a particular tube/yoke
+#[allow(unused)]
+#[derive(Copy, Clone, Deserialize)]
+pub struct CRTConfig {
+    v_mag_amps: f32,
+}
+
+static CRT_CONFIG_PANASONIC_S901Y: CRTConfig = CRTConfig {
+    v_mag_amps: 0.45
+};
+
+/// Complete runtime configuration, both CRT config + input config
+#[derive(Copy, Clone)]
+pub struct Config {
+    crt: CRTConfig
+}
 
 #[allow(unused)]
 pub struct HOTDriver {
@@ -396,7 +448,7 @@ pub struct Serial {
 impl Serial {
     fn new(usart: USART1) -> Serial {
         usart.brr.write(|w| { w.brr().bits((APB2_CLOCK*2*8/16/230400) as u16)});
-        usart.cr1.write(|w| { w.te().enabled().re().enabled().ue().enabled() });
+        usart.cr1.write(|w| { w.te().enabled().re().enabled().ue().enabled().rxneie().enabled() });
         Serial { usart }
     }
     fn write_blocking(&self, b: &[u8]) {
@@ -406,13 +458,13 @@ impl Serial {
         }
     }
     fn read_byte(&self) -> u8 {
-        return 0
+        return self.usart.rdr.read().bits() as u8
     }
 }
 
 pub struct SerialProtocol {
     serial: Serial,
-    raw_message: Vec<u8, 256>,
+    raw_message: Vec<u8, 1024>,
 }
 
 #[allow(dead_code)]
@@ -423,16 +475,20 @@ impl SerialProtocol {
             raw_message: Vec::new(),
         }
     }
-    fn process_byte(&mut self) {
+    fn process_byte(&mut self, config_queue_in: &mut Producer<'static, Config, 2>) {
         let b = self.serial.read_byte();
         if b == b'\n' {
-            self.process_message();
+            self.process_message(config_queue_in);
         } else {
             let _ = self.raw_message.push(b);
         }
     }
-    fn process_message(&mut self) {
-
+    fn process_message(&mut self, config_queue_in: &mut Producer<'static, Config, 2>) {
+        let parsed_crt_config: Result<(CRTConfig, _), serde_json_core::de::Error> = serde_json_core::from_slice(&self.raw_message);
+        if let Ok((crt_config, _)) = parsed_crt_config {
+            let _ = config_queue_in.enqueue(Config { crt: crt_config });
+        }
+        self.raw_message.clear();
     }
 }
 
