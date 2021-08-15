@@ -6,6 +6,7 @@ use rtic::app;
 use serde::{Serialize};
 use core::sync::atomic::{self, Ordering};
 use core::panic::PanicInfo;
+use heapless::Vec;
 
 const AHB_CLOCK: u32 = 216_000_000;
 const APB2_CLOCK: u32 = AHB_CLOCK / 2;
@@ -335,10 +336,12 @@ impl HOTDriver {
         tp.ccmr1_output().write(|w| {unsafe{w.oc1m().bits(0b110) }}); // PWM1
         tp.ccer.write(|w| { w.cc1e().set_bit().cc1ne().set_bit() });
         // initialize to 50% duty cycle at 200khz
-        tp.ccr1.write(|w| { w.ccr().bits(2680*0/10) });
-        tp.arr.write(|w| { w.arr().bits(2680) });
-        // minimum dead time experimentally seems to be 0x0D
-        tp.bdtr.write(|w| { unsafe { w.moe().enabled().dtg().bits(0x20) }}); // uwu
+        let h_pin_period = 2680;
+        tp.ccr1.write(|w| { w.ccr().bits(h_pin_period*19/20) });
+        tp.arr.write(|w| { w.arr().bits(h_pin_period) });
+        // the gate driver gets unhappy if dead time is > 0x09 for some reason
+        // below 0x04 causes shootthrough
+        tp.bdtr.write(|w| { unsafe { w.moe().enabled().dtg().bits(0x05) }}); // uwu
         tp.cr1.write(|w| { w.cen().enabled() });
         tp.egr.write(|w| { w.ug().set_bit() });
         HOTDriver {
@@ -401,6 +404,35 @@ impl Serial {
             while self.usart.isr.read().txe() == false {}
             self.usart.tdr.write(|w| { unsafe { w.tdr().bits((*c).into()) }});
         }
+    }
+    fn read_byte(&self) -> u8 {
+        return 0
+    }
+}
+
+pub struct SerialProtocol {
+    serial: Serial,
+    raw_message: Vec<u8, 256>,
+}
+
+#[allow(dead_code)]
+impl SerialProtocol {
+    fn new(serial: Serial) -> SerialProtocol {
+        SerialProtocol {
+            serial,
+            raw_message: Vec::new(),
+        }
+    }
+    fn process_byte(&mut self) {
+        let b = self.serial.read_byte();
+        if b == b'\n' {
+            self.process_message();
+        } else {
+            let _ = self.raw_message.push(b);
+        }
+    }
+    fn process_message(&mut self) {
+
     }
 }
 

@@ -389,6 +389,7 @@ dependencies = [
  "cortex-m-rt",
  "cortex-m-rtic",
  "cortex-m-semihosting",
+ "heapless 0.7.4",
  "serde",
  "serde-json-core",
  "stm32f7",

@@ -11,6 +11,7 @@ cortex-m-rt = "0.6.5"
 cortex-m-semihosting = "0.3.2"
 cortex-m-rtic = "0.5.7"
 serde-json-core = "0.4.0"
+heapless = "0.7"
 
 [dependencies.stm32f7]
 features = ["stm32f7x2","rt"]
