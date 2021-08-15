@@ -306,14 +306,21 @@ const APP: () = {
     }
 
     #[task(binds = USART1, resources = [serial_protocol, config_queue_in])]
-    fn serial_rx(c: serial_rx::Context) {
+    fn serial_interrupt(c: serial_interrupt::Context) {
         let serial_protocol = c.resources.serial_protocol;
-        serial_protocol.process_byte(c.resources.config_queue_in);
+        if serial_protocol.serial.usart.isr.read().rxne().bit() {
+            serial_protocol.process_byte(c.resources.config_queue_in);
+        }
+        if serial_protocol.serial.usart.isr.read().txe().bit() {
+            if let Some(c) = serial_protocol.serial.send_queue.dequeue() {
+                serial_protocol.serial.usart.tdr.write(|w| { unsafe { w.tdr().bits((c).into()) }});
+            }
+        }
     }
 
     #[task(resources = [crt_stats, serial_protocol])]
     fn send_stats(mut c: send_stats::Context) {
-        let serial = &c.resources.serial_protocol.serial;
+        let serial = &mut c.resources.serial_protocol.serial;
         let mut json_stats: [u8; 1024] = [0; 1024];
         let mut json_stats_len = 0;
         c.resources.crt_stats.lock(|crt_stats| {
@@ -322,8 +329,8 @@ const APP: () = {
                 Err(_) => (),
             };
         });
-        serial.write_blocking(&json_stats[..json_stats_len]);
-        serial.write_blocking(b"\n");
+        serial.write_queued(&json_stats[..json_stats_len]);
+        serial.write_queued(b"\n");
     }
 
     // Interrupt handlers used to dispatch software tasks
@@ -442,19 +449,28 @@ impl HSyncCapture {
 }
 
 pub struct Serial {
-    usart: USART1
+    usart: USART1,
+    send_queue: Queue<u8, 1024>,
 }
 
 impl Serial {
     fn new(usart: USART1) -> Serial {
         usart.brr.write(|w| { w.brr().bits((APB2_CLOCK*2*8/16/230400) as u16)});
-        usart.cr1.write(|w| { w.te().enabled().re().enabled().ue().enabled().rxneie().enabled() });
-        Serial { usart }
+        usart.cr1.write(|w| { w.te().enabled().re().enabled().ue().enabled().rxneie().enabled().txeie().enabled() });
+        Serial {
+            send_queue: Queue::new(),
+            usart
+        }
     }
-    fn write_blocking(&self, b: &[u8]) {
+    fn _write_blocking(&self, b: &[u8]) {
         for c in b {
             while self.usart.isr.read().txe() == false {}
             self.usart.tdr.write(|w| { unsafe { w.tdr().bits((*c).into()) }});
+        }
+    }
+    fn write_queued(&mut self, b: &[u8]) {
+        for c in b {
+            let _ = self.send_queue.enqueue(*c);
         }
     }
     fn read_byte(&self) -> u8 {
