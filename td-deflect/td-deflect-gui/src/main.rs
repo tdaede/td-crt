@@ -6,10 +6,14 @@ use std::{thread, time::Duration};
 use std::io::BufReader;
 use std::io::BufRead;
 use serialport;
-use serde::Deserialize;
+use serde::{Serialize, Deserialize};
 use gtk::pango::{AttrList, Attribute};
+use std::sync::mpsc::channel;
+use std::rc::Rc;
+use glib::clone;
 
 #[derive(Default, Copy, Clone, Deserialize)]
+#[allow(unused)]
 pub struct CRTStats {
     h_output_period: i32,
     h_output_period_min: i32,
@@ -20,6 +24,13 @@ pub struct CRTStats {
     hot_source_current: u16,
     v_lines: u16,
     s_voltage: u16,
+}
+
+#[derive(Copy, Clone, Serialize)]
+#[allow(unused)]
+pub struct CRTConfig {
+    v_mag_amps: f32,
+    v_mag_offset: f32,
 }
 
 fn main() {
@@ -80,6 +91,7 @@ fn build_ui(app: &Application) {
     let vertical_current_magnitude_label = Label::new(Some("Vertical current magnitude:"));
     geometry_settings_grid.attach(&vertical_current_magnitude_label, 0, 0, 1, 1);
     let vertical_current_magnitude_adj = SpinButton::with_range(0.0, 2.0, 0.01);
+    vertical_current_magnitude_adj.set_value(0.45);
     geometry_settings_grid.attach(&vertical_current_magnitude_adj, 1, 0, 1, 1);
     let vertical_current_offset_label = Label::new(Some("Vertical current offset:"));
     geometry_settings_grid.attach(&vertical_current_offset_label, 0, 1, 1, 1);
@@ -92,17 +104,46 @@ fn build_ui(app: &Application) {
 
     let (sender, receiver) = MainContext::channel::<CRTStats>(PRIORITY_DEFAULT);
 
+    let (tx_channel_sender, tx_channel_receiver) = channel::<CRTConfig>();
+    let tx_channel_sender_rc = Rc::new(tx_channel_sender);
+
     let serial_port_string = String::from(serial_selector.active_text().unwrap());
+
+    let send_crt_config = clone!(
+        @strong tx_channel_sender_rc,
+        @weak vertical_current_magnitude_adj,
+        @weak vertical_current_offset_adj => move || {
+        let crt_config = CRTConfig {
+            v_mag_amps: vertical_current_magnitude_adj.value() as f32,
+            v_mag_offset: vertical_current_offset_adj.value() as f32
+        };
+        tx_channel_sender_rc.send(crt_config).unwrap();
+    });
+
+    vertical_current_magnitude_adj.connect_value_changed(clone!(@strong send_crt_config => move |_| {
+        send_crt_config();
+    }));
+
+    vertical_current_offset_adj.connect_value_changed(clone!(@strong send_crt_config => move |_|  {
+        send_crt_config();
+    }));
 
     thread::spawn(move || {
         let mut serial = serialport::new(serial_port_string, 230400).open().expect("Failed to open port");
         serial.set_timeout(Duration::from_millis(100)).unwrap();
-        let reader = BufReader::new(serial);
-        for line in reader.lines() {
-            if let Ok(l) = line {
+        let mut reader = BufReader::new(serial.try_clone().unwrap());
+        loop {
+            let mut l = String::new();
+            if let Ok(_) = reader.read_line(&mut l) {
                 let parse_result: Result<CRTStats, serde_json::Error> = serde_json::from_str(&l);
                 if let Ok(stats) = parse_result {
                     sender.send(stats).expect("Could not send through channel");
+                }
+            }
+            if let Ok(crt_config) = tx_channel_receiver.try_recv() {
+                if let Ok(serialized_crt_config) = serde_json::to_vec(&crt_config) {
+                    serial.write(&serialized_crt_config).unwrap();
+                    serial.write(&[b'\n']).unwrap();
                 }
             }
         }
