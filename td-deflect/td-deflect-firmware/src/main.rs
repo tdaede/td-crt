@@ -239,7 +239,7 @@ const APP: () = {
             hot_driver.set_period(new_period as u32);
         }
 
-        let VERTICAL_MAX_AMPS = 0.5;
+        let VERTICAL_MAX_AMPS = 1.0;
         // vertical advance
         // vertical counter
         //let vga_vsync = gpiob.idr.read().idr0().bit();
@@ -256,7 +256,7 @@ const APP: () = {
         if *current_scanline >= (total_lines + 10) { *current_scanline = 0 };
         // convert scanline to a (+1, -1) range coordinate (+1 is top of screen)
         let horizontal_pos_coordinate = ((*current_scanline) - center_line) as f32 / (total_lines as f32) * -2.0;
-        let horizontal_amps = (horizontal_pos_coordinate * config.crt.v_mag_amps).clamp(-1.0*VERTICAL_MAX_AMPS, VERTICAL_MAX_AMPS);
+        let horizontal_amps = (horizontal_pos_coordinate * config.crt.v_mag_amps + config.crt.v_offset_amps).clamp(-1.0*VERTICAL_MAX_AMPS, VERTICAL_MAX_AMPS);
         let AMPS_TO_VOLTS = 1.0;
         let VOLTS_TO_DAC_VALUE = 1.0/(3.3/4095.0);
         let dac_value = ((horizontal_amps * AMPS_TO_VOLTS * VOLTS_TO_DAC_VALUE) as i32 + DAC_MIDPOINT).clamp(0, 4095);
@@ -364,10 +364,12 @@ pub struct CRTStats {
 #[derive(Copy, Clone, Deserialize)]
 pub struct CRTConfig {
     v_mag_amps: f32,
+    v_offset_amps: f32,
 }
 
 static CRT_CONFIG_PANASONIC_S901Y: CRTConfig = CRTConfig {
-    v_mag_amps: 0.45
+    v_mag_amps: 0.45,
+    v_offset_amps: 0.0,
 };
 
 /// Complete runtime configuration, both CRT config + input config

@@ -30,7 +30,7 @@ pub struct CRTStats {
 #[allow(unused)]
 pub struct CRTConfig {
     v_mag_amps: f32,
-    v_mag_offset: f32,
+    v_offset_amps: f32,
 }
 
 fn main() {
@@ -115,7 +115,7 @@ fn build_ui(app: &Application) {
         @weak vertical_current_offset_adj => move || {
         let crt_config = CRTConfig {
             v_mag_amps: vertical_current_magnitude_adj.value() as f32,
-            v_mag_offset: vertical_current_offset_adj.value() as f32
+            v_offset_amps: vertical_current_offset_adj.value() as f32
         };
         tx_channel_sender_rc.send(crt_config).unwrap();
     });
