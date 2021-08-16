@@ -1,5 +1,5 @@
 use gtk::prelude::*;
-use gtk::{Application, ApplicationWindow, Label, Box, Orientation, ComboBoxText, SpinButton, Grid};
+use gtk::{Application, ApplicationWindow, Label, Box, Orientation, ComboBoxText, SpinButton, Grid, Frame, Scale};
 use glib::{Continue, MainContext, PRIORITY_DEFAULT};
 use gtk::glib;
 use std::{thread, time::Duration};
@@ -86,19 +86,33 @@ fn build_ui(app: &Application) {
     let s_voltage_label = Label::new(Some("S-cap voltage: 0 V"));
     s_voltage_label.set_attributes(Some(&tnum));
     stats_box.append(&s_voltage_label);
+
+    let geometry_settings_frame = Frame::new(Some("CRT Configuration"));
     let geometry_settings_grid = Grid::new();
     geometry_settings_grid.set_column_spacing(10);
-    let vertical_current_magnitude_label = Label::new(Some("Vertical current magnitude:"));
+    let vertical_current_magnitude_label = Label::new(Some("Vertical current magnitude (A):"));
     geometry_settings_grid.attach(&vertical_current_magnitude_label, 0, 0, 1, 1);
     let vertical_current_magnitude_adj = SpinButton::with_range(0.0, 2.0, 0.01);
     vertical_current_magnitude_adj.set_value(0.45);
     geometry_settings_grid.attach(&vertical_current_magnitude_adj, 1, 0, 1, 1);
-    let vertical_current_offset_label = Label::new(Some("Vertical current offset:"));
+    let vertical_current_offset_label = Label::new(Some("Vertical current offset (A):"));
     geometry_settings_grid.attach(&vertical_current_offset_label, 0, 1, 1, 1);
     let vertical_current_offset_adj = SpinButton::with_range(-2.0, 2.0, 0.01);
     vertical_current_offset_adj.set_value(0.0);
     geometry_settings_grid.attach(&vertical_current_offset_adj, 1, 1, 1, 1);
-    stats_box.append(&geometry_settings_grid);
+    geometry_settings_frame.set_child(Some(&geometry_settings_grid));
+    stats_box.append(&geometry_settings_frame);
+
+    let input_settings_frame = Frame::new(Some("Input Configuration"));
+    let input_settings_grid = Grid::new();
+    input_settings_grid.set_column_spacing(10);
+    input_settings_grid.attach(&Label::new(Some("H. Size")), 0, 0, 1, 1);
+    let input_settings_h_size = Scale::with_range(Orientation::Horizontal, 0.5, 1.5, 0.01);
+    input_settings_h_size.set_value(1.0);
+    input_settings_h_size.set_width_request(200);
+    input_settings_grid.attach(&input_settings_h_size, 1, 0, 1, 1);
+    input_settings_frame.set_child(Some(&input_settings_grid));
+    stats_box.append(&input_settings_frame);
 
     window.set_child(Some(&stats_box));
 
