@@ -2254,6 +2254,20 @@
     (uuid 298bdc96-f02b-445a-b7ea-13d798faecd0)
   )
 
+  (text "todo: replace the -12V rail with a winding off the +12v converter"
+    (at 31.75 77.47 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 4cc05ed5-adf1-4bd3-8164-a3f05205bff4)
+  )
+  (text "todo: change startup resistors to start on lower vin"
+    (at 92.71 16.51 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid f6557280-4a1b-4d3a-9130-f454fd85c62d)
+  )
+  (text "todo: make these resistors 100x smaller" (at 223.52 121.92 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 90654ba8-818b-4375-b34c-2739087d493e)
+  )
   (text "HEATER" (at 262.89 142.24 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 5bcc56d8-e44e-4704-a712-0ae96ca532d1)

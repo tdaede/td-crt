@@ -1229,6 +1229,14 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 29495562-e0ec-468c-8348-325c3f63765a)
   )
+  (text "todo: add vertical switch pin" (at 93.98 151.13 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid c4a6bb97-692d-46be-ad28-b555954c1791)
+  )
+  (text "todo: drop this current sense, it's useless" (at 191.77 137.16 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid ef1a401e-1ef5-4329-af40-95ab210cbcea)
+  )
 
   (label "rx" (at 50.8 109.22 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
@@ -2193,7 +2201,7 @@
     (pin "4" (uuid 89e27843-36ce-4c3a-89b3-20ea2ebfc923))
   )
 
-  (symbol (lib_id "td-deflect-rescue:TPS76933-Regulator_Linear") (at 260.35 68.58 0)
+  (symbol (lib_id "td-deflect-rescue:TPS76933-Regulator_Linear") (at 260.35 68.58 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00005c2a75e9)
     (property "Reference" "U4" (id 0) (at 260.35 59.8932 0))
@@ -2214,7 +2222,7 @@
     (pin "5" (uuid 6c2932aa-400f-4f8c-b92b-3f1187ecad82))
   )
 
-  (symbol (lib_id "td-deflect-rescue:Conn_ARM_JTAG_SWD_10-Connector") (at 182.88 90.17 0)
+  (symbol (lib_id "td-deflect-rescue:Conn_ARM_JTAG_SWD_10-Connector") (at 182.88 90.17 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00005c38642a)
     (property "Reference" "J4" (id 0) (at 171.6278 89.0016 0)

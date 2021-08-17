@@ -2400,6 +2400,11 @@
     (uuid 10798b18-1b65-4289-8615-5626c4d79aaf)
   )
 
+  (text "todo: replace this chip entirely lol" (at 83.82 124.46 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 4ce932b6-13b5-4602-a943-1e9f949c277f)
+  )
+
   (label "red_vga" (at 25.4 83.82 180)
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 06bcebff-d2f7-4bd1-be65-5d12c9f5d39f)
