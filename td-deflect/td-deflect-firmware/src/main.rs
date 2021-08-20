@@ -400,9 +400,8 @@ impl HOTDriver {
         let h_pin_period = 2680;
         tp.ccr1.write(|w| { w.ccr().bits(h_pin_period*19/20) });
         tp.arr.write(|w| { w.arr().bits(h_pin_period) });
-        // the gate driver gets unhappy if dead time is > 0x09 for some reason
-        // below 0x04 causes shootthrough
-        tp.bdtr.write(|w| { unsafe { w.moe().enabled().dtg().bits(0x05) }}); // uwu
+        // with 75 ohm gate resistors, 0x30 is the best
+        tp.bdtr.write(|w| { unsafe { w.moe().enabled().dtg().bits(0x30) }}); // uwu
         tp.cr1.write(|w| { w.cen().enabled() });
         tp.egr.write(|w| { w.ug().set_bit() });
         HOTDriver {
