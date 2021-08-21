@@ -215,7 +215,8 @@ const APP: () = {
         // horizontal sync PLL
         // TODO: replace this software capture with a hardware capture
         let cycles_since_sync = hsync_capture.get_cycles_since_sync() as i32;
-        let input_period = hsync_capture.get_period() as i32;
+        hsync_capture.update();
+        let input_period = hsync_capture.get_period_averaged() as i32;
         let output_period = hot_driver.get_period() as i32;
         // if we are really far away frequency wise, just ignore this sync entirely
         if (output_period - input_period).abs() > ((MIN_H_PERIOD as i32) / 10){
@@ -224,11 +225,12 @@ const APP: () = {
             // values near
             // 0 are the largest error
             let error = if cycles_since_sync < (input_period / 2) {
-                cycles_since_sync.max(1)
+                cycles_since_sync.max(64)
             } else {
-                (cycles_since_sync - input_period).min(-1)
+                (cycles_since_sync - input_period).min(-16)
             };
-            let error_mag = (error.abs() * 1 / 32).max(2);
+            let error_mag = (error.abs() * 1 / 16).max(1);
+            //let error_mag = 0;
             let new_period = if error > 0 {
                 input_period - error_mag
             } else if error < 0 {
@@ -238,6 +240,8 @@ const APP: () = {
             };
             hot_driver.set_period(new_period as u32);
         }
+
+        hot_driver.soft_start_advance();
 
         let VERTICAL_MAX_AMPS = 1.0;
         // vertical advance
@@ -382,6 +386,9 @@ pub struct Config {
 pub struct HOTDriver {
     t: TIM10, // HOT output transistor timer
     tp: TIM1, // horizontal supply buck converter PWM
+    duty_setpoint: f32,
+    current_duty: f32,
+    h_pin_period: u16,
 }
 
 impl HOTDriver {
@@ -396,18 +403,31 @@ impl HOTDriver {
 
         tp.ccmr1_output().write(|w| {unsafe{w.oc1m().bits(0b110) }}); // PWM1
         tp.ccer.write(|w| { w.cc1e().set_bit().cc1ne().set_bit() });
-        // initialize to 50% duty cycle at 200khz
-        let h_pin_period = 2680;
-        tp.ccr1.write(|w| { w.ccr().bits(h_pin_period*19/20) });
+        // configure tp to reset whenever TIM3 (the input capture timer) does
+        // ideally we would reset on t (TIM10) but that's not possible
+        // this means a bad input can totally screw up our H size, that's pretty bad
+        tp.smcr.write(|w| { w.sms().bits(0b0100).ts().itr2() });
+        // initialize to longest possible period in case synchronization fails
+        let h_pin_period = MAX_H_PERIOD as u16;
+        tp.ccr1.write(|w| { w.ccr().bits(h_pin_period*0) });
         tp.arr.write(|w| { w.arr().bits(h_pin_period) });
-        // with 75 ohm gate resistors, 0x30 is the best
-        tp.bdtr.write(|w| { unsafe { w.moe().enabled().dtg().bits(0x30) }}); // uwu
+        // with 75 ohm gate resistors, 0x38 is the best
+        tp.bdtr.write(|w| { unsafe { w.moe().enabled().dtg().bits(0x38) }}); // uwu
         tp.cr1.write(|w| { w.cen().enabled() });
         tp.egr.write(|w| { w.ug().set_bit() });
         HOTDriver {
             t,
-            tp
+            tp,
+            duty_setpoint: 0.9,
+            current_duty: 0.0,
+            h_pin_period
         }
+    }
+    /// call once per horizontal period to update drive
+    fn soft_start_advance(&mut self) {
+        let max_change_per_iteration = 0.001;
+        self.current_duty = self.current_duty + (self.duty_setpoint - self.current_duty).clamp(-1.0*max_change_per_iteration, max_change_per_iteration);
+        self.tp.ccr1.write(|w| { w.ccr().bits((self.h_pin_period as f32 * self.current_duty) as u16)});
     }
     fn set_period(&self, mut period: u32) {
         period = period.clamp(AHB_CLOCK/MAX_H_FREQ, AHB_CLOCK/MIN_H_FREQ);
@@ -428,24 +448,42 @@ impl HOTDriver {
 
 pub struct HSyncCapture {
     t: TIM3,
+    previous_input_periods: [u32; HSyncCapture::AVERAGED_INPUT_PERIODS],
+    previous_input_periods_index: usize,
 }
 
 impl HSyncCapture {
+    const AVERAGED_INPUT_PERIODS: usize = 8;
     fn new(t: TIM3) -> HSyncCapture {
         t.ccmr1_output().write(|w| { unsafe { w.bits(0b0000_00_10_0000_00_01)}});
         t.smcr.write(|w| { unsafe { w.ts().bits(0b101).sms().bits(0b0100) }});
         t.ccer.write(|w| { w.cc1p().set_bit().cc1e().set_bit() });
         t.cr1.write(|w| { w.cen().enabled() });
         HSyncCapture {
-            t
+            t,
+            previous_input_periods: [MAX_H_PERIOD; HSyncCapture::AVERAGED_INPUT_PERIODS],
+            previous_input_periods_index: 0,
         }
     }
     // following functions multiply by 2 because of timer clock rate
     fn get_cycles_since_sync(&self) -> u32 {
         ((self.t.cnt.read().cnt().bits() & 0xFFFF) as u32) * 2
     }
+    fn update(&mut self) {
+        self.previous_input_periods[self.previous_input_periods_index] = self.get_period();
+        self.previous_input_periods_index = (self.previous_input_periods_index + 1) % HSyncCapture::AVERAGED_INPUT_PERIODS;
+    }
+    fn get_period_averaged(&self) -> u32 {
+        let mut avg = 0;
+        for a in self.previous_input_periods {
+            avg += a;
+        }
+        avg = (avg + (HSyncCapture::AVERAGED_INPUT_PERIODS as u32 >> 1)) / HSyncCapture::AVERAGED_INPUT_PERIODS as u32;
+        return avg;
+    }
     fn get_period(&self) -> u32 {
-        ((self.t.ccr1.read().ccr().bits() & 0xFFFF) as u32 + 1) * 2
+        // not entirely sure why this is +2 but it seems to be better
+        ((self.t.ccr1.read().ccr().bits() & 0xFFFF) as u32 + 2) * 2
     }
 }
 
