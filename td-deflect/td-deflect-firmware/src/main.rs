@@ -215,6 +215,7 @@ const APP: () = {
 
         // horizontal sync PLL
         // TODO: replace this software capture with a hardware capture
+        hot_driver.synchronize_h_pin();
         hsync_capture.update();
         let input_period = hsync_capture.get_period_averaged() as i32;
         let output_period = hot_driver.get_period() as i32;
@@ -223,7 +224,11 @@ const APP: () = {
             // yolo
         } else {
             let error = hsync_capture.get_phase_error_averaged();
-            let fb = (error * 0.25).clamp(-1.0, 1.0);
+            let fb = if (*current_scanline < 10) || (*current_scanline > 250) {
+                (error * 0.25).clamp(-2.0, 2.0)
+            } else {
+                0.0
+            };
             let fb_quantized = libm::roundf(fb) as i32;
             //let error_mag = 0;
             let new_period = input_period - fb_quantized;
@@ -396,7 +401,8 @@ impl HOTDriver {
         // configure tp to reset whenever TIM3 (the input capture timer) does
         // ideally we would reset on t (TIM10) but that's not possible
         // this means a bad input can totally screw up our H size, that's pretty bad
-        tp.smcr.write(|w| { w.sms().bits(0b0100).ts().itr2() });
+        // we now do this in software via synchronize_h_pin() instead
+        //tp.smcr.write(|w| { w.sms().bits(0b0100).ts().itr2() });
         // initialize to longest possible period in case synchronization fails
         let h_pin_period = MAX_H_PERIOD as u16;
         tp.ccr1.write(|w| { w.ccr().bits(h_pin_period*0) });
@@ -412,6 +418,11 @@ impl HOTDriver {
             current_duty: 0.0,
             h_pin_period
         }
+    }
+    /// call once per horizontal period to synchronize tp
+    #[inline(always)]
+    fn synchronize_h_pin(&mut self) {
+        self.tp.egr.write(|w| { w.ug().set_bit() });
     }
     /// call once per horizontal period to update drive
     fn soft_start_advance(&mut self) {
