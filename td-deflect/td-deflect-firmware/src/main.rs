@@ -8,6 +8,7 @@ use core::sync::atomic::{self, Ordering};
 use core::panic::PanicInfo;
 use heapless::Vec;
 use heapless::spsc::{Queue, Producer, Consumer};
+use libm;
 
 const AHB_CLOCK: u32 = 216_000_000;
 const APB2_CLOCK: u32 = AHB_CLOCK / 2;
@@ -214,7 +215,6 @@ const APP: () = {
 
         // horizontal sync PLL
         // TODO: replace this software capture with a hardware capture
-        let cycles_since_sync = hsync_capture.get_cycles_since_sync() as i32;
         hsync_capture.update();
         let input_period = hsync_capture.get_period_averaged() as i32;
         let output_period = hot_driver.get_period() as i32;
@@ -222,23 +222,13 @@ const APP: () = {
         if (output_period - input_period).abs() > ((MIN_H_PERIOD as i32) / 10){
             // yolo
         } else {
-            // values near
-            // 0 are the largest error
-            let error = if cycles_since_sync < (input_period / 2) {
-                cycles_since_sync.max(64)
-            } else {
-                (cycles_since_sync - input_period).min(-16)
-            };
-            let error_mag = (error.abs() * 1 / 16).max(1);
+            let error = hsync_capture.get_phase_error_averaged();
+            let fb = (error * 0.25).clamp(-1.0, 1.0);
+            let fb_quantized = libm::roundf(fb) as i32;
             //let error_mag = 0;
-            let new_period = if error > 0 {
-                input_period - error_mag
-            } else if error < 0 {
-                input_period + error_mag
-            } else {
-                input_period
-            };
+            let new_period = input_period - fb_quantized;
             hot_driver.set_period(new_period as u32);
+            hsync_capture.apply_phase_feedforward(fb_quantized);
         }
 
         hot_driver.soft_start_advance();
@@ -450,10 +440,13 @@ pub struct HSyncCapture {
     t: TIM3,
     previous_input_periods: [u32; HSyncCapture::AVERAGED_INPUT_PERIODS],
     previous_input_periods_index: usize,
+    previous_phase_errors: [i32; HSyncCapture::AVERAGED_PHASE_ERRORS],
+    previous_phase_errors_index: usize,
 }
 
 impl HSyncCapture {
-    const AVERAGED_INPUT_PERIODS: usize = 8;
+    const AVERAGED_INPUT_PERIODS: usize = 256;
+    const AVERAGED_PHASE_ERRORS: usize = 8;
     fn new(t: TIM3) -> HSyncCapture {
         t.ccmr1_output().write(|w| { unsafe { w.bits(0b0000_00_10_0000_00_01)}});
         t.smcr.write(|w| { unsafe { w.ts().bits(0b101).sms().bits(0b0100) }});
@@ -463,15 +456,38 @@ impl HSyncCapture {
             t,
             previous_input_periods: [MAX_H_PERIOD; HSyncCapture::AVERAGED_INPUT_PERIODS],
             previous_input_periods_index: 0,
+            previous_phase_errors: [0; HSyncCapture::AVERAGED_PHASE_ERRORS],
+            previous_phase_errors_index: 0,
         }
     }
     // following functions multiply by 2 because of timer clock rate
     fn get_cycles_since_sync(&self) -> u32 {
         ((self.t.cnt.read().cnt().bits() & 0xFFFF) as u32) * 2
     }
+    #[inline(always)]
     fn update(&mut self) {
-        self.previous_input_periods[self.previous_input_periods_index] = self.get_period();
+        let cycles_since_sync = self.get_cycles_since_sync() as i32; // important: must be executed first
+        let input_period = self.get_period();
+        self.previous_input_periods[self.previous_input_periods_index] = input_period;
         self.previous_input_periods_index = (self.previous_input_periods_index + 1) % HSyncCapture::AVERAGED_INPUT_PERIODS;
+        let error = if cycles_since_sync < (input_period as i32 / 2) {
+            cycles_since_sync.max(64)
+        } else {
+            (cycles_since_sync - input_period as i32).min(-16)
+        };
+        self.previous_phase_errors[self.previous_phase_errors_index] = error;
+        self.previous_phase_errors_index = (self.previous_phase_errors_index + 1) % HSyncCapture::AVERAGED_PHASE_ERRORS;
+    }
+    fn apply_phase_feedforward(&mut self, b: i32) {
+        self.previous_phase_errors[self.previous_phase_errors_index] -= b * 1;
+    }
+    fn get_phase_error_averaged(&self) -> f32 {
+        let mut avg: f32 = 0.0;
+        for a in self.previous_phase_errors {
+            avg += a as f32;
+        }
+        avg = avg / HSyncCapture::AVERAGED_PHASE_ERRORS as f32;
+        return avg;
     }
     fn get_period_averaged(&self) -> u32 {
         let mut avg = 0;

@@ -236,6 +236,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "libm"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c7d73b3f436185384286bd8098d17ec07c9a7d2388a6599f824d8502b529702a"
+
+[[package]]
 name = "nb"
 version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -390,6 +396,7 @@ dependencies = [
  "cortex-m-rtic",
  "cortex-m-semihosting",
  "heapless 0.7.4",
+ "libm",
  "serde",
  "serde-json-core",
  "stm32f7",
