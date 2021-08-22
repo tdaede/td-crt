@@ -200,6 +200,8 @@ const APP: () = {
     }
 
     // internal hsync timer interrupt
+    //#[inline(never)]
+    //#[link_section = ".data.TIM1_UP_TIM10"]
     #[task(binds = TIM1_UP_TIM10, resources = [gpioa, gpiob, dac, hot_driver, hsync_capture, crt_state, config, config_queue_out, crt_stats_live, adc], spawn = [update_double_buffers], priority = 15)]
     fn tim1_up_tim10(cx: tim1_up_tim10::Context) {
         let crt_state = cx.resources.crt_state;
@@ -227,6 +229,7 @@ const APP: () = {
             let fb = if (*current_scanline < 10) || (*current_scanline > 250) {
                 (error * 0.25).clamp(-2.0, 2.0)
             } else {
+                //(error * 0.25).clamp(-2.0, 2.0)
                 0.0
             };
             let fb_quantized = libm::roundf(fb) as i32;
@@ -472,6 +475,7 @@ impl HSyncCapture {
         }
     }
     // following functions multiply by 2 because of timer clock rate
+    #[inline(always)]
     fn get_cycles_since_sync(&self) -> u32 {
         ((self.t.cnt.read().cnt().bits() & 0xFFFF) as u32) * 2
     }
