@@ -200,8 +200,8 @@ const APP: () = {
     }
 
     // internal hsync timer interrupt
-    //#[inline(never)]
-    //#[link_section = ".data.TIM1_UP_TIM10"]
+  //  #[inline(never)]
+  //  #[link_section = ".data.TIM1_UP_TIM10"]
     #[task(binds = TIM1_UP_TIM10, resources = [gpioa, gpiob, dac, hot_driver, hsync_capture, crt_state, config, config_queue_out, crt_stats_live, adc], spawn = [update_double_buffers], priority = 15)]
     fn tim1_up_tim10(cx: tim1_up_tim10::Context) {
         let crt_state = cx.resources.crt_state;
@@ -218,7 +218,9 @@ const APP: () = {
         // horizontal sync PLL
         // TODO: replace this software capture with a hardware capture
         hot_driver.synchronize_h_pin();
+        atomic::compiler_fence(Ordering::SeqCst);
         hsync_capture.update();
+        atomic::compiler_fence(Ordering::SeqCst);
         let input_period = hsync_capture.get_period_averaged() as i32;
         let output_period = hot_driver.get_period() as i32;
         // if we are really far away frequency wise, just ignore this sync entirely
@@ -227,10 +229,10 @@ const APP: () = {
         } else {
             let error = hsync_capture.get_phase_error_averaged();
             let fb = if (*current_scanline < 10) || (*current_scanline > 250) {
-                (error * 0.25).clamp(-2.0, 2.0)
+                (error * 0.25).clamp(-3.0, 3.0)
             } else {
-                //(error * 0.25).clamp(-2.0, 2.0)
-                0.0
+                (error * 0.25).clamp(-1.0, 1.0)
+                //0.0
             };
             let fb_quantized = libm::roundf(fb) as i32;
             //let error_mag = 0;
@@ -482,16 +484,22 @@ impl HSyncCapture {
     #[inline(always)]
     fn update(&mut self) {
         let cycles_since_sync = self.get_cycles_since_sync() as i32; // important: must be executed first
-        let input_period = self.get_period();
-        self.previous_input_periods[self.previous_input_periods_index] = input_period;
-        self.previous_input_periods_index = (self.previous_input_periods_index + 1) % HSyncCapture::AVERAGED_INPUT_PERIODS;
-        let error = if cycles_since_sync < (input_period as i32 / 2) {
-            cycles_since_sync.max(64)
+        atomic::compiler_fence(Ordering::SeqCst);
+        let input_period = self.get_period() as i32;
+        let previous_input_period = self.previous_input_periods[self.previous_input_periods_index] as i32;
+        if (previous_input_period - input_period).abs() > ((MIN_H_PERIOD as i32) / 10) {
+            // don't update any averages for outliers
         } else {
-            (cycles_since_sync - input_period as i32).min(-16)
-        };
-        self.previous_phase_errors[self.previous_phase_errors_index] = error;
-        self.previous_phase_errors_index = (self.previous_phase_errors_index + 1) % HSyncCapture::AVERAGED_PHASE_ERRORS;
+            self.previous_input_periods[self.previous_input_periods_index] = input_period as u32;
+            self.previous_input_periods_index = (self.previous_input_periods_index + 1) % HSyncCapture::AVERAGED_INPUT_PERIODS;
+            let error = if cycles_since_sync < (input_period as i32 / 2) {
+                cycles_since_sync.max(64)
+            } else {
+                (cycles_since_sync - input_period as i32).min(-16)
+            };
+            self.previous_phase_errors[self.previous_phase_errors_index] = error;
+            self.previous_phase_errors_index = (self.previous_phase_errors_index + 1) % HSyncCapture::AVERAGED_PHASE_ERRORS;
+        }
     }
     fn apply_phase_feedforward(&mut self, b: i32) {
         self.previous_phase_errors[self.previous_phase_errors_index] -= b * 1;
