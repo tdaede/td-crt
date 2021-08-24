@@ -231,8 +231,8 @@ const APP: () = {
             let fb = if (*current_scanline < 10) || (*current_scanline > 250) {
                 (error * 0.25).clamp(-3.0, 3.0)
             } else {
-                (error * 0.25).clamp(-1.0, 1.0)
-                //0.0
+                //(error * 0.25).clamp(-1.0, 1.0)
+                0.0
             };
             let fb_quantized = libm::roundf(fb) as i32;
             //let error_mag = 0;
