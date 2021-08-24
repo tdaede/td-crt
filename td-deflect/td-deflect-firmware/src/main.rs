@@ -99,6 +99,8 @@ const APP: () = {
             w.ppre2().bits(0b100).ppre1().bits(0b101).sw().pll()}
         });
 
+        rcc.dckcfgr1.write(|w| { w.timpre().set_bit() });
+
         rcc.ahb1enr.modify(|_,w| { w.gpioaen().bit(true) });
         rcc.ahb1enr.modify(|_,w| { w.gpioben().bit(true) });
         rcc.ahb1enr.modify(|_,w| { w.gpiocen().bit(true) });
@@ -479,7 +481,7 @@ impl HSyncCapture {
     // following functions multiply by 2 because of timer clock rate
     #[inline(always)]
     fn get_cycles_since_sync(&self) -> u32 {
-        ((self.t.cnt.read().cnt().bits() & 0xFFFF) as u32) * 2
+        (self.t.cnt.read().cnt().bits() & 0xFFFF) as u32
     }
     #[inline(always)]
     fn update(&mut self) {
@@ -522,7 +524,7 @@ impl HSyncCapture {
     }
     fn get_period(&self) -> u32 {
         // not entirely sure why this is +2 but it seems to be better
-        ((self.t.ccr1.read().ccr().bits() & 0xFFFF) as u32 + 2) * 2
+        (self.t.ccr1.read().ccr().bits() & 0xFFFF) as u32 + 2
     }
 }
 
