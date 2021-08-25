@@ -2,7 +2,7 @@ set -e
 cargo build --release
 gdb -nx --batch \
   -ex 'target extended-remote /dev/ttyACM0' \
-  -ex 'monitor jtag_scan' \
+  -ex 'monitor swdp_scan' \
   -ex 'attach 1' \
   -ex 'load' \
   -ex 'compare-sections' \

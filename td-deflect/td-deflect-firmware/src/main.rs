@@ -113,8 +113,15 @@ const APP: () = {
 
         gpioa.moder.modify(|_,w| { w.moder5().output() });
 
-        gpiob.afrh.modify(|_,w| { w.afrh8().af3() });
-        gpiob.moder.modify(|_,w| { w.moder8().alternate() });
+        // HOT output
+        // old TIM10 connected lines
+        //gpiob.afrh.modify(|_,w| { w.afrh8().af3() });
+        //gpiob.moder.modify(|_,w| { w.moder8().alternate() });
+        // new TIM1 CH4 connected lines
+        gpioa.afrh.modify(|_,w| { w.afrh11().af1() });
+        gpioa.moder.modify(|_,w| { w.moder11().alternate() });
+
+        // hsync input
         gpioa.afrl.modify(|_,w| { w.afrl6().af2() });
         gpioa.moder.modify(|_,w| { w. moder6().alternate() });
 
@@ -164,7 +171,7 @@ const APP: () = {
 
         //nvic.enable(Interrupt::EXTI0);
 
-        let hot_driver = HOTDriver::new(s.TIM10, s.TIM1);
+        let mut hot_driver = HOTDriver::new(s.TIM10, s.TIM1);
         let hsync_capture = HSyncCapture::new(s.TIM3);
         hot_driver.set_frequency(15700);
 
@@ -269,7 +276,7 @@ const APP: () = {
         dac.dhr12r1.write(|w| { unsafe { w.bits(dac_value as u32) }});
 
         // clear interrupt flag for tim10
-        hot_driver.t.sr.write(|w| w.uif().bit(false));
+        hot_driver.tp.sr.write(|w| w.uif().bit(false));
 
         // update stats
         crt_stats.h_input_period = input_period;
@@ -386,7 +393,7 @@ pub struct Config {
 
 #[allow(unused)]
 pub struct HOTDriver {
-    t: TIM10, // HOT output transistor timer
+    //t: TIM10, // HOT output transistor timer
     tp: TIM1, // horizontal supply buck converter PWM
     duty_setpoint: f32,
     current_duty: f32,
@@ -394,7 +401,8 @@ pub struct HOTDriver {
 }
 
 impl HOTDriver {
-    fn new(t: TIM10, tp: TIM1) -> HOTDriver {
+    fn new(_t: TIM10, tp: TIM1) -> HOTDriver {
+        /*
         t.ccmr1_output().write(|w| { unsafe { w.oc1m().bits(0b111) }}); // PWM2
         t.ccer.write(|w| { w.cc1e().set_bit() });
         t.ccr1.write(|w| { unsafe { w.ccr().bits((AHB_CLOCK/15700*1/2) as u16) }});
@@ -402,9 +410,14 @@ impl HOTDriver {
         t.cr1.write(|w| { w.cen().enabled().urs().bit(true) });
         t.egr.write(|w| { w.ug().set_bit() });
         t.dier.write(|w| { w.uie().set_bit() });
+        */
 
         tp.ccmr1_output().write(|w| {unsafe{w.oc1m().bits(0b110) }}); // PWM1
         tp.ccer.write(|w| { w.cc1e().set_bit().cc1ne().set_bit() });
+        // configuration for HOT
+        tp.ccmr2_output().write(|w| { unsafe { w.oc4m().bits(0b111) } }); // PWM2
+        tp.ccer.modify(|_,w| { w.cc4e().set_bit() });
+        tp.ccr4.write(|w| { w.ccr().bits((MAX_H_PERIOD*1/2) as u16) });
         // configure tp to reset whenever TIM3 (the input capture timer) does
         // ideally we would reset on t (TIM10) but that's not possible
         // this means a bad input can totally screw up our H size, that's pretty bad
@@ -416,10 +429,11 @@ impl HOTDriver {
         tp.arr.write(|w| { w.arr().bits(h_pin_period) });
         // with 75 ohm gate resistors, 0x38 is the best
         tp.bdtr.write(|w| { unsafe { w.moe().enabled().dtg().bits(0x38) }}); // uwu
-        tp.cr1.write(|w| { w.cen().enabled() });
+        tp.cr1.write(|w| { w.cen().enabled().urs().bit(true) });
         tp.egr.write(|w| { w.ug().set_bit() });
+        tp.dier.write(|w| { w.uie().set_bit() });
         HOTDriver {
-            t,
+            //t,
             tp,
             duty_setpoint: 0.9,
             current_duty: 0.0,
@@ -429,7 +443,7 @@ impl HOTDriver {
     /// call once per horizontal period to synchronize tp
     #[inline(always)]
     fn synchronize_h_pin(&mut self) {
-        self.tp.egr.write(|w| { w.ug().set_bit() });
+        //self.tp.egr.write(|w| { w.ug().set_bit() });
     }
     /// call once per horizontal period to update drive
     fn soft_start_advance(&mut self) {
@@ -437,16 +451,17 @@ impl HOTDriver {
         self.current_duty = self.current_duty + (self.duty_setpoint - self.current_duty).clamp(-1.0*max_change_per_iteration, max_change_per_iteration);
         self.tp.ccr1.write(|w| { w.ccr().bits((self.h_pin_period as f32 * self.current_duty) as u16)});
     }
-    fn set_period(&self, mut period: u32) {
+    fn set_period(&mut self, mut period: u32) {
         period = period.clamp(AHB_CLOCK/MAX_H_FREQ, AHB_CLOCK/MIN_H_FREQ);
         let turn_off_time = period * 1 / 4;
-        self.t.arr.write(|w| { unsafe { w.arr().bits(period as u16 - 1) }});
-        self.t.ccr1.write(|w| { unsafe { w.ccr().bits(turn_off_time as u16) }});
+        self.tp.arr.write(|w| { unsafe { w.arr().bits(period as u16 - 1) }});
+        self.tp.ccr4.write(|w| { unsafe { w.ccr().bits(turn_off_time as u16) }});
+        self.h_pin_period = period as u16;
     }
     fn get_period(&self) -> u32 {
-        self.t.arr.read().bits() + 1
+        self.tp.arr.read().bits() + 1
     }
-    fn set_frequency(&self, mut f: u32) {
+    fn set_frequency(&mut self, mut f: u32) {
         f = f.clamp(MIN_H_FREQ, MAX_H_FREQ);
         let timer_freq = AHB_CLOCK;
         let period = timer_freq / f;
