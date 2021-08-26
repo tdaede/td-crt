@@ -482,7 +482,7 @@ pub struct HSyncCapture {
 
 impl HSyncCapture {
     const AVERAGED_INPUT_PERIODS: usize = 256;
-    const AVERAGED_PHASE_ERRORS: usize = 2;
+    const AVERAGED_PHASE_ERRORS: usize = 4;
     fn new(t: TIM3) -> HSyncCapture {
         t.ccmr1_output().write(|w| { unsafe { w.bits(0b0000_00_10_0000_00_01)}});
         t.ccmr2_input().write(|w| { unsafe { w.cc4s().bits(0b01) } });
