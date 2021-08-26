@@ -273,7 +273,8 @@ const APP: () = {
         if *current_scanline >= (total_lines + 10) { *current_scanline = 0 };
         // convert scanline to a (+1, -1) range coordinate (+1 is top of screen)
         let horizontal_pos_coordinate = ((*current_scanline) - center_line) as f32 / (total_lines as f32) * -2.0;
-        let horizontal_amps = (horizontal_pos_coordinate * config.crt.v_mag_amps + config.crt.v_offset_amps).clamp(-1.0*VERTICAL_MAX_AMPS, VERTICAL_MAX_AMPS);
+        let VERTICAL_LINEARITY = 0.4;
+        let horizontal_amps = (horizontal_pos_coordinate * config.crt.v_mag_amps * libm::cosf(horizontal_pos_coordinate * VERTICAL_LINEARITY) + config.crt.v_offset_amps).clamp(-1.0*VERTICAL_MAX_AMPS, VERTICAL_MAX_AMPS);
         let AMPS_TO_VOLTS = 1.0;
         let VOLTS_TO_DAC_VALUE = 1.0/(3.3/4095.0);
         let dac_value = ((horizontal_amps * AMPS_TO_VOLTS * VOLTS_TO_DAC_VALUE) as i32 + DAC_MIDPOINT).clamp(0, 4095);
