@@ -124,6 +124,9 @@ const APP: () = {
         // hsync input
         gpioa.afrl.modify(|_,w| { w.afrl6().af2() });
         gpioa.moder.modify(|_,w| { w. moder6().alternate() });
+        // loopback signal from H.PIN OUT for phase measurement
+        gpiob.afrl.modify(|_,w| {w.afrl1().af2() }); // TIM3_CH4
+        gpiob.moder.modify(|_,w| {w.moder1().alternate() });
 
         // serial input/output
         gpioa.afrh.modify(|_,w| { w.afrh9().af7() });
@@ -240,8 +243,8 @@ const APP: () = {
             let fb = if (*current_scanline < 10) || (*current_scanline > 250) {
                 (error * 0.25).clamp(-3.0, 3.0)
             } else {
-                //(error * 0.25).clamp(-1.0, 1.0)
-                0.0
+                (error * 0.25).clamp(-1.0, 1.0)
+                //0.0
             };
             let fb_quantized = libm::roundf(fb) as i32;
             //let error_mag = 0;
@@ -479,11 +482,14 @@ pub struct HSyncCapture {
 
 impl HSyncCapture {
     const AVERAGED_INPUT_PERIODS: usize = 256;
-    const AVERAGED_PHASE_ERRORS: usize = 8;
+    const AVERAGED_PHASE_ERRORS: usize = 2;
     fn new(t: TIM3) -> HSyncCapture {
         t.ccmr1_output().write(|w| { unsafe { w.bits(0b0000_00_10_0000_00_01)}});
+        t.ccmr2_input().write(|w| { unsafe { w.cc4s().bits(0b01) } });
         t.smcr.write(|w| { unsafe { w.ts().bits(0b101).sms().bits(0b0100) }});
-        t.ccer.write(|w| { w.cc1p().set_bit().cc1e().set_bit() });
+        // CH1 is configured to reset the counter and measure H period
+        // CH4 is configured for capture to measure H phase error
+        t.ccer.write(|w| { w.cc1p().set_bit().cc1e().set_bit().cc4p().clear_bit().cc4np().clear_bit().cc4e().set_bit() });
         t.cr1.write(|w| { w.cen().enabled() });
         HSyncCapture {
             t,
@@ -493,10 +499,10 @@ impl HSyncCapture {
             previous_phase_errors_index: 0,
         }
     }
-    // following functions multiply by 2 because of timer clock rate
     #[inline(always)]
     fn get_cycles_since_sync(&self) -> u32 {
-        (self.t.cnt.read().cnt().bits() & 0xFFFF) as u32
+        (self.t.ccr4.read().ccr().bits() & 0xFFFF) as u32
+        //(self.t.cnt.read().cnt().bits() & 0xFFFF) as u32
     }
     #[inline(always)]
     fn update(&mut self) {
