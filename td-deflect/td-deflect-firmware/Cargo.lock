@@ -107,9 +107,9 @@ dependencies = [
 
 [[package]]
 name = "cortex-m-rtic"
-version = "0.5.7"
+version = "0.5.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9845c4c7f7af19e216a2d00345f7f1507b8907b85cd551e403d68baeec342bb3"
+checksum = "5cc9d4655a80c8f63cb4cd52793301d0d79b4b935ddfc1deb789eb7cb8cbb3b4"
 dependencies = [
  "cortex-m 0.6.7",
  "cortex-m-rt",
@@ -216,9 +216,9 @@ dependencies = [
 
 [[package]]
 name = "heapless"
-version = "0.7.4"
+version = "0.7.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "767c746c1943728fb6f2cdb24b2cbe292dd4d6976640758060adf4bb9855a7ca"
+checksum = "50530280e9a947b192e3a30a9d7bcead527b22da30ff7cbd334233d820aaf82a"
 dependencies = [
  "atomic-polyfill",
  "hash32 0.2.1",
@@ -329,9 +329,9 @@ checksum = "388a1df253eca08550bef6c72392cfe7c30914bf41df5269b68cbd6ff8f570a3"
 
 [[package]]
 name = "serde"
-version = "1.0.127"
+version = "1.0.129"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f03b9878abf6d14e6779d3f24f07b2cfa90352cfec4acc5aab8f1ac7f146fae8"
+checksum = "d1f72836d2aa753853178eda473a3b9d8e4eefdaf20523b919677e6de489f8f1"
 dependencies = [
  "serde_derive",
 ]
@@ -342,16 +342,16 @@ version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8014aeea272bca0f0779778d43253f2f3375b414185b30e6ecc4d3e4a9994781"
 dependencies = [
- "heapless 0.7.4",
+ "heapless 0.7.5",
  "ryu",
  "serde",
 ]
 
 [[package]]
 name = "serde_derive"
-version = "1.0.127"
+version = "1.0.129"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a024926d3432516606328597e0f224a51355a493b49fdd67e9209187cbe55ecc"
+checksum = "e57ae87ad533d9a56427558b516d0adac283614e347abf85b0dc0cbbf0a249f3"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -378,9 +378,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "1.0.74"
+version = "1.0.75"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1873d832550d4588c3dbc20f01361ab00bfe741048f71e3fecf145a7cc18b29c"
+checksum = "b7f58f7e8eaa0009c5fec437aabf511bd9933e4b2d7407bd05273c01a8906ea7"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -395,7 +395,7 @@ dependencies = [
  "cortex-m-rt",
  "cortex-m-rtic",
  "cortex-m-semihosting",
- "heapless 0.7.4",
+ "heapless 0.7.5",
  "libm",
  "serde",
  "serde-json-core",
