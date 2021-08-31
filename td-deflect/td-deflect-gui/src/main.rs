@@ -31,6 +31,8 @@ pub struct CRTStats {
 pub struct CRTConfig {
     v_mag_amps: f32,
     v_offset_amps: f32,
+    #[serde(default)]
+    vertical_linearity: f32,
 }
 
 fn main() {
@@ -101,6 +103,11 @@ fn build_ui(app: &Application) {
     vertical_current_offset_adj.set_value(0.0);
     geometry_settings_grid.attach(&vertical_current_offset_adj, 1, 1, 1, 1);
     geometry_settings_frame.set_child(Some(&geometry_settings_grid));
+    geometry_settings_grid.attach(&Label::new(Some("V. Linearity")), 0, 2, 1, 1);
+    let v_lin = Scale::with_range(Orientation::Horizontal, 0.0, 1.0, 0.01);
+    v_lin.set_value(0.5);
+    v_lin.set_width_request(200);
+    geometry_settings_grid.attach(&v_lin, 1, 2, 1, 1);
     stats_box.append(&geometry_settings_frame);
 
     let input_settings_frame = Frame::new(Some("Input Configuration"));
@@ -126,10 +133,12 @@ fn build_ui(app: &Application) {
     let send_crt_config = clone!(
         @strong tx_channel_sender_rc,
         @weak vertical_current_magnitude_adj,
-        @weak vertical_current_offset_adj => move || {
+        @weak vertical_current_offset_adj,
+        @weak v_lin => move || {
         let crt_config = CRTConfig {
             v_mag_amps: vertical_current_magnitude_adj.value() as f32,
-            v_offset_amps: vertical_current_offset_adj.value() as f32
+            v_offset_amps: vertical_current_offset_adj.value() as f32,
+            vertical_linearity: v_lin.value() as f32,
         };
         tx_channel_sender_rc.send(crt_config).unwrap();
     });
@@ -139,6 +148,10 @@ fn build_ui(app: &Application) {
     }));
 
     vertical_current_offset_adj.connect_value_changed(clone!(@strong send_crt_config => move |_|  {
+        send_crt_config();
+    }));
+
+    v_lin.connect_value_changed(clone!(@strong send_crt_config => move |_|  {
         send_crt_config();
     }));
 

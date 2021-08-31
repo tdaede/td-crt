@@ -153,7 +153,7 @@ const APP: () = {
         gpioc.odr.modify(|_,w| {w.odr14().bit(true)}); // start up with blanking enabled
 
         // S-cap lines
-        gpioc.odr.modify(|_,w| { w.odr0().bit(true).odr1().bit(true).odr2().bit(true).odr3().bit(true) });
+        gpioc.odr.modify(|_,w| { w.odr0().bit(true).odr1().bit(false).odr2().bit(false).odr3().bit(false) });
         gpioc.moder.modify(|_,w| { w.moder0().output().moder1().output().moder2().output().moder3().output() });
 
         // Vertical DAC output
@@ -275,7 +275,12 @@ const APP: () = {
         let horizontal_pos_coordinate = ((*current_scanline) - center_line) as f32 / (total_lines as f32) * -2.0;
         let vertical_linearity = config.crt.vertical_linearity;
         let vertical_linearity_scale = 1.0 / libm::atanf(1.0 * vertical_linearity);
-        let horizontal_amps = (libm::atanf(horizontal_pos_coordinate * vertical_linearity) * vertical_linearity_scale * config.crt.v_mag_amps + config.crt.v_offset_amps).clamp(-1.0*VERTICAL_MAX_AMPS, VERTICAL_MAX_AMPS);
+        let horizontal_coordinate_corrected = if vertical_linearity < 0.1 {
+            horizontal_pos_coordinate
+        } else {
+            libm::atanf(horizontal_pos_coordinate * vertical_linearity) * vertical_linearity_scale
+        };
+        let horizontal_amps = (horizontal_coordinate_corrected * config.crt.v_mag_amps + config.crt.v_offset_amps).clamp(-1.0*VERTICAL_MAX_AMPS, VERTICAL_MAX_AMPS);
         let AMPS_TO_VOLTS = 1.0;
         let VOLTS_TO_DAC_VALUE = 1.0/(3.3/4095.0);
         let dac_value = ((horizontal_amps * AMPS_TO_VOLTS * VOLTS_TO_DAC_VALUE) as i32 + DAC_MIDPOINT).clamp(0, 4095);
