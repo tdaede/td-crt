@@ -235,28 +235,28 @@ const APP: () = {
         atomic::compiler_fence(Ordering::SeqCst);
         hsync_capture.update();
         atomic::compiler_fence(Ordering::SeqCst);
-        let input_period = hsync_capture.get_period_averaged() as i32;
+        let input_period = hsync_capture.get_period_averaged();
         let output_period = hot_driver.get_period() as i32;
         // if we are really far away frequency wise, just ignore this sync entirely
-        if (output_period - input_period).abs() > ((MIN_H_PERIOD as i32) / 10){
+        if (output_period - input_period as i32).abs() > ((MIN_H_PERIOD as i32) / 10){
             // yolo
         } else {
             let error = hsync_capture.get_phase_error_averaged();
-            let FEEDBACK_GAIN = 0.1;
+            let FEEDBACK_GAIN = 0.001;
             let fb = if (*current_scanline < 10) || (*current_scanline > 250) {
                 (error * FEEDBACK_GAIN).clamp(-3.0, 3.0)
             } else {
                 (error * FEEDBACK_GAIN).clamp(-1.0, 1.0)
-                //0.0
+                  //0.0
             };
-            let fb_quantized = libm::roundf(fb) as i32;
+            //let fb_quantized = libm::roundf(fb) as i32;
             //let error_mag = 0;
-            let new_period = input_period - fb_quantized;
-            hot_driver.set_period(new_period as u32);
-            hsync_capture.apply_phase_feedforward(fb_quantized);
+            let new_period = input_period - fb;
+            hot_driver.set_period_float(new_period);
+            //hsync_capture.apply_phase_feedforward(fb_quantized);
         }
 
-        hot_driver.soft_start_advance();
+        hot_driver.update();
 
         let VERTICAL_MAX_AMPS = 1.0;
         // vertical advance
@@ -289,12 +289,12 @@ const APP: () = {
         hot_driver.tp.sr.write(|w| w.uif().bit(false));
 
         // update stats
-        crt_stats.h_input_period = input_period;
-        crt_stats.h_input_period_max = crt_stats.h_input_period_max.max(input_period);
+        crt_stats.h_input_period = input_period as i32;
+        crt_stats.h_input_period_max = crt_stats.h_input_period_max.max(input_period as i32);
         if crt_stats.h_input_period_min == 0 {
-            crt_stats.h_input_period_min = input_period;
+            crt_stats.h_input_period_min = input_period as i32;
         }
-        crt_stats.h_input_period_min = crt_stats.h_input_period_min.min(input_period);
+        crt_stats.h_input_period_min = crt_stats.h_input_period_min.min(input_period as i32);
         crt_stats.h_output_period = output_period;
         crt_stats.h_output_period_max = crt_stats.h_output_period_max.max(output_period);
         if crt_stats.h_output_period_min == 0 {
@@ -411,6 +411,8 @@ pub struct HOTDriver {
     duty_setpoint: f32,
     current_duty: f32,
     h_pin_period: u16,
+    period: f32,
+    accumulator: f32,
 }
 
 impl HOTDriver {
@@ -450,7 +452,9 @@ impl HOTDriver {
             tp,
             duty_setpoint: 0.9,
             current_duty: 0.0,
-            h_pin_period
+            h_pin_period,
+            period: MAX_H_PERIOD as f32,
+            accumulator: 0.0,
         }
     }
     /// call once per horizontal period to synchronize tp
@@ -459,10 +463,18 @@ impl HOTDriver {
         //self.tp.egr.write(|w| { w.ug().set_bit() });
     }
     /// call once per horizontal period to update drive
-    fn soft_start_advance(&mut self) {
+    fn update(&mut self) {
+        // update error diffusion for h period
+        let period_quantized = (self.period + self.accumulator) as u32;
+        self.accumulator += self.period - period_quantized as f32;
+        self.set_period(period_quantized as u32);
+        // update h pin duty
         let max_change_per_iteration = 0.001;
         self.current_duty = self.current_duty + (self.duty_setpoint - self.current_duty).clamp(-1.0*max_change_per_iteration, max_change_per_iteration);
         self.tp.ccr1.write(|w| { w.ccr().bits((self.h_pin_period as f32 * self.current_duty) as u16)});
+    }
+    fn set_period_float(&mut self, period: f32) {
+        self.period = period;
     }
     fn set_period(&mut self, mut period: u32) {
         period = period.clamp(AHB_CLOCK/MAX_H_FREQ, AHB_CLOCK/MIN_H_FREQ);
@@ -534,7 +546,7 @@ impl HSyncCapture {
             self.previous_phase_errors_index = (self.previous_phase_errors_index + 1) % HSyncCapture::AVERAGED_PHASE_ERRORS;
         }
     }
-    fn apply_phase_feedforward(&mut self, b: i32) {
+    fn _apply_phase_feedforward(&mut self, b: i32) {
         self.previous_phase_errors[self.previous_phase_errors_index] -= b * 1;
     }
     fn get_phase_error_averaged(&self) -> f32 {
@@ -545,12 +557,12 @@ impl HSyncCapture {
         avg = avg / HSyncCapture::AVERAGED_PHASE_ERRORS as f32;
         return avg;
     }
-    fn get_period_averaged(&self) -> u32 {
-        let mut avg = 0;
+    fn get_period_averaged(&self) -> f32 {
+        let mut avg = 0.0;
         for a in self.previous_input_periods {
-            avg += a;
+            avg += a as f32;
         }
-        avg = (avg + (HSyncCapture::AVERAGED_INPUT_PERIODS as u32 >> 1)) / HSyncCapture::AVERAGED_INPUT_PERIODS as u32;
+        avg = avg / HSyncCapture::AVERAGED_INPUT_PERIODS as f32;
         return avg;
     }
     fn get_period(&self) -> u32 {
