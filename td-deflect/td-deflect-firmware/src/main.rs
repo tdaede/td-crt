@@ -40,7 +40,7 @@ fn panic(_info: &PanicInfo) -> ! {
 #[app(device = stm32f7::stm32f7x2, peripherals = true)]
 const APP: () = {
     struct Resources {
-        dac: DAC,
+        v_drive: VDrive,
         gpioa: GPIOA,
         gpiob: GPIOB,
         hot_driver: HOTDriver,
@@ -172,6 +172,8 @@ const APP: () = {
 
         let adc = ADC::new(adc1);
 
+        let v_drive = VDrive::new(dac);
+
         //nvic.enable(Interrupt::EXTI0);
 
         let mut hot_driver = HOTDriver::new(s.TIM10, s.TIM1);
@@ -197,7 +199,7 @@ const APP: () = {
         init::LateResources {
             gpioa,
             gpiob,
-            dac,
+            v_drive,
             hot_driver,
             hsync_capture,
             crt_stats_live,
@@ -214,11 +216,11 @@ const APP: () = {
     // internal hsync timer interrupt
   //  #[inline(never)]
   //  #[link_section = ".data.TIM1_UP_TIM10"]
-    #[task(binds = TIM1_UP_TIM10, resources = [gpioa, gpiob, dac, hot_driver, hsync_capture, crt_state, config, config_queue_out, crt_stats_live, adc], spawn = [update_double_buffers], priority = 15)]
+    #[task(binds = TIM1_UP_TIM10, resources = [gpioa, gpiob, v_drive, hot_driver, hsync_capture, crt_state, config, config_queue_out, crt_stats_live, adc], spawn = [update_double_buffers], priority = 15)]
     fn tim1_up_tim10(cx: tim1_up_tim10::Context) {
         let crt_state = cx.resources.crt_state;
         let current_scanline = &mut crt_state.current_scanline;
-        let dac = cx.resources.dac;
+        let v_drive = cx.resources.v_drive;
         let gpioa = cx.resources.gpioa;
         let _gpiob = cx.resources.gpiob;
         let hot_driver = cx.resources.hot_driver;
@@ -281,11 +283,8 @@ const APP: () = {
             libm::atanf(horizontal_pos_coordinate * vertical_linearity) * vertical_linearity_scale
         };
         let horizontal_amps = (horizontal_coordinate_corrected * config.crt.v_mag_amps + config.crt.v_offset_amps).clamp(-1.0*VERTICAL_MAX_AMPS, VERTICAL_MAX_AMPS);
-        let AMPS_TO_VOLTS = 1.0;
-        let VOLTS_TO_DAC_VALUE = 1.0/(3.3/4095.0);
-        let dac_value = ((horizontal_amps * AMPS_TO_VOLTS * VOLTS_TO_DAC_VALUE) as i32 + DAC_MIDPOINT).clamp(0, 4095);
-        dac.dhr12r1.write(|w| { unsafe { w.bits(dac_value as u32) }});
-
+        v_drive.set_current(horizontal_amps);
+        v_drive.update();
         // clear interrupt flag for tim10
         hot_driver.tp.sr.write(|w| w.uif().bit(false));
 
@@ -557,6 +556,30 @@ impl HSyncCapture {
     fn get_period(&self) -> u32 {
         // not entirely sure why this is +2 but it seems to be better
         (self.t.ccr1.read().ccr().bits() & 0xFFFF) as u32 + 2
+    }
+}
+
+pub struct VDrive {
+    dac: DAC,
+    setpoint: f32,
+    accumulator: f32,
+}
+
+impl VDrive {
+    fn new(dac: DAC) -> VDrive {
+        VDrive { dac, setpoint: 0.0, accumulator: 0.0 }
+    }
+    fn set_current(&mut self, current: f32) {
+        self.setpoint = current;
+    }
+    fn update(&mut self) {
+        let amps_to_volts = 1.0;
+        let volts_to_dac_value = 1.0/(3.3/4095.0);
+        let dac_value = self.setpoint * amps_to_volts * volts_to_dac_value;
+        let dac_value_quantized = (dac_value + self.accumulator) as i32;
+        self.accumulator += dac_value - dac_value_quantized as f32;
+        let dac_value_final = (dac_value_quantized as i32 + DAC_MIDPOINT).clamp(0, 4095);
+        self.dac.dhr12r1.write(|w| { unsafe { w.bits(dac_value_final as u32) }});
     }
 }
 
