@@ -1,0 +1,6 @@
+(sym_lib_table
+  (lib (name td-io)(type Legacy)(uri /home/thomas/sandbox/td-io/td-io.lib)(options "")(descr ""))
+  (lib (name MCU_RaspberryPi_and_Boards)(type Legacy)(uri /home/thomas/sandbox/td-io/MCU_RaspberryPi_and_Boards.lib)(options "")(descr ""))
+  (lib (name td-rgbinput)(type Legacy)(uri ${KIPRJMOD}/td-rgbinput.lib)(options "")(descr ""))
+  (lib (name td-deflect)(type Legacy)(uri /home/thomas/sandbox/td-crt/td-deflect/td-deflect.lib)(options "")(descr ""))
+)

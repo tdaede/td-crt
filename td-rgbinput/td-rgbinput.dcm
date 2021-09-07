@@ -1,0 +1,45 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP AD797
+D Ultralow Distortion, Ultralow Noise Op Amp, DIP-8/SOIC-8
+K single opamp
+F https://www.analog.com/media/en/technical-documentation/data-sheets/AD797.pdf
+$ENDCMP
+#
+$CMP AD8337
+D Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8
+K single opamp
+F http://www.ti.com/lit/ds/symlink/ne5534.pdf
+$ENDCMP
+#
+$CMP LM101
+D Operational Amplifier, DIP-8/TO-99-8
+K single opamp
+F http://www.ti.com/lit/ds/symlink/lm101a-n.pdf
+$ENDCMP
+#
+$CMP LM201
+D Operational Amplifier, DIP-8/TO-99-8
+K single opamp
+F http://www.ti.com/lit/ds/symlink/lm101a-n.pdf
+$ENDCMP
+#
+$CMP LM301
+D Operational Amplifier, DIP-8/TO-99-8
+K single opamp
+F http://www.ti.com/lit/ds/symlink/lm101a-n.pdf
+$ENDCMP
+#
+$CMP LT1012
+D Single Picoamp Input Current, Microvolt Offset, Low Noise Op Amp, DIP-8/SOIC-8/TO-5-8
+K single opamp
+F https://www.analog.com/media/en/technical-documentation/data-sheets/lt1012.pdf
+$ENDCMP
+#
+$CMP SA5534
+D Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8
+K single opamp
+F http://www.ti.com/lit/ds/symlink/ne5534.pdf
+$ENDCMP
+#
+#End Doc Library
