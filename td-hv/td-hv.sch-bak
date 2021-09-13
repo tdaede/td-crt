@@ -562,7 +562,7 @@ Text Label 3250 1650 0    50   ~ 0
 Text Label 3250 1750 0    50   ~ 0
 eht_current
 Text Label 3250 1850 0    50   ~ 0
-eht_voltage
+fb
 NoConn ~ 6350 3950
 NoConn ~ 6350 4150
 $Comp
