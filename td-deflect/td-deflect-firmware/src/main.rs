@@ -153,13 +153,11 @@ const APP: () = {
         gpioc.odr.modify(|_,w| {w.odr14().bit(true)}); // start up with blanking enabled
 
         // S-cap lines
-        gpioc.odr.modify(|_,w| { w.odr0().bit(true).odr1().bit(false).odr2().bit(false).odr3().bit(false) });
+        gpioc.odr.modify(|_,w| { w.odr0().bit(false).odr1().bit(false).odr2().bit(true).odr3().bit(false) });
         gpioc.moder.modify(|_,w| { w.moder0().output().moder1().output().moder2().output().moder3().output() });
 
         // Vertical DAC output
         gpioa.moder.modify(|_,w| { w.moder4().analog() });
-        dac.cr.write(|w| { w.en1().enabled().boff1().enabled() });
-        dac.dhr12r1.write(|w| { unsafe { w.bits(DAC_MIDPOINT as u32) }});
         gpiob.odr.modify(|_,w| { w.odr14().set_bit() });
         gpiob.moder.modify(|_,w| { w.moder14().output() });
 
@@ -230,11 +228,11 @@ const APP: () = {
         let config = cx.resources.config;
 
         // horizontal sync PLL
-        // TODO: replace this software capture with a hardware capture
         hot_driver.synchronize_h_pin();
         atomic::compiler_fence(Ordering::SeqCst);
         hsync_capture.update();
         atomic::compiler_fence(Ordering::SeqCst);
+        v_drive.trigger();
         let input_period = hsync_capture.get_period_averaged();
         let output_period = hot_driver.get_period() as i32;
         // if we are really far away frequency wise, just ignore this sync entirely
@@ -579,11 +577,19 @@ pub struct VDrive {
 
 impl VDrive {
     fn new(dac: DAC) -> VDrive {
+        dac.cr.write(|w| { w.en1().enabled().boff1().enabled().tsel1().software().ten1().enabled() });
+        dac.dhr12r1.write(|w| { unsafe { w.bits(DAC_MIDPOINT as u32) }});
         VDrive { dac, setpoint: 0.0, accumulator: 0.0 }
     }
     fn set_current(&mut self, current: f32) {
         self.setpoint = current;
     }
+    /// call as soon as possible on horizontal interrupt
+    #[inline(always)]
+    fn trigger(&mut self) {
+        self.dac.swtrigr.write(|w| { w.swtrig1().enabled() });
+    }
+    /// call once per horizontal interrupt
     fn update(&mut self) {
         let amps_to_volts = 1.0;
         let volts_to_dac_value = 1.0/(3.3/4095.0);
