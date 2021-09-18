@@ -43,6 +43,7 @@ const APP: () = {
         v_drive: VDrive,
         gpioa: GPIOA,
         gpiob: GPIOB,
+        gpioc: GPIOC,
         hot_driver: HOTDriver,
         hsync_capture: HSyncCapture,
         crt_state: CRTState,
@@ -153,7 +154,8 @@ const APP: () = {
         gpioc.odr.modify(|_,w| {w.odr14().bit(true)}); // start up with blanking enabled
 
         // S-cap lines
-        gpioc.odr.modify(|_,w| { w.odr0().bit(false).odr1().bit(false).odr2().bit(true).odr3().bit(false) });
+        // start with all S caps on, will change later in hsync timer interrupt
+        gpioc.odr.modify(|_,w| { w.odr0().bit(true).odr1().bit(true).odr2().bit(true).odr3().bit(true) });
         gpioc.moder.modify(|_,w| { w.moder0().output().moder1().output().moder2().output().moder3().output() });
 
         // Vertical DAC output
@@ -197,6 +199,7 @@ const APP: () = {
         init::LateResources {
             gpioa,
             gpiob,
+            gpioc,
             v_drive,
             hot_driver,
             hsync_capture,
@@ -214,13 +217,14 @@ const APP: () = {
     // internal hsync timer interrupt
   //  #[inline(never)]
   //  #[link_section = ".data.TIM1_UP_TIM10"]
-    #[task(binds = TIM1_UP_TIM10, resources = [gpioa, gpiob, v_drive, hot_driver, hsync_capture, crt_state, config, config_queue_out, crt_stats_live, adc], spawn = [update_double_buffers], priority = 15)]
+    #[task(binds = TIM1_UP_TIM10, resources = [gpioa, gpiob, gpioc, v_drive, hot_driver, hsync_capture, crt_state, config, config_queue_out, crt_stats_live, adc], spawn = [update_double_buffers], priority = 15)]
     fn tim1_up_tim10(cx: tim1_up_tim10::Context) {
         let crt_state = cx.resources.crt_state;
         let current_scanline = &mut crt_state.current_scanline;
         let v_drive = cx.resources.v_drive;
         let gpioa = cx.resources.gpioa;
         let _gpiob = cx.resources.gpiob;
+        let gpioc = cx.resources.gpioc;
         let hot_driver = cx.resources.hot_driver;
         let hsync_capture = cx.resources.hsync_capture;
         let crt_stats = cx.resources.crt_stats_live;
@@ -303,6 +307,12 @@ const APP: () = {
         // perform analog reads
         // todo: trigger these with timer
         crt_stats.s_voltage = adc.read_blocking(2);
+
+        // update s capacitors
+        gpioc.odr.modify(|_,w| { w.odr0().bit((config.crt.s_cap & 0b1000) == 0)
+                                 .odr1().bit((config.crt.s_cap & 0b0100) == 0)
+                                 .odr2().bit((config.crt.s_cap & 0b0010) == 0)
+                                 .odr3().bit((config.crt.s_cap & 0b0001) == 0) });
 
         // dispatch double buffer updates
         if *current_scanline == 0 {
@@ -388,12 +398,15 @@ pub struct CRTConfig {
     v_offset_amps: f32,
     #[serde(default)]
     vertical_linearity: f32,
+    #[serde(default)]
+    s_cap: u8,
 }
 
 static CRT_CONFIG_PANASONIC_S901Y: CRTConfig = CRTConfig {
     v_mag_amps: 0.414,
     v_offset_amps: 0.0,
     vertical_linearity: 0.55,
+    s_cap: 1,
 };
 
 /// Complete runtime configuration, both CRT config + input config

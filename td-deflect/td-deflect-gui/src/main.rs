@@ -33,6 +33,9 @@ pub struct CRTConfig {
     v_offset_amps: f32,
     #[serde(default)]
     vertical_linearity: f32,
+    // s-capacitor value, 0 = highest capacitance
+    #[serde(default)]
+    s_cap: u8,
 }
 
 fn main() {
@@ -108,6 +111,10 @@ fn build_ui(app: &Application) {
     v_lin.set_value(0.5);
     v_lin.set_width_request(200);
     geometry_settings_grid.attach(&v_lin, 1, 2, 1, 1);
+    geometry_settings_grid.attach(&Label::new(Some("S Correction")), 0, 3, 1, 1);
+    let s_cap = SpinButton::with_range(0.0, 15.0, 1.0);
+    s_cap.set_value(1.0);
+    geometry_settings_grid.attach(&s_cap, 1, 3, 1, 1);
     stats_box.append(&geometry_settings_frame);
 
     let input_settings_frame = Frame::new(Some("Input Configuration"));
@@ -134,11 +141,13 @@ fn build_ui(app: &Application) {
         @strong tx_channel_sender_rc,
         @weak vertical_current_magnitude_adj,
         @weak vertical_current_offset_adj,
-        @weak v_lin => move || {
+        @weak v_lin,
+        @weak s_cap => move || {
         let crt_config = CRTConfig {
             v_mag_amps: vertical_current_magnitude_adj.value() as f32,
             v_offset_amps: vertical_current_offset_adj.value() as f32,
             vertical_linearity: v_lin.value() as f32,
+            s_cap: s_cap.value() as u8,
         };
         tx_channel_sender_rc.send(crt_config).unwrap();
     });
@@ -152,6 +161,10 @@ fn build_ui(app: &Application) {
     }));
 
     v_lin.connect_value_changed(clone!(@strong send_crt_config => move |_|  {
+        send_crt_config();
+    }));
+
+    s_cap.connect_value_changed(clone!(@strong send_crt_config => move |_|  {
         send_crt_config();
     }));
 
