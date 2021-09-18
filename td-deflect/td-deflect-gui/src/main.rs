@@ -38,6 +38,21 @@ pub struct CRTConfig {
     s_cap: u8,
 }
 
+/// Configuration for a particular input
+#[allow(unused)]
+#[derive(Copy, Clone, Serialize)]
+pub struct InputConfig {
+    h_size: f32,
+    h_phase: f32,
+}
+
+/// Complete runtime configuration, both CRT config + input config
+#[derive(Copy, Clone, Serialize)]
+pub struct Config {
+    crt: CRTConfig,
+    input: InputConfig,
+}
+
 fn main() {
     // Create a new application
     let app = Application::new(Some("com.thomasdaede.td-deflect-gui"), Default::default());
@@ -53,6 +68,10 @@ fn build_ui(app: &Application) {
 
     // Set the window title
     window.set_title(Some("TD-Deflect GUI"));
+
+    // widgets that instantly result in a new config message being sent
+    let mut config_spin_widgets = Vec::new();
+    let mut config_scale_widgets = Vec::new();
 
     let stats_box = Box::new(Orientation::Vertical, 10);
     let serial_selector = ComboBoxText::new();
@@ -92,39 +111,68 @@ fn build_ui(app: &Application) {
     s_voltage_label.set_attributes(Some(&tnum));
     stats_box.append(&s_voltage_label);
 
+    // CRT Configuration Settings
     let geometry_settings_frame = Frame::new(Some("CRT Configuration"));
     let geometry_settings_grid = Grid::new();
     geometry_settings_grid.set_column_spacing(10);
+    let mut y_pos = 0;
+
+    // Vertical Settings
     let vertical_current_magnitude_label = Label::new(Some("Vertical current magnitude (A):"));
-    geometry_settings_grid.attach(&vertical_current_magnitude_label, 0, 0, 1, 1);
+    geometry_settings_grid.attach(&vertical_current_magnitude_label, 0, y_pos, 1, 1);
     let vertical_current_magnitude_adj = SpinButton::with_range(0.0, 2.0, 0.01);
+    config_spin_widgets.push(&vertical_current_magnitude_adj);
     vertical_current_magnitude_adj.set_value(0.45);
-    geometry_settings_grid.attach(&vertical_current_magnitude_adj, 1, 0, 1, 1);
+    geometry_settings_grid.attach(&vertical_current_magnitude_adj, 1, y_pos, 1, 1);
+    y_pos += 1;
+
     let vertical_current_offset_label = Label::new(Some("Vertical current offset (A):"));
-    geometry_settings_grid.attach(&vertical_current_offset_label, 0, 1, 1, 1);
+    geometry_settings_grid.attach(&vertical_current_offset_label, 0, y_pos, 1, 1);
     let vertical_current_offset_adj = SpinButton::with_range(-2.0, 2.0, 0.01);
+    config_spin_widgets.push(&vertical_current_offset_adj);
     vertical_current_offset_adj.set_value(0.0);
-    geometry_settings_grid.attach(&vertical_current_offset_adj, 1, 1, 1, 1);
+    geometry_settings_grid.attach(&vertical_current_offset_adj, 1, y_pos, 1, 1);
     geometry_settings_frame.set_child(Some(&geometry_settings_grid));
-    geometry_settings_grid.attach(&Label::new(Some("V. Linearity")), 0, 2, 1, 1);
+    y_pos += 1;
+
+    geometry_settings_grid.attach(&Label::new(Some("V. Linearity")), 0, y_pos, 1, 1);
     let v_lin = Scale::with_range(Orientation::Horizontal, 0.0, 1.0, 0.01);
+    config_scale_widgets.push(&v_lin);
     v_lin.set_value(0.5);
     v_lin.set_width_request(200);
-    geometry_settings_grid.attach(&v_lin, 1, 2, 1, 1);
-    geometry_settings_grid.attach(&Label::new(Some("S Correction")), 0, 3, 1, 1);
+    geometry_settings_grid.attach(&v_lin, 1, y_pos, 1, 1);
+    y_pos += 1;
+
+    // Horizontal Settings
+    geometry_settings_grid.attach(&Label::new(Some("S Correction")), 0, y_pos, 1, 1);
     let s_cap = SpinButton::with_range(0.0, 15.0, 1.0);
+    config_spin_widgets.push(&s_cap);
     s_cap.set_value(1.0);
-    geometry_settings_grid.attach(&s_cap, 1, 3, 1, 1);
+    geometry_settings_grid.attach(&s_cap, 1, y_pos, 1, 1);
+
     stats_box.append(&geometry_settings_frame);
 
+    // Per-input settings
+    y_pos = 0;
     let input_settings_frame = Frame::new(Some("Input Configuration"));
     let input_settings_grid = Grid::new();
     input_settings_grid.set_column_spacing(10);
-    input_settings_grid.attach(&Label::new(Some("H. Size")), 0, 0, 1, 1);
+
+    input_settings_grid.attach(&Label::new(Some("H. Size")), 0, y_pos, 1, 1);
     let input_settings_h_size = Scale::with_range(Orientation::Horizontal, 0.5, 1.5, 0.01);
+    config_scale_widgets.push(&input_settings_h_size);
     input_settings_h_size.set_value(1.0);
     input_settings_h_size.set_width_request(200);
-    input_settings_grid.attach(&input_settings_h_size, 1, 0, 1, 1);
+    input_settings_grid.attach(&input_settings_h_size, 1, y_pos, 1, 1);
+    y_pos += 1;
+
+    input_settings_grid.attach(&Label::new(Some("H. Phase")), 0, y_pos, 1, 1);
+    let h_phase = Scale::with_range(Orientation::Horizontal, -0.1, 0.1, 0.01);
+    config_scale_widgets.push(&h_phase);
+    h_phase.set_value(0.0);
+    h_phase.set_width_request(200);
+    input_settings_grid.attach(&h_phase, 1, y_pos, 1, 1);
+
     input_settings_frame.set_child(Some(&input_settings_grid));
     stats_box.append(&input_settings_frame);
 
@@ -132,7 +180,7 @@ fn build_ui(app: &Application) {
 
     let (sender, receiver) = MainContext::channel::<CRTStats>(PRIORITY_DEFAULT);
 
-    let (tx_channel_sender, tx_channel_receiver) = channel::<CRTConfig>();
+    let (tx_channel_sender, tx_channel_receiver) = channel::<Config>();
     let tx_channel_sender_rc = Rc::new(tx_channel_sender);
 
     let serial_port_string = String::from(serial_selector.active_text().unwrap());
@@ -143,30 +191,29 @@ fn build_ui(app: &Application) {
         @weak vertical_current_offset_adj,
         @weak v_lin,
         @weak s_cap => move || {
-        let crt_config = CRTConfig {
-            v_mag_amps: vertical_current_magnitude_adj.value() as f32,
-            v_offset_amps: vertical_current_offset_adj.value() as f32,
-            vertical_linearity: v_lin.value() as f32,
-            s_cap: s_cap.value() as u8,
-        };
-        tx_channel_sender_rc.send(crt_config).unwrap();
+            let crt_config = CRTConfig {
+                v_mag_amps: vertical_current_magnitude_adj.value() as f32,
+                v_offset_amps: vertical_current_offset_adj.value() as f32,
+                vertical_linearity: v_lin.value() as f32,
+                s_cap: s_cap.value() as u8,
+            };
+            let input_config = InputConfig {
+                h_size: 0.95,
+                h_phase: 0.00,
+            };
+            tx_channel_sender_rc.send(Config {crt: crt_config, input: input_config}).unwrap();
     });
 
-    vertical_current_magnitude_adj.connect_value_changed(clone!(@strong send_crt_config => move |_| {
-        send_crt_config();
-    }));
-
-    vertical_current_offset_adj.connect_value_changed(clone!(@strong send_crt_config => move |_|  {
-        send_crt_config();
-    }));
-
-    v_lin.connect_value_changed(clone!(@strong send_crt_config => move |_|  {
-        send_crt_config();
-    }));
-
-    s_cap.connect_value_changed(clone!(@strong send_crt_config => move |_|  {
-        send_crt_config();
-    }));
+    for w in config_spin_widgets {
+        w.connect_value_changed(clone!(@strong send_crt_config => move |_| {
+            send_crt_config();
+        }));
+    }
+    for w in config_scale_widgets {
+        w.connect_value_changed(clone!(@strong send_crt_config => move |_| {
+            send_crt_config();
+        }));
+    }
 
     thread::spawn(move || {
         let mut serial = serialport::new(serial_port_string, 230400).open().expect("Failed to open port");
@@ -180,10 +227,10 @@ fn build_ui(app: &Application) {
                     sender.send(stats).expect("Could not send through channel");
                 }
             }
-            if let Ok(crt_config) = tx_channel_receiver.try_recv() {
-                if let Ok(serialized_crt_config) = serde_json::to_vec(&crt_config) {
-                    serial.write(&serialized_crt_config).unwrap();
-                    serial.write(&[b'\n']).unwrap();
+            if let Ok(config) = tx_channel_receiver.try_recv() {
+                if let Ok(serialized_config) = serde_json::to_vec(&config.crt) {
+                    serial.write_all(&serialized_config).unwrap();
+                    serial.write_all(&[b'\n']).unwrap();
                 }
             }
         }

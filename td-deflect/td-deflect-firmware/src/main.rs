@@ -190,7 +190,7 @@ const APP: () = {
         let crt_stats_live = CRTStats::default();
         let crt_stats = CRTStats::default();
         let crt_state = CRTState::default();
-        let config = Config { crt: CRT_CONFIG_PANASONIC_S901Y };
+        let config = Config { crt: CRT_CONFIG_PANASONIC_S901Y, input: InputConfig { h_size: 0.95, h_phase: 0.0 } };
 
         // config queue for purposes of "double buffering" config
         static mut CONFIG_QUEUE: Queue<Config, 2> = Queue::new();
@@ -398,8 +398,17 @@ pub struct CRTConfig {
     v_offset_amps: f32,
     #[serde(default)]
     vertical_linearity: f32,
+    // s-capacitor value, 0 = highest capacitance
     #[serde(default)]
     s_cap: u8,
+}
+
+/// Configuration for a particular input
+#[allow(unused)]
+#[derive(Copy, Clone, Deserialize)]
+pub struct InputConfig {
+    h_size: f32,
+    h_phase: f32,
 }
 
 static CRT_CONFIG_PANASONIC_S901Y: CRTConfig = CRTConfig {
@@ -410,9 +419,10 @@ static CRT_CONFIG_PANASONIC_S901Y: CRTConfig = CRTConfig {
 };
 
 /// Complete runtime configuration, both CRT config + input config
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Deserialize)]
 pub struct Config {
-    crt: CRTConfig
+    crt: CRTConfig,
+    input: InputConfig,
 }
 
 #[allow(unused)]
@@ -646,7 +656,7 @@ impl Serial {
 
 pub struct SerialProtocol {
     serial: Serial,
-    raw_message: Vec<u8, 1024>,
+    raw_message: Vec<u8, 4096>,
 }
 
 #[allow(dead_code)]
@@ -666,9 +676,9 @@ impl SerialProtocol {
         }
     }
     fn process_message(&mut self, config_queue_in: &mut Producer<'static, Config, 2>) {
-        let parsed_crt_config: Result<(CRTConfig, _), serde_json_core::de::Error> = serde_json_core::from_slice(&self.raw_message);
-        if let Ok((crt_config, _)) = parsed_crt_config {
-            let _ = config_queue_in.enqueue(Config { crt: crt_config });
+        let parsed_config: Result<(CRTConfig, _), serde_json_core::de::Error> = serde_json_core::from_slice(&self.raw_message);
+        if let Ok((crt_config, _)) = parsed_config {
+            let _ = config_queue_in.enqueue(Config { crt: crt_config, input: InputConfig { h_size: 0.95, h_phase: 0.0 } });
         }
         self.raw_message.clear();
     }
