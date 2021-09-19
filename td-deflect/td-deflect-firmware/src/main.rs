@@ -258,6 +258,7 @@ const APP: () = {
             //hsync_capture.apply_phase_feedforward(fb_quantized);
         }
 
+        hot_driver.duty_setpoint = config.input.h_size;
         hot_driver.update();
 
         let VERTICAL_MAX_AMPS = 1.0;
@@ -287,8 +288,6 @@ const APP: () = {
         let horizontal_amps = (horizontal_coordinate_corrected * config.crt.v_mag_amps + config.crt.v_offset_amps).clamp(-1.0*VERTICAL_MAX_AMPS, VERTICAL_MAX_AMPS);
         v_drive.set_current(horizontal_amps);
         v_drive.update();
-        // clear interrupt flag for tim10
-        hot_driver.tp.sr.write(|w| w.uif().bit(false));
 
         // update stats
         crt_stats.h_input_period = input_period as i32;
@@ -314,17 +313,19 @@ const APP: () = {
                                  .odr2().bit((config.crt.s_cap & 0b0010) == 0)
                                  .odr3().bit((config.crt.s_cap & 0b0001) == 0) });
 
-        // update config if there's one in the queue
-        if let Some(new_config) = cx.resources.config_queue_out.dequeue() {
-            *config = new_config;
-        }
-
         // dispatch double buffer updates
         if *current_scanline == 0 {
             let _ = cx.spawn.update_double_buffers();
         }
         *current_scanline += 1;
 
+        // update config if there's one in the queue
+        if let Some(new_config) = cx.resources.config_queue_out.dequeue() {
+            *config = new_config;
+        }
+
+        // clear interrupt flag for tim10
+        hot_driver.tp.sr.write(|w| w.uif().bit(false));
     }
 
     #[task(resources = [crt_stats_live, crt_stats], priority = 14, spawn = [send_stats])]

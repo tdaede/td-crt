@@ -158,9 +158,9 @@ fn build_ui(app: &Application) {
     input_settings_grid.set_column_spacing(10);
 
     input_settings_grid.attach(&Label::new(Some("H. Size")), 0, y_pos, 1, 1);
-    let input_settings_h_size = Scale::with_range(Orientation::Horizontal, 0.5, 1.5, 0.01);
+    let input_settings_h_size = Scale::with_range(Orientation::Horizontal, 0.5, 0.95, 0.01);
     config_scale_widgets.push(&input_settings_h_size);
-    input_settings_h_size.set_value(1.0);
+    input_settings_h_size.set_value(0.9);
     input_settings_h_size.set_width_request(200);
     input_settings_grid.attach(&input_settings_h_size, 1, y_pos, 1, 1);
     y_pos += 1;
@@ -189,7 +189,8 @@ fn build_ui(app: &Application) {
         @weak vertical_current_magnitude_adj,
         @weak vertical_current_offset_adj,
         @weak v_lin,
-        @weak s_cap => move || {
+        @weak s_cap,
+        @weak input_settings_h_size => move || {
             let crt_config = CRTConfig {
                 v_mag_amps: vertical_current_magnitude_adj.value() as f32,
                 v_offset_amps: vertical_current_offset_adj.value() as f32,
@@ -197,7 +198,7 @@ fn build_ui(app: &Application) {
                 s_cap: s_cap.value() as u8,
             };
             let input_config = InputConfig {
-                h_size: 0.95,
+                h_size: input_settings_h_size.value() as f32,
                 h_phase: 0.00,
             };
             tx_channel_sender_rc.send(Config {crt: crt_config, input: input_config}).unwrap();
@@ -227,7 +228,6 @@ fn build_ui(app: &Application) {
                 }
             }
             if let Ok(config) = tx_channel_receiver.try_recv() {
-                println!("{}", serde_json::to_string(&config).unwrap());
                 if let Ok(serialized_config) = serde_json::to_vec(&config) {
                     serial.write_all(&serialized_config).unwrap();
                     serial.write_all(&[b'\n']).unwrap();
