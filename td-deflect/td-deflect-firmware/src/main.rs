@@ -314,16 +314,17 @@ const APP: () = {
                                  .odr2().bit((config.crt.s_cap & 0b0010) == 0)
                                  .odr3().bit((config.crt.s_cap & 0b0001) == 0) });
 
+        // update config if there's one in the queue
+        if let Some(new_config) = cx.resources.config_queue_out.dequeue() {
+            *config = new_config;
+        }
+
         // dispatch double buffer updates
         if *current_scanline == 0 {
             let _ = cx.spawn.update_double_buffers();
         }
         *current_scanline += 1;
 
-        // update config if there's one in the queue
-        if let Some(new_config) = cx.resources.config_queue_out.dequeue() {
-            *config = new_config;
-        }
     }
 
     #[task(resources = [crt_stats_live, crt_stats], priority = 14, spawn = [send_stats])]
@@ -336,23 +337,25 @@ const APP: () = {
         let _ = c.spawn.send_stats();
     }
 
-    #[task(binds = USART1, resources = [serial_protocol, config_queue_in])]
+    #[task(binds = USART1, resources = [serial_protocol, config_queue_in], priority = 2)]
     fn serial_interrupt(c: serial_interrupt::Context) {
         let serial_protocol = c.resources.serial_protocol;
-        if serial_protocol.serial.usart.isr.read().rxne().bit() {
+        while serial_protocol.serial.usart.isr.read().rxne().bit() {
             serial_protocol.process_byte(c.resources.config_queue_in);
         }
         if serial_protocol.serial.usart.isr.read().txe().bit() {
             if let Some(c) = serial_protocol.serial.send_queue.dequeue() {
                 serial_protocol.serial.usart.tdr.write(|w| { unsafe { w.tdr().bits((c).into()) }});
+            } else {
+                serial_protocol.serial.usart.cr1.modify(|_,w| { w.txeie().disabled() });
             }
         }
+        serial_protocol.serial.usart.icr.write(|w| { w.orecf().clear() });
     }
 
     #[task(resources = [crt_stats, serial_protocol])]
     fn send_stats(mut c: send_stats::Context) {
-        let serial = &mut c.resources.serial_protocol.serial;
-        let mut json_stats: [u8; 1024] = [0; 1024];
+        let mut json_stats: [u8; 2048] = [0; 2048];
         let mut json_stats_len = 0;
         c.resources.crt_stats.lock(|crt_stats| {
             match serde_json_core::to_slice(&crt_stats, &mut json_stats) {
@@ -360,8 +363,10 @@ const APP: () = {
                 Err(_) => (),
             };
         });
-        serial.write_queued(&json_stats[..json_stats_len]);
-        serial.write_queued(b"\n");
+        c.resources.serial_protocol.lock(|serial_protocol| {
+            serial_protocol.serial.write_queued(&json_stats[..json_stats_len]);
+            serial_protocol.serial.write_queued(b"\n");
+        });
     }
 
     // Interrupt handlers used to dispatch software tasks
@@ -461,7 +466,8 @@ impl HOTDriver {
         //tp.smcr.write(|w| { w.sms().bits(0b0100).ts().itr2() });
         // initialize to longest possible period in case synchronization fails
         let h_pin_period = MAX_H_PERIOD as u16;
-        tp.ccr1.write(|w| { w.ccr().bits(h_pin_period*0) });
+        // start out with 0 width to slowly ramp it up
+        tp.ccr1.write(|w| { w.ccr().bits(0) });
         tp.arr.write(|w| { w.arr().bits(h_pin_period) });
         // with 75 ohm gate resistors, 0x38 is the best
         tp.bdtr.write(|w| { unsafe { w.moe().enabled().dtg().bits(0x38) }}); // uwu
@@ -626,28 +632,23 @@ impl VDrive {
 
 pub struct Serial {
     usart: USART1,
-    send_queue: Queue<u8, 1024>,
+    send_queue: Queue<u8, 2048>,
 }
 
 impl Serial {
     fn new(usart: USART1) -> Serial {
         usart.brr.write(|w| { w.brr().bits((APB2_CLOCK*2*8/16/230400) as u16)});
-        usart.cr1.write(|w| { w.te().enabled().re().enabled().ue().enabled().rxneie().enabled().txeie().enabled() });
+        usart.cr1.write(|w| { w.te().enabled().re().enabled().ue().enabled().rxneie().enabled() });
         Serial {
             send_queue: Queue::new(),
             usart
-        }
-    }
-    fn _write_blocking(&self, b: &[u8]) {
-        for c in b {
-            while self.usart.isr.read().txe() == false {}
-            self.usart.tdr.write(|w| { unsafe { w.tdr().bits((*c).into()) }});
         }
     }
     fn write_queued(&mut self, b: &[u8]) {
         for c in b {
             let _ = self.send_queue.enqueue(*c);
         }
+        self.usart.cr1.modify(|_,w| { w.txeie().enabled() });
     }
     fn read_byte(&self) -> u8 {
         return self.usart.rdr.read().bits() as u8
@@ -669,6 +670,7 @@ impl SerialProtocol {
     }
     fn process_byte(&mut self, config_queue_in: &mut Producer<'static, Config, 2>) {
         let b = self.serial.read_byte();
+        self.serial.write_queued(&[b]);
         if b == b'\n' {
             self.process_message(config_queue_in);
         } else {
@@ -676,9 +678,11 @@ impl SerialProtocol {
         }
     }
     fn process_message(&mut self, config_queue_in: &mut Producer<'static, Config, 2>) {
-        let parsed_config: Result<(CRTConfig, _), serde_json_core::de::Error> = serde_json_core::from_slice(&self.raw_message);
-        if let Ok((crt_config, _)) = parsed_config {
-            let _ = config_queue_in.enqueue(Config { crt: crt_config, input: InputConfig { h_size: 0.95, h_phase: 0.0 } });
+        self.serial.write_queued(b"GOT MESSAGE LOL\n");
+        let parsed_config: Result<(Config, _), serde_json_core::de::Error> = serde_json_core::from_slice(&self.raw_message);
+        if let Ok((config, _)) = parsed_config {
+            self.serial.write_queued(b"PARSED MESSAGE LOL\n");
+            let _ = config_queue_in.enqueue(config);
         }
         self.raw_message.clear();
     }

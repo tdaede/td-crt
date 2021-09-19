@@ -227,6 +227,7 @@ fn build_ui(app: &Application) {
                 }
             }
             if let Ok(config) = tx_channel_receiver.try_recv() {
+                println!("{}", serde_json::to_string(&config).unwrap());
                 if let Ok(serialized_config) = serde_json::to_vec(&config) {
                     serial.write_all(&serialized_config).unwrap();
                     serial.write_all(&[b'\n']).unwrap();
