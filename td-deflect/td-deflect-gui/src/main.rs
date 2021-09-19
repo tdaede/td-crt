@@ -190,7 +190,8 @@ fn build_ui(app: &Application) {
         @weak vertical_current_offset_adj,
         @weak v_lin,
         @weak s_cap,
-        @weak input_settings_h_size => move || {
+        @weak input_settings_h_size,
+        @weak h_phase => move || {
             let crt_config = CRTConfig {
                 v_mag_amps: vertical_current_magnitude_adj.value() as f32,
                 v_offset_amps: vertical_current_offset_adj.value() as f32,
@@ -199,7 +200,7 @@ fn build_ui(app: &Application) {
             };
             let input_config = InputConfig {
                 h_size: input_settings_h_size.value() as f32,
-                h_phase: 0.00,
+                h_phase: h_phase.value() as f32,
             };
             tx_channel_sender_rc.send(Config {crt: crt_config, input: input_config}).unwrap();
     });

@@ -236,7 +236,7 @@ const APP: () = {
         if (output_period - input_period as i32).abs() > ((MIN_H_PERIOD as i32) / 10){
             // yolo
         } else {
-            let error = hsync_capture.get_phase_error_averaged();
+            let error = hsync_capture.get_phase_error_averaged() + (config.input.h_phase * output_period as f32);
             let FEEDBACK_GAIN = 0.001;
             let fb = if (*current_scanline < 10) || (*current_scanline > 250) {
                 (error * FEEDBACK_GAIN).clamp(-3.0, 3.0)
