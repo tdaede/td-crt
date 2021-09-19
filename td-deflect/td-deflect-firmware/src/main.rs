@@ -8,7 +8,6 @@ use core::sync::atomic::{self, Ordering};
 use core::panic::PanicInfo;
 use heapless::Vec;
 use heapless::spsc::{Queue, Producer, Consumer};
-use libm;
 
 const AHB_CLOCK: u32 = 216_000_000;
 const APB2_CLOCK: u32 = AHB_CLOCK / 2;
@@ -359,10 +358,7 @@ const APP: () = {
         let mut json_stats: [u8; 2048] = [0; 2048];
         let mut json_stats_len = 0;
         c.resources.crt_stats.lock(|crt_stats| {
-            match serde_json_core::to_slice(&crt_stats, &mut json_stats) {
-                Ok(c) => json_stats_len = c,
-                Err(_) => (),
-            };
+            if let Ok(c) = serde_json_core::to_slice(&crt_stats, &mut json_stats) { json_stats_len = c };
         });
         c.resources.serial_protocol.lock(|serial_protocol| {
             serial_protocol.serial.write_queued(&json_stats[..json_stats_len]);
@@ -551,7 +547,7 @@ impl HSyncCapture {
     }
     #[inline(always)]
     fn get_cycles_since_sync(&self) -> u32 {
-        (self.t.ccr4.read().ccr().bits() & 0xFFFF) as u32
+        self.t.ccr4.read().ccr().bits() as u32
         //(self.t.cnt.read().cnt().bits() & 0xFFFF) as u32
     }
     #[inline(always)]
@@ -582,7 +578,7 @@ impl HSyncCapture {
         for a in self.previous_phase_errors {
             avg += a as f32;
         }
-        avg = avg / HSyncCapture::AVERAGED_PHASE_ERRORS as f32;
+        avg /= HSyncCapture::AVERAGED_PHASE_ERRORS as f32;
         return avg;
     }
     fn get_period_averaged(&self) -> f32 {
@@ -590,12 +586,12 @@ impl HSyncCapture {
         for a in self.previous_input_periods {
             avg += a as f32;
         }
-        avg = avg / HSyncCapture::AVERAGED_INPUT_PERIODS as f32;
+        avg /= HSyncCapture::AVERAGED_INPUT_PERIODS as f32;
         return avg;
     }
     fn get_period(&self) -> u32 {
         // not entirely sure why this is +2 but it seems to be better
-        (self.t.ccr1.read().ccr().bits() & 0xFFFF) as u32 + 2
+        self.t.ccr1.read().ccr().bits() as u32 + 2
     }
 }
 
