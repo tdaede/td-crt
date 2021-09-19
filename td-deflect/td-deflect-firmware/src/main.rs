@@ -47,7 +47,6 @@ const APP: () = {
         hsync_capture: HSyncCapture,
         crt_state: CRTState,
         crt_stats_live: CRTStats,
-        crt_stats: CRTStats,
         serial_protocol: SerialProtocol,
         adc: ADC,
         config: Config,
@@ -187,7 +186,6 @@ const APP: () = {
         //syst.set_reload(AHB_CLOCK); // once a second
         //syst.enable_counter();
         let crt_stats_live = CRTStats::default();
-        let crt_stats = CRTStats::default();
         let crt_state = CRTState::default();
         let config = Config { crt: CRT_CONFIG_PANASONIC_S901Y, input: InputConfig { h_size: 0.95, h_phase: 0.0 } };
 
@@ -203,7 +201,6 @@ const APP: () = {
             hot_driver,
             hsync_capture,
             crt_stats_live,
-            crt_stats,
             crt_state,
             config,
             config_queue_in,
@@ -216,7 +213,7 @@ const APP: () = {
     // internal hsync timer interrupt
   //  #[inline(never)]
   //  #[link_section = ".data.TIM1_UP_TIM10"]
-    #[task(binds = TIM1_UP_TIM10, resources = [gpioa, gpiob, gpioc, v_drive, hot_driver, hsync_capture, crt_state, config, config_queue_out, crt_stats_live, adc], spawn = [update_double_buffers], priority = 15)]
+    #[task(binds = TIM1_UP_TIM10, resources = [gpioa, gpiob, gpioc, v_drive, hot_driver, hsync_capture, crt_state, config, config_queue_out, crt_stats_live, adc], spawn = [send_stats], priority = 15)]
     fn tim1_up_tim10(cx: tim1_up_tim10::Context) {
         let crt_state = cx.resources.crt_state;
         let current_scanline = &mut crt_state.current_scanline;
@@ -312,9 +309,9 @@ const APP: () = {
                                  .odr2().bit((config.crt.s_cap & 0b0010) == 0)
                                  .odr3().bit((config.crt.s_cap & 0b0001) == 0) });
 
-        // dispatch double buffer updates
+        // send stats updates over serial
         if *current_scanline == 0 {
-            let _ = cx.spawn.update_double_buffers();
+            let _ = cx.spawn.send_stats(*crt_stats);
         }
         *current_scanline += 1;
 
@@ -325,16 +322,6 @@ const APP: () = {
 
         // clear interrupt flag for tim10
         hot_driver.tp.sr.write(|w| w.uif().bit(false));
-    }
-
-    #[task(resources = [crt_stats_live, crt_stats], priority = 14, spawn = [send_stats])]
-    fn update_double_buffers(mut c: update_double_buffers::Context) {
-        let crt_stats = c.resources.crt_stats;
-        c.resources.crt_stats_live.lock(|crt_stats_live| {
-            *crt_stats = *crt_stats_live;
-            *crt_stats_live = CRTStats::default(); // reset stats on new field
-        });
-        let _ = c.spawn.send_stats();
     }
 
     #[task(binds = USART1, resources = [serial_protocol, config_queue_in], priority = 2)]
@@ -353,13 +340,11 @@ const APP: () = {
         serial_protocol.serial.usart.icr.write(|w| { w.orecf().clear() });
     }
 
-    #[task(resources = [crt_stats, serial_protocol])]
-    fn send_stats(mut c: send_stats::Context) {
+    #[task(resources = [serial_protocol])]
+    fn send_stats(mut c: send_stats::Context, crt_stats: CRTStats) {
         let mut json_stats: [u8; 2048] = [0; 2048];
         let mut json_stats_len = 0;
-        c.resources.crt_stats.lock(|crt_stats| {
-            if let Ok(c) = serde_json_core::to_slice(&crt_stats, &mut json_stats) { json_stats_len = c };
-        });
+        if let Ok(c) = serde_json_core::to_slice(&crt_stats, &mut json_stats) { json_stats_len = c };
         c.resources.serial_protocol.lock(|serial_protocol| {
             serial_protocol.serial.write_queued(&json_stats[..json_stats_len]);
             serial_protocol.serial.write_queued(b"\n");
