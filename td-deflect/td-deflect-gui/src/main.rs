@@ -5,7 +5,6 @@ use gtk::glib;
 use std::{thread, time::Duration};
 use std::io::BufReader;
 use std::io::BufRead;
-use serialport;
 use serde::{Serialize, Deserialize};
 use gtk::pango::{AttrList, Attribute};
 use std::sync::mpsc::channel;
@@ -221,14 +220,14 @@ fn build_ui(app: &Application) {
         let mut reader = BufReader::new(serial.try_clone().unwrap());
         loop {
             let mut l = String::new();
-            if let Ok(_) = reader.read_line(&mut l) {
+            if reader.read_line(&mut l).is_ok() {
                 let parse_result: Result<CRTStats, serde_json::Error> = serde_json::from_str(&l);
                 if let Ok(stats) = parse_result {
                     sender.send(stats).expect("Could not send through channel");
                 }
             }
             if let Ok(config) = tx_channel_receiver.try_recv() {
-                if let Ok(serialized_config) = serde_json::to_vec(&config.crt) {
+                if let Ok(serialized_config) = serde_json::to_vec(&config) {
                     serial.write_all(&serialized_config).unwrap();
                     serial.write_all(&[b'\n']).unwrap();
                 }
