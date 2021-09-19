@@ -227,9 +227,6 @@ const APP: () = {
         let adc = cx.resources.adc;
         let config = cx.resources.config;
 
-        // horizontal sync PLL
-        hot_driver.synchronize_h_pin();
-        atomic::compiler_fence(Ordering::SeqCst);
         hsync_capture.update();
         atomic::compiler_fence(Ordering::SeqCst);
         v_drive.trigger();
@@ -260,8 +257,8 @@ const APP: () = {
         let VERTICAL_MAX_AMPS = 1.0;
         // vertical advance
         // vertical counter
-        //let vga_vsync = gpiob.idr.read().idr0().bit();
-        let vga_vsync = gpioa.idr.read().idr7().bit();
+        //let vga_vsync = gpiob.idr.read().idr0().bit(); // vga sync input
+        let vga_vsync = gpioa.idr.read().idr7().bit(); // composite sync input
         // negative edge triggered
         let total_lines = 262;
         let center_line = total_lines / 2;
@@ -425,27 +422,12 @@ pub struct HOTDriver {
 
 impl HOTDriver {
     fn new(_t: TIM10, tp: TIM1) -> HOTDriver {
-        /*
-        t.ccmr1_output().write(|w| { unsafe { w.oc1m().bits(0b111) }}); // PWM2
-        t.ccer.write(|w| { w.cc1e().set_bit() });
-        t.ccr1.write(|w| { unsafe { w.ccr().bits((AHB_CLOCK/15700*1/2) as u16) }});
-        t.arr.write(|w| { unsafe { w.arr().bits((AHB_CLOCK/15700) as u16) }});
-        t.cr1.write(|w| { w.cen().enabled().urs().bit(true) });
-        t.egr.write(|w| { w.ug().set_bit() });
-        t.dier.write(|w| { w.uie().set_bit() });
-        */
-
         tp.ccmr1_output().write(|w| {unsafe{w.oc1m().bits(0b110) }}); // PWM1
         tp.ccer.write(|w| { w.cc1e().set_bit().cc1ne().set_bit() });
         // configuration for HOT
         tp.ccmr2_output().write(|w| { unsafe { w.oc4m().bits(0b111) } }); // PWM2
         tp.ccer.modify(|_,w| { w.cc4e().set_bit() });
         tp.ccr4.write(|w| { w.ccr().bits((MAX_H_PERIOD*1/2) as u16) });
-        // configure tp to reset whenever TIM3 (the input capture timer) does
-        // ideally we would reset on t (TIM10) but that's not possible
-        // this means a bad input can totally screw up our H size, that's pretty bad
-        // we now do this in software via synchronize_h_pin() instead
-        //tp.smcr.write(|w| { w.sms().bits(0b0100).ts().itr2() });
         // initialize to longest possible period in case synchronization fails
         let h_pin_period = MAX_H_PERIOD as u16;
         // start out with 0 width to slowly ramp it up
@@ -465,11 +447,6 @@ impl HOTDriver {
             period: MAX_H_PERIOD as f32,
             accumulator: 0.0,
         }
-    }
-    /// call once per horizontal period to synchronize tp
-    #[inline(always)]
-    fn synchronize_h_pin(&mut self) {
-        //self.tp.egr.write(|w| { w.ug().set_bit() });
     }
     /// call once per horizontal period to update drive
     fn update(&mut self) {
