@@ -6,7 +6,7 @@ use rtic::app;
 use serde::{Serialize, Deserialize};
 use core::sync::atomic::{self, Ordering};
 use core::panic::PanicInfo;
-use heapless::Vec;
+use heapless::{Deque, Vec};
 use heapless::spsc::{Queue, Producer, Consumer};
 
 const AHB_CLOCK: u32 = 216_000_000;
@@ -344,7 +344,7 @@ const APP: () = {
             serial_protocol.process_byte(c.resources.config_queue_in);
         }
         if serial_protocol.serial.usart.isr.read().txe().bit() {
-            if let Some(c) = serial_protocol.serial.send_queue.dequeue() {
+            if let Some(c) = serial_protocol.serial.send_queue.pop_front() {
                 serial_protocol.serial.usart.tdr.write(|w| { unsafe { w.tdr().bits((c).into()) }});
             } else {
                 serial_protocol.serial.usart.cr1.modify(|_,w| { w.txeie().disabled() });
@@ -629,7 +629,7 @@ impl VDrive {
 
 pub struct Serial {
     usart: USART1,
-    send_queue: Queue<u8, 2048>,
+    send_queue: Deque<u8, 2048>,
 }
 
 impl Serial {
@@ -637,13 +637,13 @@ impl Serial {
         usart.brr.write(|w| { w.brr().bits((APB2_CLOCK*2*8/16/230400) as u16)});
         usart.cr1.write(|w| { w.te().enabled().re().enabled().ue().enabled().rxneie().enabled() });
         Serial {
-            send_queue: Queue::new(),
+            send_queue: Deque::new(),
             usart
         }
     }
     fn write_queued(&mut self, b: &[u8]) {
         for c in b {
-            let _ = self.send_queue.enqueue(*c);
+            let _ = self.send_queue.push_back(*c);
         }
         self.usart.cr1.modify(|_,w| { w.txeie().enabled() });
     }
