@@ -23,6 +23,7 @@ pub struct CRTStats {
     hot_source_current: u16,
     v_lines: u16,
     s_voltage: u16,
+    odd: bool,
 }
 
 #[derive(Copy, Clone, Serialize)]
@@ -248,6 +249,7 @@ fn build_ui(app: &Application) {
             output_horizontal_period_min_label.set_label(&format!("{:.2} us", a.h_output_period_min as f32 * 1_000_000.0 / (216000000.0)));
             output_horizontal_period_max_label.set_label(&format!("{:.2} us", a.h_output_period_max as f32 * 1_000_000.0 / (216000000.0)));
             field_lines_label.set_label(&format!("Lines in last field: {:.2}", a.v_lines));
+            last_field_phase_label.set_label(&format!("Last field phase: {}", if a.odd { "Odd" } else { "Even" }));
             vertical_period_label.set_label(&format!("Vertical period: {:.2} ms", output_horizontal_period_us * a.v_lines as f32 / 1000.0));
             s_voltage_label.set_label(&format!("S-cap voltage: {:.2} V", a.s_voltage as f32 * 3.3 / 4096.0 * 101.0));
             Continue(true)

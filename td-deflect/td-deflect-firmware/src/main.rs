@@ -140,6 +140,7 @@ const APP: () = {
         gpiob.pupdr.modify(|_,w| {w.pupdr0().pull_up()});
         gpioa.moder.modify(|_,w| {w.moder7().input()});
         gpioa.pupdr.modify(|_,w| {w.pupdr7().pull_up()});
+        gpioc.moder.modify(|_,w| {w.moder15().input()}); // oddeven
 
         // horizontal PWM
         gpioa.afrh.modify(|_,w| {w.afrh8().af1()});
@@ -259,18 +260,20 @@ const APP: () = {
         // vertical counter
         //let vga_vsync = gpiob.idr.read().idr0().bit(); // vga sync input
         let vga_vsync = gpioa.idr.read().idr7().bit(); // composite sync input
+        let odd = !gpioc.idr.read().idr15().bit();
         // negative edge triggered
         let total_lines = 262;
         let center_line = total_lines / 2;
         if (vga_vsync == false) && (crt_state.previous_vga_vsync == true) {
             //crt_stats.v_lines = *current_scanline as u16;
             crt_stats.v_lines = *current_scanline as u16;
+            crt_stats.odd = odd;
             *current_scanline = 0;
         }
         crt_state.previous_vga_vsync = vga_vsync;
         if *current_scanline >= (total_lines + 10) { *current_scanline = 0 };
         // convert scanline to a (+1, -1) range coordinate (+1 is top of screen)
-        let horizontal_pos_coordinate = ((*current_scanline) - center_line) as f32 / (total_lines as f32) * -2.0;
+        let horizontal_pos_coordinate = (((*current_scanline) - center_line) as f32 + if odd { -0.5 } else { 0.0 }) / (total_lines as f32) * -2.0;
         let vertical_linearity = config.crt.vertical_linearity;
         let vertical_linearity_scale = 1.0 / libm::atanf(1.0 * vertical_linearity);
         let horizontal_coordinate_corrected = if vertical_linearity < 0.1 {
@@ -373,6 +376,7 @@ pub struct CRTStats {
     hot_source_current: u16,
     v_lines: u16,
     s_voltage: u16,
+    odd: bool,
 }
 
 /// Configuration to match driver board to a particular tube/yoke
