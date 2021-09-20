@@ -309,6 +309,7 @@ const APP: () = {
         // send stats updates over serial
         if *current_scanline == 0 {
             let _ = cx.spawn.send_stats(*crt_stats);
+            *crt_stats = CRTStats::default(); // reset for a new frame
         }
         *current_scanline += 1;
 
