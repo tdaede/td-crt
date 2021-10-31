@@ -1,4 +1,4 @@
-18989960773351477
+18999592513845982
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -83026,10 +83026,52 @@ varistor SIOV
 0
 2
 2
-td-hv
-053X0528-001
+td-deflect
+DIP-30_600_ELL
 
 
 0
-10
-10
+30
+30
+td-deflect
+DSUB-15-HD_Female_Horizontal_P2.29x2.5mm_EdgePinOffset8.35mm_Housed_MountingHolesOffset10.89mm
+15-pin D-Sub connector, horizontal/angled (90 deg), THT-mount, female, pitch 2.29x1.98mm, pin-PCB-offset 8.35mm, distance of mounting holes 25mm, distance of mounting holes to PCB edge 10.889999999999999mm, see https://disti-assets.s3.amazonaws.com/tonar/files/datasheets/16730.pdf
+15-pin D-Sub connector horizontal angled 90deg THT female pitch 2.29x1.98mm pin-PCB-offset 8.35mm mounting-holes-distance 25mm mounting-hole-offset 25mm
+0
+17
+16
+td-deflect
+LIN-3509
+
+
+0
+3
+3
+td-deflect
+monitor_10_8_2p
+
+
+0
+2
+2
+td-deflect
+sony_monitor_2p
+
+
+0
+2
+2
+td-deflect
+sony_monitor_3p
+
+
+0
+3
+3
+td-deflect
+sony_monitor_yoke
+
+
+0
+6
+6
