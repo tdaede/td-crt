@@ -1616,4 +1616,6 @@ Wire Wire Line
 	8900 9200 8500 9200
 NoConn ~ 7250 6900
 NoConn ~ 8100 7750
+Text Notes 5550 1500 0    50   ~ 0
+todo: switch gain knob to -5V\nadd power to global opamp\nadd power to 7400\nchange linear regulator footprint
 $EndSCHEMATC

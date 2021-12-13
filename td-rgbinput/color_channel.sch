@@ -465,4 +465,6 @@ Text GLabel 4250 1800 0    50   Input ~ 0
 gain_buffered
 Text GLabel 6000 3300 0    50   Input ~ 0
 bias_buffered
+Text Notes 6050 4000 0    50   ~ 0
+todo: bias impedance is not constant
 $EndSCHEMATC
