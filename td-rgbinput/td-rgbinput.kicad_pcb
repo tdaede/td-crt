@@ -5974,7 +5974,7 @@
   (gr_text "gnd" (at 229.25 67.75) (layer "F.SilkS") (tstamp 00000000-0000-0000-0000-0000617569b9)
     (effects (font (size 1 1) (thickness 0.15)) (justify right))
   )
-  (gr_text "td-rgbinput v1.0 CC0 2021\nhttps://github.com/tdaede/td-crt" (at 99 98) (layer "F.SilkS") (tstamp 02a371af-5293-440d-adc8-ab52ed7dacb4)
+  (gr_text "td-rgbinput v1.1 CC0 2021\nhttps://github.com/tdaede/td-crt" (at 99 98) (layer "F.SilkS") (tstamp 02a371af-5293-440d-adc8-ab52ed7dacb4)
     (effects (font (size 1 1) (thickness 0.15)))
   )
   (gr_text "vsync" (at 101.5 60.5 90) (layer "F.SilkS") (tstamp 0af9decd-a608-4da8-bb2f-96ce6d81443b)
