@@ -2248,6 +2248,9 @@
     )
   )
 
+  (junction (at 31.75 152.4) (diameter 0) (color 0 0 0 0)
+    (uuid 01114dea-cc31-4686-b0b9-6b42214c5e8a)
+  )
   (junction (at 62.23 105.41) (diameter 0) (color 0 0 0 0)
     (uuid 01d99774-a14f-4f98-bdb3-8997a6404c9d)
   )
@@ -2337,9 +2340,6 @@
   )
   (junction (at 93.98 30.48) (diameter 0) (color 0 0 0 0)
     (uuid c2957b89-c53b-4e3a-bac0-b3beffb832da)
-  )
-  (junction (at 31.75 152.4) (diameter 0) (color 0 0 0 0)
-    (uuid d12d7a2c-64ba-45ef-b722-7acd4c7618ff)
   )
   (junction (at 25.4 101.6) (diameter 0) (color 0 0 0 0)
     (uuid d678c428-538a-4030-a668-becb751e02cb)
@@ -3216,22 +3216,6 @@
     )
     (pin "1" (uuid c47aaccf-cc28-47de-98bb-9c2dbaa6a0a5))
     (pin "2" (uuid ccb83cc1-a3f0-424a-bcfb-12678446cc7a))
-  )
-
-  (symbol (lib_id "power:+12V") (at 31.75 152.4 0) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid 00000000-0000-0000-0000-000061007dfb)
-    (property "Reference" "#PWR0122" (id 0) (at 31.75 156.21 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "+12V" (id 1) (at 32.131 148.0058 0))
-    (property "Footprint" "" (id 2) (at 31.75 152.4 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "" (id 3) (at 31.75 152.4 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 8d64a868-5286-4081-8b0a-b6c13bc5320a))
   )
 
   (symbol (lib_id "power:GND") (at 31.75 167.64 0) (unit 1)
@@ -4140,6 +4124,22 @@
     (pin "1" (uuid 0bcfa8a3-0da1-46b4-a52d-a39341d66e7a))
   )
 
+  (symbol (lib_id "power:+5V") (at 31.75 152.4 0) (unit 1)
+    (in_bom yes) (on_board yes) (fields_autoplaced)
+    (uuid 4027a2bf-7863-4682-b9d4-79ddef959416)
+    (property "Reference" "#PWR?" (id 0) (at 31.75 156.21 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "+5V" (id 1) (at 31.75 148.7955 0))
+    (property "Footprint" "" (id 2) (at 31.75 152.4 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (id 3) (at 31.75 152.4 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 67fecfd1-fb2a-4fef-aa3b-6d0adaddb95d))
+  )
+
   (symbol (lib_id "power:GND") (at 203.2 46.99 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 45493848-4ea0-47f2-a8f9-32f2bfb63ffe)
@@ -4856,9 +4856,6 @@
     (path "/00000000-0000-0000-0000-00006103f5a1"
       (reference "#PWR0119") (unit 1) (value "GND") (footprint "")
     )
-    (path "/00000000-0000-0000-0000-000061007dfb"
-      (reference "#PWR0122") (unit 1) (value "+12V") (footprint "")
-    )
     (path "/00000000-0000-0000-0000-00006100804d"
       (reference "#PWR0123") (unit 1) (value "GND") (footprint "")
     )
@@ -4882,6 +4879,9 @@
     )
     (path "/00000000-0000-0000-0000-0000611bed5f"
       (reference "#PWR0130") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/4027a2bf-7863-4682-b9d4-79ddef959416"
+      (reference "#PWR?") (unit 1) (value "+5V") (footprint "")
     )
     (path "/48e40fb7-d693-461f-a944-5b99c4d21ea9"
       (reference "#PWR?") (unit 1) (value "GND") (footprint "")
