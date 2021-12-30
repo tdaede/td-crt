@@ -4698,7 +4698,7 @@
     (property "Reference" "U?" (id 0) (at 77.2732 83.6635 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "UC3845_SOIC8" (id 1) (at 77.2732 86.4386 0)
+    (property "Value" "UCC38C45" (id 1) (at 77.2732 86.4386 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" (id 2) (at 74.93 106.68 0)
@@ -5088,7 +5088,7 @@
       (reference "U?") (unit 1) (value "TLC272") (footprint "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm")
     )
     (path "/e54c477d-0eb4-402a-8131-7adb553e251e"
-      (reference "U?") (unit 1) (value "UC3845_SOIC8") (footprint "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm")
+      (reference "U?") (unit 1) (value "UCC38C45") (footprint "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm")
     )
   )
 )
