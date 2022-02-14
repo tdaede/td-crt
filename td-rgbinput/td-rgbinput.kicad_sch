@@ -2756,14 +2756,14 @@
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060050cff)
     (property "Reference" "R15" (id 0) (at 314.96 63.3222 90))
-    (property "Value" "470" (id 1) (at 314.96 65.6336 90))
+    (property "Value" "1k" (id 1) (at 314.96 65.6336 90))
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric" (id 2) (at 314.96 66.802 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 314.96 68.58 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Digikey" "YAG3733CT-ND" (id 4) (at 314.96 68.58 0)
+    (property "Digikey" "" (id 4) (at 314.96 68.58 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid dab34a42-a4b7-4699-bda2-183e612a7840))
@@ -4297,14 +4297,14 @@
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00006193399d)
     (property "Reference" "R29" (id 0) (at 314.96 107.7722 90))
-    (property "Value" "470" (id 1) (at 314.96 110.0836 90))
+    (property "Value" "1k" (id 1) (at 314.96 110.0836 90))
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric" (id 2) (at 314.96 111.252 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 314.96 113.03 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Digikey" "YAG3733CT-ND" (id 4) (at 314.96 113.03 0)
+    (property "Digikey" "" (id 4) (at 314.96 113.03 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid 14970e61-a461-40cd-8f1b-1f6993770c85))
@@ -4407,14 +4407,14 @@
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00006193a64f)
     (property "Reference" "R30" (id 0) (at 316.23 149.6822 90))
-    (property "Value" "470" (id 1) (at 316.23 151.9936 90))
+    (property "Value" "1k" (id 1) (at 316.23 151.9936 90))
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric" (id 2) (at 316.23 153.162 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 316.23 154.94 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Digikey" "YAG3733CT-ND" (id 4) (at 316.23 154.94 0)
+    (property "Digikey" "" (id 4) (at 316.23 154.94 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid ddd7e231-6023-4a9d-bd59-778c9f6d9908))
@@ -4982,9 +4982,6 @@
     (path "/00000000-0000-0000-0000-0000618fc4a2/bd298751-1816-47d9-875b-e28859d59d74"
       (reference "#PWR0117") (unit 1) (value "+5V") (footprint "")
     )
-    (path "/00000000-0000-0000-0000-0000618fc4a2/9c91e0e5-b30d-4538-ba18-c84d90521e3d"
-      (reference "#PWR0118") (unit 1) (value "GND") (footprint "")
-    )
     (path "/00000000-0000-0000-0000-0000618fc4a2/879ef088-b267-418b-b2b5-0ad6b2a08b53"
       (reference "#PWR0119") (unit 1) (value "+5V") (footprint "")
     )
@@ -5018,9 +5015,6 @@
     (path "/00000000-0000-0000-0000-000061052a9c"
       (reference "#PWR0129") (unit 1) (value "-5V") (footprint "")
     )
-    (path "/00000000-0000-0000-0000-0000618f5f7a/9c91e0e5-b30d-4538-ba18-c84d90521e3d"
-      (reference "#PWR0130") (unit 1) (value "GND") (footprint "")
-    )
     (path "/00000000-0000-0000-0000-0000618f5f7a/879ef088-b267-418b-b2b5-0ad6b2a08b53"
       (reference "#PWR0131") (unit 1) (value "+5V") (footprint "")
     )
@@ -5047,9 +5041,6 @@
     )
     (path "/00000000-0000-0000-0000-0000618d9864/bd298751-1816-47d9-875b-e28859d59d74"
       (reference "#PWR0139") (unit 1) (value "+5V") (footprint "")
-    )
-    (path "/00000000-0000-0000-0000-0000618d9864/9c91e0e5-b30d-4538-ba18-c84d90521e3d"
-      (reference "#PWR0140") (unit 1) (value "GND") (footprint "")
     )
     (path "/00000000-0000-0000-0000-0000618d9864/879ef088-b267-418b-b2b5-0ad6b2a08b53"
       (reference "#PWR0141") (unit 1) (value "+5V") (footprint "")
@@ -5253,7 +5244,7 @@
       (reference "R14") (unit 1) (value "470") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/00000000-0000-0000-0000-000060050cff"
-      (reference "R15") (unit 1) (value "470") (footprint "Resistor_SMD:R_0805_2012Metric")
+      (reference "R15") (unit 1) (value "1k") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/00000000-0000-0000-0000-0000618d9864/00000000-0000-0000-0000-0000618ebd84"
       (reference "R16") (unit 1) (value "470") (footprint "Resistor_SMD:R_0805_2012Metric")
@@ -5295,10 +5286,10 @@
       (reference "R28") (unit 1) (value "470") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/00000000-0000-0000-0000-00006193399d"
-      (reference "R29") (unit 1) (value "470") (footprint "Resistor_SMD:R_0805_2012Metric")
+      (reference "R29") (unit 1) (value "1k") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/00000000-0000-0000-0000-00006193a64f"
-      (reference "R30") (unit 1) (value "470") (footprint "Resistor_SMD:R_0805_2012Metric")
+      (reference "R30") (unit 1) (value "1k") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/00000000-0000-0000-0000-0000619339b6"
       (reference "R31") (unit 1) (value "47") (footprint "Resistor_SMD:R_0805_2012Metric")
