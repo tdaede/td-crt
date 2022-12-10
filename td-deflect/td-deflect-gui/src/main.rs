@@ -75,12 +75,21 @@ fn build_ui(app: &Application) {
 
     let stats_box = Box::new(Orientation::Vertical, 10);
     let serial_selector = ComboBoxText::new();
-    for port in serialport::available_ports().unwrap() {
+    let mut default_index = 0;
+    for (index, port) in serialport::available_ports().unwrap().iter().enumerate() {
+        match &port.port_type {
+            serialport::SerialPortType::UsbPort(usbport) => {
+                if usbport.vid == 6790 && usbport.pid == 29987 {
+                    default_index = index;
+                }
+            },
+            _ => {}
+        }
         serial_selector.append_text(&port.port_name);
     }
     let tnum = AttrList::new();
     tnum.insert(Attribute::new_font_features("tnum"));
-    serial_selector.set_active(Some(2));
+    serial_selector.set_active(Some(default_index as u32));
     stats_box.append(&serial_selector);
     let line_stats_grid = Grid::new();
     line_stats_grid.set_column_spacing(10);
