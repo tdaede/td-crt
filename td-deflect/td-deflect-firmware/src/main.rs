@@ -108,6 +108,7 @@ const APP: () = {
         rcc.apb1enr.modify(|_,w| { w.dacen().bit(true) });
         rcc.apb2enr.modify(|_,w| { w.tim10en().bit(true) });
         rcc.apb1enr.modify(|_,w| { w.tim3en().bit(true) });
+        rcc.apb1enr.modify(|_,w| { w.tim4en().bit(true) });
         rcc.apb2enr.modify(|_,w| { w.usart1en().bit(true) });
 
         gpioa.moder.modify(|_,w| { w.moder5().output() });
@@ -147,6 +148,11 @@ const APP: () = {
         gpioa.moder.modify(|_,w| {w.moder8().alternate()});
         gpiob.afrh.modify(|_,w| {w.afrh13().af1()});
         gpiob.moder.modify(|_,w| {w.moder13().alternate()});
+        // hv pwm
+        gpiob.afrl.modify(|_,w| {w.afrl6().af2()});
+        gpiob.moder.modify(|_,w| {w.moder6().alternate()});
+        //gpiob.moder.modify(|_,w| {w.moder6().output()});
+        //gpiob.odr.modify(|_,w| {w.odr6().set_bit()});
 
         // blanking output to m51387
         gpioc.moder.modify(|_,w| {w.moder14().output()});
@@ -175,7 +181,7 @@ const APP: () = {
 
         //nvic.enable(Interrupt::EXTI0);
 
-        let mut hot_driver = HOTDriver::new(s.TIM10, s.TIM1);
+        let mut hot_driver = HOTDriver::new(s.TIM10, s.TIM1, s.TIM4);
         let hsync_capture = HSyncCapture::new(s.TIM3);
         hot_driver.set_frequency(15700);
 
@@ -418,6 +424,7 @@ pub struct Config {
 pub struct HOTDriver {
     //t: TIM10, // HOT output transistor timer
     tp: TIM1, // horizontal supply buck converter PWM
+    thv: TIM4, // hv timer
     duty_setpoint: f32,
     current_duty: f32,
     h_pin_period: u16,
@@ -426,7 +433,8 @@ pub struct HOTDriver {
 }
 
 impl HOTDriver {
-    fn new(_t: TIM10, tp: TIM1) -> HOTDriver {
+    fn new(_t: TIM10, tp: TIM1, thv: TIM4) -> HOTDriver {
+        // configuration for width
         tp.ccmr1_output().write(|w| {unsafe{w.oc1m().bits(0b110) }}); // PWM1
         tp.ccer.write(|w| { w.cc1e().set_bit().cc1ne().set_bit() });
         // configuration for HOT
@@ -443,9 +451,17 @@ impl HOTDriver {
         tp.cr1.write(|w| { w.cen().enabled().urs().bit(true) });
         tp.egr.write(|w| { w.ug().set_bit() });
         tp.dier.write(|w| { w.uie().set_bit() });
+
+        // hv driver
+        thv.ccmr1_output().write(|w| {unsafe{w.oc1m().bits(0b110) }});
+        thv.ccer.modify(|_,w| { w.cc1e().set_bit() });
+        thv.ccr1.write(|w| { w.ccr().bits(h_pin_period / 2) });
+        thv.arr.write(|w| { w.arr().bits(h_pin_period) });
+        thv.cr1.write(|w| { w.cen().enabled() });
         HOTDriver {
             //t,
             tp,
+            thv,
             duty_setpoint: 0.9,
             current_duty: 0.0,
             h_pin_period,
@@ -463,6 +479,8 @@ impl HOTDriver {
         let max_change_per_iteration = 0.001;
         self.current_duty = self.current_duty + (self.duty_setpoint - self.current_duty).clamp(-1.0*max_change_per_iteration, max_change_per_iteration);
         self.tp.ccr1.write(|w| { w.ccr().bits((self.h_pin_period as f32 * self.current_duty) as u16)});
+        // trigger hv
+        self.thv.cnt.write(|w| { w.cnt().bits(0) });
     }
     fn set_period_float(&mut self, period: f32) {
         self.period = period;
