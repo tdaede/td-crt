@@ -6002,7 +6002,7 @@
       (reference "D1") (unit 1) (value "ES1G-13-F") (footprint "Diode_SMD:D_SMA")
     )
     (path "/00000000-0000-0000-0000-00005d9d9196/00000000-0000-0000-0000-00005d9ef938"
-      (reference "D3") (unit 1) (value "1N5402") (footprint "Diode_THT:D_DO-201AD_P15.24mm_Horizontal")
+      (reference "D3") (unit 1) (value "WNSC2D04650DJ") (footprint "Package_TO_SOT_SMD:TO-252-2_TabPin1")
     )
     (path "/00000000-0000-0000-0000-00005d9d9196/00000000-0000-0000-0000-00005da873f8"
       (reference "D4") (unit 1) (value "C3D10170H") (footprint "Package_TO_SOT_THT:TO-247-2_Vertical")
