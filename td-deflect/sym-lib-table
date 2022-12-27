@@ -1,4 +1,5 @@
 (sym_lib_table
   (lib (name "td-deflect-rescue")(type "Legacy")(uri "${KIPRJMOD}/td-deflect-rescue.lib")(options "")(descr ""))
   (lib (name "td-deflect")(type "Legacy")(uri "${KIPRJMOD}/td-deflect.lib")(options "")(descr ""))
+  (lib (name "td-crt")(type "KiCad")(uri "${KIPRJMOD}/td-crt.kicad_sym")(options "")(descr ""))
 )
