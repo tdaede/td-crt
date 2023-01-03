@@ -6425,8 +6425,8 @@
     (path "/00000000-0000-0000-0000-00005d9e57e4"
       (reference "Q11") (unit 1) (value "IPD50R380CE") (footprint "Package_TO_SOT_SMD:TO-252-2")
     )
-    (path "/00000000-0000-0000-0000-00005d9d9196/00000000-0000-0000-0000-00005da872f8"
-      (reference "Q12") (unit 1) (value "C2M0045170D") (footprint "Package_TO_SOT_THT:TO-247-3_Vertical")
+    (path "/00000000-0000-0000-0000-00005d9d9196/c3dc1e6e-7ed8-459d-85d9-ecde6f130677"
+      (reference "Q12") (unit 1) (value "G3R450MT17J") (footprint "Package_TO_SOT_SMD:TO-263-7_TabPin8")
     )
     (path "/00000000-0000-0000-0000-00005d9d9196/00000000-0000-0000-0000-00005d9e18b0"
       (reference "Q13") (unit 1) (value "BSZ42DN25NS3GATMA1") (footprint "Package_TO_SOT_SMD:TDSON-8-1")
