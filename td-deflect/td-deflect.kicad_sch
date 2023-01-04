@@ -6590,6 +6590,9 @@
     (path "/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d/24525f7f-e2ab-4cb7-a37d-d4d3ac1e949e"
       (reference "#PWR?") (unit 1) (value "+48V") (footprint "")
     )
+    (path "/00000000-0000-0000-0000-00005d9d9196/266769c6-a85d-4879-b088-dbae58b80ff0"
+      (reference "#PWR?") (unit 1) (value "HT") (footprint "")
+    )
     (path "/00000000-0000-0000-0000-00005d9d9196/28bb9be6-e13e-4cc4-98a7-3dfeaa2fb039"
       (reference "#PWR?") (unit 1) (value "GND") (footprint "")
     )
@@ -6638,6 +6641,9 @@
     (path "/60a26d0f-e59a-40a0-9eb5-3e505427edc2"
       (reference "#PWR?") (unit 1) (value "+12V") (footprint "")
     )
+    (path "/00000000-0000-0000-0000-00005d9d9196/624813e1-8269-471f-b074-245305ff5502"
+      (reference "#PWR?") (unit 1) (value "+6V") (footprint "")
+    )
     (path "/00000000-0000-0000-0000-00005d9d9196/62523be9-a220-4020-aad0-148aade00765"
       (reference "#PWR?") (unit 1) (value "+48V") (footprint "")
     )
@@ -6648,6 +6654,9 @@
       (reference "#PWR?") (unit 1) (value "-12V") (footprint "")
     )
     (path "/6602c338-c922-4631-9bdf-f4aa9956aa05"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/00000000-0000-0000-0000-00005d9d9196/66d75dd3-ac9d-43ea-b3d7-5a182259017a"
       (reference "#PWR?") (unit 1) (value "GND") (footprint "")
     )
     (path "/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d/6dd59efc-d483-4b73-9abd-86bb25a087bd"
@@ -6715,6 +6724,9 @@
     )
     (path "/00000000-0000-0000-0000-00005d9d9196/e7c01ac0-11b6-4a90-b3cf-32bb71404a8d"
       (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/00000000-0000-0000-0000-00005d9d9196/e811369c-4b31-4130-b361-27f6fbdabb89"
+      (reference "#PWR?") (unit 1) (value "+6V") (footprint "")
     )
     (path "/00000000-0000-0000-0000-00005d9d9196/e88c3562-7cfb-4624-a4f8-7f3ad05e9fe2"
       (reference "#PWR?") (unit 1) (value "GND") (footprint "")
@@ -6932,6 +6944,9 @@
     (path "/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d/91a607e7-268b-4764-8c3e-97dab1b60432"
       (reference "C?") (unit 1) (value "0.1uF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder")
     )
+    (path "/00000000-0000-0000-0000-00005d9d9196/94579193-e359-4606-9261-fdda8bd1cbc6"
+      (reference "C?") (unit 1) (value "47pF 2000V NP0") (footprint "Capacitor_SMD:C_1206_3216Metric")
+    )
     (path "/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d/94e1e04a-9020-4a59-a6fb-08594a310ed2"
       (reference "C?") (unit 1) (value "0.1uF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder")
     )
@@ -7081,6 +7096,9 @@
     )
     (path "/00000000-0000-0000-0000-00005d9d9196/00000000-0000-0000-0000-00005dc2e1d1"
       (reference "J18") (unit 1) (value "Conn_01x02_Male") (footprint "Connector_Phoenix_MSTB:PhoenixContact_MSTBVA_2,5_2-G_1x02_P5.00mm_Vertical")
+    )
+    (path "/00000000-0000-0000-0000-00005d9d9196/587df972-f188-4496-894f-dbefda339f1d"
+      (reference "J?") (unit 1) (value "Conn_01x04_Male") (footprint "")
     )
     (path "/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d/cc179d1d-bdc4-4cfd-ab00-4464bb27d6ac"
       (reference "J?") (unit 1) (value "Conn_01x02_Male") (footprint "td-deflect:sony_monitor_2p")
@@ -7498,6 +7516,9 @@
     )
     (path "/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d/7a2768dd-e1be-45df-8bda-5e252b24c0db"
       (reference "R?") (unit 1) (value "1") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder")
+    )
+    (path "/00000000-0000-0000-0000-00005d9d9196/7bf0fcb4-c4f9-4f12-b109-fddf336b575a"
+      (reference "R?") (unit 1) (value "3k") (footprint "Resistor_SMD:R_2512_6332Metric")
     )
     (path "/00000000-0000-0000-0000-00005d9d9196/7daafa23-5187-4b97-a75d-23b205de6b74"
       (reference "R?") (unit 1) (value "1") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder")
