@@ -6,7 +6,7 @@ use std::{thread, time::Duration};
 use std::io::BufReader;
 use std::io::BufRead;
 use serde::{Serialize, Deserialize};
-use gtk::pango::{AttrList, Attribute};
+use gtk::pango::{AttrList, AttrFontFeatures};
 use std::sync::mpsc::channel;
 use std::rc::Rc;
 use glib::clone;
@@ -88,7 +88,7 @@ fn build_ui(app: &Application) {
         serial_selector.append_text(&port.port_name);
     }
     let tnum = AttrList::new();
-    tnum.insert(Attribute::new_font_features("tnum"));
+    tnum.insert(AttrFontFeatures::new("tnum"));
     serial_selector.set_active(Some(default_index as u32));
     stats_box.append(&serial_selector);
     let line_stats_grid = Grid::new();
