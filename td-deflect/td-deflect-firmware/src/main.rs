@@ -4,7 +4,7 @@
 use stm32f7::stm32f7x2::*;
 use rtic::app;
 use serde::{Serialize, Deserialize};
-use core::sync::atomic::{self, Ordering};
+use core::sync::atomic::{self, Ordering, AtomicBool};
 use core::panic::PanicInfo;
 use heapless::{Deque, Vec};
 use heapless::spsc::{Queue, Producer, Consumer};
@@ -20,6 +20,8 @@ const MIN_H_PERIOD: u32 = AHB_CLOCK / MAX_H_FREQ;
 
 const DAC_MIDPOINT: i32 = 2047;
 
+static FAULTED: AtomicBool = AtomicBool::new(false);
+
 /// Immediately blanks the video signal.
 /// Used in case of deflection failure to prevent burn-in.
 fn fault_blank() {
@@ -30,6 +32,7 @@ fn fault_blank() {
 #[inline(never)]
 #[panic_handler]
 fn panic(_info: &PanicInfo) -> ! {
+    FAULTED.store(true, Ordering::Relaxed);
     fault_blank();
     loop {
         atomic::compiler_fence(Ordering::SeqCst);
@@ -315,6 +318,8 @@ const APP: () = {
                                  .odr2().bit((config.crt.s_cap & 0b0010) == 0)
                                  .odr3().bit((config.crt.s_cap & 0b0001) == 0) });
 
+        crt_stats.faulted = FAULTED.load(Ordering::Relaxed);
+
         // send stats updates over serial
         if *current_scanline == 0 {
             let _ = cx.spawn.send_stats(*crt_stats);
@@ -368,7 +373,7 @@ const APP: () = {
 #[derive(Default)]
 pub struct CRTState {
     current_scanline: i32,
-    previous_vga_vsync: bool,
+    previous_vga_vsync: bool, // used to detect negative edge sync
 }
 
 #[derive(Default, Copy, Clone, Serialize)]
@@ -383,6 +388,7 @@ pub struct CRTStats {
     v_lines: u16,
     s_voltage: u16,
     odd: bool,
+    faulted: bool,
 }
 
 /// Configuration to match driver board to a particular tube/yoke
