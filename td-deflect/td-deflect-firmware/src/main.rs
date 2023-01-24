@@ -240,6 +240,7 @@ const APP: () = {
         hsync_capture.update();
         atomic::compiler_fence(Ordering::SeqCst);
         v_drive.trigger();
+
         let input_period = hsync_capture.get_period_averaged();
         let output_period = hot_driver.get_period() as i32;
         // if we are really far away frequency wise, just ignore this sync entirely
@@ -265,6 +266,7 @@ const APP: () = {
         hot_driver.update();
 
         let VERTICAL_MAX_AMPS = 1.0;
+        let VERTICAL_BLANKING_SCANLINES = 20;
         // vertical advance
         // vertical counter
         //let vga_vsync = gpiob.idr.read().idr0().bit(); // vga sync input
@@ -281,6 +283,14 @@ const APP: () = {
         }
         crt_state.previous_vga_vsync = vga_vsync;
         if *current_scanline >= (total_lines + 10) { *current_scanline = 0 };
+        // handle vertical blanking
+        if *current_scanline >= VERTICAL_BLANKING_SCANLINES {
+            if !FAULTED.load(Ordering::Relaxed) {
+                gpioc.odr.modify(|_,w| {w.odr14().bit(false)}); // show image
+            }
+        } else {
+            gpioc.odr.modify(|_,w| {w.odr14().bit(true)}); // blank image
+        }
         // convert scanline to a (+1, -1) range coordinate (+1 is top of screen)
         let horizontal_pos_coordinate = (((*current_scanline) - center_line) as f32 + if odd { 0.0 } else { -0.5 }) / (total_lines as f32) * -2.0;
         let vertical_linearity = config.crt.vertical_linearity;
