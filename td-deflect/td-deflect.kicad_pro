@@ -1,5 +1,6 @@
 {
   "board": {
+    "3dviewports": [],
     "design_settings": {
       "defaults": {
         "board_outline_line_width": 0.049999999999999996,
@@ -122,7 +123,8 @@
       "zones_allow_external_fillets": false,
       "zones_use_no_outline": true
     },
-    "layer_presets": []
+    "layer_presets": [],
+    "viewports": []
   },
   "boards": [],
   "cvpcb": {
@@ -344,7 +346,7 @@
   "net_settings": {
     "classes": [
       {
-        "bus_width": 12.0,
+        "bus_width": 12,
         "clearance": 0.16,
         "diff_pair_gap": 0.25,
         "diff_pair_via_gap": 0.25,
@@ -358,10 +360,10 @@
         "track_width": 0.16,
         "via_diameter": 0.6,
         "via_drill": 0.3,
-        "wire_width": 6.0
+        "wire_width": 6
       },
       {
-        "bus_width": 12.0,
+        "bus_width": 12,
         "clearance": 2.5,
         "diff_pair_gap": 0.25,
         "diff_pair_via_gap": 0.25,
@@ -370,19 +372,15 @@
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
         "name": "1700V",
-        "nets": [
-          "/h.out",
-          "/power_supply/eht out"
-        ],
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.25,
         "via_diameter": 0.8,
         "via_drill": 0.4,
-        "wire_width": 6.0
+        "wire_width": 6
       },
       {
-        "bus_width": 12.0,
+        "bus_width": 12,
         "clearance": 0.4,
         "diff_pair_gap": 0.25,
         "diff_pair_via_gap": 0.25,
@@ -391,24 +389,45 @@
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
         "name": "200V",
-        "nets": [
-          "/S_cap_top",
-          "/h.ret",
-          "/hsupply",
-          "HT"
-        ],
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.25,
         "via_diameter": 0.8,
         "via_drill": 0.4,
-        "wire_width": 6.0
+        "wire_width": 6
       }
     ],
     "meta": {
-      "version": 2
+      "version": 3
     },
-    "net_colors": null
+    "net_colors": null,
+    "netclass_assignments": null,
+    "netclass_patterns": [
+      {
+        "netclass": "1700V",
+        "pattern": "/h.out"
+      },
+      {
+        "netclass": "1700V",
+        "pattern": "/power_supply/eht out"
+      },
+      {
+        "netclass": "200V",
+        "pattern": "/S_cap_top"
+      },
+      {
+        "netclass": "200V",
+        "pattern": "/h.ret"
+      },
+      {
+        "netclass": "200V",
+        "pattern": "/hsupply"
+      },
+      {
+        "netclass": "200V",
+        "pattern": "HT"
+      }
+    ]
   },
   "pcbnew": {
     "last_paths": {
