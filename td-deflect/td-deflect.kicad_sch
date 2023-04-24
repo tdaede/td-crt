@@ -1,4 +1,4 @@
-(kicad_sch (version 20221206) (generator eeschema)
+(kicad_sch (version 20230121) (generator eeschema)
 
   (uuid 55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d)
 
@@ -7329,10 +7329,10 @@
     (stroke (width 0) (type solid))
     (fill (color 0 0 0 0.0000))
     (uuid 00000000-0000-0000-0000-00005c37bef7)
-    (property "Sheetname" "Sheet5C37BEF6" (at 217.17 28.5745 0)
+    (property "Sheetname" "uc" (at 217.17 28.4984 0)
       (effects (font (size 1.27 1.27)) (justify left bottom))
     )
-    (property "Sheetfile" "uc.kicad_sch" (at 217.17 36.0685 0)
+    (property "Sheetfile" "uc.kicad_sch" (at 217.17 36.1446 0)
       (effects (font (size 1.27 1.27)) (justify left top))
     )
     (instances
@@ -7406,6 +7406,26 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d" (page "6"))
+      )
+    )
+  )
+
+  (sheet (at 196.85 44.45) (size 15.24 6.35) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid a56006b4-bd4f-4c31-bf25-a85d9ee8c212)
+    (property "Sheetname" "flyback" (at 196.85 43.7384 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "flyback.kicad_sch" (at 196.85 51.3846 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (property "Field2" "" (at 196.85 44.45 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (instances
+      (project "td-deflect"
+        (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d" (page "7"))
       )
     )
   )
