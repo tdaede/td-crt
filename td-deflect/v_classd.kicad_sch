@@ -1185,7 +1185,7 @@
   (symbol (lib_id "Device:R") (at 99.06 67.31 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 05424130-9f96-4974-b75b-74a5e9afcefa)
-    (property "Reference" "R?" (at 99.06 62.0522 90)
+    (property "Reference" "R80" (at 99.06 62.0522 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "1" (at 99.06 64.3636 90)
@@ -1205,7 +1205,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "R?") (unit 1)
+          (reference "R80") (unit 1)
         )
       )
     )
@@ -1214,7 +1214,7 @@
   (symbol (lib_id "power:+48V") (at 110.49 62.23 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 0bb1629e-7c6c-491f-8b82-216eb37c5f8f)
-    (property "Reference" "#PWR?" (at 110.49 66.04 0)
+    (property "Reference" "#PWR0190" (at 110.49 66.04 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+48V" (at 110.49 57.15 0)
@@ -1230,7 +1230,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0190") (unit 1)
         )
       )
     )
@@ -1239,7 +1239,7 @@
   (symbol (lib_id "power:+12V") (at 83.82 99.06 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0fd6e64f-fe25-4101-8ee7-fb2f1e2d16e5)
-    (property "Reference" "#PWR?" (at 83.82 102.87 0)
+    (property "Reference" "#PWR0204" (at 83.82 102.87 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+12V" (at 84.201 94.6658 0)
@@ -1255,7 +1255,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0204") (unit 1)
         )
       )
     )
@@ -1264,7 +1264,7 @@
   (symbol (lib_id "power:+5V") (at 166.37 43.18 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 16175610-b355-480d-9413-9887c86061f7)
-    (property "Reference" "#PWR?" (at 166.37 46.99 0)
+    (property "Reference" "#PWR0195" (at 166.37 46.99 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 166.37 38.1 0)
@@ -1280,7 +1280,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0195") (unit 1)
         )
       )
     )
@@ -1289,13 +1289,13 @@
   (symbol (lib_id "Device:R") (at 163.83 88.9 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 1643ea50-9185-4c98-ba41-2d5da4e27f2e)
-    (property "Reference" "R?" (at 166.37 87.6299 0)
+    (property "Reference" "R85" (at 166.37 87.6299 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "5.1" (at 166.37 90.1699 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 162.052 88.9 90)
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" (at 162.052 88.9 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 163.83 88.9 0)
@@ -1306,7 +1306,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "R?") (unit 1)
+          (reference "R85") (unit 1)
         )
       )
     )
@@ -1315,7 +1315,7 @@
   (symbol (lib_id "power:+48V") (at 52.07 110.49 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 17fa7b1d-a823-43bf-98a4-d8252bf0d98c)
-    (property "Reference" "#PWR?" (at 52.07 114.3 0)
+    (property "Reference" "#PWR0211" (at 52.07 114.3 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+48V" (at 52.07 105.41 0)
@@ -1331,7 +1331,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0211") (unit 1)
         )
       )
     )
@@ -1340,7 +1340,7 @@
   (symbol (lib_id "power:+48V") (at 50.8 71.12 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 24525f7f-e2ab-4cb7-a37d-d4d3ac1e949e)
-    (property "Reference" "#PWR?" (at 50.8 74.93 0)
+    (property "Reference" "#PWR0206" (at 50.8 74.93 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+48V" (at 50.8 66.04 0)
@@ -1356,7 +1356,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0206") (unit 1)
         )
       )
     )
@@ -1365,7 +1365,7 @@
   (symbol (lib_id "power:GND") (at 110.49 127 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 2e93a967-5518-4e12-a656-9ed6bb5cdd2f)
-    (property "Reference" "#PWR?" (at 110.49 133.35 0)
+    (property "Reference" "#PWR0192" (at 110.49 133.35 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 110.617 131.3942 0)
@@ -1381,7 +1381,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0192") (unit 1)
         )
       )
     )
@@ -1390,7 +1390,7 @@
   (symbol (lib_id "Device:L") (at 142.24 116.84 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 3b6c461d-5cb9-45f7-a6e5-7f040e3a3531)
-    (property "Reference" "L?" (at 142.24 110.49 90)
+    (property "Reference" "L12" (at 142.24 110.49 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "100u" (at 142.24 113.03 90)
@@ -1407,7 +1407,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "L?") (unit 1)
+          (reference "L12") (unit 1)
         )
       )
     )
@@ -1416,7 +1416,7 @@
   (symbol (lib_id "power:GND") (at 166.37 60.96 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 3d50aa45-49c0-4710-85d9-0c17ec394d09)
-    (property "Reference" "#PWR?" (at 166.37 67.31 0)
+    (property "Reference" "#PWR0196" (at 166.37 67.31 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 166.497 65.3542 0)
@@ -1432,7 +1432,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0196") (unit 1)
         )
       )
     )
@@ -1441,7 +1441,7 @@
   (symbol (lib_id "Device:C") (at 60.96 114.3 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 3e9d5188-4478-4fd7-b1bb-947b69234be5)
-    (property "Reference" "C?" (at 63.881 113.1316 0)
+    (property "Reference" "C79" (at 63.881 113.1316 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "0.1uF" (at 63.881 115.443 0)
@@ -1461,7 +1461,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "C?") (unit 1)
+          (reference "C79") (unit 1)
         )
       )
     )
@@ -1470,7 +1470,7 @@
   (symbol (lib_id "Device:C") (at 52.07 114.3 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 40c9134a-a9e0-442f-a6c3-9455ded809bf)
-    (property "Reference" "C?" (at 55.88 113.0299 0)
+    (property "Reference" "C77" (at 55.88 113.0299 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "1uF 50V" (at 55.88 115.5699 0)
@@ -1487,7 +1487,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "C?") (unit 1)
+          (reference "C77") (unit 1)
         )
       )
     )
@@ -1496,7 +1496,7 @@
   (symbol (lib_id "power:+5V") (at 205.74 104.14 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 4440edd6-3c8e-4568-9280-37cc6e113cd6)
-    (property "Reference" "#PWR?" (at 205.74 107.95 0)
+    (property "Reference" "#PWR0199" (at 205.74 107.95 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 205.74 99.06 0)
@@ -1512,7 +1512,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0199") (unit 1)
         )
       )
     )
@@ -1521,7 +1521,7 @@
   (symbol (lib_id "Device:R") (at 99.06 106.68 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 45df4e81-fdb3-4333-a358-c5f74cdef0d2)
-    (property "Reference" "R?" (at 99.06 101.4222 90)
+    (property "Reference" "R82" (at 99.06 101.4222 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "1" (at 99.06 103.7336 90)
@@ -1541,7 +1541,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "R?") (unit 1)
+          (reference "R82") (unit 1)
         )
       )
     )
@@ -1550,7 +1550,7 @@
   (symbol (lib_id "Transistor_FET:BSC082N10LSG") (at 107.95 106.68 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 475d5725-30c9-43a6-9f82-46898e7b23a9)
-    (property "Reference" "Q?" (at 113.1316 105.5116 0)
+    (property "Reference" "Q20" (at 113.1316 105.5116 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "BSZ42DN25NS3GATMA1" (at 113.1316 107.823 0)
@@ -1573,7 +1573,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "Q?") (unit 1)
+          (reference "Q20") (unit 1)
         )
       )
     )
@@ -1582,7 +1582,7 @@
   (symbol (lib_id "Device:C") (at 245.11 116.84 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 4b04c3d4-2987-42ca-ae4e-7f10ec65a713)
-    (property "Reference" "C?" (at 248.031 115.6716 0)
+    (property "Reference" "C87" (at 248.031 115.6716 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "0.1uF" (at 248.031 117.983 0)
@@ -1602,7 +1602,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "C?") (unit 1)
+          (reference "C87") (unit 1)
         )
       )
     )
@@ -1611,13 +1611,13 @@
   (symbol (lib_id "Device:R") (at 134.62 77.47 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 4c97fa2b-ace9-4de0-8c1e-3630e1d7bbed)
-    (property "Reference" "R?" (at 134.62 71.12 90)
+    (property "Reference" "R84" (at 134.62 71.12 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.01" (at 134.62 73.66 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 134.62 79.248 90)
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" (at 134.62 79.248 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 134.62 77.47 0)
@@ -1628,7 +1628,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "R?") (unit 1)
+          (reference "R84") (unit 1)
         )
       )
     )
@@ -1637,7 +1637,7 @@
   (symbol (lib_id "Transistor_FET:BSC082N10LSG") (at 107.95 121.92 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 4d5daed1-87ea-4971-8fee-13a70f2804a0)
-    (property "Reference" "Q?" (at 113.1316 120.7516 0)
+    (property "Reference" "Q21" (at 113.1316 120.7516 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "BSZ42DN25NS3GATMA1" (at 113.1316 123.063 0)
@@ -1660,7 +1660,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "Q?") (unit 1)
+          (reference "Q21") (unit 1)
         )
       )
     )
@@ -1669,7 +1669,7 @@
   (symbol (lib_id "Driver_FET:IRS2005S") (at 83.82 72.39 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 4e6753b8-5e93-4573-aaad-d8313a70d2c9)
-    (property "Reference" "U?" (at 83.82 55.0926 0)
+    (property "Reference" "U34" (at 83.82 55.0926 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "IRS2005S" (at 83.82 57.404 0)
@@ -1695,7 +1695,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "U?") (unit 1)
+          (reference "U34") (unit 1)
         )
       )
     )
@@ -1704,7 +1704,7 @@
   (symbol (lib_id "power:+5V") (at 245.11 113.03 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 53296af6-67ce-4d6c-976d-87e6f1e273f7)
-    (property "Reference" "#PWR?" (at 245.11 116.84 0)
+    (property "Reference" "#PWR0201" (at 245.11 116.84 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 245.11 107.95 0)
@@ -1720,7 +1720,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0201") (unit 1)
         )
       )
     )
@@ -1729,7 +1729,7 @@
   (symbol (lib_id "power:GND") (at 205.74 121.92 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 5b0f2581-1872-4f30-b968-43921dbdf6d0)
-    (property "Reference" "#PWR?" (at 205.74 128.27 0)
+    (property "Reference" "#PWR0200" (at 205.74 128.27 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 205.867 126.3142 0)
@@ -1745,7 +1745,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0200") (unit 1)
         )
       )
     )
@@ -1754,13 +1754,13 @@
   (symbol (lib_id "Device:R") (at 177.8 113.03 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 62bad439-1878-43fa-b55a-1815bf49a40b)
-    (property "Reference" "R?" (at 180.34 111.7599 0)
+    (property "Reference" "R95" (at 180.34 111.7599 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "330" (at 180.34 114.2999 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 176.022 113.03 90)
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" (at 176.022 113.03 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 177.8 113.03 0)
@@ -1771,7 +1771,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "R?") (unit 1)
+          (reference "R95") (unit 1)
         )
       )
     )
@@ -1780,7 +1780,7 @@
   (symbol (lib_id "td-crt:MAX9919F") (at 205.74 114.3 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 63a2b5d3-b9fd-4cda-97f5-ba0fe85f61bf)
-    (property "Reference" "U?" (at 207.7594 101.6 0)
+    (property "Reference" "U37" (at 207.7594 101.6 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "MAX9919F" (at 207.7594 104.14 0)
@@ -1793,8 +1793,8 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid fb9f0d50-d088-47b3-af36-8af8b07f42d7))
-    (pin "2" (uuid 99afc685-2eed-4cdc-8517-81c6016207a7))
-    (pin "2" (uuid 99afc685-2eed-4cdc-8517-81c6016207a7))
+    (pin "2" (uuid 99afc685-2eed-4cdc-8517-81c6016207aa))
+    (pin "2" (uuid 99afc685-2eed-4cdc-8517-81c6016207aa))
     (pin "3" (uuid ec8bdb7d-0baf-4e32-9e7d-eb66971607ab))
     (pin "4" (uuid ccd57fed-718a-49a1-a777-42e1a998a121))
     (pin "5" (uuid 2464b804-ae87-47ae-872b-fa66022cb4ad))
@@ -1803,7 +1803,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "U?") (unit 1)
+          (reference "U37") (unit 1)
         )
       )
     )
@@ -1812,7 +1812,7 @@
   (symbol (lib_id "power:+12V") (at 60.96 71.12 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 6dd59efc-d483-4b73-9abd-86bb25a087bd)
-    (property "Reference" "#PWR?" (at 60.96 74.93 0)
+    (property "Reference" "#PWR0207" (at 60.96 74.93 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+12V" (at 61.341 66.7258 0)
@@ -1828,7 +1828,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0207") (unit 1)
         )
       )
     )
@@ -1837,13 +1837,13 @@
   (symbol (lib_id "Device:C") (at 163.83 120.65 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 70df4286-8763-44dc-a845-9ffa066c22ab)
-    (property "Reference" "C?" (at 167.64 119.3799 0)
+    (property "Reference" "C85" (at 167.64 119.3799 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "10uF" (at 167.64 121.9199 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 164.7952 124.46 0)
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" (at 164.7952 124.46 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 163.83 120.65 0)
@@ -1854,7 +1854,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "C?") (unit 1)
+          (reference "C85") (unit 1)
         )
       )
     )
@@ -1863,13 +1863,13 @@
   (symbol (lib_id "Device:C") (at 163.83 81.28 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 742f0948-acf8-477b-abab-3949ac0a8009)
-    (property "Reference" "C?" (at 167.64 80.0099 0)
+    (property "Reference" "C84" (at 167.64 80.0099 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "10uF" (at 167.64 82.5499 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 164.7952 85.09 0)
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" (at 164.7952 85.09 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 163.83 81.28 0)
@@ -1880,7 +1880,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "C?") (unit 1)
+          (reference "C84") (unit 1)
         )
       )
     )
@@ -1889,7 +1889,7 @@
   (symbol (lib_id "power:GND") (at 60.96 78.74 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 79359882-6b8b-4da8-93fd-8d52a32d7af8)
-    (property "Reference" "#PWR?" (at 60.96 85.09 0)
+    (property "Reference" "#PWR0208" (at 60.96 85.09 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 61.087 83.1342 0)
@@ -1905,7 +1905,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0208") (unit 1)
         )
       )
     )
@@ -1914,7 +1914,7 @@
   (symbol (lib_id "Device:C") (at 50.8 74.93 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 79666a54-d999-429a-9a4b-c276ba626c3a)
-    (property "Reference" "C?" (at 54.61 73.6599 0)
+    (property "Reference" "C76" (at 54.61 73.6599 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "1uF 50V" (at 54.61 76.1999 0)
@@ -1931,7 +1931,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "C?") (unit 1)
+          (reference "C76") (unit 1)
         )
       )
     )
@@ -1940,7 +1940,7 @@
   (symbol (lib_id "Device:R") (at 99.06 82.55 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 7a2768dd-e1be-45df-8bda-5e252b24c0db)
-    (property "Reference" "R?" (at 99.06 77.2922 90)
+    (property "Reference" "R81" (at 99.06 77.2922 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "1" (at 99.06 79.6036 90)
@@ -1960,7 +1960,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "R?") (unit 1)
+          (reference "R81") (unit 1)
         )
       )
     )
@@ -1969,7 +1969,7 @@
   (symbol (lib_id "Diode:BA157") (at 92.71 59.69 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 7a6149a7-f577-4236-9dc5-7c00efeb3e33)
-    (property "Reference" "D?" (at 92.71 54.2036 0)
+    (property "Reference" "D18" (at 92.71 54.2036 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "ES1G-13-F" (at 92.71 56.515 0)
@@ -1989,7 +1989,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "D?") (unit 1)
+          (reference "D18") (unit 1)
         )
       )
     )
@@ -1998,7 +1998,7 @@
   (symbol (lib_id "power:GND") (at 205.74 59.69 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 7b3c5b1b-f612-46f9-b185-e738fc099bd2)
-    (property "Reference" "#PWR?" (at 205.74 66.04 0)
+    (property "Reference" "#PWR0193" (at 205.74 66.04 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 205.867 64.0842 0)
@@ -2014,7 +2014,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0193") (unit 1)
         )
       )
     )
@@ -2023,7 +2023,7 @@
   (symbol (lib_name "GND_2") (lib_id "power:GND") (at 163.83 92.71 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 832e5855-2c2d-444e-ae6c-3655ad0dc100)
-    (property "Reference" "#PWR?" (at 163.83 99.06 0)
+    (property "Reference" "#PWR0198" (at 163.83 99.06 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 163.83 97.79 0)
@@ -2039,7 +2039,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0198") (unit 1)
         )
       )
     )
@@ -2048,7 +2048,7 @@
   (symbol (lib_name "GND_1") (lib_id "power:GND") (at 50.8 78.74 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 89161394-9f52-4f61-a2e0-1d24c737aea3)
-    (property "Reference" "#PWR?" (at 50.8 85.09 0)
+    (property "Reference" "#PWR0205" (at 50.8 85.09 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 50.8 83.82 0)
@@ -2064,7 +2064,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0205") (unit 1)
         )
       )
     )
@@ -2073,7 +2073,7 @@
   (symbol (lib_id "Diode:BA157") (at 92.71 99.06 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 8c0a596b-1ae6-4ecc-ad7f-fcc8fbb54a5e)
-    (property "Reference" "D?" (at 92.71 93.5736 0)
+    (property "Reference" "D19" (at 92.71 93.5736 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "ES1G-13-F" (at 92.71 95.885 0)
@@ -2093,7 +2093,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "D?") (unit 1)
+          (reference "D19") (unit 1)
         )
       )
     )
@@ -2102,7 +2102,7 @@
   (symbol (lib_id "Device:C") (at 60.96 74.93 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 8c778b8b-c5d2-4131-9121-cb9e83c17868)
-    (property "Reference" "C?" (at 63.881 73.7616 0)
+    (property "Reference" "C78" (at 63.881 73.7616 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "0.1uF" (at 63.881 76.073 0)
@@ -2122,7 +2122,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "C?") (unit 1)
+          (reference "C78") (unit 1)
         )
       )
     )
@@ -2131,7 +2131,7 @@
   (symbol (lib_id "Device:C") (at 146.05 81.28 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 8cb5c4a8-c233-4348-a794-0ec56c52926d)
-    (property "Reference" "C?" (at 149.86 80.0099 0)
+    (property "Reference" "C82" (at 149.86 80.0099 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "15uF" (at 149.86 82.5499 0)
@@ -2148,7 +2148,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "C?") (unit 1)
+          (reference "C82") (unit 1)
         )
       )
     )
@@ -2157,7 +2157,7 @@
   (symbol (lib_id "power:+12V") (at 83.82 59.69 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 8d457bd8-a265-42cb-b48f-13c8072d48b5)
-    (property "Reference" "#PWR?" (at 83.82 63.5 0)
+    (property "Reference" "#PWR0203" (at 83.82 63.5 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+12V" (at 84.201 55.2958 0)
@@ -2173,7 +2173,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0203") (unit 1)
         )
       )
     )
@@ -2182,7 +2182,7 @@
   (symbol (lib_id "Device:C") (at 205.74 55.88 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 91a607e7-268b-4764-8c3e-97dab1b60432)
-    (property "Reference" "C?" (at 208.661 54.7116 0)
+    (property "Reference" "C86" (at 208.661 54.7116 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "0.1uF" (at 208.661 57.023 0)
@@ -2202,7 +2202,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "C?") (unit 1)
+          (reference "C86") (unit 1)
         )
       )
     )
@@ -2211,7 +2211,7 @@
   (symbol (lib_id "Device:C") (at 93.98 72.39 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 94e1e04a-9020-4a59-a6fb-08594a310ed2)
-    (property "Reference" "C?" (at 96.901 71.2216 0)
+    (property "Reference" "C80" (at 96.901 71.2216 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "0.1uF" (at 96.901 73.533 0)
@@ -2231,7 +2231,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "C?") (unit 1)
+          (reference "C80") (unit 1)
         )
       )
     )
@@ -2240,13 +2240,13 @@
   (symbol (lib_id "Device:R") (at 185.42 113.03 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9c14b2a7-70d5-4c54-afdf-91e9398f17e9)
-    (property "Reference" "R?" (at 187.96 111.7599 0)
+    (property "Reference" "R107" (at 187.96 111.7599 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "0.01" (at 187.96 114.2999 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 183.642 113.03 90)
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" (at 183.642 113.03 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 185.42 113.03 0)
@@ -2257,7 +2257,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "R?") (unit 1)
+          (reference "R107") (unit 1)
         )
       )
     )
@@ -2266,7 +2266,7 @@
   (symbol (lib_id "Transistor_FET:BSC082N10LSG") (at 107.95 67.31 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 9d453051-f292-4ed8-aadc-e3567e98e784)
-    (property "Reference" "Q?" (at 113.1316 66.1416 0)
+    (property "Reference" "Q15" (at 113.1316 66.1416 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "BSZ42DN25NS3GATMA1" (at 113.1316 68.453 0)
@@ -2289,7 +2289,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "Q?") (unit 1)
+          (reference "Q15") (unit 1)
         )
       )
     )
@@ -2298,7 +2298,7 @@
   (symbol (lib_id "power:+5V") (at 205.74 52.07 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a0484d26-7eb1-4ab3-862e-17e25a8d01e0)
-    (property "Reference" "#PWR?" (at 205.74 55.88 0)
+    (property "Reference" "#PWR0194" (at 205.74 55.88 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 205.74 46.99 0)
@@ -2314,7 +2314,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0194") (unit 1)
         )
       )
     )
@@ -2323,7 +2323,7 @@
   (symbol (lib_name "GND_1") (lib_id "power:GND") (at 52.07 118.11 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a0efdddd-5f9b-4e67-8874-6a00dbd931bd)
-    (property "Reference" "#PWR?" (at 52.07 124.46 0)
+    (property "Reference" "#PWR0209" (at 52.07 124.46 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 52.07 123.19 0)
@@ -2339,7 +2339,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0209") (unit 1)
         )
       )
     )
@@ -2348,7 +2348,7 @@
   (symbol (lib_name "GND_2") (lib_id "power:GND") (at 163.83 132.08 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a33e0b87-0fc9-4dbf-9a62-0bc96672c2b9)
-    (property "Reference" "#PWR?" (at 163.83 138.43 0)
+    (property "Reference" "#PWR0197" (at 163.83 138.43 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 163.83 137.16 0)
@@ -2364,7 +2364,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0197") (unit 1)
         )
       )
     )
@@ -2373,7 +2373,7 @@
   (symbol (lib_id "power:GND") (at 110.49 87.63 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid a42b6f13-de00-489f-b1dd-d389b89b8eb3)
-    (property "Reference" "#PWR?" (at 110.49 93.98 0)
+    (property "Reference" "#PWR0189" (at 110.49 93.98 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 110.617 92.0242 0)
@@ -2389,7 +2389,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0189") (unit 1)
         )
       )
     )
@@ -2398,7 +2398,7 @@
   (symbol (lib_id "Transistor_FET:BSC082N10LSG") (at 107.95 82.55 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid a6be9f61-858e-4095-a2d2-fa6f97f4fe38)
-    (property "Reference" "Q?" (at 113.1316 81.3816 0)
+    (property "Reference" "Q16" (at 113.1316 81.3816 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "BSZ42DN25NS3GATMA1" (at 113.1316 83.693 0)
@@ -2421,7 +2421,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "Q?") (unit 1)
+          (reference "Q16") (unit 1)
         )
       )
     )
@@ -2430,7 +2430,7 @@
   (symbol (lib_id "power:GND") (at 245.11 120.65 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid b0fb0d95-0c4a-47fb-9329-135cd97179be)
-    (property "Reference" "#PWR?" (at 245.11 127 0)
+    (property "Reference" "#PWR0202" (at 245.11 127 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 245.237 125.0442 0)
@@ -2446,7 +2446,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0202") (unit 1)
         )
       )
     )
@@ -2455,7 +2455,7 @@
   (symbol (lib_id "td-crt:MAX9919F") (at 166.37 53.34 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid b71d3ad7-8de1-4c93-93a6-e8075e77421e)
-    (property "Reference" "U?" (at 168.3894 40.64 0)
+    (property "Reference" "U36" (at 168.3894 40.64 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "MAX9919F" (at 168.3894 43.18 0)
@@ -2468,8 +2468,8 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid caadf4d6-2231-46ae-9726-e8eba820c7b1))
-    (pin "2" (uuid 2f5fd9e1-f7bf-4371-845f-a16d42657569))
-    (pin "2" (uuid 2f5fd9e1-f7bf-4371-845f-a16d42657569))
+    (pin "2" (uuid 2f5fd9e1-f7bf-4371-845f-a16d4265756c))
+    (pin "2" (uuid 2f5fd9e1-f7bf-4371-845f-a16d4265756c))
     (pin "3" (uuid d9795890-12f4-475f-9c59-d2ccbd0513a7))
     (pin "4" (uuid 9c9dd586-a64e-4c1c-b15a-3a771141374d))
     (pin "5" (uuid a24c16b7-a454-47b7-b7f8-35d0d952509d))
@@ -2478,7 +2478,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "U?") (unit 1)
+          (reference "U36") (unit 1)
         )
       )
     )
@@ -2487,7 +2487,7 @@
   (symbol (lib_id "Device:R") (at 99.06 121.92 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid b78aae3e-4ede-46b5-81bc-514636c32dc9)
-    (property "Reference" "R?" (at 99.06 116.6622 90)
+    (property "Reference" "R83" (at 99.06 116.6622 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "1" (at 99.06 118.9736 90)
@@ -2507,7 +2507,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "R?") (unit 1)
+          (reference "R83") (unit 1)
         )
       )
     )
@@ -2516,7 +2516,7 @@
   (symbol (lib_id "Driver_FET:IRS2005S") (at 83.82 111.76 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid bf70a50e-2de4-4724-a4ff-8a85f2f43b6c)
-    (property "Reference" "U?" (at 83.82 94.4626 0)
+    (property "Reference" "U35" (at 83.82 94.4626 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "IRS2005S" (at 83.82 96.774 0)
@@ -2542,7 +2542,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "U?") (unit 1)
+          (reference "U35") (unit 1)
         )
       )
     )
@@ -2551,7 +2551,7 @@
   (symbol (lib_id "Connector:Conn_01x02_Male") (at 190.5 77.47 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid cc179d1d-bdc4-4cfd-ab00-4464bb27d6ac)
-    (property "Reference" "J?" (at 187.7568 72.8726 0)
+    (property "Reference" "J8" (at 187.7568 72.8726 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Conn_01x02_Male" (at 187.7568 75.184 0)
@@ -2568,7 +2568,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "J?") (unit 1)
+          (reference "J8") (unit 1)
         )
       )
     )
@@ -2577,7 +2577,7 @@
   (symbol (lib_id "Device:C") (at 146.05 120.65 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid cc992ae5-641c-4576-858c-23b13ab3dc2a)
-    (property "Reference" "C?" (at 149.86 119.3799 0)
+    (property "Reference" "C83" (at 149.86 119.3799 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "15uF" (at 149.86 121.9199 0)
@@ -2594,7 +2594,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "C?") (unit 1)
+          (reference "C83") (unit 1)
         )
       )
     )
@@ -2603,7 +2603,7 @@
   (symbol (lib_id "power:+48V") (at 110.49 101.6 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid ced6b777-9a8a-45ae-b1c5-ef5cbf187f00)
-    (property "Reference" "#PWR?" (at 110.49 105.41 0)
+    (property "Reference" "#PWR0191" (at 110.49 105.41 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+48V" (at 110.49 96.52 0)
@@ -2619,7 +2619,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0191") (unit 1)
         )
       )
     )
@@ -2628,7 +2628,7 @@
   (symbol (lib_id "power:GND") (at 60.96 118.11 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid cedf7b82-a459-48b7-a5c4-269b40d8203e)
-    (property "Reference" "#PWR?" (at 60.96 124.46 0)
+    (property "Reference" "#PWR0210" (at 60.96 124.46 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 61.087 122.5042 0)
@@ -2644,7 +2644,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0210") (unit 1)
         )
       )
     )
@@ -2653,7 +2653,7 @@
   (symbol (lib_id "Device:L") (at 142.24 77.47 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid ceecff53-a2f4-4838-80a2-da2b66d93bbe)
-    (property "Reference" "L?" (at 142.24 71.12 90)
+    (property "Reference" "L11" (at 142.24 71.12 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "100u" (at 142.24 73.66 90)
@@ -2670,7 +2670,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "L?") (unit 1)
+          (reference "L11") (unit 1)
         )
       )
     )
@@ -2679,7 +2679,7 @@
   (symbol (lib_id "Device:C") (at 93.98 111.76 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid dee5ac7e-b9a7-467c-84d8-6a188b008f99)
-    (property "Reference" "C?" (at 96.901 110.5916 0)
+    (property "Reference" "C81" (at 96.901 110.5916 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "0.1uF" (at 96.901 112.903 0)
@@ -2699,7 +2699,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "C?") (unit 1)
+          (reference "C81") (unit 1)
         )
       )
     )
@@ -2708,13 +2708,13 @@
   (symbol (lib_id "Device:R") (at 163.83 128.27 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid e34382cf-ed12-4855-aa50-c334952d73be)
-    (property "Reference" "R?" (at 166.37 126.9999 0)
+    (property "Reference" "R94" (at 166.37 126.9999 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "5.1" (at 166.37 129.5399 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 162.052 128.27 90)
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" (at 162.052 128.27 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 163.83 128.27 0)
@@ -2725,7 +2725,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "R?") (unit 1)
+          (reference "R94") (unit 1)
         )
       )
     )
@@ -2734,7 +2734,7 @@
   (symbol (lib_id "power:+12V") (at 60.96 110.49 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid f2ea7f37-b2b9-43d2-8205-1590a6d6fe43)
-    (property "Reference" "#PWR?" (at 60.96 114.3 0)
+    (property "Reference" "#PWR0212" (at 60.96 114.3 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+12V" (at 61.341 106.0958 0)
@@ -2750,7 +2750,7 @@
     (instances
       (project "td-deflect"
         (path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/2c95720a-0eb3-4c1d-b25b-9a7f07a4250d"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0212") (unit 1)
         )
       )
     )
