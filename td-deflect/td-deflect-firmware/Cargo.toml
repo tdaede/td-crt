@@ -16,7 +16,7 @@ version = "1.1.4"
 
 [dependencies.stm32f7]
 features = ["stm32f7x2","rt"]
-version = "0.14.0"
+version = "0.15.1"
 
 [dependencies.serde]
 version = "1.0"

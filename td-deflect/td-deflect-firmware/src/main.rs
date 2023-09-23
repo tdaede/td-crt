@@ -465,11 +465,11 @@ mod app {
             // configuration for HOT
             tp.ccmr2_output().write(|w| { w.oc4m().bits(0b111) }); // PWM2
             tp.ccer.modify(|_,w| { w.cc4e().set_bit() });
-            tp.ccr4.write(|w| { w.ccr().bits((MAX_H_PERIOD*1/2) as u16) });
+            tp.ccr4().write(|w| { w.ccr().bits((MAX_H_PERIOD*1/2) as u16) });
             // initialize to longest possible period in case synchronization fails
             let h_pin_period = MAX_H_PERIOD as u16;
             // start out with 0 width to slowly ramp it up
-            tp.ccr1.write(|w| { w.ccr().bits(0) });
+            tp.ccr1().write(|w| { w.ccr().bits(0) });
             tp.arr.write(|w| { w.arr().bits(h_pin_period) });
             // with 75 ohm gate resistors, 0x38 is the best
             tp.bdtr.write(|w| { unsafe { w.moe().enabled().dtg().bits(0x38) }}); // uwu
@@ -480,7 +480,7 @@ mod app {
             // hv driver
             thv.ccmr1_output().write(|w| { w.oc1m().bits(0b110) });
             thv.ccer.modify(|_,w| { w.cc1e().set_bit() });
-            thv.ccr1.write(|w| { w.ccr().bits(h_pin_period / 2) });
+            thv.ccr1().write(|w| { w.ccr().bits(h_pin_period / 2) });
             thv.arr.write(|w| { w.arr().bits(h_pin_period) });
             thv.cr1.write(|w| { w.cen().enabled() });
             HOTDriver {
@@ -503,7 +503,7 @@ mod app {
             // update h pin duty
             let max_change_per_iteration = 0.001;
             self.current_duty = self.current_duty + (self.duty_setpoint - self.current_duty).clamp(-1.0*max_change_per_iteration, max_change_per_iteration);
-            self.tp.ccr1.write(|w| { w.ccr().bits((self.h_pin_period as f32 * self.current_duty) as u16)});
+            self.tp.ccr1().write(|w| { w.ccr().bits((self.h_pin_period as f32 * self.current_duty) as u16)});
             // trigger hv
             self.thv.cnt.write(|w| { w.cnt().bits(0) });
         }
@@ -514,7 +514,7 @@ mod app {
             period = period.clamp(AHB_CLOCK/MAX_H_FREQ, AHB_CLOCK/MIN_H_FREQ);
             let turn_off_time = period * 1 / 4;
             self.tp.arr.write(|w| { w.arr().bits(period as u16 - 1) });
-            self.tp.ccr4.write(|w| { w.ccr().bits(turn_off_time as u16) });
+            self.tp.ccr4().write(|w| { w.ccr().bits(turn_off_time as u16) });
             self.h_pin_period = period as u16;
         }
         fn get_period(&self) -> u32 {
@@ -557,7 +557,7 @@ mod app {
         }
         #[inline(always)]
         fn get_cycles_since_sync(&self) -> u32 {
-            self.t.ccr4.read().ccr().bits() as u32
+            self.t.ccr4().read().ccr().bits() as u32
             //(self.t.cnt.read().cnt().bits() & 0xFFFF) as u32
         }
         #[inline(always)]
@@ -601,7 +601,7 @@ mod app {
         }
         fn get_period(&self) -> u32 {
             // not entirely sure why this is +2 but it seems to be better
-            self.t.ccr1.read().ccr().bits() as u32 + 2
+            self.t.ccr1().read().ccr().bits() as u32 + 2
         }
     }
 
