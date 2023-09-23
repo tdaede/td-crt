@@ -7,7 +7,7 @@ version = "0.1.0"
 
 [dependencies]
 cortex-m = "0.7.7"
-serde-json-core = "0.4.0"
+serde-json-core = "0.5.1"
 heapless = "0.7"
 libm = "0.2.1"
 
