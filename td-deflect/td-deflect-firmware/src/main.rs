@@ -6,11 +6,12 @@ use rtic::app;
 #[app(device = stm32f7::stm32f7x2, peripherals = true, dispatchers = [EXTI0, EXTI1])]
 mod app {
     use stm32f7::stm32f7x2::*;
-    use serde::{Serialize, Deserialize};
+    use serde::{Deserialize};
     use heapless::{Deque, Vec};
     use heapless::spsc::{Queue, Producer, Consumer};
     use core::sync::atomic::{self, Ordering, AtomicBool};
     use core::panic::PanicInfo;
+    use td_crt_protocol::*;
 
     const AHB_CLOCK: u32 = 216_000_000;
     const APB2_CLOCK: u32 = AHB_CLOCK / 2;
@@ -393,42 +394,6 @@ mod app {
     pub struct CRTState {
         current_scanline: i32,
         previous_vga_vsync: bool, // used to detect negative edge sync
-    }
-
-    #[derive(Default, Copy, Clone, Serialize)]
-    pub struct CRTStats {
-        h_output_period: i32,
-        h_output_period_min: i32,
-        h_output_period_max: i32,
-        h_input_period: i32,
-        h_input_period_min: i32,
-        h_input_period_max: i32,
-        hot_source_current: u16,
-        v_lines: u16,
-        s_voltage: u16,
-        odd: bool,
-        faulted: bool,
-    }
-
-    /// Configuration to match driver board to a particular tube/yoke
-    #[allow(unused)]
-    #[derive(Copy, Clone, Deserialize)]
-    pub struct CRTConfig {
-        v_mag_amps: f32,
-        v_offset_amps: f32,
-        #[serde(default)]
-        vertical_linearity: f32,
-        // s-capacitor value, 0 = highest capacitance
-        #[serde(default)]
-        s_cap: u8,
-    }
-
-    /// Configuration for a particular input
-    #[allow(unused)]
-    #[derive(Copy, Clone, Deserialize)]
-    pub struct InputConfig {
-        h_size: f32,
-        h_phase: f32,
     }
 
     static CRT_CONFIG_PANASONIC_S901Y: CRTConfig = CRTConfig {

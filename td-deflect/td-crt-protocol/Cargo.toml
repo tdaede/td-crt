@@ -1,0 +1,12 @@
+[package]
+name = "td-crt-protocol"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies.serde]
+version = "1.0"
+default-features = false
+features = ["derive"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+

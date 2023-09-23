@@ -387,6 +387,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "td-crt-protocol"
+version = "0.1.0"
+dependencies = [
+ "serde",
+]
+
+[[package]]
 name = "td-deflect-firmware"
 version = "0.1.0"
 dependencies = [
@@ -397,6 +404,7 @@ dependencies = [
  "serde",
  "serde-json-core",
  "stm32f7",
+ "td-crt-protocol",
 ]
 
 [[package]]
