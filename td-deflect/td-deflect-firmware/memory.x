@@ -27,9 +27,3 @@ MEMORY
    sources added the attribute `#[link_section = ".ram2bss"]` to the data
    you want to place there. */
 /* Note that the section will not be zero-initialized by the runtime! */
-SECTIONS {
-  .itcm : ALIGN(4) {
-    *(.itcm .itcm.*);
-    . = ALIGN(4);
-  } > ITCM AT>FLASH
-} INSERT AFTER .bss;

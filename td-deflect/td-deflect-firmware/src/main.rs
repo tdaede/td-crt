@@ -361,7 +361,7 @@ mod app {
             }
             if serial_protocol.serial.usart.isr.read().txe().bit() {
                 if let Some(c) = serial_protocol.serial.send_queue.pop_front() {
-                    serial_protocol.serial.usart.tdr.write(|w| { unsafe { w.tdr().bits((c).into()) }});
+                    serial_protocol.serial.usart.tdr.write(|w| { w.tdr().bits((c).into()) });
                 } else {
                     serial_protocol.serial.usart.cr1.modify(|_,w| { w.txeie().disabled() });
                 }
@@ -460,10 +460,10 @@ mod app {
     impl HOTDriver {
         fn new(_t: TIM10, tp: TIM1, thv: TIM4) -> HOTDriver {
             // configuration for width
-            tp.ccmr1_output().write(|w| {unsafe{w.oc1m().bits(0b110) }}); // PWM1
+            tp.ccmr1_output().write(|w| { w.oc1m().bits(0b110) }); // PWM1
             tp.ccer.write(|w| { w.cc1e().set_bit().cc1ne().set_bit() });
             // configuration for HOT
-            tp.ccmr2_output().write(|w| { unsafe { w.oc4m().bits(0b111) } }); // PWM2
+            tp.ccmr2_output().write(|w| { w.oc4m().bits(0b111) }); // PWM2
             tp.ccer.modify(|_,w| { w.cc4e().set_bit() });
             tp.ccr4.write(|w| { w.ccr().bits((MAX_H_PERIOD*1/2) as u16) });
             // initialize to longest possible period in case synchronization fails
@@ -478,7 +478,7 @@ mod app {
             tp.dier.write(|w| { w.uie().set_bit() });
 
             // hv driver
-            thv.ccmr1_output().write(|w| {unsafe{w.oc1m().bits(0b110) }});
+            thv.ccmr1_output().write(|w| { w.oc1m().bits(0b110) });
             thv.ccer.modify(|_,w| { w.cc1e().set_bit() });
             thv.ccr1.write(|w| { w.ccr().bits(h_pin_period / 2) });
             thv.arr.write(|w| { w.arr().bits(h_pin_period) });
