@@ -1,63 +1,68 @@
 #![no_main]
 #![no_std]
 
-use stm32f7::stm32f7x2::*;
 use rtic::app;
-use serde::{Serialize, Deserialize};
-use core::sync::atomic::{self, Ordering, AtomicBool};
-use core::panic::PanicInfo;
-use heapless::{Deque, Vec};
-use heapless::spsc::{Queue, Producer, Consumer};
 
-const AHB_CLOCK: u32 = 216_000_000;
-const APB2_CLOCK: u32 = AHB_CLOCK / 2;
+#[app(device = stm32f7::stm32f7x2, peripherals = true, dispatchers = [EXTI0, EXTI1])]
+mod app {
+    use stm32f7::stm32f7x2::*;
+    use serde::{Serialize, Deserialize};
+    use heapless::{Deque, Vec};
+    use heapless::spsc::{Queue, Producer, Consumer};
+    use core::sync::atomic::{self, Ordering, AtomicBool};
+    use core::panic::PanicInfo;
 
-const MIN_H_FREQ: u32 = 15000;
-const MAX_H_FREQ: u32 = 16000;
-#[allow(unused)]
-const MAX_H_PERIOD: u32 = AHB_CLOCK / MIN_H_FREQ;
-const MIN_H_PERIOD: u32 = AHB_CLOCK / MAX_H_FREQ;
+    const AHB_CLOCK: u32 = 216_000_000;
+    const APB2_CLOCK: u32 = AHB_CLOCK / 2;
 
-const DAC_MIDPOINT: i32 = 2047;
+    const MIN_H_FREQ: u32 = 15000;
+    const MAX_H_FREQ: u32 = 16000;
+    #[allow(unused)]
+    const MAX_H_PERIOD: u32 = AHB_CLOCK / MIN_H_FREQ;
+    const MIN_H_PERIOD: u32 = AHB_CLOCK / MAX_H_FREQ;
 
-static FAULTED: AtomicBool = AtomicBool::new(false);
+    const DAC_MIDPOINT: i32 = 2047;
 
-/// Immediately blanks the video signal.
-/// Used in case of deflection failure to prevent burn-in.
-fn fault_blank() {
-    // read-modify-write is a bit unfortunate here
-    unsafe { (*GPIOC::ptr()).odr.modify(|_,w| {w.odr14().bit(true)}); }
-}
+    static FAULTED: AtomicBool = AtomicBool::new(false);
 
-#[inline(never)]
-#[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
-    FAULTED.store(true, Ordering::Relaxed);
-    fault_blank();
-    loop {
-        atomic::compiler_fence(Ordering::SeqCst);
+    /// Immediately blanks the video signal.
+    /// Used in case of deflection failure to prevent burn-in.
+    fn fault_blank() {
+        // read-modify-write is a bit unfortunate here
+        unsafe { (*GPIOC::ptr()).odr.modify(|_,w| {w.odr14().bit(true)}); }
     }
-}
 
-#[app(device = stm32f7::stm32f7x2, peripherals = true)]
-const APP: () = {
-    struct Resources {
-        v_drive: VDrive,
+    #[inline(never)]
+    #[panic_handler]
+    fn panic(_info: &PanicInfo) -> ! {
+        FAULTED.store(true, Ordering::Relaxed);
+        fault_blank();
+        loop {
+            atomic::compiler_fence(Ordering::SeqCst);
+        }
+    }
+
+    #[shared]
+    struct Shared {
+        serial_protocol: SerialProtocol,
+    }
+    #[local]
+    struct Local {
         gpioa: GPIOA,
         gpiob: GPIOB,
-        gpioc: GPIOC,
+        gpioc:  GPIOC,
+        v_drive: VDrive,
         hot_driver: HOTDriver,
         hsync_capture: HSyncCapture,
         crt_state: CRTState,
         crt_stats_live: CRTStats,
-        serial_protocol: SerialProtocol,
         adc: ADC,
         config: Config,
         config_queue_in: Producer<'static, Config, 2>,
         config_queue_out: Consumer<'static, Config, 2>,
     }
     #[init]
-    fn init(cx: init::Context) -> init::LateResources {
+    fn init(cx: init::Context) -> (Shared, Local, init::Monotonics) {
         let s = cx.device;
 
         let rcc = s.RCC;
@@ -203,39 +208,40 @@ const APP: () = {
         static mut CONFIG_QUEUE: Queue<Config, 2> = Queue::new();
         // unsafe: we can fix this with rtic 0.6
         let (config_queue_in, config_queue_out) = unsafe { CONFIG_QUEUE.split() };
-        init::LateResources {
+        (Shared {
+            serial_protocol,
+        }, Local {
             gpioa,
             gpiob,
             gpioc,
+            config_queue_out,
+            config_queue_in,
+            adc,
             v_drive,
             hot_driver,
             hsync_capture,
             crt_stats_live,
             crt_state,
             config,
-            config_queue_in,
-            config_queue_out,
-            serial_protocol,
-            adc
-        }
+        },  init::Monotonics())
     }
 
     // internal hsync timer interrupt
   //  #[inline(never)]
   //  #[link_section = ".data.TIM1_UP_TIM10"]
-    #[task(binds = TIM1_UP_TIM10, resources = [gpioa, gpiob, gpioc, v_drive, hot_driver, hsync_capture, crt_state, config, config_queue_out, crt_stats_live, adc], spawn = [send_stats], priority = 15)]
+    #[task(binds = TIM1_UP_TIM10, local = [v_drive, gpioa, gpiob, gpioc, hot_driver, hsync_capture,  crt_state, config, crt_stats_live, adc, config_queue_out], priority = 15)]
     fn tim1_up_tim10(cx: tim1_up_tim10::Context) {
-        let crt_state = cx.resources.crt_state;
+        let crt_state = cx.local.crt_state;
         let current_scanline = &mut crt_state.current_scanline;
-        let v_drive = cx.resources.v_drive;
-        let gpioa = cx.resources.gpioa;
-        let _gpiob = cx.resources.gpiob;
-        let gpioc = cx.resources.gpioc;
-        let hot_driver = cx.resources.hot_driver;
-        let hsync_capture = cx.resources.hsync_capture;
-        let crt_stats = cx.resources.crt_stats_live;
-        let adc = cx.resources.adc;
-        let config = cx.resources.config;
+        let v_drive = cx.local.v_drive;
+        let gpioa = cx.local.gpioa;
+        let _gpiob = cx.local.gpiob;
+        let gpioc = cx.local.gpioc;
+        let hot_driver = cx.local.hot_driver;
+        let hsync_capture = cx.local.hsync_capture;
+        let crt_stats = cx.local.crt_stats_live;
+        let adc = cx.local.adc;
+        let config = cx.local.config;
 
         hsync_capture.update();
         atomic::compiler_fence(Ordering::SeqCst);
@@ -332,13 +338,13 @@ const APP: () = {
 
         // send stats updates over serial
         if *current_scanline == 0 {
-            let _ = cx.spawn.send_stats(*crt_stats);
+            let _ = send_stats::spawn(*crt_stats);
             *crt_stats = CRTStats::default(); // reset for a new frame
         }
         *current_scanline += 1;
 
         // update config if there's one in the queue
-        if let Some(new_config) = cx.resources.config_queue_out.dequeue() {
+        if let Some(new_config) = cx.local.config_queue_out.dequeue() {
             *config = new_config;
         }
 
@@ -346,359 +352,363 @@ const APP: () = {
         hot_driver.tp.sr.write(|w| w.uif().bit(false));
     }
 
-    #[task(binds = USART1, resources = [serial_protocol, config_queue_in], priority = 2)]
-    fn serial_interrupt(c: serial_interrupt::Context) {
-        let serial_protocol = c.resources.serial_protocol;
-        while serial_protocol.serial.usart.isr.read().rxne().bit() {
-            serial_protocol.process_byte(c.resources.config_queue_in);
-        }
-        if serial_protocol.serial.usart.isr.read().txe().bit() {
-            if let Some(c) = serial_protocol.serial.send_queue.pop_front() {
-                serial_protocol.serial.usart.tdr.write(|w| { unsafe { w.tdr().bits((c).into()) }});
-            } else {
-                serial_protocol.serial.usart.cr1.modify(|_,w| { w.txeie().disabled() });
+    #[task(binds = USART1, local = [config_queue_in], shared = [serial_protocol], priority = 2)]
+    fn serial_interrupt(mut c: serial_interrupt::Context) {
+        let config_queue_in = c.local.config_queue_in;
+        c.shared.serial_protocol.lock(|serial_protocol| {
+            while serial_protocol.serial.usart.isr.read().rxne().bit() {
+                serial_protocol.process_byte(config_queue_in);
             }
-        }
-        serial_protocol.serial.usart.icr.write(|w| { w.orecf().clear() });
+            if serial_protocol.serial.usart.isr.read().txe().bit() {
+                if let Some(c) = serial_protocol.serial.send_queue.pop_front() {
+                    serial_protocol.serial.usart.tdr.write(|w| { unsafe { w.tdr().bits((c).into()) }});
+                } else {
+                    serial_protocol.serial.usart.cr1.modify(|_,w| { w.txeie().disabled() });
+                }
+            }
+            serial_protocol.serial.usart.icr.write(|w| { w.orecf().clear() });
+        });
     }
 
-    #[task(resources = [serial_protocol])]
+    #[task(shared = [serial_protocol])]
     fn send_stats(mut c: send_stats::Context, crt_stats: CRTStats) {
         let mut json_stats: [u8; 2048] = [0; 2048];
         let mut json_stats_len = 0;
         if let Ok(c) = serde_json_core::to_slice(&crt_stats, &mut json_stats) { json_stats_len = c };
-        c.resources.serial_protocol.lock(|serial_protocol| {
+        c.shared.serial_protocol.lock(|serial_protocol| {
             serial_protocol.serial.write_queued(&json_stats[..json_stats_len]);
             serial_protocol.serial.write_queued(b"\n");
         });
     }
 
-    // Interrupt handlers used to dispatch software tasks
-    extern "C" {
-        fn EXTI0();
-        fn EXTI1();
-    }
-};
 
-#[derive(Default)]
-pub struct CRTState {
-    current_scanline: i32,
-    previous_vga_vsync: bool, // used to detect negative edge sync
-}
-
-#[derive(Default, Copy, Clone, Serialize)]
-pub struct CRTStats {
-    h_output_period: i32,
-    h_output_period_min: i32,
-    h_output_period_max: i32,
-    h_input_period: i32,
-    h_input_period_min: i32,
-    h_input_period_max: i32,
-    hot_source_current: u16,
-    v_lines: u16,
-    s_voltage: u16,
-    odd: bool,
-    faulted: bool,
-}
-
-/// Configuration to match driver board to a particular tube/yoke
-#[allow(unused)]
-#[derive(Copy, Clone, Deserialize)]
-pub struct CRTConfig {
-    v_mag_amps: f32,
-    v_offset_amps: f32,
-    #[serde(default)]
-    vertical_linearity: f32,
-    // s-capacitor value, 0 = highest capacitance
-    #[serde(default)]
-    s_cap: u8,
-}
-
-/// Configuration for a particular input
-#[allow(unused)]
-#[derive(Copy, Clone, Deserialize)]
-pub struct InputConfig {
-    h_size: f32,
-    h_phase: f32,
-}
-
-static CRT_CONFIG_PANASONIC_S901Y: CRTConfig = CRTConfig {
-    v_mag_amps: 0.414,
-    v_offset_amps: 0.0,
-    vertical_linearity: 0.55,
-    s_cap: 1,
-};
-
-/// Complete runtime configuration, both CRT config + input config
-#[derive(Copy, Clone, Deserialize)]
-pub struct Config {
-    crt: CRTConfig,
-    input: InputConfig,
-}
-
-#[allow(unused)]
-pub struct HOTDriver {
-    //t: TIM10, // HOT output transistor timer
-    tp: TIM1, // horizontal supply buck converter PWM
-    thv: TIM4, // hv timer
-    duty_setpoint: f32,
-    current_duty: f32,
-    h_pin_period: u16,
-    period: f32,
-    accumulator: f32,
-}
-
-impl HOTDriver {
-    fn new(_t: TIM10, tp: TIM1, thv: TIM4) -> HOTDriver {
-        // configuration for width
-        tp.ccmr1_output().write(|w| {unsafe{w.oc1m().bits(0b110) }}); // PWM1
-        tp.ccer.write(|w| { w.cc1e().set_bit().cc1ne().set_bit() });
-        // configuration for HOT
-        tp.ccmr2_output().write(|w| { unsafe { w.oc4m().bits(0b111) } }); // PWM2
-        tp.ccer.modify(|_,w| { w.cc4e().set_bit() });
-        tp.ccr4.write(|w| { w.ccr().bits((MAX_H_PERIOD*1/2) as u16) });
-        // initialize to longest possible period in case synchronization fails
-        let h_pin_period = MAX_H_PERIOD as u16;
-        // start out with 0 width to slowly ramp it up
-        tp.ccr1.write(|w| { w.ccr().bits(0) });
-        tp.arr.write(|w| { w.arr().bits(h_pin_period) });
-        // with 75 ohm gate resistors, 0x38 is the best
-        tp.bdtr.write(|w| { unsafe { w.moe().enabled().dtg().bits(0x38) }}); // uwu
-        tp.cr1.write(|w| { w.cen().enabled().urs().bit(true) });
-        tp.egr.write(|w| { w.ug().set_bit() });
-        tp.dier.write(|w| { w.uie().set_bit() });
-
-        // hv driver
-        thv.ccmr1_output().write(|w| {unsafe{w.oc1m().bits(0b110) }});
-        thv.ccer.modify(|_,w| { w.cc1e().set_bit() });
-        thv.ccr1.write(|w| { w.ccr().bits(h_pin_period / 2) });
-        thv.arr.write(|w| { w.arr().bits(h_pin_period) });
-        thv.cr1.write(|w| { w.cen().enabled() });
-        HOTDriver {
-            //t,
-            tp,
-            thv,
-            duty_setpoint: 0.9,
-            current_duty: 0.0,
-            h_pin_period,
-            period: MAX_H_PERIOD as f32,
-            accumulator: 0.0,
+    #[idle()]
+    fn idle(_cx: idle::Context) -> ! {
+        loop {
+              rtic::export::wfi()
         }
     }
-    /// call once per horizontal period to update drive
-    fn update(&mut self) {
-        // update error diffusion for h period
-        let period_quantized = (self.period + self.accumulator) as u32;
-        self.accumulator += self.period - period_quantized as f32;
-        self.set_period(period_quantized as u32);
-        // update h pin duty
-        let max_change_per_iteration = 0.001;
-        self.current_duty = self.current_duty + (self.duty_setpoint - self.current_duty).clamp(-1.0*max_change_per_iteration, max_change_per_iteration);
-        self.tp.ccr1.write(|w| { w.ccr().bits((self.h_pin_period as f32 * self.current_duty) as u16)});
-        // trigger hv
-        self.thv.cnt.write(|w| { w.cnt().bits(0) });
-    }
-    fn set_period_float(&mut self, period: f32) {
-        self.period = period;
-    }
-    fn set_period(&mut self, mut period: u32) {
-        period = period.clamp(AHB_CLOCK/MAX_H_FREQ, AHB_CLOCK/MIN_H_FREQ);
-        let turn_off_time = period * 1 / 4;
-        self.tp.arr.write(|w| { w.arr().bits(period as u16 - 1) });
-        self.tp.ccr4.write(|w| { w.ccr().bits(turn_off_time as u16) });
-        self.h_pin_period = period as u16;
-    }
-    fn get_period(&self) -> u32 {
-        self.tp.arr.read().bits() + 1
-    }
-    fn set_frequency(&mut self, mut f: u32) {
-        f = f.clamp(MIN_H_FREQ, MAX_H_FREQ);
-        let timer_freq = AHB_CLOCK;
-        let period = timer_freq / f;
-        self.set_period(period)
-    }
-}
 
-pub struct HSyncCapture {
-    t: TIM3,
-    previous_input_periods: [u32; HSyncCapture::AVERAGED_INPUT_PERIODS],
-    previous_input_periods_index: usize,
-    previous_phase_errors: [i32; HSyncCapture::AVERAGED_PHASE_ERRORS],
-    previous_phase_errors_index: usize,
-}
+    #[derive(Default)]
+    pub struct CRTState {
+        current_scanline: i32,
+        previous_vga_vsync: bool, // used to detect negative edge sync
+    }
 
-impl HSyncCapture {
-    const AVERAGED_INPUT_PERIODS: usize = 256;
-    const AVERAGED_PHASE_ERRORS: usize = 4;
-    fn new(t: TIM3) -> HSyncCapture {
-        t.ccmr1_output().write(|w| { unsafe { w.bits(0b0000_00_10_0000_00_01)}});
-        t.ccmr2_input().write(|w| { unsafe { w.cc4s().bits(0b01) } });
-        t.smcr.write(|w| { unsafe { w.ts().bits(0b101).sms().bits(0b0100) }});
-        // CH1 is configured to reset the counter and measure H period
-        // CH4 is configured for capture to measure H phase error
-        t.ccer.write(|w| { w.cc1p().set_bit().cc1e().set_bit().cc4p().clear_bit().cc4np().clear_bit().cc4e().set_bit() });
-        t.cr1.write(|w| { w.cen().enabled() });
-        HSyncCapture {
-            t,
-            previous_input_periods: [MAX_H_PERIOD; HSyncCapture::AVERAGED_INPUT_PERIODS],
-            previous_input_periods_index: 0,
-            previous_phase_errors: [0; HSyncCapture::AVERAGED_PHASE_ERRORS],
-            previous_phase_errors_index: 0,
+    #[derive(Default, Copy, Clone, Serialize)]
+    pub struct CRTStats {
+        h_output_period: i32,
+        h_output_period_min: i32,
+        h_output_period_max: i32,
+        h_input_period: i32,
+        h_input_period_min: i32,
+        h_input_period_max: i32,
+        hot_source_current: u16,
+        v_lines: u16,
+        s_voltage: u16,
+        odd: bool,
+        faulted: bool,
+    }
+
+    /// Configuration to match driver board to a particular tube/yoke
+    #[allow(unused)]
+    #[derive(Copy, Clone, Deserialize)]
+    pub struct CRTConfig {
+        v_mag_amps: f32,
+        v_offset_amps: f32,
+        #[serde(default)]
+        vertical_linearity: f32,
+        // s-capacitor value, 0 = highest capacitance
+        #[serde(default)]
+        s_cap: u8,
+    }
+
+    /// Configuration for a particular input
+    #[allow(unused)]
+    #[derive(Copy, Clone, Deserialize)]
+    pub struct InputConfig {
+        h_size: f32,
+        h_phase: f32,
+    }
+
+    static CRT_CONFIG_PANASONIC_S901Y: CRTConfig = CRTConfig {
+        v_mag_amps: 0.414,
+        v_offset_amps: 0.0,
+        vertical_linearity: 0.55,
+        s_cap: 1,
+    };
+
+    /// Complete runtime configuration, both CRT config + input config
+    #[derive(Copy, Clone, Deserialize)]
+    pub struct Config {
+        crt: CRTConfig,
+        input: InputConfig,
+    }
+
+    #[allow(unused)]
+    pub struct HOTDriver {
+        //t: TIM10, // HOT output transistor timer
+        tp: TIM1, // horizontal supply buck converter PWM
+        thv: TIM4, // hv timer
+        duty_setpoint: f32,
+        current_duty: f32,
+        h_pin_period: u16,
+        period: f32,
+        accumulator: f32,
+    }
+
+    impl HOTDriver {
+        fn new(_t: TIM10, tp: TIM1, thv: TIM4) -> HOTDriver {
+            // configuration for width
+            tp.ccmr1_output().write(|w| {unsafe{w.oc1m().bits(0b110) }}); // PWM1
+            tp.ccer.write(|w| { w.cc1e().set_bit().cc1ne().set_bit() });
+            // configuration for HOT
+            tp.ccmr2_output().write(|w| { unsafe { w.oc4m().bits(0b111) } }); // PWM2
+            tp.ccer.modify(|_,w| { w.cc4e().set_bit() });
+            tp.ccr4.write(|w| { w.ccr().bits((MAX_H_PERIOD*1/2) as u16) });
+            // initialize to longest possible period in case synchronization fails
+            let h_pin_period = MAX_H_PERIOD as u16;
+            // start out with 0 width to slowly ramp it up
+            tp.ccr1.write(|w| { w.ccr().bits(0) });
+            tp.arr.write(|w| { w.arr().bits(h_pin_period) });
+            // with 75 ohm gate resistors, 0x38 is the best
+            tp.bdtr.write(|w| { unsafe { w.moe().enabled().dtg().bits(0x38) }}); // uwu
+            tp.cr1.write(|w| { w.cen().enabled().urs().bit(true) });
+            tp.egr.write(|w| { w.ug().set_bit() });
+            tp.dier.write(|w| { w.uie().set_bit() });
+
+            // hv driver
+            thv.ccmr1_output().write(|w| {unsafe{w.oc1m().bits(0b110) }});
+            thv.ccer.modify(|_,w| { w.cc1e().set_bit() });
+            thv.ccr1.write(|w| { w.ccr().bits(h_pin_period / 2) });
+            thv.arr.write(|w| { w.arr().bits(h_pin_period) });
+            thv.cr1.write(|w| { w.cen().enabled() });
+            HOTDriver {
+                //t,
+                tp,
+                thv,
+                duty_setpoint: 0.9,
+                current_duty: 0.0,
+                h_pin_period,
+                period: MAX_H_PERIOD as f32,
+                accumulator: 0.0,
+            }
+        }
+        /// call once per horizontal period to update drive
+        fn update(&mut self) {
+            // update error diffusion for h period
+            let period_quantized = (self.period + self.accumulator) as u32;
+            self.accumulator += self.period - period_quantized as f32;
+            self.set_period(period_quantized as u32);
+            // update h pin duty
+            let max_change_per_iteration = 0.001;
+            self.current_duty = self.current_duty + (self.duty_setpoint - self.current_duty).clamp(-1.0*max_change_per_iteration, max_change_per_iteration);
+            self.tp.ccr1.write(|w| { w.ccr().bits((self.h_pin_period as f32 * self.current_duty) as u16)});
+            // trigger hv
+            self.thv.cnt.write(|w| { w.cnt().bits(0) });
+        }
+        fn set_period_float(&mut self, period: f32) {
+            self.period = period;
+        }
+        fn set_period(&mut self, mut period: u32) {
+            period = period.clamp(AHB_CLOCK/MAX_H_FREQ, AHB_CLOCK/MIN_H_FREQ);
+            let turn_off_time = period * 1 / 4;
+            self.tp.arr.write(|w| { w.arr().bits(period as u16 - 1) });
+            self.tp.ccr4.write(|w| { w.ccr().bits(turn_off_time as u16) });
+            self.h_pin_period = period as u16;
+        }
+        fn get_period(&self) -> u32 {
+            self.tp.arr.read().bits() + 1
+        }
+        fn set_frequency(&mut self, mut f: u32) {
+            f = f.clamp(MIN_H_FREQ, MAX_H_FREQ);
+            let timer_freq = AHB_CLOCK;
+            let period = timer_freq / f;
+            self.set_period(period)
         }
     }
-    #[inline(always)]
-    fn get_cycles_since_sync(&self) -> u32 {
-        self.t.ccr4.read().ccr().bits() as u32
-        //(self.t.cnt.read().cnt().bits() & 0xFFFF) as u32
+
+    pub struct HSyncCapture {
+        t: TIM3,
+        previous_input_periods: [u32; HSyncCapture::AVERAGED_INPUT_PERIODS],
+        previous_input_periods_index: usize,
+        previous_phase_errors: [i32; HSyncCapture::AVERAGED_PHASE_ERRORS],
+        previous_phase_errors_index: usize,
     }
-    #[inline(always)]
-    fn update(&mut self) {
-        let cycles_since_sync = self.get_cycles_since_sync() as i32; // important: must be executed first
-        atomic::compiler_fence(Ordering::SeqCst);
-        let input_period = self.get_period() as i32;
-        let previous_input_period = self.previous_input_periods[self.previous_input_periods_index] as i32;
-        if (previous_input_period - input_period).abs() > ((MIN_H_PERIOD as i32) / 10) {
-            // don't update any averages for outliers
-        } else {
-            self.previous_input_periods[self.previous_input_periods_index] = input_period as u32;
-            self.previous_input_periods_index = (self.previous_input_periods_index + 1) % HSyncCapture::AVERAGED_INPUT_PERIODS;
-            let error = if cycles_since_sync < (input_period as i32 / 2) {
-                cycles_since_sync.max(64)
+
+    impl HSyncCapture {
+        const AVERAGED_INPUT_PERIODS: usize = 256;
+        const AVERAGED_PHASE_ERRORS: usize = 4;
+        fn new(t: TIM3) -> HSyncCapture {
+            t.ccmr1_output().write(|w| { unsafe { w.bits(0b0000_00_10_0000_00_01)}});
+            t.ccmr2_input().write(|w| { unsafe { w.cc4s().bits(0b01) } });
+            t.smcr.write(|w| { unsafe { w.ts().bits(0b101).sms().bits(0b0100) }});
+            // CH1 is configured to reset the counter and measure H period
+            // CH4 is configured for capture to measure H phase error
+            t.ccer.write(|w| { w.cc1p().set_bit().cc1e().set_bit().cc4p().clear_bit().cc4np().clear_bit().cc4e().set_bit() });
+            t.cr1.write(|w| { w.cen().enabled() });
+            HSyncCapture {
+                t,
+                previous_input_periods: [MAX_H_PERIOD; HSyncCapture::AVERAGED_INPUT_PERIODS],
+                previous_input_periods_index: 0,
+                previous_phase_errors: [0; HSyncCapture::AVERAGED_PHASE_ERRORS],
+                previous_phase_errors_index: 0,
+            }
+        }
+        #[inline(always)]
+        fn get_cycles_since_sync(&self) -> u32 {
+            self.t.ccr4.read().ccr().bits() as u32
+            //(self.t.cnt.read().cnt().bits() & 0xFFFF) as u32
+        }
+        #[inline(always)]
+        fn update(&mut self) {
+            let cycles_since_sync = self.get_cycles_since_sync() as i32; // important: must be executed first
+            atomic::compiler_fence(Ordering::SeqCst);
+            let input_period = self.get_period() as i32;
+            let previous_input_period = self.previous_input_periods[self.previous_input_periods_index] as i32;
+            if (previous_input_period - input_period).abs() > ((MIN_H_PERIOD as i32) / 10) {
+                // don't update any averages for outliers
             } else {
-                (cycles_since_sync - input_period as i32).min(-16)
-            };
-            self.previous_phase_errors[self.previous_phase_errors_index] = error;
-            self.previous_phase_errors_index = (self.previous_phase_errors_index + 1) % HSyncCapture::AVERAGED_PHASE_ERRORS;
+                self.previous_input_periods[self.previous_input_periods_index] = input_period as u32;
+                self.previous_input_periods_index = (self.previous_input_periods_index + 1) % HSyncCapture::AVERAGED_INPUT_PERIODS;
+                let error = if cycles_since_sync < (input_period as i32 / 2) {
+                    cycles_since_sync.max(64)
+                } else {
+                    (cycles_since_sync - input_period as i32).min(-16)
+                };
+                self.previous_phase_errors[self.previous_phase_errors_index] = error;
+                self.previous_phase_errors_index = (self.previous_phase_errors_index + 1) % HSyncCapture::AVERAGED_PHASE_ERRORS;
+            }
+        }
+        fn _apply_phase_feedforward(&mut self, b: i32) {
+            self.previous_phase_errors[self.previous_phase_errors_index] -= b * 1;
+        }
+        fn get_phase_error_averaged(&self) -> f32 {
+            let mut avg: f32 = 0.0;
+            for a in self.previous_phase_errors {
+                avg += a as f32;
+            }
+            avg /= HSyncCapture::AVERAGED_PHASE_ERRORS as f32;
+            return avg;
+        }
+        fn get_period_averaged(&self) -> f32 {
+            let mut avg = 0.0;
+            for a in self.previous_input_periods {
+                avg += a as f32;
+            }
+            avg /= HSyncCapture::AVERAGED_INPUT_PERIODS as f32;
+            return avg;
+        }
+        fn get_period(&self) -> u32 {
+            // not entirely sure why this is +2 but it seems to be better
+            self.t.ccr1.read().ccr().bits() as u32 + 2
         }
     }
-    fn _apply_phase_feedforward(&mut self, b: i32) {
-        self.previous_phase_errors[self.previous_phase_errors_index] -= b * 1;
+
+    pub struct VDrive {
+        dac: DAC,
+        setpoint: f32,
+        accumulator: f32,
     }
-    fn get_phase_error_averaged(&self) -> f32 {
-        let mut avg: f32 = 0.0;
-        for a in self.previous_phase_errors {
-            avg += a as f32;
+
+    impl VDrive {
+        fn new(dac: DAC) -> VDrive {
+            dac.cr.write(|w| { w.en1().enabled().boff1().enabled().tsel1().software().ten1().enabled() });
+            dac.dhr12r1.write(|w| { unsafe { w.bits(DAC_MIDPOINT as u32) }});
+            VDrive { dac, setpoint: 0.0, accumulator: 0.0 }
         }
-        avg /= HSyncCapture::AVERAGED_PHASE_ERRORS as f32;
-        return avg;
-    }
-    fn get_period_averaged(&self) -> f32 {
-        let mut avg = 0.0;
-        for a in self.previous_input_periods {
-            avg += a as f32;
+        fn set_current(&mut self, current: f32) {
+            self.setpoint = current;
         }
-        avg /= HSyncCapture::AVERAGED_INPUT_PERIODS as f32;
-        return avg;
-    }
-    fn get_period(&self) -> u32 {
-        // not entirely sure why this is +2 but it seems to be better
-        self.t.ccr1.read().ccr().bits() as u32 + 2
-    }
-}
-
-pub struct VDrive {
-    dac: DAC,
-    setpoint: f32,
-    accumulator: f32,
-}
-
-impl VDrive {
-    fn new(dac: DAC) -> VDrive {
-        dac.cr.write(|w| { w.en1().enabled().boff1().enabled().tsel1().software().ten1().enabled() });
-        dac.dhr12r1.write(|w| { unsafe { w.bits(DAC_MIDPOINT as u32) }});
-        VDrive { dac, setpoint: 0.0, accumulator: 0.0 }
-    }
-    fn set_current(&mut self, current: f32) {
-        self.setpoint = current;
-    }
-    /// call as soon as possible on horizontal interrupt
-    #[inline(always)]
-    fn trigger(&mut self) {
-        self.dac.swtrigr.write(|w| { w.swtrig1().enabled() });
-    }
-    /// call once per horizontal interrupt
-    fn update(&mut self) {
-        let amps_to_volts = 1.0;
-        let volts_to_dac_value = 1.0/(3.3/4095.0);
-        let dac_value = self.setpoint * amps_to_volts * volts_to_dac_value;
-        let dac_value_quantized = (dac_value + self.accumulator) as i32;
-        self.accumulator += dac_value - dac_value_quantized as f32;
-        let dac_value_final = (dac_value_quantized as i32 + DAC_MIDPOINT).clamp(0, 4095);
-        self.dac.dhr12r1.write(|w| { unsafe { w.bits(dac_value_final as u32) }});
-    }
-}
-
-pub struct Serial {
-    usart: USART1,
-    send_queue: Deque<u8, 2048>,
-}
-
-impl Serial {
-    fn new(usart: USART1) -> Serial {
-        usart.brr.write(|w| { w.brr().bits((APB2_CLOCK*2*8/16/230400) as u16)});
-        usart.cr1.write(|w| { w.te().enabled().re().enabled().ue().enabled().rxneie().enabled() });
-        Serial {
-            send_queue: Deque::new(),
-            usart
+        /// call as soon as possible on horizontal interrupt
+        #[inline(always)]
+        fn trigger(&mut self) {
+            self.dac.swtrigr.write(|w| { w.swtrig1().enabled() });
+        }
+        /// call once per horizontal interrupt
+        fn update(&mut self) {
+            let amps_to_volts = 1.0;
+            let volts_to_dac_value = 1.0/(3.3/4095.0);
+            let dac_value = self.setpoint * amps_to_volts * volts_to_dac_value;
+            let dac_value_quantized = (dac_value + self.accumulator) as i32;
+            self.accumulator += dac_value - dac_value_quantized as f32;
+            let dac_value_final = (dac_value_quantized as i32 + DAC_MIDPOINT).clamp(0, 4095);
+            self.dac.dhr12r1.write(|w| { unsafe { w.bits(dac_value_final as u32) }});
         }
     }
-    fn write_queued(&mut self, b: &[u8]) {
-        for c in b {
-            let _ = self.send_queue.push_back(*c);
-        }
-        self.usart.cr1.modify(|_,w| { w.txeie().enabled() });
-    }
-    fn read_byte(&self) -> u8 {
-        return self.usart.rdr.read().bits() as u8
-    }
-}
 
-pub struct SerialProtocol {
-    serial: Serial,
-    raw_message: Vec<u8, 4096>,
-}
-
-#[allow(dead_code)]
-impl SerialProtocol {
-    fn new(serial: Serial) -> SerialProtocol {
-        SerialProtocol {
-            serial,
-            raw_message: Vec::new(),
-        }
+    pub struct Serial {
+        usart: USART1,
+        send_queue: Deque<u8, 2048>,
     }
-    fn process_byte(&mut self, config_queue_in: &mut Producer<'static, Config, 2>) {
-        let b = self.serial.read_byte();
-        self.serial.write_queued(&[b]);
-        if b == b'\n' {
-            self.process_message(config_queue_in);
-        } else {
-            let _ = self.raw_message.push(b);
+
+    impl Serial {
+        fn new(usart: USART1) -> Serial {
+            usart.brr.write(|w| { w.brr().bits((APB2_CLOCK*2*8/16/230400) as u16)});
+            usart.cr1.write(|w| { w.te().enabled().re().enabled().ue().enabled().rxneie().enabled() });
+            Serial {
+                send_queue: Deque::new(),
+                usart
+            }
+        }
+        fn write_queued(&mut self, b: &[u8]) {
+            for c in b {
+                let _ = self.send_queue.push_back(*c);
+            }
+            self.usart.cr1.modify(|_,w| { w.txeie().enabled() });
+        }
+        fn read_byte(&self) -> u8 {
+            return self.usart.rdr.read().bits() as u8
         }
     }
-    fn process_message(&mut self, config_queue_in: &mut Producer<'static, Config, 2>) {
-        self.serial.write_queued(b"GOT MESSAGE LOL\n");
-        let parsed_config: Result<(Config, _), serde_json_core::de::Error> = serde_json_core::from_slice(&self.raw_message);
-        if let Ok((config, _)) = parsed_config {
-            self.serial.write_queued(b"PARSED MESSAGE LOL\n");
-            let _ = config_queue_in.enqueue(config);
+
+    pub struct SerialProtocol {
+        serial: Serial,
+        raw_message: Vec<u8, 4096>,
+    }
+
+    #[allow(dead_code)]
+    impl SerialProtocol {
+        fn new(serial: Serial) -> SerialProtocol {
+            SerialProtocol {
+                serial,
+                raw_message: Vec::new(),
+            }
         }
-        self.raw_message.clear();
+        fn process_byte(&mut self, config_queue_in: &mut Producer<'static, Config, 2>) {
+            let b = self.serial.read_byte();
+            self.serial.write_queued(&[b]);
+            if b == b'\n' {
+                self.process_message(config_queue_in);
+            } else {
+                let _ = self.raw_message.push(b);
+            }
+        }
+        fn process_message(&mut self, config_queue_in: &mut Producer<'static, Config, 2>) {
+            self.serial.write_queued(b"GOT MESSAGE LOL\n");
+            let parsed_config: Result<(Config, _), serde_json_core::de::Error> = serde_json_core::from_slice(&self.raw_message);
+            if let Ok((config, _)) = parsed_config {
+                self.serial.write_queued(b"PARSED MESSAGE LOL\n");
+                let _ = config_queue_in.enqueue(config);
+            }
+            self.raw_message.clear();
+        }
     }
-}
 
-pub struct ADC {
-    adc1: ADC1
-}
-
-impl ADC {
-    fn new(adc1: ADC1) -> ADC {
-        adc1.cr2.modify(|_,w| {w.adon().bit(true)});
-        ADC { adc1 }
+    pub struct ADC {
+        adc1: ADC1
     }
-    fn read_blocking(&self, channel: u8) -> u16 {
-        self.adc1.sqr3.modify(|_,w| { unsafe { w.sq1().bits(channel) } });
-        self.adc1.cr2.modify(|_,w| { w.swstart().set_bit() });
-        while !self.adc1.sr.read().eoc().bit() {};
-        self.adc1.dr.read().data().bits()
+
+    impl ADC {
+        fn new(adc1: ADC1) -> ADC {
+            adc1.cr2.modify(|_,w| {w.adon().bit(true)});
+            ADC { adc1 }
+        }
+        fn read_blocking(&self, channel: u8) -> u16 {
+            self.adc1.sqr3.modify(|_,w| { unsafe { w.sq1().bits(channel) } });
+            self.adc1.cr2.modify(|_,w| { w.swstart().set_bit() });
+            while !self.adc1.sr.read().eoc().bit() {};
+            self.adc1.dr.read().data().bits()
+        }
     }
 }
