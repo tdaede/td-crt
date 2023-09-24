@@ -650,10 +650,8 @@ mod app {
             }
         }
         fn process_message(&mut self, config_queue_in: &mut Producer<'static, Config, 2>) {
-            self.serial.write_queued(b"GOT MESSAGE LOL\n");
             let parsed_config: Result<(Config, _), serde_json_core::de::Error> = serde_json_core::from_slice(&self.raw_message);
             if let Ok((config, _)) = parsed_config {
-                self.serial.write_queued(b"PARSED MESSAGE LOL\n");
                 let _ = config_queue_in.enqueue(config);
             }
             self.raw_message.clear();
