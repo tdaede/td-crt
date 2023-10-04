@@ -3069,6 +3069,11 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 89b3b9b1-5c2f-45fe-9a22-504326012905)
   )
+  (text "todo: 24V diode too low voltage\n12V feedback too high voltage\nswitch polarity of feedback"
+    (at 162.56 148.59 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 9061b5d4-079b-4ec0-bad6-069841f4d701)
+  )
   (text "1-2: 4.897mH\n3-4: 220.9uH\n3-5: 64.2uH\n3-6: 131.0uH\n4-5: 51.95uH\n5-6: 356.4uH\n5-7: nc\n5-10: nc\n7-8: nc\n7-9: 3.75uH\n7-10: 115.31uH\n9-10: 80.98uH"
     (at 203.2 43.18 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
