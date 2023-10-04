@@ -46,14 +46,11 @@
         "silk_text_upright": false,
         "zones": {
           "45_degree_only": false,
-          "min_clearance": 0.508
+          "min_clearance": 0.254
         }
       },
       "diff_pair_dimensions": [],
-      "drc_exclusions": [
-        "clearance|138700000|67900000|14e01df0-4b48-47be-9d7a-425366352536|d977e86a-9ce4-4706-a6da-a4c85c1c0509",
-        "clearance|139200000|67900000|0b863916-f067-4752-8d10-29452b46d904|d977e86a-9ce4-4706-a6da-a4c85c1c0509"
-      ],
+      "drc_exclusions": [],
       "meta": {
         "filename": "board_design_settings.json",
         "version": 2
@@ -121,7 +118,7 @@
         "min_hole_to_hole": 0.25,
         "min_microvia_diameter": 0.19999999999999998,
         "min_microvia_drill": 0.09999999999999999,
-        "min_resolved_spokes": 2,
+        "min_resolved_spokes": 1,
         "min_silk_clearance": 0.0,
         "min_text_height": 0.7999999999999999,
         "min_text_thickness": 0.08,
@@ -189,7 +186,16 @@
     "equivalence_files": []
   },
   "erc": {
-    "erc_exclusions": [],
+    "erc_exclusions": [
+      "lib_symbol_issues|1041400|419100|00000000-0000-0000-0000-00005d9f6269|00000000-0000-0000-0000-000000000000|||",
+      "lib_symbol_issues|1625600|279400|00000000-0000-0000-0000-00005dbb7449|00000000-0000-0000-0000-000000000000|||",
+      "lib_symbol_issues|2400300|2032000|00000000-0000-0000-0000-0000617e9361|00000000-0000-0000-0000-000000000000|||",
+      "lib_symbol_issues|2527300|317500|00000000-0000-0000-0000-00005dbd3b25|00000000-0000-0000-0000-000000000000|||",
+      "lib_symbol_issues|2552700|2413000|517ee5e9-410b-44df-b3ad-13814cb5d83c|00000000-0000-0000-0000-000000000000|||",
+      "lib_symbol_issues|2590800|850900|00000000-0000-0000-0000-00005dbf2599|00000000-0000-0000-0000-000000000000|||",
+      "lib_symbol_issues|762000|850900|07e77fe2-715b-49ab-8946-4d369786b5cb|00000000-0000-0000-0000-000000000000|||",
+      "multiple_net_names|1422400|2159000|44a912d9-4271-475e-b087-c3eaafe1c344|6ff0e627-75f4-4c08-9238-23ec5dff70e5|||"
+    ],
     "meta": {
       "version": 0
     },
@@ -392,7 +398,7 @@
       "pin_to_pin": "warning",
       "power_pin_not_driven": "error",
       "similar_labels": "warning",
-      "simulation_model_issue": "error",
+      "simulation_model_issue": "ignore",
       "unannotated": "error",
       "unit_value_mismatch": "error",
       "unresolved_variable": "error",
@@ -425,6 +431,23 @@
         "via_diameter": 0.8,
         "via_drill": 0.4,
         "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.243717,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "75 ohm",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.17,
+        "via_diameter": 0.8,
+        "via_drill": 0.4,
+        "wire_width": 6
       }
     ],
     "meta": {
@@ -432,7 +455,36 @@
     },
     "net_colors": null,
     "netclass_assignments": null,
-    "netclass_patterns": []
+    "netclass_patterns": [
+      {
+        "netclass": "",
+        "pattern": ""
+      },
+      {
+        "netclass": "75 ohm",
+        "pattern": "/rgb/vga_red"
+      },
+      {
+        "netclass": "75 ohm",
+        "pattern": "/rgb/vga_green"
+      },
+      {
+        "netclass": "75 ohm",
+        "pattern": "/rgb/vga_blue"
+      },
+      {
+        "netclass": "75 ohm",
+        "pattern": "/rgb/r_yoke"
+      },
+      {
+        "netclass": "75 ohm",
+        "pattern": "/rgb/g_yoke"
+      },
+      {
+        "netclass": "75 ohm",
+        "pattern": "/rgb/b_yoke"
+      }
+    ]
   },
   "pcbnew": {
     "last_paths": {
