@@ -5,7 +5,14 @@ pub struct ADC {
 }
 
 impl ADC {
-    pub fn new(adc1: ADC1) -> ADC {
+    pub fn new(adc1: ADC1, gpioa: &GPIOA) -> ADC {
+        // adc lines
+        gpioa.moder.modify(|_,w| { w.moder0().analog() }); // h current transformer
+        gpioa.moder.modify(|_,w| { w.moder1().analog() }); // hot source current
+        gpioa.moder.modify(|_,w| { w.moder2().analog() }); // s cap voltage
+        gpioa.moder.modify(|_,w| { w.moder3().analog() }); // eht voltage
+        gpioa.moder.modify(|_,w| { w.moder5().analog() }); // eht current
+
         adc1.cr2.modify(|_,w| {w.adon().bit(true)});
         ADC { adc1 }
     }

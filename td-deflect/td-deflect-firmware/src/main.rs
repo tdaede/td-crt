@@ -180,14 +180,7 @@ mod app {
         gpiob.odr.modify(|_,w| { w.odr14().set_bit() });
         gpiob.moder.modify(|_,w| { w.moder14().output() });
 
-        // adc lines
-        gpioa.moder.modify(|_,w| { w.moder0().analog() }); // h current transformer
-        gpioa.moder.modify(|_,w| { w.moder1().analog() }); // hot source current
-        gpioa.moder.modify(|_,w| { w.moder2().analog() }); // s cap voltage
-        gpioa.moder.modify(|_,w| { w.moder3().analog() }); // eht voltage
-        gpioa.moder.modify(|_,w| { w.moder5().analog() }); // eht current
-
-        let adc = ADC::new(adc1);
+        let adc = ADC::new(adc1, &gpioa);
 
         let v_drive = VDrive::new(dac);
 
