@@ -5,7 +5,8 @@ pub struct ADC {
 }
 
 impl ADC {
-    pub fn new(adc1: ADC1, gpioa: &GPIOA) -> ADC {
+    pub fn new(adc1: ADC1, rcc: &RCC, gpioa: &GPIOA) -> ADC {
+        rcc.apb2enr.modify(|_,w| { w.adc1en().bit(true) });
         // adc lines
         gpioa.moder.modify(|_,w| { w.moder0().analog() }); // h current transformer
         gpioa.moder.modify(|_,w| { w.moder1().analog() }); // hot source current

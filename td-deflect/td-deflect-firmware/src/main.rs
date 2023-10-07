@@ -115,7 +115,6 @@ mod app {
         rcc.ahb1enr.modify(|_,w| { w.gpioaen().bit(true) });
         rcc.ahb1enr.modify(|_,w| { w.gpioben().bit(true) });
         rcc.ahb1enr.modify(|_,w| { w.gpiocen().bit(true) });
-        rcc.apb2enr.modify(|_,w| { w.adc1en().bit(true) });
         rcc.apb2enr.modify(|_,w| { w.tim1en().bit(true) });
         rcc.apb1enr.modify(|_,w| { w.dacen().bit(true) });
         rcc.apb2enr.modify(|_,w| { w.tim10en().bit(true) });
@@ -180,7 +179,7 @@ mod app {
         gpiob.odr.modify(|_,w| { w.odr14().set_bit() });
         gpiob.moder.modify(|_,w| { w.moder14().output() });
 
-        let adc = ADC::new(adc1, &gpioa);
+        let adc = ADC::new(adc1, &rcc, &gpioa);
 
         let v_drive = VDrive::new(dac);
 
