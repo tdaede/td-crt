@@ -1,6 +1,8 @@
 #![no_main]
 #![no_std]
 
+mod adc;
+
 use rtic::app;
 
 #[app(device = stm32f7::stm32f7x2, peripherals = true, dispatchers = [EXTI0, EXTI1])]
@@ -12,6 +14,7 @@ mod app {
     use core::sync::atomic::{self, Ordering, AtomicBool};
     use core::panic::PanicInfo;
     use td_crt_protocol::*;
+    use crate::adc::ADC;
 
     const AHB_CLOCK: u32 = 216_000_000;
     const APB2_CLOCK: u32 = AHB_CLOCK / 2;
@@ -655,23 +658,6 @@ mod app {
                 let _ = config_queue_in.enqueue(config);
             }
             self.raw_message.clear();
-        }
-    }
-
-    pub struct ADC {
-        adc1: ADC1
-    }
-
-    impl ADC {
-        fn new(adc1: ADC1) -> ADC {
-            adc1.cr2.modify(|_,w| {w.adon().bit(true)});
-            ADC { adc1 }
-        }
-        fn read_blocking(&self, channel: u8) -> u16 {
-            self.adc1.sqr3.modify(|_,w| { unsafe { w.sq1().bits(channel) } });
-            self.adc1.cr2.modify(|_,w| { w.swstart().set_bit() });
-            while !self.adc1.sr.read().eoc().bit() {};
-            self.adc1.dr.read().data().bits()
         }
     }
 }
