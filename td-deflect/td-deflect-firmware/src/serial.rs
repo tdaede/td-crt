@@ -11,7 +11,12 @@ pub struct Serial {
 }
 
 impl Serial {
-    pub fn new(usart: USART1) -> Serial {
+    pub fn new(usart: USART1, gpioa: &GPIOA, rcc: &RCC) -> Serial {
+        rcc.apb2enr.modify(|_,w| { w.usart1en().bit(true) });
+        gpioa.afrh.modify(|_,w| { w.afrh9().af7() });
+        gpioa.moder.modify(|_,w| {w.moder9().alternate() });
+        gpioa.afrh.modify(|_,w| {w.afrh10().af7() });
+        gpioa.moder.modify(|_,w| {w.moder10().alternate() });
         usart.brr.write(|w| { w.brr().bits((APB2_CLOCK*2*8/16/230400) as u16)});
         usart.cr1.write(|w| { w.te().enabled().re().enabled().ue().enabled().rxneie().enabled() });
         Serial {

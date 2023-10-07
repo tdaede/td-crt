@@ -121,7 +121,6 @@ mod app {
         rcc.apb2enr.modify(|_,w| { w.tim10en().bit(true) });
         rcc.apb1enr.modify(|_,w| { w.tim3en().bit(true) });
         rcc.apb1enr.modify(|_,w| { w.tim4en().bit(true) });
-        rcc.apb2enr.modify(|_,w| { w.usart1en().bit(true) });
 
         gpioa.moder.modify(|_,w| { w.moder5().output() });
 
@@ -141,11 +140,7 @@ mod app {
         gpiob.moder.modify(|_,w| {w.moder1().alternate() });
 
         // serial input/output
-        gpioa.afrh.modify(|_,w| { w.afrh9().af7() });
-        gpioa.moder.modify(|_,w| {w.moder9().alternate() });
-        gpioa.afrh.modify(|_,w| {w.afrh10().af7() });
-        gpioa.moder.modify(|_,w| {w.moder10().alternate() });
-        let serial = Serial::new(usart1);
+        let serial = Serial::new(usart1, &gpioa, &rcc);
         let serial_protocol = SerialProtocol::new(serial);
 
         // sync inputs
