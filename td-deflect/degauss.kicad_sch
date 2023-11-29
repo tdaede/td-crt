@@ -5,11 +5,11 @@
   (paper "A4")
 
   (lib_symbols
-    (symbol "Connector:Conn_01x02_Male" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
+    (symbol "Connector:Conn_01x02_Pin" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
       (property "Reference" "J" (at 0 2.54 0)
         (effects (font (size 1.27 1.27)))
       )
-      (property "Value" "Conn_01x02_Male" (at 0 -5.08 0)
+      (property "Value" "Conn_01x02_Pin" (at 0 -5.08 0)
         (effects (font (size 1.27 1.27)))
       )
       (property "Footprint" "" (at 0 0 0)
@@ -18,16 +18,19 @@
       (property "Datasheet" "~" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
+      (property "ki_locked" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)))
+      )
       (property "ki_keywords" "connector" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (property "ki_description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)" (at 0 0 0)
+      (property "ki_description" "Generic connector, single row, 01x02, script generated" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
       (property "ki_fp_filters" "Connector*:*_1x??_*" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "Conn_01x02_Male_1_1"
+      (symbol "Conn_01x02_Pin_1_1"
         (polyline
           (pts
             (xy 1.27 -2.54)
@@ -555,6 +558,7 @@
     )
   )
 
+
   (junction (at 170.18 82.55) (diameter 0) (color 0 0 0 0)
     (uuid 086750a7-982d-4629-b944-eb1e839c2a19)
   )
@@ -654,7 +658,7 @@
     )
   )
 
-  (symbol (lib_id "Connector:Conn_01x02_Male") (at 181.61 95.25 0) (mirror y) (unit 1)
+  (symbol (lib_id "Connector:Conn_01x02_Pin") (at 181.61 95.25 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00559f6b-8e67-461c-be30-3cccb07c8a7b)
     (property "Reference" "J15" (at 178.8668 90.6526 0)
@@ -1034,7 +1038,7 @@
     )
   )
 
-  (symbol (lib_id "Connector:Conn_01x02_Male") (at 176.53 82.55 0) (mirror y) (unit 1)
+  (symbol (lib_id "Connector:Conn_01x02_Pin") (at 176.53 82.55 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid ee04e808-59b6-46b9-8802-cf7f978ab7e6)
     (property "Reference" "J12" (at 173.7868 77.9526 0)
