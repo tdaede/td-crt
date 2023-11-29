@@ -293,7 +293,6 @@
   )
 
 
-
   (no_connect (at 129.54 106.68) (uuid d9493fba-e26b-451a-a99c-0dd6c68dcbaa))
 
   (wire (pts (xy 102.87 78.74) (xy 129.54 78.74))
