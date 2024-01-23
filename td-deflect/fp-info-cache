@@ -1,4 +1,4 @@
-21998771872375022
+22375202336713783
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -257,6 +257,13 @@ CR2032 retainer clip, SMT ( http://www.farnell.com/datasheets/1505853.pdf )
 BC-2001 CR2032 2032 Battery Holder
 0
 3
+2
+Battery
+BatteryHolder_Renata_SMTU2032-LF_1x2032
+https://www.renata.com/fr/downloads/?product=smtu2032-lf&fileid=6a9833a4d49dfb7b550194fe0f
+Renata SMT battery holder coin cell 2032
+0
+2
 2
 Battery
 BatteryHolder_Seiko_MS621F
@@ -1400,6 +1407,20 @@ Tactile Switch
 3
 3
 Button_Switch_SMD
+SW_SPST_CK_KMS2xxG
+Microminiature SMT Side Actuated, 4.2 x 2.8 x 1.42mm, https://www.ckswitches.com/media/1482/kms.pdf
+Switch SPST KMS2
+0
+5
+3
+Button_Switch_SMD
+SW_SPST_CK_KMS2xxGP
+Microminiature SMT Side Actuated, 4.2 x 2.8 x 1.42mm with pegs, https://www.ckswitches.com/media/1482/kms.pdf
+Switch SPST KMS2
+0
+5
+3
+Button_Switch_SMD
 SW_SPST_CK_KXT3
 https://www.ckswitches.com/media/1465/kxt3.pdf
 Switch SPST KXT3
@@ -2037,6 +2058,13 @@ switch single-pole double-throw spdt ON-ON illuminated LED
 6
 6
 Button_Switch_THT
+SW_NKK_NR01
+NKK Switches NR01 series rotary switch, 10.7 x 10.7mm. https://www.nkkswitches.com/pdf/NR01%20Rotaries.pdf
+NKK NR01 SP3T SP4T SP5T
+0
+10
+7
+Button_Switch_THT
 SW_PUSH-12mm
 SW PUSH 12mm https://www.e-switch.com/system/asset/product_line/data_sheet/143/TL1100.pdf
 tact sw push 12mm
@@ -2407,6 +2435,13 @@ Buzzer Magnetic 9mm AT-0927-TT-6-R
 0
 2
 2
+Buzzer_Beeper
+MagneticBuzzer_PUI_SMT-1028-T-2-R
+Buzzer, 2830Hz, 3.6Vpp, 90dbA@10cm, Top sound port, 10x10x3,5mm, https://api.puiaudio.com/file/612539d9-c50b-48de-88aa-b63ef8817a91.pdf
+SMT 1028
+0
+4
+3
 Buzzer_Beeper
 MagneticBuzzer_ProSignal_ABI-009-RC
 Buzzer, Elektromagnetic Beeper, Summer, 6V-DC,
@@ -6454,6 +6489,13 @@ Grove-1x04
 4
 4
 Connector
+OCN_OK-01GM030-04_2x15_P0.4mm_Vertical
+Board to board connector, 2x15, 0.4mm pitch, http://www.main-soul.com/datasheet/ocn/connector/Spec_Draw_OK-01.pdf
+board-to-board
+0
+30
+30
+Connector
 SpringContact_Harwin_S1941-46R
 7.25mm SMT Multi-directional Spring Contact (T+R), https://cdn.harwin.com/pdfs/S1941R.pdf
 spring contact emi emc shield
@@ -8084,6 +8126,13 @@ barrel jack cui dc power
 0
 4
 3
+Connector_BarrelJack
+BarrelJack_CUI_PJ-079BH_Horizontal
+Barrel Jack, 2.5mm ID, 5.5mm OD, 24V, 5A, switch, https://www.cui.com/product/resource/pj-079bh.pdf 
+barrel jack cui dc power
+0
+5
+4
 Connector_BarrelJack
 BarrelJack_CUI_PJ-102AH_Horizontal
 Thin-pin DC Barrel Jack, https://cdn-shop.adafruit.com/datasheets/21mmdcjackDatasheet.pdf
@@ -19042,14 +19091,14 @@ connector Molex Micro-Fit_3.0 vertical
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-0215_2x01_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-0215 (compatible alternatives: 43045-0216, 43045-0217), 1 Pins per row (http://www.molex.com/pdm_docs/sd/430450217_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 2
 2
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-0218_2x01-1MP_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-0218 (compatible alternatives: 43045-0219, 43045-0220), 1 Pins per row (http://www.molex.com/pdm_docs/sd/430450218_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 4
 3
@@ -19084,14 +19133,14 @@ connector Molex Micro-Fit_3.0 vertical
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-0415_2x02_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-0415 (compatible alternatives: 43045-0416, 43045-0417), 2 Pins per row (http://www.molex.com/pdm_docs/sd/430450217_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 4
 4
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-0418_2x02-1MP_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-0418 (compatible alternatives: 43045-0419, 43045-0420), 2 Pins per row (http://www.molex.com/pdm_docs/sd/430450218_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 6
 5
@@ -19126,14 +19175,14 @@ connector Molex Micro-Fit_3.0 vertical
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-0615_2x03_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-0615 (compatible alternatives: 43045-0616, 43045-0617), 3 Pins per row (http://www.molex.com/pdm_docs/sd/430450217_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 6
 6
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-0618_2x03-1MP_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-0618 (compatible alternatives: 43045-0619, 43045-0620), 3 Pins per row (http://www.molex.com/pdm_docs/sd/430450218_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 8
 7
@@ -19168,14 +19217,14 @@ connector Molex Micro-Fit_3.0 vertical
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-0815_2x04_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-0815 (compatible alternatives: 43045-0816, 43045-0817), 4 Pins per row (http://www.molex.com/pdm_docs/sd/430450217_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 8
 8
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-0818_2x04-1MP_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-0818 (compatible alternatives: 43045-0819, 43045-0820), 4 Pins per row (http://www.molex.com/pdm_docs/sd/430450218_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 10
 9
@@ -19210,14 +19259,14 @@ connector Molex Micro-Fit_3.0 vertical
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-1015_2x05_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-1015 (compatible alternatives: 43045-1016, 43045-1017), 5 Pins per row (http://www.molex.com/pdm_docs/sd/430450217_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 10
 10
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-1018_2x05-1MP_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-1018 (compatible alternatives: 43045-1019, 43045-1020), 5 Pins per row (http://www.molex.com/pdm_docs/sd/430450218_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 12
 11
@@ -19252,14 +19301,14 @@ connector Molex Micro-Fit_3.0 vertical
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-1215_2x06_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-1215 (compatible alternatives: 43045-1216, 43045-1217), 6 Pins per row (http://www.molex.com/pdm_docs/sd/430450217_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 12
 12
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-1218_2x06-1MP_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-1218 (compatible alternatives: 43045-1219, 43045-1220), 6 Pins per row (http://www.molex.com/pdm_docs/sd/430450218_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 14
 13
@@ -19294,14 +19343,14 @@ connector Molex Micro-Fit_3.0 vertical
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-1415_2x07_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-1415 (compatible alternatives: 43045-1416, 43045-1417), 7 Pins per row (http://www.molex.com/pdm_docs/sd/430450217_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 14
 14
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-1418_2x07-1MP_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-1418 (compatible alternatives: 43045-1419, 43045-1420), 7 Pins per row (http://www.molex.com/pdm_docs/sd/430450218_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 16
 15
@@ -19336,14 +19385,14 @@ connector Molex Micro-Fit_3.0 vertical
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-1615_2x08_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-1615 (compatible alternatives: 43045-1616, 43045-1617), 8 Pins per row (http://www.molex.com/pdm_docs/sd/430450217_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 16
 16
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-1618_2x08-1MP_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-1618 (compatible alternatives: 43045-1619, 43045-1620), 8 Pins per row (http://www.molex.com/pdm_docs/sd/430450218_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 18
 17
@@ -19378,14 +19427,14 @@ connector Molex Micro-Fit_3.0 vertical
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-1815_2x09_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-1815 (compatible alternatives: 43045-1816, 43045-1817), 9 Pins per row (http://www.molex.com/pdm_docs/sd/430450217_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 18
 18
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-1818_2x09-1MP_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-1818 (compatible alternatives: 43045-1819, 43045-1820), 9 Pins per row (http://www.molex.com/pdm_docs/sd/430450218_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 20
 19
@@ -19420,14 +19469,14 @@ connector Molex Micro-Fit_3.0 vertical
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-2015_2x10_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-2015 (compatible alternatives: 43045-2016, 43045-2017), 10 Pins per row (http://www.molex.com/pdm_docs/sd/430450217_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 20
 20
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-2018_2x10-1MP_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-2018 (compatible alternatives: 43045-2019, 43045-2020), 10 Pins per row (http://www.molex.com/pdm_docs/sd/430450218_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 22
 21
@@ -19462,14 +19511,14 @@ connector Molex Micro-Fit_3.0 vertical
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-2215_2x11_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-2215 (compatible alternatives: 43045-2216, 43045-2217), 11 Pins per row (http://www.molex.com/pdm_docs/sd/430450217_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 22
 22
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-2218_2x11-1MP_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-2218 (compatible alternatives: 43045-2219, 43045-2220), 11 Pins per row (http://www.molex.com/pdm_docs/sd/430450218_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 24
 23
@@ -19504,14 +19553,14 @@ connector Molex Micro-Fit_3.0 vertical
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-2415_2x12_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-2415 (compatible alternatives: 43045-2416, 43045-2417), 12 Pins per row (http://www.molex.com/pdm_docs/sd/430450217_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 24
 24
 Connector_Molex
 Molex_Micro-Fit_3.0_43045-2418_2x12-1MP_P3.00mm_Vertical
 Molex Micro-Fit 3.0 Connector System, 43045-2418 (compatible alternatives: 43045-2419, 43045-2420), 12 Pins per row (http://www.molex.com/pdm_docs/sd/430450218_sd.pdf), generated with kicad-footprint-generator
-connector Molex Micro-Fit_3.0 side entry
+connector Molex Micro-Fit_3.0 vertical
 0
 26
 25
@@ -27663,6 +27712,489 @@ phoenix_contact connector MSTB_01x16_GF_5.00mm_MH
 0
 16
 16
+Connector_Phoenix_SPT
+PhoenixContact_SPT_1.5_2-H-3.5_1x02_P3.5mm_Horizontal
+Connector Phoenix Contact, SPT 1.5/2-H-3.5 Terminal Block, 1990737 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1990737), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 1.5/2-H-3.5 1990737
+0
+4
+2
+Connector_Phoenix_SPT
+PhoenixContact_SPT_1.5_3-H-3.5_1x03_P3.5mm_Horizontal
+Connector Phoenix Contact, SPT 1.5/3-H-3.5 Terminal Block, 1990740 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1990740), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 1.5/3-H-3.5 1990740
+0
+6
+3
+Connector_Phoenix_SPT
+PhoenixContact_SPT_1.5_4-H-3.5_1x04_P3.5mm_Horizontal
+Connector Phoenix Contact, SPT 1.5/4-H-3.5 Terminal Block, 1990753 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1990753), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 1.5/4-H-3.5 1990753
+0
+8
+4
+Connector_Phoenix_SPT
+PhoenixContact_SPT_1.5_5-H-3.5_1x05_P3.5mm_Horizontal
+Connector Phoenix Contact, SPT 1.5/5-H-3.5 Terminal Block, 1990766 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1990766), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 1.5/5-H-3.5 1990766
+0
+10
+5
+Connector_Phoenix_SPT
+PhoenixContact_SPT_1.5_6-H-3.5_1x06_P3.5mm_Horizontal
+Connector Phoenix Contact, SPT 1.5/6-H-3.5 Terminal Block, 1990779 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1990779), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 1.5/6-H-3.5 1990779
+0
+12
+6
+Connector_Phoenix_SPT
+PhoenixContact_SPT_1.5_7-H-3.5_1x07_P3.5mm_Horizontal
+Connector Phoenix Contact, SPT 1.5/7-H-3.5 Terminal Block, 1990782 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1990782), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 1.5/7-H-3.5 1990782
+0
+14
+7
+Connector_Phoenix_SPT
+PhoenixContact_SPT_1.5_8-H-3.5_1x08_P3.5mm_Horizontal
+Connector Phoenix Contact, SPT 1.5/8-H-3.5 Terminal Block, 1990795 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1990795), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 1.5/8-H-3.5 1990795
+0
+16
+8
+Connector_Phoenix_SPT
+PhoenixContact_SPT_1.5_9-H-3.5_1x09_P3.5mm_Horizontal
+Connector Phoenix Contact, SPT 1.5/9-H-3.5 Terminal Block, 1990805 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1990805), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 1.5/9-H-3.5 1990805
+0
+18
+9
+Connector_Phoenix_SPT
+PhoenixContact_SPT_1.5_10-H-3.5_1x10_P3.5mm_Horizontal
+Connector Phoenix Contact, SPT 1.5/10-H-3.5 Terminal Block, 1990818 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1990818), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 1.5/10-H-3.5 1990818
+0
+20
+10
+Connector_Phoenix_SPT
+PhoenixContact_SPT_1.5_11-H-3.5_1x11_P3.5mm_Horizontal
+Connector Phoenix Contact, SPT 1.5/11-H-3.5 Terminal Block, 1990821 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1990821), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 1.5/11-H-3.5 1990821
+0
+22
+11
+Connector_Phoenix_SPT
+PhoenixContact_SPT_1.5_12-H-3.5_1x12_P3.5mm_Horizontal
+Connector Phoenix Contact, SPT 1.5/12-H-3.5 Terminal Block, 1990834 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1990834), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 1.5/12-H-3.5 1990834
+0
+24
+12
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_1-H-5.0_1x01_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/1-H-5.0 Terminal Block, 1751066 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1751066), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/1-H-5.0 1751066
+0
+2
+1
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_2-H-5.0-EX_1x02_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/2-H-5.0-EX Terminal Block, 1732386 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732386), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/2-H-5.0-EX 1732386
+0
+4
+2
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_2-H-5.0_1x02_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/2-H-5.0 Terminal Block, 1990973 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1990973), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/2-H-5.0 1990973
+0
+4
+2
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_2-V-5.0-EX_1x02_P5.0mm_Vertical
+Connector Phoenix Contact, SPT 2.5/2-V-5.0-EX Terminal Block, 1732496 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732496), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/2-V-5.0-EX 1732496
+0
+4
+2
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_3-H-5.0-EX_1x03_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/3-H-5.0-EX Terminal Block, 1732399 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732399), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/3-H-5.0-EX 1732399
+0
+6
+3
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_3-H-5.0_1x03_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/3-H-5.0 Terminal Block, 1990986 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1990986), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/3-H-5.0 1990986
+0
+6
+3
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_3-V-5.0-EX_1x03_P5.0mm_Vertical
+Connector Phoenix Contact, SPT 2.5/3-V-5.0-EX Terminal Block, 1732506 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732506), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/3-V-5.0-EX 1732506
+0
+6
+3
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_4-H-5.0-EX_1x04_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/4-H-5.0-EX Terminal Block, 1732409 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732409), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/4-H-5.0-EX 1732409
+0
+8
+4
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_4-H-5.0_1x04_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/4-H-5.0 Terminal Block, 1990999 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1990999), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/4-H-5.0 1990999
+0
+8
+4
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_4-V-5.0-EX_1x04_P5.0mm_Vertical
+Connector Phoenix Contact, SPT 2.5/4-V-5.0-EX Terminal Block, 1732519 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732519), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/4-V-5.0-EX 1732519
+0
+8
+4
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_5-H-5.0-EX_1x05_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/5-H-5.0-EX Terminal Block, 1732412 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732412), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/5-H-5.0-EX 1732412
+0
+10
+5
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_5-H-5.0_1x05_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/5-H-5.0 Terminal Block, 1991008 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1991008), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/5-H-5.0 1991008
+0
+10
+5
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_5-V-5.0-EX_1x05_P5.0mm_Vertical
+Connector Phoenix Contact, SPT 2.5/5-V-5.0-EX Terminal Block, 1732522 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732522), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/5-V-5.0-EX 1732522
+0
+10
+5
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_6-H-5.0-EX_1x06_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/6-H-5.0-EX Terminal Block, 1732425 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732425), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/6-H-5.0-EX 1732425
+0
+12
+6
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_6-H-5.0_1x06_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/6-H-5.0 Terminal Block, 1991011 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1991011), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/6-H-5.0 1991011
+0
+12
+6
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_6-V-5.0-EX_1x06_P5.0mm_Vertical
+Connector Phoenix Contact, SPT 2.5/6-V-5.0-EX Terminal Block, 1732535 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732535), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/6-V-5.0-EX 1732535
+0
+12
+6
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_7-H-5.0-EX_1x07_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/7-H-5.0-EX Terminal Block, 1732438 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732438), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/7-H-5.0-EX 1732438
+0
+14
+7
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_7-H-5.0_1x07_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/7-H-5.0 Terminal Block, 1991024 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1991024), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/7-H-5.0 1991024
+0
+14
+7
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_7-V-5.0-EX_1x07_P5.0mm_Vertical
+Connector Phoenix Contact, SPT 2.5/7-V-5.0-EX Terminal Block, 1732548 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732548), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/7-V-5.0-EX 1732548
+0
+14
+7
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_8-H-5.0-EX_1x08_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/8-H-5.0-EX Terminal Block, 1732441 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732441), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/8-H-5.0-EX 1732441
+0
+16
+8
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_8-H-5.0_1x08_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/8-H-5.0 Terminal Block, 1991037 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1991037), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/8-H-5.0 1991037
+0
+16
+8
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_8-V-5.0-EX_1x08_P5.0mm_Vertical
+Connector Phoenix Contact, SPT 2.5/8-V-5.0-EX Terminal Block, 1732551 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732551), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/8-V-5.0-EX 1732551
+0
+16
+8
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_9-H-5.0-EX_1x09_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/9-H-5.0-EX Terminal Block, 1732454 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732454), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/9-H-5.0-EX 1732454
+0
+18
+9
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_9-H-5.0_1x09_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/9-H-5.0 Terminal Block, 1991040 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1991040), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/9-H-5.0 1991040
+0
+18
+9
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_9-V-5.0-EX_1x09_P5.0mm_Vertical
+Connector Phoenix Contact, SPT 2.5/9-V-5.0-EX Terminal Block, 1732564 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732564), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/9-V-5.0-EX 1732564
+0
+18
+9
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_10-H-5.0-EX_1x10_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/10-H-5.0-EX Terminal Block, 1732467 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732467), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/10-H-5.0-EX 1732467
+0
+20
+10
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_10-H-5.0_1x10_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/10-H-5.0 Terminal Block, 1991053 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1991053), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/10-H-5.0 1991053
+0
+20
+10
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_10-V-5.0-EX_1x10_P5.0mm_Vertical
+Connector Phoenix Contact, SPT 2.5/10-V-5.0-EX Terminal Block, 1732577 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732577), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/10-V-5.0-EX 1732577
+0
+20
+10
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_11-H-5.0-EX_1x11_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/11-H-5.0-EX Terminal Block, 1732470 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732470), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/11-H-5.0-EX 1732470
+0
+22
+11
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_11-H-5.0_1x11_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/11-H-5.0 Terminal Block, 1991066 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1991066), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/11-H-5.0 1991066
+0
+22
+11
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_11-V-5.0-EX_1x11_P5.0mm_Vertical
+Connector Phoenix Contact, SPT 2.5/11-V-5.0-EX Terminal Block, 1732580 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732580), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/11-V-5.0-EX 1732580
+0
+22
+11
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_12-H-5.0-EX_1x12_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/12-H-5.0-EX Terminal Block, 1732483 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732483), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/12-H-5.0-EX 1732483
+0
+24
+12
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_12-H-5.0_1x12_P5.0mm_Horizontal
+Connector Phoenix Contact, SPT 2.5/12-H-5.0 Terminal Block, 1991079 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1991079), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/12-H-5.0 1991079
+0
+24
+12
+Connector_Phoenix_SPT
+PhoenixContact_SPT_2.5_12-V-5.0-EX_1x12_P5.0mm_Vertical
+Connector Phoenix Contact, SPT 2.5/12-V-5.0-EX Terminal Block, 1732593 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1732593), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 2.5/12-V-5.0-EX 1732593
+0
+24
+12
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_1-H-7.5_1x01_P7.5mm_Horizontal
+Connector Phoenix Contact, SPT 5/1-H-7.5 Terminal Block, 1719189 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719189), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/1-H-7.5 1719189
+0
+2
+1
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_1-V-7.5_1x01_P7.5mm_Vertical
+Connector Phoenix Contact, SPT 5/1-V-7.5 Terminal Block, 1719309 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719309), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/1-V-7.5 1719309
+0
+2
+1
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_2-H-7.5-ZB_1x02_P7.5mm_Horizontal
+Connector Phoenix Contact, SPT 5/2-H-7.5-ZB Terminal Block, 1719192 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719192), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/2-H-7.5-ZB 1719192
+0
+2
+2
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_2-V-7.5_1x02_P7.5mm_Vertical
+Connector Phoenix Contact, SPT 5/2-V-7.5 Terminal Block, 1738144 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1738144), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/2-V-7.5 1738144
+0
+4
+2
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_3-H-7.5-ZB_1x03_P7.5mm_Horizontal
+Connector Phoenix Contact, SPT 5/3-H-7.5-ZB Terminal Block, 1719202 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719202), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/3-H-7.5-ZB 1719202
+0
+3
+3
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_3-H-7.5_1x03_P7.5mm_Horizontal
+Connector Phoenix Contact, SPT 5/3-H-7.5 Terminal Block, 1701361 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1701361), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/3-H-7.5 1701361
+0
+6
+3
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_3-V-7.5-ZB_1x03_P7.5mm_Vertical
+Connector Phoenix Contact, SPT 5/3-V-7.5-ZB Terminal Block, 1719325 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719325), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/3-V-7.5-ZB 1719325
+0
+3
+3
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_4-H-7.5-ZB_1x04_P7.5mm_Horizontal
+Connector Phoenix Contact, SPT 5/4-H-7.5-ZB Terminal Block, 1719215 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719215), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/4-H-7.5-ZB 1719215
+0
+4
+4
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_5-H-7.5-ZB_1x05_P7.5mm_Horizontal
+Connector Phoenix Contact, SPT 5/5-H-7.5-ZB Terminal Block, 1719228 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719228), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/5-H-7.5-ZB 1719228
+0
+5
+5
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_5-V-7.5-ZB_1x05_P7.5mm_Vertical
+Connector Phoenix Contact, SPT 5/5-V-7.5-ZB Terminal Block, 1719341 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719341), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/5-V-7.5-ZB 1719341
+0
+5
+5
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_6-H-7.5-ZB_1x06_P7.5mm_Horizontal
+Connector Phoenix Contact, SPT 5/6-H-7.5-ZB Terminal Block, 1719231 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719231), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/6-H-7.5-ZB 1719231
+0
+6
+6
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_6-V-7.5-ZB_1x06_P7.5mm_Vertical
+Connector Phoenix Contact, SPT 5/6-V-7.5-ZB Terminal Block, 1719354 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719354), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/6-V-7.5-ZB 1719354
+0
+6
+6
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_7-H-7.5-ZB_1x07_P7.5mm_Horizontal
+Connector Phoenix Contact, SPT 5/7-H-7.5-ZB Terminal Block, 1719244 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719244), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/7-H-7.5-ZB 1719244
+0
+7
+7
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_7-V-7.5-ZB_1x07_P7.5mm_Vertical
+Connector Phoenix Contact, SPT 5/7-V-7.5-ZB Terminal Block, 1719367 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719367), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/7-V-7.5-ZB 1719367
+0
+7
+7
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_8-H-7.5-ZB_1x08_P7.5mm_Horizontal
+Connector Phoenix Contact, SPT 5/8-H-7.5-ZB Terminal Block, 1719257 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719257), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/8-H-7.5-ZB 1719257
+0
+8
+8
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_8-V-7.5-ZB_1x08_P7.5mm_Vertical
+Connector Phoenix Contact, SPT 5/8-V-7.5-ZB Terminal Block, 1719370 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719370), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/8-V-7.5-ZB 1719370
+0
+8
+8
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_9-H-7.5-ZB_1x09_P7.5mm_Horizontal
+Connector Phoenix Contact, SPT 5/9-H-7.5-ZB Terminal Block, 1719260 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719260), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/9-H-7.5-ZB 1719260
+0
+9
+9
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_9-V-7.5-ZB_1x09_P7.5mm_Vertical
+Connector Phoenix Contact, SPT 5/9-V-7.5-ZB Terminal Block, 1719383 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719383), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/9-V-7.5-ZB 1719383
+0
+9
+9
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_10-H-7.5-ZB_1x10_P7.5mm_Horizontal
+Connector Phoenix Contact, SPT 5/10-H-7.5-ZB Terminal Block, 1719273 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719273), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/10-H-7.5-ZB 1719273
+0
+10
+10
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_10-V-7.5-ZB_1x10_P7.5mm_Vertical
+Connector Phoenix Contact, SPT 5/10-V-7.5-ZB Terminal Block, 1719396 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719396), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/10-V-7.5-ZB 1719396
+0
+10
+10
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_11-H-7.5-ZB_1x11_P7.5mm_Horizontal
+Connector Phoenix Contact, SPT 5/11-H-7.5-ZB Terminal Block, 1719286 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719286), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/11-H-7.5-ZB 1719286
+0
+11
+11
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_11-V-7.5-ZB_1x11_P7.5mm_Vertical
+Connector Phoenix Contact, SPT 5/11-V-7.5-ZB Terminal Block, 1719406 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719406), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/11-V-7.5-ZB 1719406
+0
+11
+11
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_12-H-7.5-ZB_1x12_P7.5mm_Horizontal
+Connector Phoenix Contact, SPT 5/12-H-7.5-ZB Terminal Block, 1719299 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719299), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/12-H-7.5-ZB 1719299
+0
+12
+12
+Connector_Phoenix_SPT
+PhoenixContact_SPT_5_12-V-7.5-ZB_1x12_P7.5mm_Vertical
+Connector Phoenix Contact, SPT 5/12-V-7.5-ZB Terminal Block, 1719419 (https://www.phoenixcontact.com/online/portal/gb/?uri=pxc-oc-itemdetail:pid=1719419), generated with kicad-footprint-generator
+Connector Phoenix Contact SPT 5/12-V-7.5-ZB 1719419
+0
+12
+12
 Connector_Pin
 Pin_D0.7mm_L6.5mm_W1.8mm_FlatFork
 solder Pin_ with flat fork, hole diameter 0.7mm, length 6.5mm, width 1.8mm
@@ -42343,6 +42875,13 @@ RJ45 Magjack
 14
 13
 Connector_RJ
+RJ45_Bel_V895-1001-AW_Vertical
+1 Port RJ45 Magjack Vertical Connector SMD 10/100 Base-T, https://www.belfuse.com/resources/drawings/magneticsolutions/dr-mag-v895-1001-aw.pdf
+RJ45 Magjack
+0
+14
+11
+Connector_RJ
 RJ45_Cetus_J1B1211CCD_Horizontal
 1 Port RJ45 Magjack Connector Through Hole 10/100 Base-T, Cetus, used and distributed by WIZnet (https://wizwiki.net/wiki/lib/exe/fetch.php?media=products:wiz550web:wiz550webds_kr:j1b1211ccd.pdf)
 RJ45 Magjack
@@ -42391,6 +42930,13 @@ RJ45 ethernet magnetic
 0
 16
 15
+Connector_RJ
+RJ45_Molex_9346520x_Horizontal
+1 Port RJ45 Magjack Connector Through Hole 10/100 Base-T, two LED, tab up
+RJ45 Magjack
+0
+14
+13
 Connector_RJ
 RJ45_Molex_0855135013_Vertical
 1 Port, RJ45, Series 85513, vertical, SMD, https://www.molex.com/pdm_docs/sd/855135013_sd.pdf
@@ -45618,6 +46164,272 @@ connector Samtec HLE top entry
 0
 100
 100
+Connector_Samtec_HPM_THT
+Samtec_HPM-01-01-x-S_Straight_1x01_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x01, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x01 5.08mm single row
+0
+1
+1
+Connector_Samtec_HPM_THT
+Samtec_HPM-01-05-x-S_Straight_1x01_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x01, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x01 5.08mm single row
+0
+1
+1
+Connector_Samtec_HPM_THT
+Samtec_HPM-02-01-x-S_Straight_1x02_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x02, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x02 5.08mm single row
+0
+2
+2
+Connector_Samtec_HPM_THT
+Samtec_HPM-02-05-x-S_Straight_1x02_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x02, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x02 5.08mm single row
+0
+2
+2
+Connector_Samtec_HPM_THT
+Samtec_HPM-03-01-x-S_Straight_1x03_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x03, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x03 5.08mm single row
+0
+3
+3
+Connector_Samtec_HPM_THT
+Samtec_HPM-03-05-x-S_Straight_1x03_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x03, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x03 5.08mm single row
+0
+3
+3
+Connector_Samtec_HPM_THT
+Samtec_HPM-04-01-x-S_Straight_1x04_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x04, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x04 5.08mm single row
+0
+4
+4
+Connector_Samtec_HPM_THT
+Samtec_HPM-04-05-x-S_Straight_1x04_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x04, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x04 5.08mm single row
+0
+4
+4
+Connector_Samtec_HPM_THT
+Samtec_HPM-05-01-x-S_Straight_1x05_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x05, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x05 5.08mm single row
+0
+5
+5
+Connector_Samtec_HPM_THT
+Samtec_HPM-05-05-x-S_Straight_1x05_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x05, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x05 5.08mm single row
+0
+5
+5
+Connector_Samtec_HPM_THT
+Samtec_HPM-06-01-x-S_Straight_1x06_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x06, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x06 5.08mm single row
+0
+6
+6
+Connector_Samtec_HPM_THT
+Samtec_HPM-06-05-x-S_Straight_1x06_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x06, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x06 5.08mm single row
+0
+6
+6
+Connector_Samtec_HPM_THT
+Samtec_HPM-07-01-x-S_Straight_1x07_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x07, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x07 5.08mm single row
+0
+7
+7
+Connector_Samtec_HPM_THT
+Samtec_HPM-07-05-x-S_Straight_1x07_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x07, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x07 5.08mm single row
+0
+7
+7
+Connector_Samtec_HPM_THT
+Samtec_HPM-08-01-x-S_Straight_1x08_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x08, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x08 5.08mm single row
+0
+8
+8
+Connector_Samtec_HPM_THT
+Samtec_HPM-08-05-x-S_Straight_1x08_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x08, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x08 5.08mm single row
+0
+8
+8
+Connector_Samtec_HPM_THT
+Samtec_HPM-09-01-x-S_Straight_1x09_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x09, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x09 5.08mm single row
+0
+9
+9
+Connector_Samtec_HPM_THT
+Samtec_HPM-09-05-x-S_Straight_1x09_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x09, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x09 5.08mm single row
+0
+9
+9
+Connector_Samtec_HPM_THT
+Samtec_HPM-10-01-x-S_Straight_1x10_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x10, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x10 5.08mm single row
+0
+10
+10
+Connector_Samtec_HPM_THT
+Samtec_HPM-10-05-x-S_Straight_1x10_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x10, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x10 5.08mm single row
+0
+10
+10
+Connector_Samtec_HPM_THT
+Samtec_HPM-11-01-x-S_Straight_1x11_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x11, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x11 5.08mm single row
+0
+11
+11
+Connector_Samtec_HPM_THT
+Samtec_HPM-11-05-x-S_Straight_1x11_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x11, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x11 5.08mm single row
+0
+11
+11
+Connector_Samtec_HPM_THT
+Samtec_HPM-12-01-x-S_Straight_1x12_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x12, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x12 5.08mm single row
+0
+12
+12
+Connector_Samtec_HPM_THT
+Samtec_HPM-12-05-x-S_Straight_1x12_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x12, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x12 5.08mm single row
+0
+12
+12
+Connector_Samtec_HPM_THT
+Samtec_HPM-13-01-x-S_Straight_1x13_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x13, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x13 5.08mm single row
+0
+13
+13
+Connector_Samtec_HPM_THT
+Samtec_HPM-13-05-x-S_Straight_1x13_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x13, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x13 5.08mm single row
+0
+13
+13
+Connector_Samtec_HPM_THT
+Samtec_HPM-14-01-x-S_Straight_1x14_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x14, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x14 5.08mm single row
+0
+14
+14
+Connector_Samtec_HPM_THT
+Samtec_HPM-14-05-x-S_Straight_1x14_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x14, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x14 5.08mm single row
+0
+14
+14
+Connector_Samtec_HPM_THT
+Samtec_HPM-15-01-x-S_Straight_1x15_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x15, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x15 5.08mm single row
+0
+15
+15
+Connector_Samtec_HPM_THT
+Samtec_HPM-15-05-x-S_Straight_1x15_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x15, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x15 5.08mm single row
+0
+15
+15
+Connector_Samtec_HPM_THT
+Samtec_HPM-16-01-x-S_Straight_1x16_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x16, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x16 5.08mm single row
+0
+16
+16
+Connector_Samtec_HPM_THT
+Samtec_HPM-16-05-x-S_Straight_1x16_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x16, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x16 5.08mm single row
+0
+16
+16
+Connector_Samtec_HPM_THT
+Samtec_HPM-17-01-x-S_Straight_1x17_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x17, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x17 5.08mm single row
+0
+17
+17
+Connector_Samtec_HPM_THT
+Samtec_HPM-17-05-x-S_Straight_1x17_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x17, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x17 5.08mm single row
+0
+17
+17
+Connector_Samtec_HPM_THT
+Samtec_HPM-18-01-x-S_Straight_1x18_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x18, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x18 5.08mm single row
+0
+18
+18
+Connector_Samtec_HPM_THT
+Samtec_HPM-18-05-x-S_Straight_1x18_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x18, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x18 5.08mm single row
+0
+18
+18
+Connector_Samtec_HPM_THT
+Samtec_HPM-19-01-x-S_Straight_1x19_Pitch5.08mm
+Through hole straight Samtec HPM power header series 11.94mm post length, 1x19, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 11.94mm post length THT 1x19 5.08mm single row
+0
+19
+19
+Connector_Samtec_HPM_THT
+Samtec_HPM-19-05-x-S_Straight_1x19_Pitch5.08mm
+Through hole straight Samtec HPM power header series 3.81mm post length, 1x19, 5.08mm pitch, single row
+Through hole Samtec HPM power header series 3.81mm post length THT 1x19 5.08mm single row
+0
+19
+19
 Connector_Stocko
 Stocko_MKS_1651-6-0-202_1x2_P2.50mm_Vertical
 Stocko MKS 16xx series connector, (https://www.stocko-contact.com/downloads/steckverbindersystem-raster-2,5-mm.pdf#page=15), generated with kicad-footprint-generator
@@ -49329,6 +50141,13 @@ DCDC SMD
 7
 7
 Converter_DCDC
+Converter_DCDC_Murata_MYRxP
+Murata MYRxP PicoBK DC/DC converter with inductor, 2x2.5mm, height 1.04mm. https://www.murata.com/en-global/products/power/nonisolated-dc-dc-converter/overview/lineup/picobk
+PicoBK DC/DC MYRBP MYRGP MYRLP
+0
+19
+9
+Converter_DCDC
 Converter_DCDC_Murata_NCS1SxxxxSC_THT
 Murata NCS1SxxxxSC https://power.murata.com/data/power/ncl/kdc_ncs1.pdf (Script generated with StandardBox.py) (Murata NCS1SxxxxSC https://power.murata.com/data/power/ncl/kdc_ncs1.pdf)
 Murata NCS1SxxxxSC
@@ -49462,15 +50281,15 @@ DCDC-Converter Silvertel Ag5810 single output POE
 163
 13
 Converter_DCDC
-Converter_DCDC_TRACO_TBA1E-xxxx_Dual_THT
-DCDC-Converter, TRACO, TBA1-xxxxE, Dual, 1W, Rev. October 9. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tba1e.pdf)
+Converter_DCDC_TRACO_TBA1-xxxxE_Dual_THT
+DCDC-Converter, TRACO, TBA1-xxxxE, Dual, 1W, Rev. October 31. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tba1e.pdf)
 DCDC-Converter TRACO TBA1E THT SIP-7 1W
 0
 5
 5
 Converter_DCDC
-Converter_DCDC_TRACO_TBA1E-xxxx_Single_THT
-DCDC-Converter, TRACO, TBA1-xxxxE, Single, 1W, Rev. October 9. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tba1e.pdf)
+Converter_DCDC_TRACO_TBA1-xxxxE_Single_THT
+DCDC-Converter, TRACO, TBA1-xxxxE, Single, 1W, Rev. October 31. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tba1e.pdf)
 DCDC-Converter TRACO TBA1E THT SIP-7 1W
 0
 4
@@ -49511,23 +50330,23 @@ DCDC-Converter TRACO TDU1 THT DIP-8 1W
 4
 4
 Converter_DCDC
-Converter_DCDC_TRACO_TEA1-xxxx_THT
-DCDC-Converter, TRACO, TEA1-xxxx, 1W, Rev. October 19. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tea1.pdf)
-DCDC-Converter TRACO TEA1 THT SIP-4 1W
-0
-4
-4
-Converter_DCDC
-Converter_DCDC_TRACO_TEA1E-xxxx_THT
-DCDC-Converter, TRACO, TEA1E-xxxx, 1W, Rev. September 7. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tea1e.pdf)
+Converter_DCDC_TRACO_TEA1-xxxxE_THT
+DCDC-Converter, TRACO, TEA1-xxxxE, 1W, Rev. October 31. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tea1e.pdf)
 DCDC-Converter TRACO TEA1E THT SIP-7 1W
 0
 4
 4
 Converter_DCDC
-Converter_DCDC_TRACO_TEA1HI-xxxx_THT
-DCDC-Converter, TRACO, TEA1HI-xxxx, 1W, Rev. September 21. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tea1hi.pdf)
+Converter_DCDC_TRACO_TEA1-xxxxHI_THT
+DCDC-Converter, TRACO, TEA1-xxxxHI, 1W, Rev. October 31. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tea1hi.pdf)
 DCDC-Converter TRACO TEA1HI THT SIP-7 1W
+0
+4
+4
+Converter_DCDC
+Converter_DCDC_TRACO_TEA1-xxxx_THT
+DCDC-Converter, TRACO, TEA1-xxxx, 1W, Rev. October 19. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tea1.pdf)
+DCDC-Converter TRACO TEA1 THT SIP-4 1W
 0
 4
 4
@@ -49574,6 +50393,20 @@ DCDC-Converter TRACO TEN20 Generic
 6
 6
 Converter_DCDC
+Converter_DCDC_TRACO_THB10-xxxx_Dual_THT
+DCDC-Converter, TRACO, THB10-xxxx, Dual, 10W, Rev. December 07. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/thb10.pdf)
+DCDC-Converter TRACO THB10 THT 2"x1" 10W
+0
+5
+5
+Converter_DCDC
+Converter_DCDC_TRACO_THB10-xxxx_Single_THT
+DCDC-Converter, TRACO, THB10-xxxx, Single, 10W, Rev. December 07. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/thb10.pdf)
+DCDC-Converter TRACO THB10 THT 2"x1" 10W
+0
+4
+4
+Converter_DCDC
 Converter_DCDC_TRACO_THD_15-xxxxWIN_THT
 Traco THD 15WIN, 15W, THT (https://www.tracopower.com/products/thd15win.pdf#page=3)
 traco dcdc tht 15w
@@ -49589,29 +50422,29 @@ DCDC-Converter TRACO THN30 Generic
 6
 Converter_DCDC
 Converter_DCDC_TRACO_TMA-05xxD_12xxD_Dual_THT
-DCDC-Converter, TRACO, TMA-05xxD, TMA-12xxD, Dual outputs, Rev. August 29. 2023, https://www.tracopower.com/products/tma.pdf
-DCDC-Converter TRACO TMA-05xxD TMA-12xxD Dual THT
+DCDC-Converter, TRACO, TMA-05xxD, TMA-12xxD, Dual, 1W, Rev. November 10. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tma.pdf)
+DCDC-Converter TRACO TMA THT SIP-7 1W
 0
 5
 5
 Converter_DCDC
 Converter_DCDC_TRACO_TMA-05xxS_12xxS_Single_THT
-DCDC-Converter, TRACO, TMA-05xxS, TMA-12xxS Single output, Rev. August 29. 2023, https://www.tracopower.com/products/tma.pdf
-DCDC-Converter TRACO TMA-05xxS TMA-12xxS Single THT
+DCDC-Converter, TRACO, TMA-05xxS, TMA-12xxS, Single, 1W, Rev. November 10. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tma.pdf)
+DCDC-Converter TRACO TMA THT SIP-7 1W
 0
 4
 4
 Converter_DCDC
 Converter_DCDC_TRACO_TMA-15xxD_24xxD_Dual_THT
-DCDC-Converter, TRACO, TMA-15xxD, TMA-24xxD, Dual outputs, Rev. August 29. 2023, https://www.tracopower.com/products/tma.pdf
-DCDC-Converter TRACO TMA-15xxD TMA-24xxD Dual THT
+DCDC-Converter, TRACO, TMA-15xxD, TMA-25xxD, Dual, 1W, Rev. November 10. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tma.pdf)
+DCDC-Converter TRACO TMA THT SIP-7 1W
 0
 5
 5
 Converter_DCDC
 Converter_DCDC_TRACO_TMA-15xxS_24xxS_Single_THT
-DCDC-Converter, TRACO, TMA-15xxS, TMA-24xxS, Single output, Rev. August 29. 2023, https://www.tracopower.com/products/tma.pdf
-DCDC-Converter TRACO TMA-15xxS TMA-24xxS Single THT
+DCDC-Converter, TRACO, TMA-15xxS, TMA-24xxS, Single, 1W, Rev. November 10. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tma.pdf)
+DCDC-Converter TRACO TMA THT SIP-7 1W
 0
 4
 4
@@ -49664,6 +50497,34 @@ DCDC-Converter TRACO TMRxxxx Single/Dual_output
 0
 7
 7
+Converter_DCDC
+Converter_DCDC_TRACO_TMR4-xxxxWI_THT
+DCDC-Converter, TRACO, TMR4-xxxxWI, 4W, Rev. December 06. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tmr4wi.pdf)
+DCDC-Converter TRACO TMR4WI THT SIP-8 4W
+0
+7
+7
+Converter_DCDC
+Converter_DCDC_TRACO_TMU3-05xx_12xx_THT
+DCDC-Converter, TRACO, TMU3-05xx, TMU3-12xx, 3W, Rev. November 10. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tmu3.pdf)
+DCDC-Converter TRACO TMU3 THT SIP-4 3W
+0
+4
+4
+Converter_DCDC
+Converter_DCDC_TRACO_TMU3-24xx_THT
+DCDC-Converter, TRACO, TMU3-24xx, 3W, Rev. November 10. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tmu3.pdf)
+DCDC-Converter TRACO TMU3 THT SIP-4 3W
+0
+4
+4
+Converter_DCDC
+Converter_DCDC_TRACO_TRI1-xxxx_THT
+DCDC-Converter, TRACO, TRI1-xxxx, 1W, Rev. November 13. 2023 (Script generated with StandardBox.py) (https://www.tracopower.com/products/tri1.pdf)
+DCDC-Converter TRACO TRI1 THT SIP-7 1W
+0
+4
+4
 Converter_DCDC
 Converter_DCDC_TRACO_TSR-1_THT
 DCDC-Converter, TRACO, TSR 1-xxxx
@@ -51001,6 +51862,13 @@ SMD SMT ceramic resonator filter filter hand-soldering
 0
 2
 2
+Crystal
+Resonator_SMD_Murata_CSTCR_4.5x2x1.15mm
+Piezoelectric Ceramic Resonator, 4.5mm x 2mm x 1.15mm, https://www.murata.com/products/productdata/8801051639838/SPEC-CSTCR4M00G53-R0.pdf?1517839209000
+Crystal Oscillator
+0
+9
+3
 Crystal
 Resonator_SMD_Murata_CSTxExxV-3Pin_3.0x1.1mm
 SMD Resomator/Filter Murata CSTCE, https://www.murata.com/en-eu/products/productdata/8801162264606/SPEC-CSTNE16M0VH3C000R0.pdf
@@ -53221,6 +54089,13 @@ emi filter
 5
 5
 Fuse
+FuseHolder_Blade_ATO_Littelfuse_FLR_178.6165
+Littelfuse fuse holder for ATO/FKS blade fuses, 80V, vertical, 20 x 6mm, PCB thickness up to 1.5mm, http://www.littelfuse.com/~/media/commercial-vehicle/datasheets/automotive-fuse-holders/ato/littelfuse-fuse-holder-ato-flr-pcb-datasheet.pdf
+ATO FKS blade fuse holder
+0
+8
+2
+Fuse
 Fuse_0402_1005Metric
 Fuse SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator
 fuse
@@ -54607,6 +55482,118 @@ Bourns SRU5016 SMD inductor
 4
 3
 Inductor_SMD
+L_Cenker_CKCS3012
+Inductor, Cenker, CKCS3012, 3.0x3.0x1.3mm, https://www.ckcoil.com/file/upload/spae532/2023-07/11/202307110955366446.pdf
+Inductor ckcs
+0
+2
+2
+Inductor_SMD
+L_Cenker_CKCS3015
+Inductor, Cenker, CKCS3015, 3.0x3.0x1.7mm, https://www.ckcoil.com/file/upload/spae532/2023-07/11/202307110955366446.pdf
+Inductor ckcs
+0
+2
+2
+Inductor_SMD
+L_Cenker_CKCS4018
+Inductor, Cenker, CKCS4018, 4.0x4.0x1.8mm, https://www.ckcoil.com/file/upload/spae532/2023-07/11/202307110955366446.pdf
+Inductor ckcs
+0
+2
+2
+Inductor_SMD
+L_Cenker_CKCS4020
+Inductor, Cenker, CKCS4020, 4.0x4.0x2.0mm, https://www.ckcoil.com/file/upload/spae532/2023-07/11/202307110955366446.pdf
+Inductor ckcs
+0
+2
+2
+Inductor_SMD
+L_Cenker_CKCS4030
+Inductor, Cenker, CKCS4030, 4.0x4.0x3.0mm, https://www.ckcoil.com/file/upload/spae532/2023-07/11/202307110955366446.pdf
+Inductor ckcs
+0
+2
+2
+Inductor_SMD
+L_Cenker_CKCS5020
+Inductor, Cenker, CKCS5020, 5.0x5.0x2.1mm, https://www.ckcoil.com/file/upload/spae532/2023-07/11/202307110955366446.pdf
+Inductor ckcs
+0
+2
+2
+Inductor_SMD
+L_Cenker_CKCS5040
+Inductor, Cenker, CKCS5040, 5.0x5.0x4.0mm, https://www.ckcoil.com/file/upload/spae532/2023-07/11/202307110955366446.pdf
+Inductor ckcs
+0
+2
+2
+Inductor_SMD
+L_Cenker_CKCS6020
+Inductor, Cenker, CKCS6020, 6.0x6.0x2.1mm, https://www.ckcoil.com/file/upload/spae532/2023-07/11/202307110955366446.pdf
+Inductor ckcs
+0
+2
+2
+Inductor_SMD
+L_Cenker_CKCS6028
+Inductor, Cenker, CKCS6028, 6.0x6.0x3.0mm, https://www.ckcoil.com/file/upload/spae532/2023-07/11/202307110955366446.pdf
+Inductor ckcs
+0
+2
+2
+Inductor_SMD
+L_Cenker_CKCS6045
+Inductor, Cenker, CKCS6045, 6.0x6.0x4.7mm, https://www.ckcoil.com/file/upload/spae532/2023-07/11/202307110955366446.pdf
+Inductor ckcs
+0
+2
+2
+Inductor_SMD
+L_Cenker_CKCS8040
+Inductor, Cenker, CKCS8040, 8.0x8.0x4.2mm, https://www.ckcoil.com/file/upload/spae532/2023-07/11/202307110955366446.pdf
+Inductor ckcs
+0
+2
+2
+Inductor_SMD
+L_Cenker_CKCS8060
+Inductor, Cenker, CKCS8060, 8.0x8.0x6.2mm, https://www.ckcoil.com/file/upload/spae532/2023-07/11/202307110955366446.pdf
+Inductor ckcs
+0
+2
+2
+Inductor_SMD
+L_Cenker_CKCS8080
+Inductor, Cenker, CKCS8080, 8.0x8.0x8.0mm, https://www.ckcoil.com/file/upload/spae532/2023-07/11/202307110955366446.pdf
+Inductor ckcs
+0
+2
+2
+Inductor_SMD
+L_Cenker_CKCS201610
+Inductor, Cenker, CKCS201610, 2.0x1.6x1.05mm, https://www.ckcoil.com/file/upload/spae532/2023-07/11/202307110955366446.pdf
+Inductor ckcs
+0
+2
+2
+Inductor_SMD
+L_Cenker_CKCS252010
+Inductor, Cenker, CKCS252010, 2.5x2.0x1.05mm, https://www.ckcoil.com/file/upload/spae532/2023-07/11/202307110955366446.pdf
+Inductor ckcs
+0
+2
+2
+Inductor_SMD
+L_Cenker_CKCS252012
+Inductor, Cenker, CKCS252012, 2.5x2.0x1.25mm, https://www.ckcoil.com/file/upload/spae532/2023-07/11/202307110955366446.pdf
+Inductor ckcs
+0
+2
+2
+Inductor_SMD
 L_Changjiang_FNR3010S
 Inductor, Changjiang, FNR3010S, 3.0x3.0x1.0mm, https://datasheet.lcsc.com/lcsc/1806131217_cjiang-Changjiang-Microelectronics-Tech-FNR5040S3R3NT_C167960.pdf
 Inductor wirewound power shielded
@@ -55425,6 +56412,20 @@ inductor common mode choke
 0
 4
 4
+Inductor_SMD
+L_CommonModeChoke_TDK_ACM2520-2P
+TDK ACM2520 common-mode filter, SMD, 2x2.5mm, height 1.2mm https://product.tdk.com/system/files/dam/doc/product/emc/emc/cmf_cmc/catalog/cmf_commercial_signal_acm2520_en.pdf
+ACM2520 common-mode filter 4 pin
+0
+4
+4
+Inductor_SMD
+L_CommonModeChoke_TDK_ACM2520-3P
+TDK ACM2520 common-mode filter, SMD, 2x2.5mm, height 1.2mm https://product.tdk.com/system/files/dam/doc/product/emc/emc/cmf_cmc/catalog/cmf_commercial_signal_acm2520_en.pdf
+ACM2520 common-mode filter 6 pin
+0
+6
+6
 Inductor_SMD
 L_CommonModeChoke_TDK_ACM7060
 ACM7060 SMT Common Mode Filter, https://product.tdk.com/system/files/dam/doc/product/emc/emc/cmf_cmc/catalog/cmf_commercial_power_acm7060_en.pdf
@@ -58464,6 +59465,13 @@ Inductor Radial series Radial pin pitch 10.00mm  diameter 14.2mm Neosid SD14
 2
 2
 Inductor_THT
+L_Radial_D16.0mm_P10.00mm_Panasonic_15E-L
+Panasonic ELC Type 15E-L inductor, radial, shielded, pin pitch=10.00mm, diameter=16.0mm, https://mediap.industry.panasonic.eu/assets/imported/industrial.panasonic.com/cdbs/www-data/pdf/AGB0000/AGB0000CE10.pdf
+ELC15ExxxL
+0
+3
+3
+Inductor_THT
 L_Radial_D16.8mm_P11.43mm_Vishay_IHB-1
 Inductor, Radial series, Radial, pin pitch=11.43mm, , diameter=16.8mm, Vishay, IHB-1, http://www.vishay.com/docs/34015/ihb.pdf
 Inductor Radial series Radial pin pitch 11.43mm  diameter 16.8mm Vishay IHB-1
@@ -59797,6 +60805,20 @@ LED_SMD
 LED_LiteOn_LTST-C295K_1.6x0.8mm
 Topview dual http://optoelectronics.liteon.com/upload/download/DS22-2009-0072/LTST-C295KGKRKT.PDF
 SMD Top view Dual colour
+0
+4
+4
+LED_SMD
+LED_LiteOn_LTST-E563C_PLCC4_5.0x5.0mm_P3.2mm
+RGB addressable LED, 5x5mm body, 1.57mm height, https://optoelectronics.liteon.com/upload/download/DS35-2018-0092/LTST-E563CHEGBW-AW.PDF
+LED RGB 5050 PLCC-4
+0
+4
+4
+LED_SMD
+LED_LiteOn_LTST-E563C_PLCC4_5.0x5.0mm_P3.2mm_HandSoldering
+RGB addressable LED, 5x5mm body, 1.57mm height, https://optoelectronics.liteon.com/upload/download/DS35-2018-0092/LTST-E563CHEGBW-AW.PDF
+LED RGB 5050 PLCC-4
 0
 4
 4
@@ -63483,6 +64505,76 @@ planar light pipe 1 way 3mm
 0
 0
 OptoDevice
+Lightpipe_Bivar_SLP3-150-100-F
+1-way, 3mm lightpipe, flat face, 3.8mm lens output height, 2.54mm protrusion, https://www.bivar.com/parts_content/Datasheets/SLP3-150-XXX-X.pdf
+light pipe 1 way 3mm 
+0
+0
+0
+OptoDevice
+Lightpipe_Bivar_SLP3-150-100-R
+1-way, 3mm lightpipe, round face, 3.8mm lens output height, 2.54mm protrusion, https://www.bivar.com/parts_content/Datasheets/SLP3-150-XXX-X.pdf
+light pipe 1 way 3mm 
+0
+0
+0
+OptoDevice
+Lightpipe_Bivar_SLP3-150-150-F
+1-way, 3mm lightpipe, flat face, 3.8mm lens output height, 3.81mm protrusion, https://www.bivar.com/parts_content/Datasheets/SLP3-150-XXX-X.pdf
+light pipe 1 way 3mm 
+0
+0
+0
+OptoDevice
+Lightpipe_Bivar_SLP3-150-150-R
+1-way, 3mm lightpipe, round face, 3.8mm lens output height, 3.81mm protrusion, https://www.bivar.com/parts_content/Datasheets/SLP3-150-XXX-X.pdf
+light pipe 1 way 3mm 
+0
+0
+0
+OptoDevice
+Lightpipe_Bivar_SLP3-150-200-R
+1-way, 3mm lightpipe, round face, 3.8mm lens output height, 5.08mm protrusion, https://www.bivar.com/parts_content/Datasheets/SLP3-150-XXX-X.pdf
+light pipe 1 way 3mm 
+0
+0
+0
+OptoDevice
+Lightpipe_Bivar_SLP3-150-250-F
+1-way, 3mm lightpipe, flat face, 3.8mm lens output height, 6.35mm protrusion, https://www.bivar.com/parts_content/Datasheets/SLP3-150-XXX-X.pdf
+light pipe 1 way 3mm 
+0
+0
+0
+OptoDevice
+Lightpipe_Bivar_SLP3-150-250-R
+1-way, 3mm lightpipe, round face, 3.8mm lens output height, 6.35mm protrusion, https://www.bivar.com/parts_content/Datasheets/SLP3-150-XXX-X.pdf
+light pipe 1 way 3mm 
+0
+0
+0
+OptoDevice
+Lightpipe_Bivar_SLP3-150-300-F
+1-way, 3mm lightpipe, flat face, 3.8mm lens output height, 7.62mm protrusion, https://www.bivar.com/parts_content/Datasheets/SLP3-150-XXX-X.pdf
+light pipe 1 way 3mm 
+0
+0
+0
+OptoDevice
+Lightpipe_Bivar_SLP3-150-300-R
+1-way, 3mm lightpipe, round face, 3.8mm lens output height, 7.62mm protrusion, https://www.bivar.com/parts_content/Datasheets/SLP3-150-XXX-X.pdf
+light pipe 1 way 3mm 
+0
+0
+0
+OptoDevice
+Lightpipe_Bivar_SLP3-150-450-R
+1-way, 3mm lightpipe, round face, 3.8mm lens output height, 11.43mm protrusion, https://www.bivar.com/parts_content/Datasheets/SLP3-150-XXX-X.pdf
+light pipe 1 way 3mm 
+0
+0
+0
+OptoDevice
 Lightpipe_Dialight_515-1064F
 https://www.dialightsignalsandcomponents.com/515-optopipe-light-pipe-trilevel-2-5mm-rnd-flat-diff-lens-press-fit/#tab-resources
 lightpipe triple tower right angle 3mm
@@ -63642,6 +64734,13 @@ PhotoDiode, plastic SMD DIL, 4.5x4mm, area: 2.65x2.65mm, https://dammedia.osram.
 PhotoDiode plastic SMD DIL
 0
 6
+2
+OptoDevice
+Osram_SFH3710
+Osram SHF3710 NPN phototransistor, SMD Chip LED package, 2.0 x 1.25mm, height 0.85mm, https://look.ams-osram.com/m/14a91a7e00106d22/original/SFH-3710.pdf
+phototransistor npn
+0
+2
 2
 OptoDevice
 Osram_SMD-SmartDIL
@@ -64294,6 +65393,13 @@ DIL DIP PDIP 2.54mm 7.62mm 300mil
 0
 4
 4
+Package_BGA
+Alliance_TFBGA-54_8x8mm_Layout9x9_P0.8mm
+Alliance TFBGA 54 pins, 8x8mm, 54 Ball, 9x9 Layout, 0.8mm Pitch, https://www.alliancememory.com/wp-content/uploads/pdf/dram/Alliance_Memory_64M-AS4C4M16SA-CI_v5.0_October_2018.pdf#page=54
+BGA 54 0.8
+0
+54
+54
 Package_BGA
 Analog_BGA-28_4.0x6.25mm_Layout4x7_P0.8mm_Ball0.45mm_Pad0.4
 Analog BGA-28 4.0mm x 6.25mm package, pitch 0.4mm pad, based on https://www.analog.com/media/en/technical-documentation/data-sheets/8063fa.pdf
@@ -65533,6 +66639,13 @@ Analog LFCSP-UQ NoLead
 0
 10
 10
+Package_CSP
+DiodesInc_GEA20_WLCSP-20_1.70x2.10mm_Layout4x5_P0.4mm
+Diodes Incorporated WLCSP-20, GEA20, 1.7x2.1mm, 20 Ball, 4x5 Layout, 0.4mm Pitch, https://www.diodes.com/assets/Package-Files/GEA20.pdf
+CSP 20 0.4
+0
+20
+20
 Package_CSP
 Efinix_WLCSP-64_3.5353x3.3753mm_Layout8x8_P0.4mm
 Efinix WLCSP, NSMD pad definition Page 60, 3.5353x3.3753mm, 64 Ball, 8x8 Layout, 0.4mm Pitch, https://www.efinixinc.com/docs/titanium-packaging-ug-v5.2.pdf
@@ -66843,6 +67956,13 @@ DFN 0.45
 15
 13
 Package_DFN_QFN
+DFN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm
+DFN, 12 Pin (https://www.st.com/resource/en/datasheet/st25dv04k.pdf), generated with kicad-footprint-generator ipc_noLead_generator.py
+DFN NoLead
+0
+14
+13
+Package_DFN_QFN
 DFN-12-1EP_3x3mm_P0.5mm_EP1.6x2.5mm
 DFN, 12 Pin (https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MIC2207-2MHz-3A-PWM-Buck-Regulator-DS20006470A.pdf#page=22), generated with kicad-footprint-generator ipc_noLead_generator.py
 DFN NoLead
@@ -67255,6 +68375,20 @@ Maxim TDFN NoLead
 0
 11
 7
+Package_DFN_QFN
+Maxim_TDFN-12-1EP_3x3mm_P0.5mm_EP1.7x2.5mm
+Maxim TDFN, 12 Pin (https://www.analog.com/media/en/package-pcb-resources/land-pattern/tdfn/90-0397.pdf)
+DFN NoLead
+0
+17
+13
+Package_DFN_QFN
+Maxim_TDFN-12-1EP_3x3mm_P0.5mm_EP1.7x2.5mm_ThermalVias
+Maxim TDFN, 12 Pin (https://www.analog.com/media/en/package-pcb-resources/land-pattern/tdfn/90-0397.pdf)
+DFN NoLead
+0
+23
+13
 Package_DFN_QFN
 Micrel_MLF-8-1EP_2x2mm_P0.5mm_EP0.6x1.2mm
 Micrel  MLF, 8 Pin (http://ww1.microchip.com/downloads/en/DeviceDoc/mic23050.pdf), generated with kicad-footprint-generator ipc_noLead_generator.py
@@ -68017,6 +69151,20 @@ QFN, 28 Pin (http://www.analog.com/media/en/technical-documentation/data-sheets/
 QFN NoLead
 0
 48
+29
+Package_DFN_QFN
+QFN-28-1EP_5x5mm_P0.5mm_EP3.1x3.1mm
+QFN, 28 Pin (https://www.analog.com/media/en/technical-documentation/data-sheets/TMC2202_TMC2208_TMC2224_datasheet_rev1.14.pdf#page=77), generated with kicad-footprint-generator ipc_noLead_generator.py
+QFN NoLead
+0
+38
+29
+Package_DFN_QFN
+QFN-28-1EP_5x5mm_P0.5mm_EP3.1x3.1mm_ThermalVias
+QFN, 28 Pin (https://www.analog.com/media/en/technical-documentation/data-sheets/TMC2202_TMC2208_TMC2224_datasheet_rev1.14.pdf#page=77), generated with kicad-footprint-generator ipc_noLead_generator.py
+QFN NoLead
+0
+71
 29
 Package_DFN_QFN
 QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm
@@ -69839,6 +70987,20 @@ QFN NoLead
 127
 65
 Package_DFN_QFN
+Texas_S-PWQFN-N16_EP1.2x0.8mm
+Texas RTE WQFN, 16 Pin (https://www.ti.com/lit/ds/symlink/tps43060.pdf#page=40), generated with kicad-footprint-generator ipc_noLead_generator.py
+Texas WQFN NoLead
+0
+21
+17
+Package_DFN_QFN
+Texas_S-PWQFN-N16_EP1.2x0.8mm_ThermalVias
+Texas RTE WQFN, 16 Pin (https://www.ti.com/lit/ds/symlink/tps43060.pdf#page=40), generated with kicad-footprint-generator ipc_noLead_generator.py
+Texas WQFN NoLead
+0
+23
+17
+Package_DFN_QFN
 Texas_S-PWQFN-N16_EP2.1x2.1mm
 QFN, 16 Pin (http://www.ti.com/lit/ds/symlink/drv8801.pdf#page=31 MO-220 variation VGGC), generated with kicad-footprint-generator ipc_noLead_generator.py
 QFN NoLead
@@ -70559,20 +71721,6 @@ WQFN NoLead
 0
 24
 15
-Package_DFN_QFN
-WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x1.2mm
-WQFN, 16 Pin (https://www.ti.com/lit/ds/symlink/tps43060.pdf#page=40), generated with kicad-footprint-generator ipc_noLead_generator.py
-WQFN NoLead
-0
-21
-17
-Package_DFN_QFN
-WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x1.2mm_ThermalVias
-WQFN, 16 Pin (https://www.ti.com/lit/ds/symlink/tps43060.pdf#page=40), generated with kicad-footprint-generator ipc_noLead_generator.py
-WQFN NoLead
-0
-23
-17
 Package_DFN_QFN
 WQFN-16-1EP_3x3mm_P0.5mm_EP1.6x1.6mm
 WQFN, 16 Pin (https://www.ti.com/lit/ds/symlink/tpa6132a2.pdf#page=24), generated with kicad-footprint-generator ipc_noLead_generator.py
@@ -72765,6 +73913,13 @@ lga land grid array
 14
 14
 Package_LGA
+Infineon_PG-TSNP-6-10_0.7x1.1mm_0.7x1.1mm_P0.4mm
+6 lead, 1.1x0.7mm body, 0.37mm height, TSNP (https://www.infineon.com/cms/en/product/packages/PG-TSNP/PG-TSNP-6-10/)
+PG-TSNP-6-10 TSNP
+0
+12
+6
+Package_LGA
 Kionix_LGA-12_2x2mm_P0.5mm_LayoutBorder2x4y
 Kionix  LGA, 12 Pin (http://kionixfs.kionix.com/en/document/TN008-PCB-Design-Guidelines-for-2x2-LGA-Sensors.pdf#page=4), generated with kicad-footprint-generator ipc_noLead_generator.py
 Kionix LGA NoLead
@@ -73255,6 +74410,13 @@ PQFP 0.8
 44
 44
 Package_QFP
+PQFP-64_14x14mm_P0.8mm
+PQFP, 64 Pin (https://www.renesas.com/us/en/document/psc/package-drawing-qfp-64pin-prqp0064gb), generated with kicad-footprint-generator ipc_gullwing_generator.py
+PQFP QFP
+0
+64
+64
+Package_QFP
 PQFP-80_14x20mm_P0.8mm
 PQFP80 14x20 / QIP80E CASE 122BS (see ON Semiconductor 122BS.PDF)
 QFP 0.8
@@ -73303,6 +74465,13 @@ PQFP QFP
 0
 160
 160
+Package_QFP
+PQFP-168_28x28mm_P0.65mm
+PQFP, 168 Pin (https://www.renesas.cn/cn/zh/document/psc/package-drawing-qfp-168pin-prqp0168jb), generated with kicad-footprint-generator ipc_gullwing_generator.py
+PQFP QFP
+0
+168
+168
 Package_QFP
 PQFP-208_28x28mm_P0.5mm
 PQFP, 208 Pin (http://www.microsemi.com/index.php?option=com_docman&task=doc_download&gid=131095), generated with kicad-footprint-generator ipc_gullwing_generator.py
@@ -74494,6 +75663,13 @@ QSOP 0.635
 24
 24
 Package_SO
+ROHM_SOT-457_ClockwisePinNumbering
+ROHM SOT-457 SC-74, 6 Pin (https://fscdn.rohm.com/en/products/databook/datasheet/discrete/transistor/digital/imh3at110-e.pdf), generated with kicad-footprint-generator ipc_gullwing_generator.py
+ROHM SC-74 SO
+0
+6
+6
+Package_SO
 SC-74-6_1.5x2.9mm_P0.95mm
 SC-74, 6 Pin (https://www.nxp.com/docs/en/package-information/SOT457.pdf), generated with kicad-footprint-generator ipc_gullwing_generator.py
 SC-74 SO
@@ -74970,6 +76146,13 @@ SOP SO
 16
 16
 Package_SO
+SOP-18_7.495x11.515mm_P1.27mm
+SOP, 18 Pin (https://toshiba.semicon-storage.com/info/docget.jsp?did=30523), generated with kicad-footprint-generator ipc_gullwing_generator.py
+SOP SO
+0
+18
+18
+Package_SO
 SOP-18_7x12.5mm_P1.27mm
 SOP, 18 Pin (https://toshiba.semicon-storage.com/info/docget.jsp?did=30523), generated with kicad-footprint-generator ipc_gullwing_generator.py
 SOP SO
@@ -74990,6 +76173,13 @@ SOP SO
 0
 24
 24
+Package_SO
+SOP-44_12.6x28.5mm_P1.27mm
+SOP, 44 Pin (https://www.mxic.com.tw/Lists/Datasheet/Attachments/8177/MX23C6410,%205V,%2064Mb,%20v3.1.pdf#page=5), generated with kicad-footprint-generator ipc_gullwing_generator.py
+SOP SO
+0
+44
+44
 Package_SO
 SSO-4_6.7x5.1mm_P2.54mm_Clearance8mm
 4-Lead Plastic Stretched Small Outline (SSO/Stretched SO), see https://www.vishay.com/docs/84299/vor1142b4.pdf
@@ -75452,6 +76642,13 @@ TSOP-II 32
 0
 32
 32
+Package_SO
+TSOP-II-40-44_10.16x18.37mm_P0.8mm
+TSOP-II, 40 Pin (https://www.renesas.com/us/en/document/psc/package-drawing-tsop2-44pin-ptsb0044ge-e), generated with kicad-footprint-generator ipc_gullwing_generator.py
+TSOP-II SO
+0
+40
+40
 Package_SO
 TSOP-II-44_10.16x18.41mm_P0.8mm
 TSOP-II, 44 Pin (http://www.issi.com/WW/pdf/61-64C5128AL.pdf), generated with kicad-footprint-generator ipc_gullwing_generator.py
@@ -76167,6 +77364,27 @@ NXP XSON SOT-1341
 16
 16
 Package_SON
+Nexperia_HUSON-8_USON-8-1EP_1.35x1.7mm_P0.4mm_EP0.4x1.2mm
+Nexperia HUSON-8 USON, 8 Pin (https://assets.nexperia.com/documents/data-sheet/IP4251_52_53_54-TTL.pdf), generated with kicad-footprint-generator ipc_noLead_generator.py
+Nexperia USON NoLead
+0
+10
+9
+Package_SON
+Nexperia_HUSON-12_USON-12-1EP_1.35x2.5mm_P0.4mm_EP0.4x2mm
+Nexperia HUSON-12 USON, 12 Pin (https://assets.nexperia.com/documents/data-sheet/IP4251_52_53_54-TTL.pdf), generated with kicad-footprint-generator ipc_noLead_generator.py
+Nexperia USON NoLead
+0
+14
+13
+Package_SON
+Nexperia_HUSON-16_USON-16-1EP_1.35x3.3mm_P0.4mm_EP0.4x2.8mm
+Nexperia HUSON-16 USON, 16 Pin (https://assets.nexperia.com/documents/data-sheet/IP4251_52_53_54-TTL.pdf), generated with kicad-footprint-generator ipc_noLead_generator.py
+Nexperia USON NoLead
+0
+18
+17
+Package_SON
 ROHM_VML0806
 VML0806, Rohm (http://rohmfs.rohm.com/en/techdata_basic/transistor/soldering_condition/VML0806_Soldering_Condition.pdf, http://rohmfs.rohm.com/en/products/databook/package/spec/discrete/vml0806_tr-e.pdf)
 ROHM VML0806
@@ -76201,6 +77419,13 @@ Texas WSON6 2x2mm
 0
 10
 8
+Package_SON
+Texas_DQX002A
+Texas DQX - 2pin WSON, 2.5x1.7mm body, 0.8mm height. https://www.ti.com/lit/ds/symlink/lmt01.pdf
+WSON-2 DQX
+0
+2
+2
 Package_SON
 Texas_DRC0010J
 Texas DRC0010J, VSON10 3x3mm Body, 0.5mm Pitch,  http://www.ti.com/lit/ds/symlink/tps63000.pdf
@@ -79849,6 +81074,13 @@ Potentiometer vertical Bourns 3386P
 3
 3
 Potentiometer_THT
+Potentiometer_Bourns_3386W_Vertical
+Potentiometer, vertical, Bourns 3386W, https://www.bourns.com/docs/Product-Datasheets/3386.pdf
+Potentiometer 
+0
+3
+3
+Potentiometer_THT
 Potentiometer_Bourns_3386X_Horizontal
 Potentiometer, horizontal, Bourns 3386X, https://www.bourns.com/pdfs/3386.pdf
 Potentiometer horizontal Bourns 3386X
@@ -80205,6 +81437,13 @@ Skyworks
 0
 7
 7
+RF_Antenna
+AVX_M620720
+868Mhz, 915Mhz ISM antenna, 6 x 2 x 1.08mm, http://datasheets.avx.com/ethertronics/AVX-E_M620720.pdf
+868 915 Mhz ISM antenna
+0
+6
+3
 RF_Antenna
 Abracon_APAES868R8060C16-T
 Abracon RHCP ceramic patch antenna 854-882Mhz, 5dBi
@@ -81031,6 +82270,13 @@ wireless 2.4 GHz Bluetooth ble zigbee 802.15.4 thread nordic raytac nrf52840 nrf
 0
 61
 61
+RF_Module
+ST-SiP-LGA-86-11x7.3mm
+STM32WB5MMG  Module, LGA86L 11x7.3
+bluetooth bluetooth5 bluetooth5.0 802.15.4 zigbee thread module stm32 rf
+0
+86
+86
 RF_Module
 ST_SPBTLE
 Bluetooth Low Energy Module
@@ -82047,9 +83293,30 @@ SPST relay slim
 4
 4
 Relay_THT
+Relay_Socket_3PDT_Omron_PLE11-0
+29mm Dia, round mounting socket, 10A, 2kV AC / minute, 1e3Mohm, https://www.omron.com.tw/data_pdf/cat/common_sockets_ds_e_6_1_csm1819.pdf?#page=27
+tube type relay
+0
+11
+11
+Relay_THT
+Relay_Socket_4PDT_Omron_PY14-02
+21.4x25.8mm, 4Pole mounting socket, 3A, 1.5kV AC / minute, 1e2Mohm, https://www.omron.com.tw/data_pdf/cat/common_sockets_ds_e_6_1_csm1819.pdf?#page=19
+relay socket
+0
+14
+14
+Relay_THT
 Relay_Socket_DPDT_Finder_96.12
-https://gfinder.findernet.com/public/attachments/56/DE/S56DE.pdf
-Relay socket DPDT Finder 96.12 56.32
+DPDT relay socket, 15A max 10A per contact, 2kV AC Isolation, https://gfinder.findernet.com/public/attachments/56/DE/S56DE.pdf
+finder relay socket 96.12 56.32
+0
+8
+8
+Relay_THT
+Relay_Socket_DPDT_Omron_PLE08-0
+29mm Dia, round mounting socket, 10A, 2kV AC / minute, 1e3Mohm, https://www.omron.com.tw/data_pdf/cat/common_sockets_ds_e_6_1_csm1819.pdf?#page=27
+tube type relay
 0
 8
 8
@@ -89621,6 +90888,13 @@ transformer flyback SMPS
 9
 9
 Transformer_THT
+Transformer_Myrra_EI30-5_44000_Horizontal
+Myrra 44000 series encapsulated transformer, 50/60Hz, EI 30-5, 0.6VA, 32.6 x 27.6 x 15.3mm, https://myrra.com/wp-content/uploads/2021/03/Catalogue-Myrra-2022-Final_compressed-5.pdf
+Transformer THT  Myrra
+0
+6
+6
+Transformer_THT
 Transformer_NF_ETAL_1-1_P1200
 NF-Transformer, 1:1, ETAL P1200,http://www.etalgroup.com/sites/default/files/products/P1200_April_2005.pdf
 NF-Transformer 1to1 ETAL P1200 
@@ -90572,6 +91846,13 @@ varistor
 0
 2
 2
+Varistor
+Varistor_Panasonic_VF
+Panasonic VF series varistor, 6x8mm body, 3.2mm height, https://mediap.industry.panasonic.eu/assets/imported/industrial.panasonic.com/cdbs/www-data/pdf/AWA0000/AWA0000C4.pdf
+Varistor VF
+0
+2
+2
 td-deflect
 DIP-30_600_ELL
 
@@ -90580,12 +91861,12 @@ DIP-30_600_ELL
 30
 30
 td-deflect
-DSUB-15-HD_Female_Horizontal_P2.29x2.5mm_EdgePinOffset8.35mm_Housed_MountingHolesOffset10.89mm
-15-pin D-Sub connector, horizontal/angled (90 deg), THT-mount, female, pitch 2.29x1.98mm, pin-PCB-offset 8.35mm, distance of mounting holes 25mm, distance of mounting holes to PCB edge 10.889999999999999mm, see https://disti-assets.s3.amazonaws.com/tonar/files/datasheets/16730.pdf
-15-pin D-Sub connector horizontal angled 90deg THT female pitch 2.29x1.98mm pin-PCB-offset 8.35mm mounting-holes-distance 25mm mounting-hole-offset 25mm
+LFCSP-8-1EP_3x3mm_P0.5mm_AD8337
+LFCSP, 8 Pin (https://www.analog.com/media/en/package-pcb-resources/package/pkg_pdf/lfcspcp/cp-8/CP_8_13.pdf), generated with kicad-footprint-generator ipc_noLead_generator.py
+LFCSP NoLead
 0
-17
-16
+13
+9
 td-deflect
 LIN-3509
 
@@ -90593,6 +91874,13 @@ LIN-3509
 0
 3
 3
+td-deflect
+LITTLEFUSE_CG4_SPARK_GAP
+
+
+0
+2
+1
 td-deflect
 Murata_6000B
 

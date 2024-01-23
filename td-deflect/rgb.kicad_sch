@@ -554,6 +554,9 @@
     (property "Datasheet" "~" (at 168.91 107.95 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (property "Digikey" "507-1801-1-ND" (at 168.91 107.95 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
     (pin "2" (uuid 45f58fc3-a4d9-4e08-9125-a4423d2c9a53))
     (pin "1" (uuid f258f4cb-ae65-4bd5-ac6a-ef7e10783f2c))
     (instances
@@ -580,7 +583,7 @@
     (property "Datasheet" "~" (at 115.57 109.22 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Digikey" "B5B-XH-A" (at 115.57 109.22 0)
+    (property "Digikey" "455-B5B-XH-A-ND" (at 115.57 109.22 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid f29b1f87-7917-4aee-ad27-7be155f22eac))
