@@ -1333,7 +1333,7 @@
   (symbol (lib_id "Connector:Conn_01x06_Male") (at 255.27 241.3 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 517ee5e9-410b-44df-b3ad-13814cb5d83c)
-    (property "Reference" "J16" (at 258.0132 231.6226 0)
+    (property "Reference" "J4" (at 258.0132 231.6226 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Conn_01x06_Male" (at 258.0132 233.934 0)
@@ -1356,9 +1356,6 @@
     (pin "6" (uuid 1d4de6a9-997b-4c8f-8ac3-b8152069ad5e))
     (instances
       (project "td-rgbinput-lm1205"
-        (path "/3efa2ece-8f3f-4a8c-96e9-6ab3ec6f1f70/c0c68376-68d5-425c-a89c-9d0339373cf7"
-          (reference "J16") (unit 1)
-        )
         (path "/3efa2ece-8f3f-4a8c-96e9-6ab3ec6f1f70"
           (reference "J4") (unit 1)
         )
@@ -1481,7 +1478,7 @@
   (symbol (lib_id "power:GND") (at 279.4 243.84 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid b1a80f61-10de-4096-a6a6-8e35adf1bcf3)
-    (property "Reference" "#PWR0180" (at 279.4 250.19 0)
+    (property "Reference" "#PWR05" (at 279.4 250.19 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 279.527 248.2342 0)
@@ -1496,9 +1493,6 @@
     (pin "1" (uuid f7a508f2-0f46-4637-96b0-1112eaa991e0))
     (instances
       (project "td-rgbinput-lm1205"
-        (path "/3efa2ece-8f3f-4a8c-96e9-6ab3ec6f1f70/c0c68376-68d5-425c-a89c-9d0339373cf7"
-          (reference "#PWR0180") (unit 1)
-        )
         (path "/3efa2ece-8f3f-4a8c-96e9-6ab3ec6f1f70"
           (reference "#PWR05") (unit 1)
         )
