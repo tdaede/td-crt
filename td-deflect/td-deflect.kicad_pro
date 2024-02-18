@@ -34,9 +34,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 3.2,
-          "height": 6.4,
-          "width": 6.4
+          "drill": 0.762,
+          "height": 1.524,
+          "width": 1.524
         },
         "silk_line_width": 0.12,
         "silk_text_italic": false,
@@ -46,17 +46,13 @@
         "silk_text_upright": false,
         "zones": {
           "45_degree_only": false,
-          "min_clearance": 0.0
+          "min_clearance": 0.508
         }
       },
-      "diff_pair_dimensions": [
-        {
-          "gap": 0.0,
-          "via_gap": 0.0,
-          "width": 0.0
-        }
+      "diff_pair_dimensions": [],
+      "drc_exclusions": [
+        "starved_thermal|-8620000|77000000|c42072c9-e0a4-4197-ba14-52c5ec8235bd|2309c0b3-fcb3-4bbe-9dcd-71d61a8bd91c|B.Cu"
       ],
-      "drc_exclusions": [],
       "meta": {
         "filename": "board_design_settings.json",
         "version": 2
@@ -182,12 +178,7 @@
         2.6,
         3.0
       ],
-      "via_dimensions": [
-        {
-          "diameter": 0.0,
-          "drill": 0.0
-        }
-      ],
+      "via_dimensions": [],
       "zones_allow_external_fillets": false,
       "zones_use_no_outline": true
     },
@@ -438,7 +429,7 @@
       },
       {
         "bus_width": 12,
-        "clearance": 4.5,
+        "clearance": 2.5,
         "diff_pair_gap": 0.25,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.2,
@@ -500,18 +491,6 @@
       {
         "netclass": "200V",
         "pattern": "HT"
-      },
-      {
-        "netclass": "200V",
-        "pattern": "B+*"
-      },
-      {
-        "netclass": "200V",
-        "pattern": "/h_coil_*"
-      },
-      {
-        "netclass": "200V",
-        "pattern": "/s_fuse"
       }
     ]
   },
