@@ -6,9 +6,9 @@ mod serial;
 
 use rtic::app;
 
-#[app(device = stm32f7::stm32f7x2, peripherals = true, dispatchers = [EXTI0, EXTI1])]
+#[app(device = stm32g4::stm32g474, peripherals = true, dispatchers = [EXTI0, EXTI1])]
 mod app {
-    use stm32f7::stm32f7x2::*;
+    use stm32g4::stm32g474::*;
     use serde::{Deserialize};
     use heapless::spsc::{Queue, Producer, Consumer};
     use core::sync::atomic::{self, Ordering, AtomicBool};
@@ -17,7 +17,7 @@ mod app {
     use crate::adc::ADC;
     use crate::serial::{Serial, SerialProtocol};
 
-    pub const AHB_CLOCK: u32 = 216_000_000;
+    pub const AHB_CLOCK: u32 = 150_000_000;
     pub const APB2_CLOCK: u32 = AHB_CLOCK / 2;
 
     const MIN_H_FREQ: u32 = 15000;
@@ -34,7 +34,7 @@ mod app {
     /// Used in case of deflection failure to prevent burn-in.
     fn fault_blank() {
         // read-modify-write is a bit unfortunate here
-        unsafe { (*GPIOC::ptr()).odr.modify(|_,w| {w.odr14().bit(true)}); }
+        unsafe { (*GPIOC::ptr()).odr().modify(|_,w| {w.odr14().bit(true)}); }
     }
 
     #[inline(never)]
@@ -74,119 +74,106 @@ mod app {
         let gpioa = s.GPIOA;
         let gpiob = s.GPIOB;
         let gpioc = s.GPIOC;
-        let dac = s.DAC;
+        let dac = s.DAC1;
         let flash = s.FLASH;
         let pwr = s.PWR;
         let usart1 = s.USART1;
         let adc1 = s.ADC1;
 
         // enable pwr clock
-        rcc.apb1enr.write(|w| { w.pwren().bit(true) });
+        rcc.apb1enr1().write(|w| { w.pwren().bit(true) });
 
         // set maximum flash delay
-        flash.acr.write(|w| {
-            w.prften().bit(true).arten().bit(true).latency().bits(0b1111)
+        flash.acr().write(|w| {
+            unsafe {
+                w.prften().bit(true).dcen().set_bit().icen().set_bit().latency().bits(0b0100)
+            }
         });
-        // 16mhz hse / 8 * 216 = 432mhz pll output
-        // divide by 2 for 216mhz main system clock
-        rcc.pllcfgr.write(|w| { unsafe {
-            w.pllsrc().bit(true).pllm().bits(8).plln().bits(216)
+        // 16mhz hse / 4 * 75 = 300mhz pll output
+        // divide by 2 for 150mhz main system clock
+        rcc.pllcfgr().write(|w| { unsafe {
+            w.pllsrc().bits(0b11).pllm().bits(3).plln().bits(75).pllren().set_bit()
         }});
         //enable hse and pll
-        rcc.cr.write(|w| {
+        rcc.cr().write(|w| {
             w.hseon().set_bit().hsebyp().set_bit().pllon().set_bit()
         });
-        // enable power overdrive
-        pwr.cr1.write(|w| { w.oden().bit(true) });
-        // wait for overdrive to come up
-        while !pwr.csr1.read().odrdy().bit() {};
-        // switch to overdrive
-        pwr.cr1.modify(|_,w| { w.odswen().bit(true) });
-        // wait for switch to overdrive
-        while !pwr.csr1.read().odswrdy().bit() {};
         // wait for pll lock
-        while !rcc.cr.read().pllrdy().bit() {};
+        while !rcc.cr().read().pllrdy().bit() {};
         // apb2 108mhz, apb1 54mhz, switch to pll as clock source
-        rcc.cfgr.write(|w| { unsafe {
+        rcc.cfgr().write(|w| { unsafe {
             w.ppre2().bits(0b100).ppre1().bits(0b101).sw().pll()}
         });
+        while rcc.cfgr().read().sws().bits() != 0b11 {};
+        //rcc.dckcfgr1.write(|w| { w.timpre().set_bit() });
 
-        rcc.dckcfgr1.write(|w| { w.timpre().set_bit() });
-
-        rcc.ahb1enr.modify(|_,w| { w.gpioaen().bit(true) });
-        rcc.ahb1enr.modify(|_,w| { w.gpioben().bit(true) });
-        rcc.ahb1enr.modify(|_,w| { w.gpiocen().bit(true) });
-        rcc.apb2enr.modify(|_,w| { w.tim1en().bit(true) });
-        rcc.apb1enr.modify(|_,w| { w.dacen().bit(true) });
-        rcc.apb2enr.modify(|_,w| { w.tim10en().bit(true) });
-        rcc.apb1enr.modify(|_,w| { w.tim3en().bit(true) });
-        rcc.apb1enr.modify(|_,w| { w.tim4en().bit(true) });
-
-        gpioa.moder.modify(|_,w| { w.moder5().output() });
+        rcc.ahb2enr().modify(|_,w| { w.gpioaen().bit(true) });
+        rcc.ahb2enr().modify(|_,w| { w.gpioben().bit(true) });
+        rcc.ahb2enr().modify(|_,w| { w.gpiocen().bit(true) });
+        rcc.apb2enr().modify(|_,w| { w.tim1en().bit(true) });
+        //rcc.apb1enr.modify(|_,w| { w.dacen().bit(true) });
+        //rcc.apb2enr.modify(|_,w| { w.tim10en().bit(true) });
+        //rcc.apb1enr.modify(|_,w| { w.tim3en().bit(true) });
+        //rcc.apb1enr.modify(|_,w| { w.tim4en().bit(true) });
 
         // HOT output
-        // old TIM10 connected lines
-        //gpiob.afrh.modify(|_,w| { w.afrh8().af3() });
-        //gpiob.moder.modify(|_,w| { w.moder8().alternate() });
         // new TIM1 CH4 connected lines
-        gpioa.afrh.modify(|_,w| { w.afrh11().af1() });
-        gpioa.moder.modify(|_,w| { w.moder11().alternate() });
+        //gpioa.afrh.modify(|_,w| { w.afrh11().af1() });
+        //gpioa.moder.modify(|_,w| { w.moder11().alternate() });
 
         // hsync input
-        gpioa.afrl.modify(|_,w| { w.afrl6().af2() });
-        gpioa.moder.modify(|_,w| { w. moder6().alternate() });
+        //gpioa.afrl.modify(|_,w| { w.afrl6().af2() });
+        //gpioa.moder.modify(|_,w| { w. moder6().alternate() });
         // loopback signal from H.PIN OUT for phase measurement
-        gpiob.afrl.modify(|_,w| {w.afrl1().af2() }); // TIM3_CH4
-        gpiob.moder.modify(|_,w| {w.moder1().alternate() });
+        //gpiob.afrl.modify(|_,w| {w.afrl1().af2() }); // TIM3_CH4
+        //gpiob.moder.modify(|_,w| {w.moder1().alternate() });
 
         // serial input/output
-        let serial = Serial::new(usart1, &gpioa, &rcc);
+        let serial = Serial::new(usart1, &gpioc, &rcc);
         let serial_protocol = SerialProtocol::new(serial);
 
         // sync inputs
-        gpiob.moder.modify(|_,w| {w.moder0().input()});
-        gpiob.pupdr.modify(|_,w| {w.pupdr0().pull_up()});
-        gpioa.moder.modify(|_,w| {w.moder7().input()});
-        gpioa.pupdr.modify(|_,w| {w.pupdr7().pull_up()});
-        gpioc.moder.modify(|_,w| {w.moder15().input()}); // oddeven
+        //gpiob.moder.modify(|_,w| {w.moder0().input()});
+        //gpiob.pupdr.modify(|_,w| {w.pupdr0().pull_up()});
+        //gpioa.moder.modify(|_,w| {w.moder7().input()});
+        //gpioa.pupdr.modify(|_,w| {w.pupdr7().pull_up()});
+        //gpioc.moder.modify(|_,w| {w.moder15().input()}); // oddeven
 
         // horizontal PWM
-        gpioa.afrh.modify(|_,w| {w.afrh8().af1()});
-        gpioa.moder.modify(|_,w| {w.moder8().alternate()});
-        gpiob.afrh.modify(|_,w| {w.afrh13().af1()});
-        gpiob.moder.modify(|_,w| {w.moder13().alternate()});
+        //gpioa.afrh.modify(|_,w| {w.afrh8().af1()});
+        //gpioa.moder.modify(|_,w| {w.moder8().alternate()});
+        //gpiob.afrh.modify(|_,w| {w.afrh13().af1()});
+        //gpiob.moder.modify(|_,w| {w.moder13().alternate()});
         // hv pwm
-        gpiob.afrl.modify(|_,w| {w.afrl6().af2()});
-        gpiob.moder.modify(|_,w| {w.moder6().alternate()});
+        //gpiob.afrl.modify(|_,w| {w.afrl6().af2()});
+        //gpiob.moder.modify(|_,w| {w.moder6().alternate()});
         //gpiob.moder.modify(|_,w| {w.moder6().output()});
         //gpiob.odr.modify(|_,w| {w.odr6().set_bit()});
 
         // blanking output to m51387
-        gpioc.moder.modify(|_,w| {w.moder14().output()});
-        gpioc.odr.modify(|_,w| {w.odr14().bit(true)}); // start up with blanking enabled
+        //gpioc.moder.modify(|_,w| {w.moder14().output()});
+        //gpioc.odr.modify(|_,w| {w.odr14().bit(true)}); // start up with blanking enabled
 
         // S-cap lines
         // start with all S caps on, will change later in hsync timer interrupt
-        gpioc.odr.modify(|_,w| { w.odr0().bit(true).odr1().bit(true).odr2().bit(true).odr3().bit(true) });
-        gpioc.moder.modify(|_,w| { w.moder0().output().moder1().output().moder2().output().moder3().output() });
+        //gpioc.odr.modify(|_,w| { w.odr0().bit(true).odr1().bit(true).odr2().bit(true).odr3().bit(true) });
+        //gpioc.moder.modify(|_,w| { w.moder0().output().moder1().output().moder2().output().moder3().output() });
 
         // Vertical DAC output
-        gpioa.moder.modify(|_,w| { w.moder4().analog() });
-        gpiob.odr.modify(|_,w| { w.odr14().set_bit() });
-        gpiob.moder.modify(|_,w| { w.moder14().output() });
+        //gpioa.moder.modify(|_,w| { w.moder4().analog() });
+        //gpiob.odr.modify(|_,w| { w.odr14().set_bit() });
+        //gpiob.moder.modify(|_,w| { w.moder14().output() });
 
         let adc = ADC::new(adc1, &rcc, &gpioa);
 
         let v_drive = VDrive::new(dac);
 
-        //nvic.enable(Interrupt::EXTI0);
-
-        let mut hot_driver = HOTDriver::new(s.TIM10, s.TIM1, s.TIM4);
+        let mut hot_driver = HOTDriver::new(s.TIM1, s.TIM4);
         let hsync_capture = HSyncCapture::new(s.TIM3);
         hot_driver.set_frequency(15700);
 
         // disable blanking
-        gpioc.odr.modify(|_,w| {w.odr14().bit(false)});
+        //gpioc.odr.modify(|_,w| {w.odr14().bit(false)});
 
         // configure the system timer to wrap around every second
         //syst.set_clock_source(SystClkSource::Core);
@@ -221,8 +208,8 @@ mod app {
     // internal hsync timer interrupt
   //  #[inline(never)]
   //  #[link_section = ".data.TIM1_UP_TIM10"]
-    #[task(binds = TIM1_UP_TIM10, local = [v_drive, gpioa, gpiob, gpioc, hot_driver, hsync_capture,  crt_state, config, crt_stats_live, adc, config_queue_out], priority = 15)]
-    fn tim1_up_tim10(cx: tim1_up_tim10::Context) {
+    #[task(binds = TIM1_UP_TIM16, local = [v_drive, gpioa, gpiob, gpioc, hot_driver, hsync_capture,  crt_state, config, crt_stats_live, adc, config_queue_out], priority = 15)]
+    fn tim1_up_tim16(cx: tim1_up_tim16::Context) {
         let crt_state = cx.local.crt_state;
         let current_scanline = &mut crt_state.current_scanline;
         let v_drive = cx.local.v_drive;
@@ -268,8 +255,8 @@ mod app {
         // vertical advance
         // vertical counter
         //let vga_vsync = gpiob.idr.read().idr0().bit(); // vga sync input
-        let vga_vsync = gpioa.idr.read().idr7().bit(); // composite sync input
-        let odd = gpioc.idr.read().idr15().bit();
+        let vga_vsync = gpioa.idr().read().idr7().bit(); // composite sync input
+        let odd = gpioc.idr().read().idr15().bit();
         // negative edge triggered
         let total_lines = 262;
         let center_line = total_lines / 2;
@@ -284,10 +271,10 @@ mod app {
         // handle vertical blanking
         if *current_scanline >= VERTICAL_BLANKING_SCANLINES {
             if !FAULTED.load(Ordering::Relaxed) {
-                gpioc.odr.modify(|_,w| {w.odr14().bit(false)}); // show image
+                gpioc.odr().modify(|_,w| {w.odr14().bit(false)}); // show image
             }
         } else {
-            gpioc.odr.modify(|_,w| {w.odr14().bit(true)}); // blank image
+            gpioc.odr().modify(|_,w| {w.odr14().bit(true)}); // blank image
         }
         // convert scanline to a (+1, -1) range coordinate (+1 is top of screen)
         let horizontal_pos_coordinate = (((*current_scanline) - center_line) as f32 + if odd { 0.0 } else { -0.5 }) / (total_lines as f32) * -2.0;
@@ -321,7 +308,7 @@ mod app {
         crt_stats.s_voltage = adc.read_blocking(2);
 
         // update s capacitors
-        gpioc.odr.modify(|_,w| { w.odr0().bit((config.crt.s_cap & 0b1000) == 0)
+        gpioc.odr().modify(|_,w| { w.odr0().bit((config.crt.s_cap & 0b1000) == 0)
                                  .odr1().bit((config.crt.s_cap & 0b0100) == 0)
                                  .odr2().bit((config.crt.s_cap & 0b0010) == 0)
                                  .odr3().bit((config.crt.s_cap & 0b0001) == 0) });
@@ -341,24 +328,24 @@ mod app {
         }
 
         // clear interrupt flag for tim10
-        hot_driver.tp.sr.write(|w| w.uif().bit(false));
+        hot_driver.tp.sr().write(|w| w.uif().bit(false));
     }
 
     #[task(binds = USART1, local = [config_queue_in], shared = [serial_protocol], priority = 2)]
     fn serial_interrupt(mut c: serial_interrupt::Context) {
         let config_queue_in = c.local.config_queue_in;
         c.shared.serial_protocol.lock(|serial_protocol| {
-            while serial_protocol.serial.usart.isr.read().rxne().bit() {
+            while serial_protocol.serial.usart.isr().read().rxne().bit() {
                 serial_protocol.process_byte(config_queue_in);
             }
-            if serial_protocol.serial.usart.isr.read().txe().bit() {
+            if serial_protocol.serial.usart.isr().read().txe().bit() {
                 if let Some(c) = serial_protocol.serial.send_queue.pop_front() {
-                    serial_protocol.serial.usart.tdr.write(|w| { w.tdr().bits((c).into()) });
+                    serial_protocol.serial.usart.tdr().write(|w| { unsafe{ w.tdr().bits((c).into()) } });
                 } else {
-                    serial_protocol.serial.usart.cr1.modify(|_,w| { w.txeie().disabled() });
+                    serial_protocol.serial.usart.cr1().modify(|_,w| { w.txeie().clear_bit() });
                 }
             }
-            serial_protocol.serial.usart.icr.write(|w| { w.orecf().clear() });
+            serial_protocol.serial.usart.icr().write(|w| { w.orecf().clear_bit() });
         });
     }
 
@@ -403,7 +390,6 @@ mod app {
 
     #[allow(unused)]
     pub struct HOTDriver {
-        //t: TIM10, // HOT output transistor timer
         tp: TIM1, // horizontal supply buck converter PWM
         thv: TIM4, // hv timer
         duty_setpoint: f32,
@@ -414,31 +400,32 @@ mod app {
     }
 
     impl HOTDriver {
-        fn new(_t: TIM10, tp: TIM1, thv: TIM4) -> HOTDriver {
+        fn new(tp: TIM1, thv: TIM4) -> HOTDriver {
+            // TODO: check TP / THV register size
             // configuration for width
             tp.ccmr1_output().write(|w| { w.oc1m().bits(0b110) }); // PWM1
-            tp.ccer.write(|w| { w.cc1e().set_bit().cc1ne().set_bit() });
+            tp.ccer().write(|w| { w.cc1e().set_bit().cc1ne().set_bit() });
             // configuration for HOT
             tp.ccmr2_output().write(|w| { w.oc4m().bits(0b111) }); // PWM2
-            tp.ccer.modify(|_,w| { w.cc4e().set_bit() });
-            tp.ccr4().write(|w| { w.ccr().bits((MAX_H_PERIOD*1/2) as u16) });
+            tp.ccer().modify(|_,w| { w.cc4e().set_bit() });
+            tp.ccr4().write(|w| { unsafe { w.ccr().bits(MAX_H_PERIOD*1/2) } });
             // initialize to longest possible period in case synchronization fails
             let h_pin_period = MAX_H_PERIOD as u16;
             // start out with 0 width to slowly ramp it up
-            tp.ccr1().write(|w| { w.ccr().bits(0) });
-            tp.arr.write(|w| { w.arr().bits(h_pin_period) });
+            tp.ccr1().write(|w| { unsafe { w.ccr().bits(0) } });
+            tp.arr().write(|w| { unsafe { w.arr().bits(h_pin_period.into()) } });
             // with 75 ohm gate resistors, 0x38 is the best
-            tp.bdtr.write(|w| { unsafe { w.moe().enabled().dtg().bits(0x38) }}); // uwu
-            tp.cr1.write(|w| { w.cen().enabled().urs().bit(true) });
-            tp.egr.write(|w| { w.ug().set_bit() });
-            tp.dier.write(|w| { w.uie().set_bit() });
+            tp.bdtr().write(|w| { unsafe { w.moe().set_bit().dtg().bits(0x38) }}); // uwu
+            tp.cr1().write(|w| { w.cen().set_bit().urs().bit(true) });
+            tp.egr().write(|w| { w.ug().set_bit() });
+            tp.dier().write(|w| { w.uie().set_bit() });
 
             // hv driver
             thv.ccmr1_output().write(|w| { w.oc1m().bits(0b110) });
-            thv.ccer.modify(|_,w| { w.cc1e().set_bit() });
-            thv.ccr1().write(|w| { w.ccr().bits(h_pin_period / 2) });
-            thv.arr.write(|w| { w.arr().bits(h_pin_period) });
-            thv.cr1.write(|w| { w.cen().enabled() });
+            thv.ccer().modify(|_,w| { w.cc1e().set_bit() });
+            thv.ccr1().write(|w| { unsafe { w.ccr().bits(h_pin_period as u32 / 2) } });
+            thv.arr().write(|w| { unsafe { w.arr().bits(h_pin_period.into()) } });
+            thv.cr1().write(|w| { w.cen().set_bit() });
             HOTDriver {
                 //t,
                 tp,
@@ -459,9 +446,9 @@ mod app {
             // update h pin duty
             let max_change_per_iteration = 0.001;
             self.current_duty = self.current_duty + (self.duty_setpoint - self.current_duty).clamp(-1.0*max_change_per_iteration, max_change_per_iteration);
-            self.tp.ccr1().write(|w| { w.ccr().bits((self.h_pin_period as f32 * self.current_duty) as u16)});
+            self.tp.ccr1().write(|w| { unsafe { w.ccr().bits((self.h_pin_period as f32 * self.current_duty) as u32)} });
             // trigger hv
-            self.thv.cnt.write(|w| { w.cnt().bits(0) });
+            self.thv.cnt().write(|w| { unsafe { w.cnt().bits(0) } });
         }
         fn set_period_float(&mut self, period: f32) {
             self.period = period;
@@ -469,12 +456,12 @@ mod app {
         fn set_period(&mut self, mut period: u32) {
             period = period.clamp(AHB_CLOCK/MAX_H_FREQ, AHB_CLOCK/MIN_H_FREQ);
             let turn_off_time = period * 1 / 4;
-            self.tp.arr.write(|w| { w.arr().bits(period as u16 - 1) });
-            self.tp.ccr4().write(|w| { w.ccr().bits(turn_off_time as u16) });
+            self.tp.arr().write(|w| { unsafe { w.arr().bits(period - 1) } });
+            self.tp.ccr4().write(|w| { unsafe { w.ccr().bits(turn_off_time) } });
             self.h_pin_period = period as u16;
         }
         fn get_period(&self) -> u32 {
-            self.tp.arr.read().bits() + 1
+            self.tp.arr().read().bits() + 1
         }
         fn set_frequency(&mut self, mut f: u32) {
             f = f.clamp(MIN_H_FREQ, MAX_H_FREQ);
@@ -498,11 +485,11 @@ mod app {
         fn new(t: TIM3) -> HSyncCapture {
             t.ccmr1_output().write(|w| { unsafe { w.bits(0b0000_00_10_0000_00_01)}});
             t.ccmr2_input().write(|w| { unsafe { w.cc4s().bits(0b01) } });
-            t.smcr.write(|w| { unsafe { w.ts().bits(0b101).sms().bits(0b0100) }});
+            t.smcr().write(|w| { unsafe { w.ts().bits(0b101).sms().bits(0b0100) }});
             // CH1 is configured to reset the counter and measure H period
             // CH4 is configured for capture to measure H phase error
-            t.ccer.write(|w| { w.cc1p().set_bit().cc1e().set_bit().cc4p().clear_bit().cc4np().clear_bit().cc4e().set_bit() });
-            t.cr1.write(|w| { w.cen().enabled() });
+            t.ccer().write(|w| { w.cc1p().set_bit().cc1e().set_bit().cc4p().clear_bit().cc4np().clear_bit().cc4e().set_bit() });
+            t.cr1().write(|w| { w.cen().set_bit() });
             HSyncCapture {
                 t,
                 previous_input_periods: [MAX_H_PERIOD; HSyncCapture::AVERAGED_INPUT_PERIODS],
@@ -562,15 +549,15 @@ mod app {
     }
 
     pub struct VDrive {
-        dac: DAC,
+        dac: DAC1,
         setpoint: f32,
         accumulator: f32,
     }
 
     impl VDrive {
-        fn new(dac: DAC) -> VDrive {
-            dac.cr.write(|w| { w.en1().enabled().boff1().enabled().tsel1().software().ten1().enabled() });
-            dac.dhr12r1.write(|w| { unsafe { w.bits(DAC_MIDPOINT as u32) }});
+        fn new(dac: DAC1) -> VDrive {
+            //dac.cr.write(|w| { w.en1().enabled().boff1().enabled().tsel1().software().ten1().enabled() });
+            //dac.dhr12r1.write(|w| { unsafe { w.bits(DAC_MIDPOINT as u32) }});
             VDrive { dac, setpoint: 0.0, accumulator: 0.0 }
         }
         fn set_current(&mut self, current: f32) {
@@ -579,7 +566,7 @@ mod app {
         /// call as soon as possible on horizontal interrupt
         #[inline(always)]
         fn trigger(&mut self) {
-            self.dac.swtrigr.write(|w| { w.swtrig1().enabled() });
+            //self.dac.swtrigr.write(|w| { w.swtrig1().enabled() });
         }
         /// call once per horizontal interrupt
         fn update(&mut self) {
@@ -589,7 +576,7 @@ mod app {
             let dac_value_quantized = (dac_value + self.accumulator) as i32;
             self.accumulator += dac_value - dac_value_quantized as f32;
             let dac_value_final = (dac_value_quantized as i32 + DAC_MIDPOINT).clamp(0, 4095);
-            self.dac.dhr12r1.write(|w| { unsafe { w.bits(dac_value_final as u32) }});
+            //self.dac.dhr12r1.write(|w| { unsafe { w.bits(dac_value_final as u32) }});
         }
     }
 }

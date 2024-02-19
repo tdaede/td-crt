@@ -1,4 +1,4 @@
-use stm32f7::stm32f7x2::*;
+use stm32g4::stm32g474::*;
 use heapless::{Deque, Vec};
 use heapless::spsc::Producer;
 use crate::app::Config;
@@ -11,14 +11,14 @@ pub struct Serial {
 }
 
 impl Serial {
-    pub fn new(usart: USART1, gpioa: &GPIOA, rcc: &RCC) -> Serial {
-        rcc.apb2enr.modify(|_,w| { w.usart1en().bit(true) });
-        gpioa.afrh.modify(|_,w| { w.afrh9().af7() });
-        gpioa.moder.modify(|_,w| {w.moder9().alternate() });
-        gpioa.afrh.modify(|_,w| {w.afrh10().af7() });
-        gpioa.moder.modify(|_,w| {w.moder10().alternate() });
-        usart.brr.write(|w| { w.brr().bits((APB2_CLOCK*2*8/16/230400) as u16)});
-        usart.cr1.write(|w| { w.te().enabled().re().enabled().ue().enabled().rxneie().enabled() });
+    pub fn new(usart: USART1, gpioc: &GPIOC, rcc: &RCC) -> Serial {
+        rcc.apb2enr().modify(|_,w| { w.usart1en().bit(true) });
+        gpioc.afrl().modify(|_,w| { w.afrl4().af7() });
+        gpioc.moder().modify(|_,w| {w.moder4().alternate() });
+        gpioc.afrl().modify(|_,w| {w.afrl5().af7() });
+        gpioc.moder().modify(|_,w| {w.moder5().alternate() });
+        usart.brr().write(|w| { unsafe { w.bits((APB2_CLOCK*2*8/16/230400) as u32)} });
+        usart.cr1().write(|w| { w.te().set_bit().re().set_bit().ue().set_bit().rxneie().set_bit() });
         Serial {
             send_queue: Deque::new(),
             usart
@@ -28,10 +28,10 @@ impl Serial {
         for c in b {
             let _ = self.send_queue.push_back(*c);
         }
-        self.usart.cr1.modify(|_,w| { w.txeie().enabled() });
+        self.usart.cr1().modify(|_,w| { w.txeie().set_bit() });
     }
     fn read_byte(&self) -> u8 {
-        return self.usart.rdr.read().bits() as u8
+        return self.usart.rdr().read().bits() as u8
     }
 }
 

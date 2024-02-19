@@ -1,7 +1,8 @@
 set -e
 cargo build --release
 gdb -nx --batch \
-  -ex 'target extended-remote /dev/ttyACM1' \
+  -ex 'target extended-remote /dev/ttyBmpGdb' \
+  -ex 'monitor connect_srst enable' \
   -ex 'monitor swdp_scan' \
   -ex 'attach 1' \
   -ex 'load' \

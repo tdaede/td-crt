@@ -353,14 +353,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a8f112729512f8e442d81f95a8a7ddf2b7c6b8a1a6f509a95864142b30cab2d3"
 
 [[package]]
-name = "stm32f7"
+name = "stm32g4"
 version = "0.15.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "194f877786053e5797371d084cc9dd6dc5d70f45470550af944013a298e7db9f"
+source = "git+https://github.com/stm32-rs/stm32-rs-nightlies#537d9e376cf45c91ae08eeddf103dafad10fc8e8"
 dependencies = [
- "bare-metal 1.0.0",
  "cortex-m",
  "cortex-m-rt",
+ "critical-section",
  "vcell",
 ]
 
@@ -403,7 +402,7 @@ dependencies = [
  "libm",
  "serde",
  "serde-json-core",
- "stm32f7",
+ "stm32g4",
  "td-crt-protocol",
 ]
 
