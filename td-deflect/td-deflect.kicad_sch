@@ -3285,6 +3285,11 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 8cdeb512-3238-4926-ac14-31cfd4844efd)
   )
+  (text "C59 wrong footprint (1206)\nR69 check size\nC20, C42, C66 wrong footprint\n10k part number wrong\nF4, TH1 wrong footprint"
+    (at 149.86 35.56 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid adfa841a-4603-4113-a370-71def130b886)
+  )
   (text "todo: cooling?" (at 185.42 133.35 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid b3593d03-003b-4dde-a02a-7b52b67bc4b7)
