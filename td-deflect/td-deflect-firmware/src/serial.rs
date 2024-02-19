@@ -17,7 +17,7 @@ impl Serial {
         gpioc.moder().modify(|_,w| {w.moder4().alternate() });
         gpioc.afrl().modify(|_,w| {w.afrl5().af7() });
         gpioc.moder().modify(|_,w| {w.moder5().alternate() });
-        usart.brr().write(|w| { unsafe { w.bits((APB2_CLOCK*2*8/16/230400) as u32)} });
+        usart.brr().write(|w| { unsafe { w.brr().bits((APB2_CLOCK*2*8/16/230400) as u16)} });
         usart.cr1().write(|w| { w.te().set_bit().re().set_bit().ue().set_bit().rxneie().set_bit() });
         Serial {
             send_queue: Deque::new(),
