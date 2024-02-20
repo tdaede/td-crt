@@ -111,7 +111,7 @@ mod app {
         rcc.ahb2enr().modify(|_,w| { w.gpioben().bit(true) });
         rcc.ahb2enr().modify(|_,w| { w.gpiocen().bit(true) });
         rcc.apb2enr().modify(|_,w| { w.tim1en().bit(true) });
-        //rcc.apb1enr.modify(|_,w| { w.dacen().bit(true) });
+        rcc.ahb2enr().modify(|_,w| { w.dac1en().bit(true) });
         //rcc.apb2enr.modify(|_,w| { w.tim10en().bit(true) });
         //rcc.apb1enr.modify(|_,w| { w.tim3en().bit(true) });
         //rcc.apb1enr.modify(|_,w| { w.tim4en().bit(true) });
