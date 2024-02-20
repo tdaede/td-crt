@@ -160,9 +160,10 @@ mod app {
         //gpioc.moder.modify(|_,w| { w.moder0().output().moder1().output().moder2().output().moder3().output() });
 
         // Vertical DAC output
-        //gpioa.moder.modify(|_,w| { w.moder4().analog() });
-        //gpiob.odr.modify(|_,w| { w.odr14().set_bit() });
-        //gpiob.moder.modify(|_,w| { w.moder14().output() });
+        gpioa.moder().modify(|_,w| { w.moder4().analog() });
+        // enable vertical SSR
+        gpioc.odr().modify(|_,w| { w.odr13().set_bit() });
+        gpioc.moder().modify(|_,w| { w.moder13().output() });
 
         let adc = ADC::new(adc1, &rcc, &gpioa);
 
@@ -556,8 +557,8 @@ mod app {
 
     impl VDrive {
         fn new(dac: DAC1) -> VDrive {
-            //dac.cr.write(|w| { w.en1().enabled().boff1().enabled().tsel1().software().ten1().enabled() });
-            //dac.dhr12r1.write(|w| { unsafe { w.bits(DAC_MIDPOINT as u32) }});
+            dac.cr().write(|w| { w.en1().enabled().tsel1().bits(0b0000).ten1().enabled() });
+            dac.dhr12r1().write(|w| { unsafe { w.bits(DAC_MIDPOINT as u32) }});
             VDrive { dac, setpoint: 0.0, accumulator: 0.0 }
         }
         fn set_current(&mut self, current: f32) {
@@ -566,7 +567,7 @@ mod app {
         /// call as soon as possible on horizontal interrupt
         #[inline(always)]
         fn trigger(&mut self) {
-            //self.dac.swtrigr.write(|w| { w.swtrig1().enabled() });
+            self.dac.swtrgr().write(|w| { w.swtrig1().set_bit() });
         }
         /// call once per horizontal interrupt
         fn update(&mut self) {
@@ -576,7 +577,7 @@ mod app {
             let dac_value_quantized = (dac_value + self.accumulator) as i32;
             self.accumulator += dac_value - dac_value_quantized as f32;
             let dac_value_final = (dac_value_quantized as i32 + DAC_MIDPOINT).clamp(0, 4095);
-            //self.dac.dhr12r1.write(|w| { unsafe { w.bits(dac_value_final as u32) }});
+            self.dac.dhr12r1().write(|w| { unsafe { w.bits(dac_value_final as u32) }});
         }
     }
 }
