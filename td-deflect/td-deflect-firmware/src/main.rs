@@ -117,9 +117,9 @@ mod app {
         //rcc.apb1enr.modify(|_,w| { w.tim4en().bit(true) });
 
         // HOT output
-        // new TIM1 CH4 connected lines
-        //gpioa.afrh.modify(|_,w| { w.afrh11().af1() });
-        //gpioa.moder.modify(|_,w| { w.moder11().alternate() });
+        // new TIM1 CH3 connected lines
+        gpioa.afrh().modify(|_,w| { w.afrh10().af6() });
+        gpioa.moder().modify(|_,w| { w.moder10().alternate() });
 
         // hsync input
         //gpioa.afrl.modify(|_,w| { w.afrl6().af2() });
@@ -407,9 +407,9 @@ mod app {
             tp.ccmr1_output().write(|w| { w.oc1m().bits(0b110) }); // PWM1
             tp.ccer().write(|w| { w.cc1e().set_bit().cc1ne().set_bit() });
             // configuration for HOT
-            tp.ccmr2_output().write(|w| { w.oc4m().bits(0b111) }); // PWM2
-            tp.ccer().modify(|_,w| { w.cc4e().set_bit() });
-            tp.ccr4().write(|w| { unsafe { w.ccr().bits(MAX_H_PERIOD*1/2) } });
+            tp.ccmr2_output().write(|w| { w.oc3m().bits(0b111) }); // PWM2
+            tp.ccer().modify(|_,w| { w.cc3e().set_bit() });
+            tp.ccr3().write(|w| { unsafe { w.ccr().bits(MAX_H_PERIOD*1/2) } });
             // initialize to longest possible period in case synchronization fails
             let h_pin_period = MAX_H_PERIOD as u16;
             // start out with 0 width to slowly ramp it up
@@ -458,7 +458,7 @@ mod app {
             period = period.clamp(AHB_CLOCK/MAX_H_FREQ, AHB_CLOCK/MIN_H_FREQ);
             let turn_off_time = period * 1 / 4;
             self.tp.arr().write(|w| { unsafe { w.arr().bits(period - 1) } });
-            self.tp.ccr4().write(|w| { unsafe { w.ccr().bits(turn_off_time) } });
+            self.tp.ccr3().write(|w| { unsafe { w.ccr().bits(turn_off_time) } });
             self.h_pin_period = period as u16;
         }
         fn get_period(&self) -> u32 {
