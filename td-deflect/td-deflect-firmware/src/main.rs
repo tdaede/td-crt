@@ -140,10 +140,10 @@ mod app {
         //gpioc.moder.modify(|_,w| {w.moder15().input()}); // oddeven
 
         // horizontal PWM
-        //gpioa.afrh.modify(|_,w| {w.afrh8().af1()});
-        //gpioa.moder.modify(|_,w| {w.moder8().alternate()});
-        //gpiob.afrh.modify(|_,w| {w.afrh13().af1()});
-        //gpiob.moder.modify(|_,w| {w.moder13().alternate()});
+        gpioa.afrh().modify(|_,w| {w.afrh8().af6()});
+        gpioa.moder().modify(|_,w| {w.moder8().alternate()});
+        gpiob.afrh().modify(|_,w| {w.afrh13().af6()});
+        gpiob.moder().modify(|_,w| {w.moder13().alternate()});
         // hv pwm
         //gpiob.afrl.modify(|_,w| {w.afrl6().af2()});
         //gpiob.moder.modify(|_,w| {w.moder6().alternate()});
@@ -156,8 +156,10 @@ mod app {
 
         // S-cap lines
         // start with all S caps on, will change later in hsync timer interrupt
-        //gpioc.odr.modify(|_,w| { w.odr0().bit(true).odr1().bit(true).odr2().bit(true).odr3().bit(true) });
-        //gpioc.moder.modify(|_,w| { w.moder0().output().moder1().output().moder2().output().moder3().output() });
+        gpiob.odr().modify(|_,w| { w.odr9().high() });
+        gpioc.odr().modify(|_,w| { w.odr1().high().odr2().high().odr3().high() });
+        gpiob.moder().modify(|_,w| { w.moder9().output() });
+        gpioc.moder().modify(|_,w| { w.moder1().output().moder2().output().moder3().output() });
 
         // Vertical DAC output
         gpioa.moder().modify(|_,w| { w.moder4().analog() });
@@ -215,7 +217,7 @@ mod app {
         let current_scanline = &mut crt_state.current_scanline;
         let v_drive = cx.local.v_drive;
         let gpioa = cx.local.gpioa;
-        let _gpiob = cx.local.gpiob;
+        let gpiob = cx.local.gpiob;
         let gpioc = cx.local.gpioc;
         let hot_driver = cx.local.hot_driver;
         let hsync_capture = cx.local.hsync_capture;
@@ -309,8 +311,8 @@ mod app {
         crt_stats.s_voltage = adc.read_blocking(2);
 
         // update s capacitors
-        gpioc.odr().modify(|_,w| { w.odr0().bit((config.crt.s_cap & 0b1000) == 0)
-                                 .odr1().bit((config.crt.s_cap & 0b0100) == 0)
+        gpiob.odr().modify(|_,w| { w.odr9().bit((config.crt.s_cap & 0b1000) == 0) });
+        gpioc.odr().modify(|_,w| { w.odr1().bit((config.crt.s_cap & 0b0100) == 0)
                                  .odr2().bit((config.crt.s_cap & 0b0010) == 0)
                                  .odr3().bit((config.crt.s_cap & 0b0001) == 0) });
 
