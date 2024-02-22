@@ -18,7 +18,7 @@ mod app {
     use crate::adc::ADC;
     use crate::serial::{Serial, SerialProtocol};
 
-    pub const AHB_CLOCK: u32 = 150_000_000;
+    pub const AHB_CLOCK: u32 = 170_000_000;
     pub const APB2_CLOCK: u32 = AHB_CLOCK;
 
     const MIN_H_FREQ: u32 = 15000;
@@ -90,10 +90,12 @@ mod app {
                 w.prften().bit(true).dcen().set_bit().icen().set_bit().latency().bits(0b0100)
             }
         });
+        // switch to 1.28v core voltage
+        pwr.cr5().modify(|_,w| { w.r1mode().clear_bit() });
         // 16mhz hse / 4 * 75 = 300mhz pll output
-        // divide by 2 for 150mhz main system clock
+        // divide by 2 for 170mhz main system clock
         rcc.pllcfgr().write(|w| { unsafe {
-            w.pllsrc().bits(0b11).pllm().bits(3).plln().bits(75).pllren().set_bit()
+            w.pllsrc().bits(0b11).pllm().bits(3).plln().bits(85).pllren().set_bit()
         }});
         //enable hse and pll
         rcc.cr().write(|w| {
