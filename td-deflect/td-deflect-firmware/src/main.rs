@@ -3,6 +3,7 @@
 
 mod adc;
 mod serial;
+mod v_class_d;
 
 use rtic::app;
 
@@ -17,6 +18,7 @@ mod app {
     use td_crt_protocol::*;
     use crate::adc::ADC;
     use crate::serial::{Serial, SerialProtocol};
+    use crate::v_class_d::VDriveClassD;
 
     pub const AHB_CLOCK: u32 = 170_000_000;
     pub const APB2_CLOCK: u32 = AHB_CLOCK;
@@ -58,6 +60,7 @@ mod app {
         gpiob: GPIOB,
         gpioc:  GPIOC,
         v_drive: VDrive,
+        v_drive_classd: VDriveClassD,
         hot_driver: HOTDriver,
         hsync_capture: HSyncCapture,
         crt_state: CRTState,
@@ -174,6 +177,8 @@ mod app {
         let adc = ADC::new(&s.ADC12_COMMON, adc1, &rcc, &gpioa);
         let v_drive = VDrive::new(dac);
 
+        let v_drive_classd = VDriveClassD::new(&rcc, &gpioc, &s.HRTIM_COMMON, &s.HRTIM_MASTER, s.HRTIM_TIME, s.HRTIM_TIMF);
+
         let mut hot_driver = HOTDriver::new(s.TIM1, s.TIM4);
         let hsync_capture = HSyncCapture::new(s.TIM3);
         hot_driver.set_frequency(15700);
@@ -203,6 +208,7 @@ mod app {
             config_queue_in,
             adc,
             v_drive,
+            v_drive_classd,
             hot_driver,
             hsync_capture,
             crt_stats_live,
@@ -214,11 +220,12 @@ mod app {
     // internal hsync timer interrupt
   //  #[inline(never)]
   //  #[link_section = ".data.TIM1_UP_TIM10"]
-    #[task(binds = TIM1_UP_TIM16, local = [v_drive, gpioa, gpiob, gpioc, hot_driver, hsync_capture,  crt_state, config, crt_stats_live, adc, config_queue_out], priority = 15)]
+    #[task(binds = TIM1_UP_TIM16, local = [v_drive, v_drive_classd, gpioa, gpiob, gpioc, hot_driver, hsync_capture,  crt_state, config, crt_stats_live, adc, config_queue_out], priority = 15)]
     fn tim1_up_tim16(cx: tim1_up_tim16::Context) {
         let crt_state = cx.local.crt_state;
         let current_scanline = &mut crt_state.current_scanline;
         let v_drive = cx.local.v_drive;
+        let v_drive_classd = cx.local.v_drive_classd;
         let gpioa = cx.local.gpioa;
         let gpiob = cx.local.gpiob;
         let gpioc = cx.local.gpioc;
@@ -293,6 +300,7 @@ mod app {
         };
         let horizontal_amps = (horizontal_coordinate_corrected * config.crt.v_mag_amps + config.crt.v_offset_amps).clamp(-1.0*VERTICAL_MAX_AMPS, VERTICAL_MAX_AMPS);
         v_drive.set_current(horizontal_amps);
+        v_drive_classd.set_current(horizontal_amps);
         v_drive.update();
 
         // update stats
