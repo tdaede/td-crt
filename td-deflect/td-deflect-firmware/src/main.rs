@@ -100,9 +100,9 @@ mod app {
         });
         // wait for pll lock
         while !rcc.cr().read().pllrdy().bit() {};
-        // apb2 108mhz, apb1 54mhz, switch to pll as clock source
+        // apb2 system / 2, apb1 system / 2, switch to pll as clock source
         rcc.cfgr().write(|w| { unsafe {
-            w.ppre2().bits(0b100).ppre1().bits(0b101).sw().pll()}
+            w.ppre2().bits(0b100).ppre1().bits(0b100).sw().pll()}
         });
         while rcc.cfgr().read().sws().bits() != 0b11 {};
         //rcc.dckcfgr1.write(|w| { w.timpre().set_bit() });
@@ -114,7 +114,7 @@ mod app {
         rcc.ahb2enr().modify(|_,w| { w.dac1en().bit(true) });
         //rcc.apb2enr.modify(|_,w| { w.tim10en().bit(true) });
         //rcc.apb1enr.modify(|_,w| { w.tim3en().bit(true) });
-        //rcc.apb1enr.modify(|_,w| { w.tim4en().bit(true) });
+        rcc.apb1enr1().modify(|_,w| { w.tim4en().bit(true) });
 
         // HOT output
         // new TIM1 CH3 connected lines
@@ -144,11 +144,10 @@ mod app {
         gpioa.moder().modify(|_,w| {w.moder8().alternate()});
         gpiob.afrh().modify(|_,w| {w.afrh13().af6()});
         gpiob.moder().modify(|_,w| {w.moder13().alternate()});
-        // hv pwm
-        //gpiob.afrl.modify(|_,w| {w.afrl6().af2()});
-        //gpiob.moder.modify(|_,w| {w.moder6().alternate()});
-        //gpiob.moder.modify(|_,w| {w.moder6().output()});
-        //gpiob.odr.modify(|_,w| {w.odr6().set_bit()});
+
+        // hv flyback transistor output
+        gpiob.afrl().modify(|_,w| {w.afrl6().af2()});
+        gpiob.moder().modify(|_,w| {w.moder6().alternate()});
 
         // blanking output to m51387
         //gpioc.moder.modify(|_,w| {w.moder14().output()});
