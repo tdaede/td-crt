@@ -18,7 +18,7 @@ mod app {
     use crate::serial::{Serial, SerialProtocol};
 
     pub const AHB_CLOCK: u32 = 150_000_000;
-    pub const APB2_CLOCK: u32 = AHB_CLOCK / 2;
+    pub const APB2_CLOCK: u32 = AHB_CLOCK;
 
     const MIN_H_FREQ: u32 = 15000;
     const MAX_H_FREQ: u32 = 16000;
@@ -100,9 +100,9 @@ mod app {
         });
         // wait for pll lock
         while !rcc.cr().read().pllrdy().bit() {};
-        // apb2 system / 2, apb1 system / 2, switch to pll as clock source
+        // apb2 system, apb1 system, switch to pll as clock source
         rcc.cfgr().write(|w| { unsafe {
-            w.ppre2().bits(0b100).ppre1().bits(0b100).sw().pll()}
+            w.ppre2().bits(0b000).ppre1().bits(0b000).sw().pll()}
         });
         while rcc.cfgr().read().sws().bits() != 0b11 {};
         //rcc.dckcfgr1.write(|w| { w.timpre().set_bit() });
