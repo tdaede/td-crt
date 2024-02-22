@@ -9,6 +9,7 @@ use rtic::app;
 #[app(device = stm32g4::stm32g474, peripherals = true, dispatchers = [EXTI0, EXTI1])]
 mod app {
     use stm32g4::stm32g474::*;
+    use cortex_m::asm::delay;
     use serde::{Deserialize};
     use heapless::spsc::{Queue, Producer, Consumer};
     use core::sync::atomic::{self, Ordering, AtomicBool};
@@ -101,11 +102,13 @@ mod app {
         // wait for pll lock
         while !rcc.cr().read().pllrdy().bit() {};
         // apb2 system, apb1 system, switch to pll as clock source
+        // temporarily run ahb at clock rate / 2
         rcc.cfgr().write(|w| { unsafe {
-            w.ppre2().bits(0b000).ppre1().bits(0b000).sw().pll()}
+            w.ppre2().bits(0b000).ppre1().bits(0b000).hpre().div2().sw().pll()}
         });
         while rcc.cfgr().read().sws().bits() != 0b11 {};
-        //rcc.dckcfgr1.write(|w| { w.timpre().set_bit() });
+        delay(170); // wait 1us for stabilization
+        rcc.cfgr().modify(|_,w| { w.hpre().div1() });
 
         rcc.ahb2enr().modify(|_,w| { w.gpioaen().bit(true) });
         rcc.ahb2enr().modify(|_,w| { w.gpioben().bit(true) });
