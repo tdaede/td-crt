@@ -166,8 +166,7 @@ mod app {
         gpioc.odr().modify(|_,w| { w.odr13().set_bit() });
         gpioc.moder().modify(|_,w| { w.moder13().output() });
 
-        let adc = ADC::new(adc1, &rcc, &gpioa);
-
+        let adc = ADC::new(&s.ADC12_COMMON, adc1, &rcc, &gpioa);
         let v_drive = VDrive::new(dac);
 
         let mut hot_driver = HOTDriver::new(s.TIM1, s.TIM4);
