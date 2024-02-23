@@ -140,11 +140,11 @@ mod app {
         let serial = Serial::new(usart1, &gpioc, &rcc);
         let serial_protocol = SerialProtocol::new(serial);
 
-        // sync inputs
-        //gpiob.moder.modify(|_,w| {w.moder0().input()});
-        //gpiob.pupdr.modify(|_,w| {w.pupdr0().pull_up()});
-        //gpioa.moder.modify(|_,w| {w.moder7().input()});
-        //gpioa.pupdr.modify(|_,w| {w.pupdr7().pull_up()});
+        // vertical sync inputs
+        gpiob.moder().modify(|_,w| {w.moder0().input()});
+        gpiob.pupdr().modify(|_,w| {w.pupdr0().pull_up()});
+        gpioa.moder().modify(|_,w| {w.moder7().input()});
+        gpioa.pupdr().modify(|_,w| {w.pupdr7().pull_up()});
         //gpioc.moder.modify(|_,w| {w.moder15().input()}); // oddeven
 
         // horizontal PWM
