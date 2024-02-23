@@ -121,7 +121,7 @@ mod app {
         rcc.apb2enr().modify(|_,w| { w.tim1en().bit(true) });
         rcc.ahb2enr().modify(|_,w| { w.dac1en().bit(true) });
         //rcc.apb2enr.modify(|_,w| { w.tim10en().bit(true) });
-        //rcc.apb1enr.modify(|_,w| { w.tim3en().bit(true) });
+        rcc.apb1enr1().modify(|_,w| { w.tim3en().bit(true) });
         rcc.apb1enr1().modify(|_,w| { w.tim4en().bit(true) });
 
         // HOT output
@@ -130,8 +130,8 @@ mod app {
         gpioa.moder().modify(|_,w| { w.moder10().alternate() });
 
         // hsync input
-        //gpioa.afrl.modify(|_,w| { w.afrl6().af2() });
-        //gpioa.moder.modify(|_,w| { w. moder6().alternate() });
+        gpioa.afrl().modify(|_,w| { w.afrl6().af2() });
+        gpioa.moder().modify(|_,w| { w. moder6().alternate() });
         // loopback signal from H.PIN OUT for phase measurement
         //gpiob.afrl.modify(|_,w| {w.afrl1().af2() }); // TIM3_CH4
         //gpiob.moder.modify(|_,w| {w.moder1().alternate() });
@@ -514,8 +514,10 @@ mod app {
         }
         #[inline(always)]
         fn get_cycles_since_sync(&self) -> u32 {
-            self.t.ccr4().read().ccr().bits() as u32
-            //(self.t.cnt.read().cnt().bits() & 0xFFFF) as u32
+            // hardware method
+            //self.t.ccr4().read().ccr().bits() as u32
+            // software method (relies on interrupt latency being exact)
+            (self.t.cnt().read().cnt().bits() & 0xFFFF) as u32
         }
         #[inline(always)]
         fn update(&mut self) {
