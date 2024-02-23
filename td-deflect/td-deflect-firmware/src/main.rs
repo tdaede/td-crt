@@ -267,19 +267,20 @@ mod app {
         let VERTICAL_BLANKING_SCANLINES = 20;
         // vertical advance
         // vertical counter
-        //let vga_vsync = gpiob.idr.read().idr0().bit(); // vga sync input
-        let vga_vsync = gpioa.idr().read().idr7().bit(); // composite sync input
+        let vga_vsync = gpiob.idr().read().idr0().bit(); // vga sync input
+        let separated_vsync = gpioa.idr().read().idr7().bit(); // composite sync input
+        let vsync = vga_vsync & separated_vsync;
         let odd = gpioc.idr().read().idr15().bit();
         // negative edge triggered
         let total_lines = 262;
         let center_line = total_lines / 2;
-        if (vga_vsync == false) && (crt_state.previous_vga_vsync == true) {
+        if (vsync == false) && (crt_state.previous_vga_vsync == true) {
             //crt_stats.v_lines = *current_scanline as u16;
             crt_stats.v_lines = *current_scanline as u16;
             crt_stats.odd = odd;
             *current_scanline = 0;
         }
-        crt_state.previous_vga_vsync = vga_vsync;
+        crt_state.previous_vga_vsync = vsync;
         if *current_scanline >= (total_lines + 10) { *current_scanline = 0 };
         // handle vertical blanking
         if *current_scanline >= VERTICAL_BLANKING_SCANLINES {
