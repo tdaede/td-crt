@@ -58,7 +58,8 @@ mod app {
     struct Local {
         gpioa: GPIOA,
         gpiob: GPIOB,
-        gpioc:  GPIOC,
+        gpioc: GPIOC,
+        gpioe: GPIOE,
         v_drive: VDrive,
         v_drive_classd: VDriveClassD,
         hot_driver: HOTDriver,
@@ -78,6 +79,7 @@ mod app {
         let gpioa = s.GPIOA;
         let gpiob = s.GPIOB;
         let gpioc = s.GPIOC;
+        let gpioe = s.GPIOE;
         let dac = s.DAC1;
         let flash = s.FLASH;
         let pwr = s.PWR;
@@ -157,9 +159,9 @@ mod app {
         gpiob.afrl().modify(|_,w| {w.afrl6().af2()});
         gpiob.moder().modify(|_,w| {w.moder6().alternate()});
 
-        // blanking output to m51387
-        //gpioc.moder.modify(|_,w| {w.moder14().output()});
-        //gpioc.odr.modify(|_,w| {w.odr14().bit(true)}); // start up with blanking enabled
+        // blanking output to lm1205
+        gpioe.moder().modify(|_,w| {w.moder7().output()});
+        gpioe.odr().modify(|_,w| {w.odr7().bit(true)}); // start up with blanking enabled
 
         // S-cap lines
         // start with all S caps on, will change later in hsync timer interrupt
@@ -173,6 +175,10 @@ mod app {
         // enable vertical SSR
         gpioc.odr().modify(|_,w| { w.odr13().set_bit() });
         gpioc.moder().modify(|_,w| { w.moder13().output() });
+
+        // heater
+        gpiob.odr().modify(|_,w| { w.odr4().high() });
+        gpiob.moder().modify(|_,w| { w.moder4().output() });
 
         let adc = ADC::new(&s.ADC12_COMMON, adc1, &rcc, &gpioa);
         let v_drive = VDrive::new(dac);
@@ -204,6 +210,7 @@ mod app {
             gpioa,
             gpiob,
             gpioc,
+            gpioe,
             config_queue_out,
             config_queue_in,
             adc,
@@ -220,7 +227,7 @@ mod app {
     // internal hsync timer interrupt
   //  #[inline(never)]
   //  #[link_section = ".data.TIM1_UP_TIM10"]
-    #[task(binds = TIM1_UP_TIM16, local = [v_drive, v_drive_classd, gpioa, gpiob, gpioc, hot_driver, hsync_capture,  crt_state, config, crt_stats_live, adc, config_queue_out], priority = 15)]
+    #[task(binds = TIM1_UP_TIM16, local = [v_drive, v_drive_classd, gpioa, gpiob, gpioc, gpioe, hot_driver, hsync_capture,  crt_state, config, crt_stats_live, adc, config_queue_out], priority = 15)]
     fn tim1_up_tim16(cx: tim1_up_tim16::Context) {
         let crt_state = cx.local.crt_state;
         let current_scanline = &mut crt_state.current_scanline;
@@ -229,6 +236,7 @@ mod app {
         let gpioa = cx.local.gpioa;
         let gpiob = cx.local.gpiob;
         let gpioc = cx.local.gpioc;
+        let gpioe = cx.local.gpioe;
         let hot_driver = cx.local.hot_driver;
         let hsync_capture = cx.local.hsync_capture;
         let crt_stats = cx.local.crt_stats_live;
@@ -285,10 +293,10 @@ mod app {
         // handle vertical blanking
         if *current_scanline >= VERTICAL_BLANKING_SCANLINES {
             if !FAULTED.load(Ordering::Relaxed) {
-                gpioc.odr().modify(|_,w| {w.odr14().bit(false)}); // show image
+                gpioe.odr().modify(|_,w| {w.odr7().bit(false)}); // show image
             }
         } else {
-            gpioc.odr().modify(|_,w| {w.odr14().bit(true)}); // blank image
+            gpioe.odr().modify(|_,w| {w.odr7().bit(true)}); // blank image
         }
         // convert scanline to a (+1, -1) range coordinate (+1 is top of screen)
         let horizontal_pos_coordinate = (((*current_scanline) - center_line) as f32 + if odd { 0.0 } else { -0.5 }) / (total_lines as f32) * -2.0;

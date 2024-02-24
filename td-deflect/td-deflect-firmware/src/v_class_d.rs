@@ -7,9 +7,9 @@ pub struct VDriveClassD {
 
 const DEADTIME: u16 = 200;
 
-const PERIOD: u16 = 0x4000;
+const PERIOD: u16 = 0x2000;
 const INPUT_VOLTAGE: f32 = 24.0;
-const H_RESISTANCE: f32 = 8.0;
+const H_RESISTANCE: f32 = 13.0;
 const MIDPOINT: f32 = (PERIOD as f32) / 2.0;
 
 impl VDriveClassD {
@@ -62,8 +62,8 @@ impl VDriveClassD {
     }
     pub fn set_current(&self, current: f32) {
         let target_voltage = current * H_RESISTANCE;
-        let target_voltage_low = target_voltage*0.5;
-        let target_voltage_high = target_voltage*-0.5;
+        let target_voltage_low = target_voltage*1.0;
+        let target_voltage_high = target_voltage*-1.0;
         let volts_per_count = INPUT_VOLTAGE / PERIOD as f32;
         self.hrte.cmp1er().write(|w| { unsafe { w.cmp1x().bits((MIDPOINT + target_voltage_low / volts_per_count) as u16) } });
         self.hrtf.cmp1fr().write(|w| { unsafe { w.cmp1x().bits((MIDPOINT + target_voltage_high / volts_per_count) as u16) } });
