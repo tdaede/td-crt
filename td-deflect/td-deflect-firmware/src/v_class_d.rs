@@ -2,15 +2,25 @@ use stm32g4::stm32g474::*;
 
 pub struct VDriveClassD {
     hrte: HRTIM_TIME,
-    hrtf: HRTIM_TIMF
+    hrtf: HRTIM_TIMF,
+    current_setpoint: f32,
+    current_previous: f32,
 }
 
 const DEADTIME: u16 = 200;
 
 const PERIOD: u16 = 0x2000;
-const INPUT_VOLTAGE: f32 = 24.0;
-const H_RESISTANCE: f32 = 13.0;
+const INPUT_VOLTAGE: f32 = 30.0;
+const V_RESISTANCE: f32 = 14.6; //13.243;
+const V_INDUCTANCE: f32 = 24.0e-3;//27.86e-3;
 const MIDPOINT: f32 = (PERIOD as f32) / 2.0;
+// maximum duty cycle controlled by bootstrap for high side mosfet
+// make min duty cycle symmetrical to avoid creating a dc component
+const DUTY_CYCLE_MIN: f32 = 0.20;
+const DUTY_CYCLE_MAX: f32 = 0.80;
+const COUNTS_MIN: u16 = (DUTY_CYCLE_MIN * PERIOD as f32) as u16;
+const COUNTS_MAX: u16 = (DUTY_CYCLE_MAX * PERIOD as f32) as u16;
+
 
 impl VDriveClassD {
     pub fn new(rcc: &RCC, gpioc: &GPIOC, hrc: &HRTIM_COMMON, hrm: &HRTIM_MASTER, hrte: HRTIM_TIME, hrtf: HRTIM_TIMF) -> VDriveClassD {
@@ -57,15 +67,33 @@ impl VDriveClassD {
                                 .tf2oen().set_bit() });
         VDriveClassD {
             hrte,
-            hrtf
+            hrtf,
+            current_setpoint: 0.0,
+            current_previous: 0.0
         }
     }
-    pub fn set_current(&self, current: f32) {
-        let target_voltage = current * H_RESISTANCE;
-        let target_voltage_low = target_voltage*1.0;
-        let target_voltage_high = target_voltage*-1.0;
+    pub fn set_current(&mut self, current: f32) {
+        self.current_setpoint = current;
+    }
+    pub fn update(&mut self, timestep: f32) {
+        let current_delta = self.current_setpoint - self.current_previous;
+        let target_voltage = self.current_setpoint * V_RESISTANCE + current_delta * V_INDUCTANCE / timestep;
+        let target_voltage_a = target_voltage*0.5;
+        let target_voltage_b = target_voltage*-0.5;
         let volts_per_count = INPUT_VOLTAGE / PERIOD as f32;
-        self.hrte.cmp1er().write(|w| { unsafe { w.cmp1x().bits((MIDPOINT + target_voltage_low / volts_per_count) as u16) } });
-        self.hrtf.cmp1fr().write(|w| { unsafe { w.cmp1x().bits((MIDPOINT + target_voltage_high / volts_per_count) as u16) } });
+        let target_counts_a = (MIDPOINT + target_voltage_a / volts_per_count) as u16;
+        let target_counts_b = (MIDPOINT + target_voltage_b / volts_per_count) as u16;
+        let clamped_counts_a = target_counts_a.clamp(COUNTS_MIN, COUNTS_MAX);
+        let clamped_counts_b = target_counts_b.clamp(COUNTS_MIN, COUNTS_MAX);
+        self.hrte.cmp1er().write(|w| { unsafe { w.cmp1x().bits(clamped_counts_a) } });
+        self.hrtf.cmp1fr().write(|w| { unsafe { w.cmp1x().bits(clamped_counts_b) } });
+        // because during retrace we are likely duty cycle limited,
+        // we compute the state by going backwards
+        let real_voltage_a = (clamped_counts_a as f32 - MIDPOINT) * volts_per_count;
+        let real_voltage_b = (clamped_counts_b as f32 - MIDPOINT) * volts_per_count;
+        let real_voltage = real_voltage_a - real_voltage_b;
+        // V = L di/dt
+        // V*dt/L = di
+        self.current_previous += (real_voltage - self.current_previous * V_RESISTANCE)*timestep/V_INDUCTANCE;
     }
 }

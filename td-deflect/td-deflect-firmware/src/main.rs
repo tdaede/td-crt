@@ -120,6 +120,7 @@ mod app {
         rcc.ahb2enr().modify(|_,w| { w.gpioaen().bit(true) });
         rcc.ahb2enr().modify(|_,w| { w.gpioben().bit(true) });
         rcc.ahb2enr().modify(|_,w| { w.gpiocen().bit(true) });
+        rcc.ahb2enr().modify(|_,w| { w.gpioeen().bit(true) });
         rcc.apb2enr().modify(|_,w| { w.tim1en().bit(true) });
         rcc.ahb2enr().modify(|_,w| { w.dac1en().bit(true) });
         //rcc.apb2enr.modify(|_,w| { w.tim10en().bit(true) });
@@ -189,16 +190,13 @@ mod app {
         let hsync_capture = HSyncCapture::new(s.TIM3);
         hot_driver.set_frequency(15700);
 
-        // disable blanking
-        //gpioc.odr.modify(|_,w| {w.odr14().bit(false)});
-
         // configure the system timer to wrap around every second
         //syst.set_clock_source(SystClkSource::Core);
         //syst.set_reload(AHB_CLOCK); // once a second
         //syst.enable_counter();
         let crt_stats_live = CRTStats::default();
         let crt_state = CRTState::default();
-        let config = Config { crt: CRT_CONFIG_PANASONIC_S901Y, input: InputConfig { h_size: 0.95, h_phase: 0.0 } };
+        let config = Config { crt: CRT_CONFIG_PANASONIC_CTN_1061R, input: InputConfig { h_size: 0.95, h_phase: 0.05 } };
 
         // config queue for purposes of "double buffering" config
         static mut CONFIG_QUEUE: Queue<Config, 2> = Queue::new();
@@ -293,10 +291,10 @@ mod app {
         // handle vertical blanking
         if *current_scanline >= VERTICAL_BLANKING_SCANLINES {
             if !FAULTED.load(Ordering::Relaxed) {
-                gpioe.odr().modify(|_,w| {w.odr7().bit(false)}); // show image
+                gpioe.odr().modify(|_,w| {w.odr7().bit(true)}); // show image
             }
         } else {
-            gpioe.odr().modify(|_,w| {w.odr7().bit(true)}); // blank image
+            gpioe.odr().modify(|_,w| {w.odr7().bit(false)}); // blank image
         }
         // convert scanline to a (+1, -1) range coordinate (+1 is top of screen)
         let horizontal_pos_coordinate = (((*current_scanline) - center_line) as f32 + if odd { 0.0 } else { -0.5 }) / (total_lines as f32) * -2.0;
@@ -311,6 +309,7 @@ mod app {
         v_drive.set_current(horizontal_amps);
         v_drive_classd.set_current(horizontal_amps);
         v_drive.update();
+        v_drive_classd.update(1.0/15700.0); // TODO: use real timestep value
 
         // update stats
         crt_stats.h_input_period = input_period as i32;
@@ -397,8 +396,16 @@ mod app {
         previous_vga_vsync: bool, // used to detect negative edge sync
     }
 
+    #[allow(unused)]
     static CRT_CONFIG_PANASONIC_S901Y: CRTConfig = CRTConfig {
         v_mag_amps: 0.414,
+        v_offset_amps: 0.0,
+        vertical_linearity: 0.55,
+        s_cap: 1,
+    };
+
+    static CRT_CONFIG_PANASONIC_CTN_1061R: CRTConfig = CRTConfig {
+        v_mag_amps: 0.5,
         v_offset_amps: 0.0,
         vertical_linearity: 0.55,
         s_cap: 1,
