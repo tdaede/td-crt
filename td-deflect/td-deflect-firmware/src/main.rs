@@ -196,7 +196,7 @@ mod app {
         //syst.enable_counter();
         let crt_stats_live = CRTStats::default();
         let crt_state = CRTState::default();
-        let config = Config { crt: CRT_CONFIG_PANASONIC_CTN_1061R, input: InputConfig { h_size: 0.95, h_phase: 0.05 } };
+        let config = Config { crt: CRT_CONFIG_PANASONIC_CTN_1061R, input: InputConfig { h_size: 0.90, h_phase: 0.05 } };
 
         // config queue for purposes of "double buffering" config
         static mut CONFIG_QUEUE: Queue<Config, 2> = Queue::new();

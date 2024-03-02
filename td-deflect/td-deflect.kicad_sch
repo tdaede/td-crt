@@ -3285,8 +3285,8 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 8cdeb512-3238-4926-ac14-31cfd4844efd)
   )
-  (text "C59 wrong footprint (1206)\nR69 check size\nC20, C42, C66 wrong footprint\n10k part number wrong\nF4, TH1 wrong footprint"
-    (at 149.86 35.56 0)
+  (text "C59 wrong footprint (1206)\nR69 check size\nC20, C42, C66 wrong footprint\n10k part number wrong\nF4, TH1 wrong footprint\nR8 goes to ground\nbigger caps on class D IRS2005S\nfaster MOSFETs on class D output\nadd clamping output\nswitch horizontal IRS2005 for something 250V rated\nswitch S caps to have pulse rating\nmore powerful 3.3V supply\nmore powerful 3.3VA supply\ndedicated LM1205 supply\nbig caps on 48V\nadd input voltage rail measurement\nswap to wurth inductors\nremove h fuse\nadd v fuse"
+    (at 146.685 53.34 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid adfa841a-4603-4113-a370-71def130b886)
   )
