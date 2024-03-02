@@ -355,6 +355,8 @@ mod app {
 
     #[task(binds = USART1, local = [config_queue_in], shared = [serial_protocol], priority = 2)]
     fn serial_interrupt(mut c: serial_interrupt::Context) {
+        // TODO: convert tx to use fifo interrupts
+        // TODO: convert rx to use fifo interrupts
         let config_queue_in = c.local.config_queue_in;
         c.shared.serial_protocol.lock(|serial_protocol| {
             while serial_protocol.serial.usart.isr().read().rxne().bit() {
