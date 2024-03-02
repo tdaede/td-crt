@@ -11,6 +11,8 @@ use std::sync::mpsc::channel;
 use std::rc::Rc;
 use glib::clone;
 
+const SYSTEM_CLOCK: f32 = 170000000.0;
+
 #[derive(Default, Copy, Clone, Deserialize)]
 #[allow(unused)]
 pub struct CRTStats {
@@ -251,13 +253,13 @@ fn build_ui(app: &Application) {
     main_context.spawn_local(
         async move {
             while let Ok(a) = receiver.recv().await {
-                let output_horizontal_period_us = a.h_output_period as f32 * 1_000_000.0 / (216000000.0);
+                let output_horizontal_period_us = a.h_output_period as f32 * 1_000_000.0 / SYSTEM_CLOCK;
                 sync_freq_label.set_label(&format!("Output horizontal period: {:.2} us", output_horizontal_period_us));
-                input_horizontal_period_label.set_label(&format!("Input horizontal period: {:.2} us", a.h_input_period as f32 * 1_000_000.0 / (216000000.0)));
-                input_horizontal_period_min_label.set_label(&format!("{:.2} us", a.h_input_period_min as f32 * 1_000_000.0 / (216000000.0)));
-                input_horizontal_period_max_label.set_label(&format!("{:.2} us", a.h_input_period_max as f32 * 1_000_000.0 / (216000000.0)));
-                output_horizontal_period_min_label.set_label(&format!("{:.2} us", a.h_output_period_min as f32 * 1_000_000.0 / (216000000.0)));
-                output_horizontal_period_max_label.set_label(&format!("{:.2} us", a.h_output_period_max as f32 * 1_000_000.0 / (216000000.0)));
+                input_horizontal_period_label.set_label(&format!("Input horizontal period: {:.2} us", a.h_input_period as f32 * 1_000_000.0 / SYSTEM_CLOCK));
+                input_horizontal_period_min_label.set_label(&format!("{:.2} us", a.h_input_period_min as f32 * 1_000_000.0 / SYSTEM_CLOCK));
+                input_horizontal_period_max_label.set_label(&format!("{:.2} us", a.h_input_period_max as f32 * 1_000_000.0 / SYSTEM_CLOCK));
+                output_horizontal_period_min_label.set_label(&format!("{:.2} us", a.h_output_period_min as f32 * 1_000_000.0 / SYSTEM_CLOCK));
+                output_horizontal_period_max_label.set_label(&format!("{:.2} us", a.h_output_period_max as f32 * 1_000_000.0 / SYSTEM_CLOCK));
                 field_lines_label.set_label(&format!("Lines in last field: {:.2}", a.v_lines));
                 last_field_phase_label.set_label(&format!("Last field phase: {}", if a.odd { "Odd" } else { "Even" }));
                 vertical_period_label.set_label(&format!("Vertical period: {:.2} ms", output_horizontal_period_us * a.v_lines as f32 / 1000.0));
