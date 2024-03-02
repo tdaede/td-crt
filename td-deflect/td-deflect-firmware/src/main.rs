@@ -367,7 +367,7 @@ mod app {
                     serial_protocol.serial.usart.cr1().modify(|_,w| { w.txeie().clear_bit() });
                 }
             }
-            serial_protocol.serial.usart.icr().write(|w| { w.orecf().clear_bit() });
+            serial_protocol.serial.usart.icr().write(|w| { w.orecf().set_bit() });
         });
     }
 

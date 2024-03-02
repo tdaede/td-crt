@@ -50,7 +50,7 @@ impl SerialProtocol {
     }
     pub fn process_byte(&mut self, config_queue_in: &mut Producer<'static, Config, 2>) {
         let b = self.serial.read_byte();
-        self.serial.write_queued(&[b]);
+        //self.serial.write_queued(&[b]);
         if b == b'\n' {
             self.process_message(config_queue_in);
         } else {
