@@ -407,9 +407,9 @@ mod app {
     };
 
     static CRT_CONFIG_PANASONIC_CTN_1061R: CRTConfig = CRTConfig {
-        v_mag_amps: 0.5,
+        v_mag_amps: 0.55,
         v_offset_amps: 0.0,
-        vertical_linearity: 0.55,
+        vertical_linearity: 0.54,
         s_cap: 1,
     };
 

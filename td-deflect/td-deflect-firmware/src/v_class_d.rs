@@ -7,12 +7,12 @@ pub struct VDriveClassD {
     current_previous: f32,
 }
 
-const DEADTIME: u16 = 200;
+const DEADTIME: u16 = 160;
 
 const PERIOD: u16 = 0x2000;
-const INPUT_VOLTAGE: f32 = 30.0;
+const INPUT_VOLTAGE: f32 = 34.0;
 const V_RESISTANCE: f32 = 14.6; //13.243;
-const V_INDUCTANCE: f32 = 24.0e-3;//27.86e-3;
+const V_INDUCTANCE: f32 = 25.0e-3;//27.86e-3;
 const MIDPOINT: f32 = (PERIOD as f32) / 2.0;
 // maximum duty cycle controlled by bootstrap for high side mosfet
 // make min duty cycle symmetrical to avoid creating a dc component
