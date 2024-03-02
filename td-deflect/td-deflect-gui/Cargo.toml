@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 serialport = "4.0"
 serde_json = "1.0"
+async-channel = "1.9.0"
 
 [dependencies.gtk]
 version = "0.6"

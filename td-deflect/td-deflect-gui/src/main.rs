@@ -1,6 +1,6 @@
 use gtk::prelude::*;
 use gtk::{Application, ApplicationWindow, Label, Box, Orientation, ComboBoxText, SpinButton, Grid, Frame, Scale};
-use glib::{Continue, MainContext, PRIORITY_DEFAULT};
+use glib::MainContext;
 use gtk::glib;
 use std::{thread, time::Duration};
 use std::io::BufReader;
@@ -187,7 +187,7 @@ fn build_ui(app: &Application) {
 
     window.set_child(Some(&stats_box));
 
-    let (sender, receiver) = MainContext::channel::<CRTStats>(PRIORITY_DEFAULT);
+    let (sender, receiver) = async_channel::unbounded();
 
     let (tx_channel_sender, tx_channel_receiver) = channel::<Config>();
     let tx_channel_sender_rc = Rc::new(tx_channel_sender);
@@ -235,7 +235,7 @@ fn build_ui(app: &Application) {
             if reader.read_line(&mut l).is_ok() {
                 let parse_result: Result<CRTStats, serde_json::Error> = serde_json::from_str(&l);
                 if let Ok(stats) = parse_result {
-                    sender.send(stats).expect("Could not send through channel");
+                    sender.send_blocking(stats).expect("Could not send through channel");
                 }
             }
             if let Ok(config) = tx_channel_receiver.try_recv() {
@@ -247,21 +247,22 @@ fn build_ui(app: &Application) {
         }
     });
 
-    receiver.attach(
-        None,
-        move |a| {
-            let output_horizontal_period_us = a.h_output_period as f32 * 1_000_000.0 / (216000000.0);
-            sync_freq_label.set_label(&format!("Output horizontal period: {:.2} us", output_horizontal_period_us));
-            input_horizontal_period_label.set_label(&format!("Input horizontal period: {:.2} us", a.h_input_period as f32 * 1_000_000.0 / (216000000.0)));
-            input_horizontal_period_min_label.set_label(&format!("{:.2} us", a.h_input_period_min as f32 * 1_000_000.0 / (216000000.0)));
-            input_horizontal_period_max_label.set_label(&format!("{:.2} us", a.h_input_period_max as f32 * 1_000_000.0 / (216000000.0)));
-            output_horizontal_period_min_label.set_label(&format!("{:.2} us", a.h_output_period_min as f32 * 1_000_000.0 / (216000000.0)));
-            output_horizontal_period_max_label.set_label(&format!("{:.2} us", a.h_output_period_max as f32 * 1_000_000.0 / (216000000.0)));
-            field_lines_label.set_label(&format!("Lines in last field: {:.2}", a.v_lines));
-            last_field_phase_label.set_label(&format!("Last field phase: {}", if a.odd { "Odd" } else { "Even" }));
-            vertical_period_label.set_label(&format!("Vertical period: {:.2} ms", output_horizontal_period_us * a.v_lines as f32 / 1000.0));
-            s_voltage_label.set_label(&format!("S-cap voltage: {:.2} V", a.s_voltage as f32 * 3.3 / 4096.0 * 101.0));
-            Continue(true)
+    let main_context = MainContext::default();
+    main_context.spawn_local(
+        async move {
+            while let Ok(a) = receiver.recv().await {
+                let output_horizontal_period_us = a.h_output_period as f32 * 1_000_000.0 / (216000000.0);
+                sync_freq_label.set_label(&format!("Output horizontal period: {:.2} us", output_horizontal_period_us));
+                input_horizontal_period_label.set_label(&format!("Input horizontal period: {:.2} us", a.h_input_period as f32 * 1_000_000.0 / (216000000.0)));
+                input_horizontal_period_min_label.set_label(&format!("{:.2} us", a.h_input_period_min as f32 * 1_000_000.0 / (216000000.0)));
+                input_horizontal_period_max_label.set_label(&format!("{:.2} us", a.h_input_period_max as f32 * 1_000_000.0 / (216000000.0)));
+                output_horizontal_period_min_label.set_label(&format!("{:.2} us", a.h_output_period_min as f32 * 1_000_000.0 / (216000000.0)));
+                output_horizontal_period_max_label.set_label(&format!("{:.2} us", a.h_output_period_max as f32 * 1_000_000.0 / (216000000.0)));
+                field_lines_label.set_label(&format!("Lines in last field: {:.2}", a.v_lines));
+                last_field_phase_label.set_label(&format!("Last field phase: {}", if a.odd { "Odd" } else { "Even" }));
+                vertical_period_label.set_label(&format!("Vertical period: {:.2} ms", output_horizontal_period_us * a.v_lines as f32 / 1000.0));
+                s_voltage_label.set_label(&format!("S-cap voltage: {:.2} V", a.s_voltage as f32 * 3.3 / 4096.0 * 101.0));
+            }
         }
     );
 
