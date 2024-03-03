@@ -4,12 +4,13 @@ use cortex_m::asm::delay;
 use crate::app::AHB_CLOCK;
 
 pub struct ADC {
-    adc1: ADC1
+    adc1: ADC1,
+    adc2: ADC2,
 }
 
 const ADC1_CHANNEL_S_VOLTAGE: u8 = 3;
 const ADC12_CHANNEL_VERTICAL_CLASS_D_CURRENT_PRE: u8 = 6;
-const _ADC2_CHANNEL_VERTICAL_CLASS_D_CURRENT_POST: u8 = 12;
+const ADC2_CHANNEL_VERTICAL_CLASS_D_CURRENT_POST: u8 = 12;
 
 const REF_VOLTAGE: f32 = 3.3;
 const FULL_SCALE: f32 = 4095.0;
@@ -21,24 +22,40 @@ const VERTICAL_CLASS_D_CURRENT_MULTIPLIER: f32 = 1.0/60.0/0.01;
 pub struct ADCHorizData {
     pub s_voltage: f32,
     pub vertical_class_d_current_pre: f32,
+    pub vertical_class_d_current_post: f32,
 }
 
 impl ADC {
-    pub fn new(adc12_common: &ADC12_COMMON, adc1: ADC1, rcc: &RCC, gpioa: &GPIOA, gpiob: &GPIOB, gpioc: &GPIOC) -> ADC {
+    pub fn new(adc12_common: &ADC12_COMMON, adc1: ADC1, adc2: ADC2, rcc: &RCC, gpioa: &GPIOA, gpiob: &GPIOB, gpioc: &GPIOC) -> ADC {
         rcc.ahb2enr().modify(|_,w| { w.adc12en().enabled() });
-        adc1.cr().modify(|_,w| { w.deeppwd().disabled() });
         adc12_common.ccr().write(|w| { w.ckmode().sync_div4() });
-        // startup adc voltage regulator
+        // startup adc1 voltage regulator
+        adc1.cr().modify(|_,w| { w.deeppwd().disabled() });
         adc1.cr().modify(|_,w| { w.advregen().enabled() });
         while !adc1.cr().read().advregen().bit_is_set() {}
         delay((20e-6*AHB_CLOCK as f32) as u32);
         adc1.cr().modify(|_,w| { w.adcaldif().clear_bit() });
         adc1.cr().modify(|_,w| { w.adcal().set_bit() });
         while adc1.cr().read().adcal().bit_is_set() {};
+        delay(100); // wait four ADC clock cycles
         adc1.isr().modify(|_, w| { w.adrdy().set_bit() });
         adc1.cr().modify(|_, w| { w.aden().set_bit() });
         while !adc1.isr().read().adrdy().bit() {};
         adc1.isr().modify(|_, w| { w.adrdy().set_bit() });
+
+        // startup adc2 voltage regulator
+        adc2.cr().modify(|_,w| { w.deeppwd().disabled() });
+        adc2.cr().modify(|_,w| { w.advregen().enabled() });
+        while !adc2.cr().read().advregen().bit_is_set() {}
+        delay((20e-6*AHB_CLOCK as f32) as u32);
+        adc2.cr().modify(|_,w| { w.adcaldif().clear_bit() });
+        adc2.cr().modify(|_,w| { w.adcal().set_bit() });
+        while adc2.cr().read().adcal().bit_is_set() {};
+        delay(100); // wait four ADC clock cycles
+        adc2.isr().modify(|_, w| { w.adrdy().set_bit() });
+        adc2.cr().modify(|_, w| { w.aden().set_bit() });
+        while !adc2.isr().read().adrdy().bit() {};
+        adc2.isr().modify(|_, w| { w.adrdy().set_bit() });
 
         // additional config
         adc1.cfgr2().modify(|_,w| { w.rovse().enabled().ovsr().os8().ovss().shift3() });
@@ -46,7 +63,7 @@ impl ADC {
         gpioa.moder().modify(|_,w| { w.moder2().analog() }); // s cap voltage
         gpioc.moder().modify(|_,w| { w.moder0().analog() }); // class d current before filter
         gpiob.moder().modify(|_,w| { w.moder2().analog() }); // class d current after filter
-        let a = ADC { adc1 };
+        let a = ADC { adc1, adc2 };
         a.set_sample_time(ADC12_CHANNEL_VERTICAL_CLASS_D_CURRENT_PRE, 0b000);
         a
     }
@@ -64,17 +81,30 @@ impl ADC {
         self.adc1.isr().modify(|_, w| { w.eoc().set_bit() });
         data
     }
+    pub fn read_blocking_adc2(&self, channel: u8) -> u16 {
+        self.adc2.sqr1().modify(|_,w| { unsafe { w.sq1().bits(channel) } });
+        self.adc2.cr().modify(|_,w| { w.adstart().set_bit() });
+        while !self.adc2.isr().read().eoc().bit() {};
+        let data = self.adc2.dr().read().rdata().bits();
+        self.adc2.isr().modify(|_, w| { w.eoc().set_bit() });
+        data
+    }
     pub fn read_blocking_volts(&self, channel: u8) -> f32 {
         self.read_blocking(channel) as f32 * VOLTS_PER_COUNT
+    }
+    pub fn read_blocking_volts_adc2(&self, channel: u8) -> f32 {
+        self.read_blocking_adc2(channel) as f32 * VOLTS_PER_COUNT
     }
 
     pub fn read_all_horiz(&self) -> ADCHorizData {
         let s_voltage = self.read_blocking_volts(ADC1_CHANNEL_S_VOLTAGE) * S_CAP_MULTIPLIER;
-        let vertical_class_d_current_pre = (self.read_blocking_volts(ADC12_CHANNEL_VERTICAL_CLASS_D_CURRENT_PRE) - 3.3/2.0) *
+        let vertical_class_d_current_pre = 0.0;
+        let vertical_class_d_current_post =(self.read_blocking_volts_adc2(ADC2_CHANNEL_VERTICAL_CLASS_D_CURRENT_POST) - 3.3/2.0) *
             VERTICAL_CLASS_D_CURRENT_MULTIPLIER;
         ADCHorizData {
             s_voltage,
-            vertical_class_d_current_pre
+            vertical_class_d_current_pre,
+            vertical_class_d_current_post
         }
     }
 }

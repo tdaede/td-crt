@@ -85,6 +85,7 @@ mod app {
         let pwr = s.PWR;
         let usart1 = s.USART1;
         let adc1 = s.ADC1;
+        let adc2 = s.ADC2;
 
         // enable pwr clock
         rcc.apb1enr1().write(|w| { w.pwren().bit(true) });
@@ -181,7 +182,7 @@ mod app {
         gpiob.odr().modify(|_,w| { w.odr4().high() });
         gpiob.moder().modify(|_,w| { w.moder4().output() });
 
-        let adc = ADC::new(&s.ADC12_COMMON, adc1, &rcc, &gpioa, &gpiob, &gpioc);
+        let adc = ADC::new(&s.ADC12_COMMON, adc1, adc2, &rcc, &gpioa, &gpiob, &gpioc);
         let v_drive = VDrive::new(dac);
 
         let v_drive_classd = VDriveClassD::new(&rcc, &gpioc, &s.HRTIM_COMMON, &s.HRTIM_MASTER, s.HRTIM_TIME, s.HRTIM_TIMF);
@@ -328,7 +329,7 @@ mod app {
         // todo: trigger these with timer
         let adc_horiz_data = adc.read_all_horiz();
         crt_stats.s_voltage = adc_horiz_data.s_voltage;
-        let _ = crt_stats.vertical_class_d_current_per_scanline.push(adc_horiz_data.vertical_class_d_current_pre);
+        let _ = crt_stats.vertical_class_d_current_per_scanline.push(adc_horiz_data.vertical_class_d_current_post);
         let _ = crt_stats.vertical_target_current_per_scanline.push(horizontal_amps);
 
         // update s capacitors
@@ -411,7 +412,7 @@ mod app {
     };
 
     static CRT_CONFIG_PANASONIC_CTN_1061R: CRTConfig = CRTConfig {
-        v_mag_amps: 0.50,
+        v_mag_amps: 0.66,
         v_offset_amps: 0.0,
         vertical_linearity: 0.55,
         s_cap: 1,
