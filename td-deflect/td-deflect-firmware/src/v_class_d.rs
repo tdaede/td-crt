@@ -10,7 +10,7 @@ pub struct VDriveClassD {
 const DEADTIME: u16 = 160;
 
 const PERIOD: u16 = 0x2000;
-const INPUT_VOLTAGE: f32 = 34.0;
+const INPUT_VOLTAGE: f32 = 34.75;
 const V_RESISTANCE: f32 = 14.6; //13.243;
 const V_INDUCTANCE: f32 = 25.0e-3;//27.86e-3;
 const MIDPOINT: f32 = (PERIOD as f32) / 2.0;

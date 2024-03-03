@@ -223,8 +223,8 @@ mod app {
     }
 
     // internal hsync timer interrupt
-  //  #[inline(never)]
-  //  #[link_section = ".data.TIM1_UP_TIM10"]
+    #[inline(never)]
+    #[link_section = ".data.TIM1_UP_TIM16"]
     #[task(binds = TIM1_UP_TIM16, local = [v_drive, v_drive_classd, gpioa, gpiob, gpioc, gpioe, hot_driver, hsync_capture,  crt_state, config, crt_stats_live, adc, config_queue_out], priority = 15)]
     fn tim1_up_tim16(cx: tim1_up_tim16::Context) {
         let crt_state = cx.local.crt_state;
@@ -411,9 +411,9 @@ mod app {
     };
 
     static CRT_CONFIG_PANASONIC_CTN_1061R: CRTConfig = CRTConfig {
-        v_mag_amps: 0.55,
+        v_mag_amps: 0.50,
         v_offset_amps: 0.0,
-        vertical_linearity: 0.54,
+        vertical_linearity: 0.55,
         s_cap: 1,
     };
 

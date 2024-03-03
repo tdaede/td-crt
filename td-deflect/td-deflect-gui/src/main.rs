@@ -223,7 +223,7 @@ fn build_ui(app: &Application) {
     }
 
     thread::spawn(move || {
-        let mut serial = serialport::new(serial_port_string, 230400).open().expect("Failed to open port");
+        let mut serial = serialport::new(serial_port_string, 1_000_000).open().expect("Failed to open port");
         serial.set_timeout(Duration::from_millis(100)).unwrap();
         let mut reader = BufReader::new(serial.try_clone().unwrap());
         loop {
