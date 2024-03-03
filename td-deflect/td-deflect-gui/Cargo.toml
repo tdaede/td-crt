@@ -10,6 +10,9 @@ serialport = "4.0"
 serde_json = "1.0"
 async-channel = "1.9.0"
 
+[dependencies.td-crt-protocol]
+path = "../td-crt-protocol"
+
 [dependencies.gtk]
 version = "0.7"
 package = "gtk4"
@@ -17,3 +20,11 @@ package = "gtk4"
 [dependencies.serde]
 version = "1.0"
 features = ["derive"]
+
+[dependencies.plotters]
+version = "0.3.5"
+default_features = false
+features = ["line_series"]
+
+[dependencies.plotters-cairo]
+version = "0.5.0"

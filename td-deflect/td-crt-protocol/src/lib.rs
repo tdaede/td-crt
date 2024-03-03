@@ -1,9 +1,10 @@
 #![no_std]
 
 use serde::{Serialize, Deserialize};
+use heapless::Vec;
 
 /// Debug stats
-#[derive(Default, Copy, Clone, Serialize, Deserialize)]
+#[derive(Default, Clone, Serialize, Deserialize)]
 pub struct CRTStats {
     pub h_output_period: i32,
     pub h_output_period_min: i32,
@@ -13,9 +14,11 @@ pub struct CRTStats {
     pub h_input_period_max: i32,
     pub hot_source_current: u16,
     pub v_lines: u16,
-    pub s_voltage: u16,
+    pub s_voltage: f32,
     pub odd: bool,
     pub faulted: bool,
+    pub vertical_class_d_current_per_scanline: Vec<f32, 512>,
+    pub vertical_target_current_per_scanline: Vec<f32, 512>,
 }
 
 /// Configuration to match driver board to a particular tube/yoke

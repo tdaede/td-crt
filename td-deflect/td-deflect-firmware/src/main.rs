@@ -181,7 +181,7 @@ mod app {
         gpiob.odr().modify(|_,w| { w.odr4().high() });
         gpiob.moder().modify(|_,w| { w.moder4().output() });
 
-        let adc = ADC::new(&s.ADC12_COMMON, adc1, &rcc, &gpioa);
+        let adc = ADC::new(&s.ADC12_COMMON, adc1, &rcc, &gpioa, &gpiob, &gpioc);
         let v_drive = VDrive::new(dac);
 
         let v_drive_classd = VDriveClassD::new(&rcc, &gpioc, &s.HRTIM_COMMON, &s.HRTIM_MASTER, s.HRTIM_TIME, s.HRTIM_TIMF);
@@ -281,7 +281,6 @@ mod app {
         let total_lines = 262;
         let center_line = total_lines / 2;
         if (vsync == false) && (crt_state.previous_vga_vsync == true) {
-            //crt_stats.v_lines = *current_scanline as u16;
             crt_stats.v_lines = *current_scanline as u16;
             crt_stats.odd = odd;
             *current_scanline = 0;
@@ -327,7 +326,10 @@ mod app {
 
         // perform analog reads
         // todo: trigger these with timer
-        crt_stats.s_voltage = adc.read_blocking(2);
+        let adc_horiz_data = adc.read_all_horiz();
+        crt_stats.s_voltage = adc_horiz_data.s_voltage;
+        let _ = crt_stats.vertical_class_d_current_per_scanline.push(adc_horiz_data.vertical_class_d_current_pre);
+        let _ = crt_stats.vertical_target_current_per_scanline.push(horizontal_amps);
 
         // update s capacitors
         gpiob.odr().modify(|_,w| { w.odr9().bit((config.crt.s_cap & 0b1000) == 0) });
@@ -339,7 +341,7 @@ mod app {
 
         // send stats updates over serial
         if *current_scanline == 0 {
-            let _ = send_stats::spawn(*crt_stats);
+            let _ = send_stats::spawn(crt_stats.clone());
             *crt_stats = CRTStats::default(); // reset for a new frame
         }
         *current_scanline += 1;
@@ -375,12 +377,14 @@ mod app {
 
     #[task(shared = [serial_protocol])]
     fn send_stats(mut c: send_stats::Context, crt_stats: CRTStats) {
-        let mut json_stats: [u8; 2048] = [0; 2048];
+        let mut json_stats: [u8; 8192] = [0; 8192];
         let mut json_stats_len = 0;
         if let Ok(c) = serde_json_core::to_slice(&crt_stats, &mut json_stats) { json_stats_len = c };
         c.shared.serial_protocol.lock(|serial_protocol| {
-            serial_protocol.serial.write_queued(&json_stats[..json_stats_len]);
-            serial_protocol.serial.write_queued(b"\n");
+            if let Ok(()) = serial_protocol.serial.write_queued(&json_stats[..json_stats_len]) {
+                // TODO: this is bugged
+                let _ = serial_protocol.serial.write_queued(b"\n");
+            }
         });
     }
 

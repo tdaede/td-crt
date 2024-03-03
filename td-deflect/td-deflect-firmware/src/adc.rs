@@ -7,8 +7,24 @@ pub struct ADC {
     adc1: ADC1
 }
 
+const ADC1_CHANNEL_S_VOLTAGE: u8 = 3;
+const ADC12_CHANNEL_VERTICAL_CLASS_D_CURRENT_PRE: u8 = 6;
+const _ADC2_CHANNEL_VERTICAL_CLASS_D_CURRENT_POST: u8 = 12;
+
+const REF_VOLTAGE: f32 = 3.3;
+const FULL_SCALE: f32 = 4095.0;
+const VOLTS_PER_COUNT: f32 = REF_VOLTAGE / FULL_SCALE;
+
+const S_CAP_MULTIPLIER: f32 = 101.0/1.0;
+const VERTICAL_CLASS_D_CURRENT_MULTIPLIER: f32 = 1.0/60.0/0.01;
+
+pub struct ADCHorizData {
+    pub s_voltage: f32,
+    pub vertical_class_d_current_pre: f32,
+}
+
 impl ADC {
-    pub fn new(adc12_common: &ADC12_COMMON, adc1: ADC1, rcc: &RCC, gpioa: &GPIOA) -> ADC {
+    pub fn new(adc12_common: &ADC12_COMMON, adc1: ADC1, rcc: &RCC, gpioa: &GPIOA, gpiob: &GPIOB, gpioc: &GPIOC) -> ADC {
         rcc.ahb2enr().modify(|_,w| { w.adc12en().enabled() });
         adc1.cr().modify(|_,w| { w.deeppwd().disabled() });
         adc12_common.ccr().write(|w| { w.ckmode().sync_div4() });
@@ -24,12 +40,18 @@ impl ADC {
         while !adc1.isr().read().adrdy().bit() {};
         adc1.isr().modify(|_, w| { w.adrdy().set_bit() });
         // adc lines
-        //gpioa.moder.modify(|_,w| { w.moder0().analog() }); // h current transformer
-        //gpioa.moder.modify(|_,w| { w.moder1().analog() }); // hot source current
         gpioa.moder().modify(|_,w| { w.moder2().analog() }); // s cap voltage
-        //gpioa.moder.modify(|_,w| { w.moder3().analog() }); // eht voltage
-        //gpioa.moder.modify(|_,w| { w.moder5().analog() }); // eht current
-        ADC { adc1 }
+        gpioc.moder().modify(|_,w| { w.moder0().analog() }); // class d current before filter
+        gpiob.moder().modify(|_,w| { w.moder2().analog() }); // class d current after filter
+        let a = ADC { adc1 };
+        a.set_sample_time(ADC12_CHANNEL_VERTICAL_CLASS_D_CURRENT_PRE, 0b111);
+        a
+    }
+    pub fn set_sample_time(&self, channel: u8, sample_time: u8) {
+        match channel {
+            6 => self.adc1.smpr1().modify(|_,w| { w.smp6().bits(sample_time) }),
+            _ => {}
+        }
     }
     pub fn read_blocking(&self, channel: u8) -> u16 {
         self.adc1.sqr1().modify(|_,w| { unsafe { w.sq1().bits(channel) } });
@@ -38,5 +60,18 @@ impl ADC {
         let data = self.adc1.dr().read().rdata().bits();
         self.adc1.isr().modify(|_, w| { w.eoc().set_bit() });
         data
+    }
+    pub fn read_blocking_volts(&self, channel: u8) -> f32 {
+        self.read_blocking(channel) as f32 * VOLTS_PER_COUNT
+    }
+
+    pub fn read_all_horiz(&self) -> ADCHorizData {
+        let s_voltage = self.read_blocking_volts(ADC1_CHANNEL_S_VOLTAGE) * S_CAP_MULTIPLIER;
+        let vertical_class_d_current_pre = (self.read_blocking_volts(ADC12_CHANNEL_VERTICAL_CLASS_D_CURRENT_PRE) - 3.3/2.0) *
+            VERTICAL_CLASS_D_CURRENT_MULTIPLIER;
+        ADCHorizData {
+            s_voltage,
+            vertical_class_d_current_pre
+        }
     }
 }

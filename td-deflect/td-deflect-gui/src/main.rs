@@ -1,3 +1,5 @@
+mod scope;
+
 use gtk::prelude::*;
 use gtk::{Application, ApplicationWindow, Label, Box, Orientation, ComboBoxText, SpinButton, Grid, Frame, Scale};
 use glib::MainContext;
@@ -5,28 +7,15 @@ use gtk::glib;
 use std::{thread, time::Duration};
 use std::io::BufReader;
 use std::io::BufRead;
-use serde::{Serialize, Deserialize};
+use serde::Serialize;
 use gtk::pango::{AttrList, AttrFontFeatures};
 use std::sync::mpsc::channel;
 use std::rc::Rc;
 use glib::clone;
+use td_crt_protocol::CRTStats;
+use scope::Scope;
 
 const SYSTEM_CLOCK: f32 = 170000000.0;
-
-#[derive(Default, Copy, Clone, Deserialize)]
-#[allow(unused)]
-pub struct CRTStats {
-    h_output_period: i32,
-    h_output_period_min: i32,
-    h_output_period_max: i32,
-    h_input_period: i32,
-    h_input_period_min: i32,
-    h_input_period_max: i32,
-    hot_source_current: u16,
-    v_lines: u16,
-    s_voltage: u16,
-    odd: bool,
-}
 
 #[derive(Copy, Clone, Serialize)]
 #[allow(unused)]
@@ -187,6 +176,11 @@ fn build_ui(app: &Application) {
     input_settings_frame.set_child(Some(&input_settings_grid));
     stats_box.append(&input_settings_frame);
 
+    let vertical_scope = Scope::new();
+    vertical_scope.set_width_request(200);
+    vertical_scope.set_height_request(200);
+    stats_box.append(&vertical_scope);
+
     window.set_child(Some(&stats_box));
 
     let (sender, receiver) = async_channel::unbounded();
@@ -238,6 +232,8 @@ fn build_ui(app: &Application) {
                 let parse_result: Result<CRTStats, serde_json::Error> = serde_json::from_str(&l);
                 if let Ok(stats) = parse_result {
                     sender.send_blocking(stats).expect("Could not send through channel");
+                } else {
+                    eprintln!("got corrupted stats message");
                 }
             }
             if let Ok(config) = tx_channel_receiver.try_recv() {
@@ -263,7 +259,8 @@ fn build_ui(app: &Application) {
                 field_lines_label.set_label(&format!("Lines in last field: {:.2}", a.v_lines));
                 last_field_phase_label.set_label(&format!("Last field phase: {}", if a.odd { "Odd" } else { "Even" }));
                 vertical_period_label.set_label(&format!("Vertical period: {:.2} ms", output_horizontal_period_us * a.v_lines as f32 / 1000.0));
-                s_voltage_label.set_label(&format!("S-cap voltage: {:.2} V", a.s_voltage as f32 * 3.3 / 4096.0 * 101.0));
+                s_voltage_label.set_label(&format!("S-cap voltage: {:.2} V", a.s_voltage));
+                vertical_scope.set_values(vec![a.vertical_target_current_per_scanline.to_vec(), a.vertical_class_d_current_per_scanline.to_vec()]);
             }
         }
     );

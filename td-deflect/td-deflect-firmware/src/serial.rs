@@ -7,7 +7,7 @@ use crate::app::APB2_CLOCK;
 
 pub struct Serial {
     pub usart: USART1,
-    pub send_queue: Deque<u8, 2048>,
+    pub send_queue: Deque<u8, 8192>,
 }
 
 impl Serial {
@@ -24,11 +24,16 @@ impl Serial {
             usart
         }
     }
-    pub fn write_queued(&mut self, b: &[u8]) {
-        for c in b {
-            let _ = self.send_queue.push_back(*c);
+    pub fn write_queued(&mut self, b: &[u8]) -> Result<(),()> {
+        if b.len() > self.send_queue.capacity() - self.send_queue.len() {
+            Err(())
+        } else {
+            for c in b {
+                let _ = self.send_queue.push_back(*c);
+            }
+            self.usart.cr1().modify(|_,w| { w.txeie().set_bit() });
+            Ok(())
         }
-        self.usart.cr1().modify(|_,w| { w.txeie().set_bit() });
     }
     fn read_byte(&self) -> u8 {
         return self.usart.rdr().read().bits() as u8
