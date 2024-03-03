@@ -39,12 +39,15 @@ impl ADC {
         adc1.cr().modify(|_, w| { w.aden().set_bit() });
         while !adc1.isr().read().adrdy().bit() {};
         adc1.isr().modify(|_, w| { w.adrdy().set_bit() });
+
+        // additional config
+        adc1.cfgr2().modify(|_,w| { w.rovse().enabled().ovsr().os8().ovss().shift3() });
         // adc lines
         gpioa.moder().modify(|_,w| { w.moder2().analog() }); // s cap voltage
         gpioc.moder().modify(|_,w| { w.moder0().analog() }); // class d current before filter
         gpiob.moder().modify(|_,w| { w.moder2().analog() }); // class d current after filter
         let a = ADC { adc1 };
-        a.set_sample_time(ADC12_CHANNEL_VERTICAL_CLASS_D_CURRENT_PRE, 0b111);
+        a.set_sample_time(ADC12_CHANNEL_VERTICAL_CLASS_D_CURRENT_PRE, 0b000);
         a
     }
     pub fn set_sample_time(&self, channel: u8, sample_time: u8) {
