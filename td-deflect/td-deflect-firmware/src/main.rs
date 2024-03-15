@@ -4,6 +4,7 @@
 mod adc;
 mod serial;
 mod v_class_d;
+mod scan_fault;
 
 use rtic::app;
 
@@ -19,6 +20,7 @@ mod app {
     use crate::adc::ADC;
     use crate::serial::{Serial, SerialProtocol};
     use crate::v_class_d::VDriveClassD;
+    use crate::scan_fault::ScanFault;
 
     pub const AHB_CLOCK: u32 = 170_000_000;
     pub const APB2_CLOCK: u32 = AHB_CLOCK;
@@ -290,7 +292,8 @@ mod app {
         if *current_scanline >= (total_lines + 10) { *current_scanline = 0 };
         // handle vertical blanking
         if *current_scanline >= VERTICAL_BLANKING_SCANLINES {
-            if !FAULTED.load(Ordering::Relaxed) {
+            if !FAULTED.load(Ordering::Relaxed) &&
+                !crt_state.v_scan_fault.get_fault() {
                 gpioe.odr().modify(|_,w| {w.odr7().bit(true)}); // show image
             }
         } else {
@@ -328,6 +331,7 @@ mod app {
         // perform analog reads
         // todo: trigger these with timer
         let adc_horiz_data = adc.read_all_horiz();
+        crt_state.v_scan_fault.push(adc_horiz_data.vertical_class_d_current_post);
         crt_stats.s_voltage = adc_horiz_data.s_voltage;
         let _ = crt_stats.vertical_class_d_current_per_scanline.push(adc_horiz_data.vertical_class_d_current_post);
         let _ = crt_stats.vertical_target_current_per_scanline.push(horizontal_amps);
@@ -401,6 +405,7 @@ mod app {
     pub struct CRTState {
         current_scanline: i32,
         previous_vga_vsync: bool, // used to detect negative edge sync
+        v_scan_fault: ScanFault,
     }
 
     #[allow(unused)]
