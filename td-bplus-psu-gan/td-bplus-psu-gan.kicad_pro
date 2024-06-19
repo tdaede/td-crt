@@ -550,7 +550,7 @@
           "show": false
         },
         {
-          "group_by": false,
+          "group_by": true,
           "label": "Digikey",
           "name": "Digikey",
           "show": true
