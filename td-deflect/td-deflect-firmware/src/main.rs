@@ -445,10 +445,10 @@ mod app {
         fn new(tp: TIM1, thv: TIM4) -> HOTDriver {
             // TODO: check TP / THV register size
             // configuration for width
-            tp.ccmr1_output().write(|w| { w.oc1m().bits(0b110) }); // PWM1
+            tp.ccmr1_output().write(|w| { unsafe { w.oc1m().bits(0b110) } }); // PWM1
             tp.ccer().write(|w| { w.cc1e().set_bit().cc1ne().set_bit() });
             // configuration for HOT
-            tp.ccmr2_output().write(|w| { w.oc3m().bits(0b111) }); // PWM2
+            tp.ccmr2_output().write(|w| { unsafe { w.oc3m().bits(0b111) } }); // PWM2
             tp.ccer().modify(|_,w| { w.cc3e().set_bit() });
             tp.ccr3().write(|w| { unsafe { w.ccr().bits(MAX_H_PERIOD*1/2) } });
             // initialize to longest possible period in case synchronization fails
@@ -463,7 +463,7 @@ mod app {
             tp.dier().write(|w| { w.uie().set_bit() });
 
             // hv driver
-            thv.ccmr1_output().write(|w| { w.oc1m().bits(0b110) });
+            thv.ccmr1_output().write(|w| { unsafe { w.oc1m().bits(0b110) } });
             thv.ccer().modify(|_,w| { w.cc1e().set_bit() });
             thv.ccr1().write(|w| { unsafe { w.ccr().bits(h_pin_period as u32 / 2) } });
             thv.arr().write(|w| { unsafe { w.arr().bits(h_pin_period.into()) } });
@@ -600,7 +600,7 @@ mod app {
 
     impl VDrive {
         fn new(dac: DAC1) -> VDrive {
-            dac.cr().write(|w| { w.en1().enabled().tsel1().bits(0b0000).ten1().enabled() });
+            dac.cr().write(|w| { unsafe { w.en1().enabled().tsel1().bits(0b0000).ten1().enabled() } });
             dac.dhr12r1().write(|w| { unsafe { w.bits(DAC_MIDPOINT as u32) }});
             VDrive { dac, setpoint: 0.0, accumulator: 0.0 }
         }

@@ -69,7 +69,7 @@ impl ADC {
     }
     pub fn set_sample_time(&self, channel: u8, sample_time: u8) {
         match channel {
-            6 => self.adc1.smpr1().modify(|_,w| { w.smp6().bits(sample_time) }),
+            6 => self.adc1.smpr1().modify(|_,w| { unsafe { w.smp6().bits(sample_time) } }),
             _ => {}
         }
     }
