@@ -14,8 +14,9 @@ libm = "0.2.1"
 [dependencies.td-crt-protocol]
 path = "../td-crt-protocol"
 
-[dependencies.cortex-m-rtic]
-version = "1.1.4"
+[dependencies.rtic]
+version = "2.1.1"
+features = ["thumbv7-backend"]
 
 [dependencies.stm32g4]
 features = ["stm32g474","rt"]

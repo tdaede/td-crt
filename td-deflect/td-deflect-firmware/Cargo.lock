@@ -83,34 +83,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "cortex-m-rtic"
-version = "1.1.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d696ae7390bdb9f7978f71ca7144256a2c4616240a6df9002da3c451f9fc8f02"
-dependencies = [
- "bare-metal 1.0.0",
- "cortex-m",
- "cortex-m-rtic-macros",
- "heapless 0.7.17",
- "rtic-core",
- "rtic-monotonic",
- "version_check",
-]
-
-[[package]]
-name = "cortex-m-rtic-macros"
-version = "1.1.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eefb40b1ca901c759d29526e5c8a0a1b246c20caaa5b4cc5d0f0b94debecd4c7"
-dependencies = [
- "proc-macro-error",
- "proc-macro2",
- "quote",
- "rtic-syntax",
- "syn 1.0.109",
-]
-
-[[package]]
 name = "critical-section"
 version = "1.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -125,6 +97,12 @@ dependencies = [
  "nb 0.1.3",
  "void",
 ]
+
+[[package]]
+name = "equivalent"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5443807d6dff69373d433ab9ef5378ad8df50ca6298caf15de6e52e24aaf54d5"
 
 [[package]]
 name = "hash32"
@@ -146,9 +124,9 @@ dependencies = [
 
 [[package]]
 name = "hashbrown"
-version = "0.12.3"
+version = "0.14.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8a9ee70c43aaf417c914396645a0fa852624801b24ebb7ae78fe8272889ac888"
+checksum = "e5274423e17b7c9fc20b6e7e208532f9b19825d82dfd615708b70edd83df41f1"
 
 [[package]]
 name = "heapless"
@@ -176,11 +154,11 @@ dependencies = [
 
 [[package]]
 name = "indexmap"
-version = "1.9.3"
+version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bd070e393353796e801d209ad339e89596eb4c8d430d18ede6a1cced8fafbd99"
+checksum = "68b900aa2f7301e21c36462b170ee99994de34dff39a4a6a528e80e7376d07e5"
 dependencies = [
- "autocfg",
+ "equivalent",
  "hashbrown",
 ]
 
@@ -258,27 +236,36 @@ dependencies = [
 ]
 
 [[package]]
+name = "rtic"
+version = "2.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c443db16326376bdd64377da268f6616d5f804aba8ce799bac7d1f7f244e9d51"
+dependencies = [
+ "atomic-polyfill",
+ "bare-metal 1.0.0",
+ "cortex-m",
+ "critical-section",
+ "rtic-core",
+ "rtic-macros",
+]
+
+[[package]]
 name = "rtic-core"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d9369355b04d06a3780ec0f51ea2d225624db777acbc60abd8ca4832da5c1a42"
 
 [[package]]
-name = "rtic-monotonic"
-version = "1.0.0"
+name = "rtic-macros"
+version = "2.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fb8b0b822d1a366470b9cea83a1d4e788392db763539dc4ba022bcc787fece82"
-
-[[package]]
-name = "rtic-syntax"
-version = "1.0.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5f5e215601dc467752c2bddc6284a622c6f3d2bab569d992adcd5ab7e4cb9478"
+checksum = "54053598ea24b1b74937724e366558412a1777eb2680b91ef646db540982789a"
 dependencies = [
  "indexmap",
+ "proc-macro-error",
  "proc-macro2",
  "quote",
- "syn 1.0.109",
+ "syn 2.0.79",
 ]
 
 [[package]]
@@ -425,9 +412,9 @@ name = "td-deflect-firmware"
 version = "0.1.0"
 dependencies = [
  "cortex-m",
- "cortex-m-rtic",
  "heapless 0.7.17",
  "libm",
+ "rtic",
  "serde",
  "serde-json-core",
  "stm32g4",

@@ -191,6 +191,13 @@
       "zones_allow_external_fillets": false,
       "zones_use_no_outline": true
     },
+    "ipc2581": {
+      "dist": "",
+      "distpn": "",
+      "internal_id": "",
+      "mfg": "",
+      "mpn": ""
+    },
     "layer_presets": [],
     "viewports": []
   },
@@ -500,8 +507,11 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
+      "plot": "",
+      "pos_files": "",
       "specctra_dsn": "",
       "step": "",
+      "svg": "",
       "vrml": ""
     },
     "page_layout_descr_file": ""

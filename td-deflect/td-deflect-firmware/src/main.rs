@@ -74,7 +74,7 @@ mod app {
         config_queue_out: Consumer<'static, Config, 2>,
     }
     #[init]
-    fn init(cx: init::Context) -> (Shared, Local, init::Monotonics) {
+    fn init(cx: init::Context) -> (Shared, Local) {
         let s = cx.device;
 
         let rcc = s.RCC;
@@ -222,7 +222,7 @@ mod app {
             crt_stats_live,
             crt_state,
             config,
-        },  init::Monotonics())
+        })
     }
 
     // internal hsync timer interrupt
@@ -380,8 +380,8 @@ mod app {
         });
     }
 
-    #[task(shared = [serial_protocol])]
-    fn send_stats(mut c: send_stats::Context, crt_stats: CRTStats) {
+    #[task(shared = [serial_protocol], priority = 1)]
+    async fn send_stats(mut c: send_stats::Context, crt_stats: CRTStats) {
         let mut json_stats: [u8; 8192] = [0; 8192];
         let mut json_stats_len = 0;
         if let Ok(c) = serde_json_core::to_slice(&crt_stats, &mut json_stats) { json_stats_len = c };
