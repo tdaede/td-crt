@@ -386,9 +386,9 @@ mod app {
         let mut json_stats_len = 0;
         if let Ok(c) = serde_json_core::to_slice(&crt_stats, &mut json_stats) { json_stats_len = c };
         c.shared.serial_protocol.lock(|serial_protocol| {
-            if let Ok(()) = serial_protocol.serial.write_queued(&json_stats[..json_stats_len]) {
-                // TODO: this is bugged
-                let _ = serial_protocol.serial.write_queued(b"\n");
+            if json_stats_len < json_stats.len() {
+                json_stats[json_stats_len] = b'\n';
+                let _ = serial_protocol.serial.write_queued(&json_stats[..json_stats_len + 1]);
             }
         });
     }
