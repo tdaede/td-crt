@@ -14,7 +14,7 @@ async-channel = "1.9.0"
 path = "../td-crt-protocol"
 
 [dependencies.gtk]
-version = "0.7"
+version = "0.9"
 package = "gtk4"
 
 [dependencies.serde]
@@ -27,4 +27,4 @@ default_features = false
 features = ["line_series"]
 
 [dependencies.plotters-cairo]
-version = "0.5.0"
+version = "0.7.0"

@@ -191,13 +191,14 @@ fn build_ui(app: &Application) {
     let serial_port_string = String::from(serial_selector.active_text().unwrap());
 
     let send_crt_config = clone!(
-        @strong tx_channel_sender_rc,
-        @weak vertical_current_magnitude_adj,
-        @weak vertical_current_offset_adj,
-        @weak v_lin,
-        @weak s_cap,
-        @weak input_settings_h_size,
-        @weak h_phase => move || {
+        #[strong] tx_channel_sender_rc,
+        #[weak] vertical_current_magnitude_adj,
+        #[weak] vertical_current_offset_adj,
+        #[weak] v_lin,
+        #[weak] s_cap,
+        #[weak] input_settings_h_size,
+        #[weak] h_phase,
+        move || {
             let crt_config = CRTConfig {
                 v_mag_amps: vertical_current_magnitude_adj.value() as f32,
                 v_offset_amps: vertical_current_offset_adj.value() as f32,
@@ -212,12 +213,12 @@ fn build_ui(app: &Application) {
     });
 
     for w in config_spin_widgets {
-        w.connect_value_changed(clone!(@strong send_crt_config => move |_| {
+        w.connect_value_changed(clone!(#[strong] send_crt_config, move |_| {
             send_crt_config();
         }));
     }
     for w in config_scale_widgets {
-        w.connect_value_changed(clone!(@strong send_crt_config => move |_| {
+        w.connect_value_changed(clone!(#[strong] send_crt_config, move |_| {
             send_crt_config();
         }));
     }
