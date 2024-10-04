@@ -185,13 +185,11 @@ fn build_ui(app: &Application) {
 
     let (sender, receiver) = async_channel::unbounded();
 
-    let (tx_channel_sender, tx_channel_receiver) = channel::<Config>();
-    let tx_channel_sender_rc = Rc::new(tx_channel_sender);
+    let (tx_channel_sender, tx_channel_receiver) = async_channel::bounded(1);
 
     let serial_port_string = String::from(serial_selector.active_text().unwrap());
 
     let send_crt_config = clone!(
-        #[strong] tx_channel_sender_rc,
         #[weak] vertical_current_magnitude_adj,
         #[weak] vertical_current_offset_adj,
         #[weak] v_lin,
@@ -209,7 +207,7 @@ fn build_ui(app: &Application) {
                 h_size: input_settings_h_size.value() as f32,
                 h_phase: h_phase.value() as f32,
             };
-            tx_channel_sender_rc.send(Config {crt: crt_config, input: input_config}).unwrap();
+            tx_channel_sender.force_send(Config {crt: crt_config, input: input_config}).unwrap();
     });
 
     for w in config_spin_widgets {
