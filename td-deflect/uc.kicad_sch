@@ -9795,28 +9795,6 @@
 			)
 		)
 	)
-	(global_label "V_DAC"
-		(shape input)
-		(at 142.24 58.42 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "07aba96d-109a-4d1d-8f34-5ca8b97b0b92")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 150.1764 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "HV_HI"
 		(shape input)
 		(at 142.24 127 0)
