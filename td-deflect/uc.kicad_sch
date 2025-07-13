@@ -6283,184 +6283,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Regulator_Linear:AP2204K-3.3"
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "U"
-				(at -5.08 5.715 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "AP2204K-3.3"
-				(at 0 5.715 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-				(at 0 8.255 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://www.diodes.com/assets/Datasheets/AP2204.pdf"
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "150mA low dropout linear regulator, wide input voltage range, 3.3V fixed positive output, SOT-23-5"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "linear regulator ldo fixed positive"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "SOT?23?5*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "AP2204K-3.3_0_1"
-				(rectangle
-					(start -5.08 4.445)
-					(end 5.08 -5.08)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(symbol "AP2204K-3.3_1_1"
-				(pin power_in line
-					(at -7.62 2.54 0)
-					(length 2.54)
-					(name "VIN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -7.62 0 0)
-					(length 2.54)
-					(name "EN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 0 -7.62 90)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin no_connect line
-					(at 5.08 0 180)
-					(length 2.54)
-					(hide yes)
-					(name "NC"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_out line
-					(at 7.62 2.54 180)
-					(length 2.54)
-					(name "VOUT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Regulator_Linear:AP2204K-5.0"
 			(pin_names
 				(offset 0.254)
@@ -6629,6 +6451,148 @@
 						)
 					)
 					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Regulator_Switching:R-78B3.3-2.0"
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -3.81 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R-78B3.3-2.0"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Converter_DCDC:Converter_DCDC_RECOM_R-78B-2.0_THT"
+				(at 1.27 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.recom-power.com/pdf/Innoline/R-78Bxx-2.0.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "2A Step-Down DC/DC-Regulator, 4.75-32V input, 3.3V fixed Output Voltage, LM78xx replacement, -40°C to +85°C, SIP3"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "dc-dc recom Step-Down DC/DC-Regulator"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Converter*DCDC*RECOM*R*78B*2.0*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R-78B3.3-2.0_0_1"
+				(rectangle
+					(start -5.08 1.905)
+					(end 5.08 -5.08)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "R-78B3.3-2.0_1_1"
+				(pin power_in line
+					(at -7.62 0 0)
+					(length 2.54)
+					(name "IN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name "OUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -7938,6 +7902,12 @@
 		(uuid "67abcf8d-3582-4fc6-ba31-5ec55a45b043")
 	)
 	(junction
+		(at 271.78 66.04)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6829d502-95aa-4591-b8fd-b81c7b0e3326")
+	)
+	(junction
 		(at 185.42 157.48)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7980,22 +7950,10 @@
 		(uuid "a4a5e828-058b-45fd-b231-0414ea96e5c5")
 	)
 	(junction
-		(at 271.78 66.04)
-		(diameter 1.016)
-		(color 0 0 0 0)
-		(uuid "b4f0b375-31ef-43d3-af5e-28a8b5f0977f")
-	)
-	(junction
 		(at 161.29 21.59)
 		(diameter 1.016)
 		(color 0 0 0 0)
 		(uuid "b629ea4e-527b-4208-ae9b-6b4d96c7a00f")
-	)
-	(junction
-		(at 254 93.98)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "bdabc5ce-ad6f-46eb-8350-7146b932c3cd")
 	)
 	(junction
 		(at 157.48 21.59)
@@ -8014,12 +7972,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "cd822d73-4a9c-4de1-a82a-d8ff5fc466f6")
-	)
-	(junction
-		(at 250.19 66.04)
-		(diameter 1.016)
-		(color 0 0 0 0)
-		(uuid "d1cf04c1-4e85-4266-8d88-b0bed30de1f7")
 	)
 	(junction
 		(at 121.92 40.64)
@@ -8165,16 +8117,6 @@
 	)
 	(wire
 		(pts
-			(xy 250.19 68.58) (xy 252.73 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0925feff-fcb5-4c6a-a66a-169560d25293")
-	)
-	(wire
-		(pts
 			(xy 73.025 180.975) (xy 82.55 180.975)
 		)
 		(stroke
@@ -8182,16 +8124,6 @@
 			(type default)
 		)
 		(uuid "0ad28049-e894-4b94-9779-e1b6296daa84")
-	)
-	(wire
-		(pts
-			(xy 267.97 66.04) (xy 271.78 66.04)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "0bea13b9-22c9-4866-91b3-1aa424d4b41b")
 	)
 	(wire
 		(pts
@@ -8215,7 +8147,7 @@
 	)
 	(wire
 		(pts
-			(xy 254 93.98) (xy 256.54 93.98)
+			(xy 247.65 93.98) (xy 256.54 93.98)
 		)
 		(stroke
 			(width 0)
@@ -8252,16 +8184,6 @@
 			(type default)
 		)
 		(uuid "1a7a1a61-19ac-494f-b9f5-0d051200c3c6")
-	)
-	(wire
-		(pts
-			(xy 254 96.52) (xy 254 93.98)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "1c3bd5a1-9e8e-4fa4-938b-5120f44acfd1")
 	)
 	(wire
 		(pts
@@ -8475,6 +8397,16 @@
 	)
 	(wire
 		(pts
+			(xy 260.35 73.66) (xy 260.35 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4f43e716-01c6-42cc-9f73-674b5d8c13ff")
+	)
+	(wire
+		(pts
 			(xy 121.92 40.64) (xy 124.46 40.64)
 		)
 		(stroke
@@ -8492,6 +8424,16 @@
 			(type default)
 		)
 		(uuid "58ee23b6-ebff-49f9-9d5a-be58f3634aa4")
+	)
+	(wire
+		(pts
+			(xy 267.97 66.04) (xy 271.78 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "59741d53-52c2-438c-b1ee-4ee79a35a763")
 	)
 	(wire
 		(pts
@@ -8595,26 +8537,6 @@
 	)
 	(wire
 		(pts
-			(xy 247.65 93.98) (xy 254 93.98)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "743348d5-b721-4b74-9fda-2dddde9fe17f")
-	)
-	(wire
-		(pts
-			(xy 250.19 66.04) (xy 252.73 66.04)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "79a1f222-68ec-4964-b66f-546426da8915")
-	)
-	(wire
-		(pts
 			(xy 24.13 88.9) (xy 24.13 107.95)
 		)
 		(stroke
@@ -8695,16 +8617,6 @@
 	)
 	(wire
 		(pts
-			(xy 254 96.52) (xy 256.54 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "93d10707-ac0c-477b-8120-b6d61e1d353b")
-	)
-	(wire
-		(pts
 			(xy 204.47 58.42) (xy 212.09 58.42)
 		)
 		(stroke
@@ -8742,6 +8654,16 @@
 			(type default)
 		)
 		(uuid "991fa784-d59f-40a0-8086-f1a4fe9a6e82")
+	)
+	(wire
+		(pts
+			(xy 264.16 101.6) (xy 264.16 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "99cd20ce-d17c-45be-9d99-c3fbd04905a1")
 	)
 	(wire
 		(pts
@@ -8825,6 +8747,16 @@
 	)
 	(wire
 		(pts
+			(xy 243.84 66.04) (xy 252.73 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c2105b3a-45c8-4a89-80b8-002fed854c59")
+	)
+	(wire
+		(pts
 			(xy 151.13 21.59) (xy 140.97 21.59)
 		)
 		(stroke
@@ -8892,16 +8824,6 @@
 			(type solid)
 		)
 		(uuid "d91c1b34-1f24-4a94-b1f2-e6fd0067f1ec")
-	)
-	(wire
-		(pts
-			(xy 250.19 68.58) (xy 250.19 66.04)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "db9a3236-e50d-487d-bd6e-dc5bddbfbb2b")
 	)
 	(wire
 		(pts
@@ -9002,16 +8924,6 @@
 			(type default)
 		)
 		(uuid "f6fa27ac-b21d-4411-8096-405c6800c6a0")
-	)
-	(wire
-		(pts
-			(xy 243.84 66.04) (xy 250.19 66.04)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "f8e18897-351e-4e40-b1e5-59070df73b04")
 	)
 	(wire
 		(pts
@@ -10847,91 +10759,6 @@
 				)
 				(justify left)
 				(hide yes)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Regulator_Linear:AP2204K-3.3")
-		(at 260.35 68.58 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-00005c2a75e9")
-		(property "Reference" "U4"
-			(at 260.35 59.8932 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "AP2204K-3.3"
-			(at 260.35 62.865 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-			(at 260.35 60.325 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/AP2204.pdf"
-			(at 260.35 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 260.35 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Digikey" "296-35483-1-ND"
-			(at 260.35 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "d443a7cc-f0ba-47a1-8767-063fa0564b2c")
-		)
-		(pin "2"
-			(uuid "04e64b38-b2e9-493d-86ac-cc024ef4816b")
-		)
-		(pin "3"
-			(uuid "34891c3a-35d3-482e-90ac-512e06855c76")
-		)
-		(pin "4"
-			(uuid "b252023a-5702-4fdd-bb92-900bd6a7496e")
-		)
-		(pin "5"
-			(uuid "6c2932aa-400f-4f8c-b92b-3f1187ecad82")
-		)
-		(instances
-			(project "td-deflect"
-				(path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/00000000-0000-0000-0000-00005c37bef7"
-					(reference "U4")
-					(unit 1)
-				)
 			)
 		)
 	)
@@ -13784,33 +13611,44 @@
 		)
 	)
 	(symbol
-		(lib_id "Regulator_Linear:AP2204K-3.3")
-		(at 264.16 96.52 0)
+		(lib_id "Regulator_Switching:R-78B3.3-2.0")
+		(at 260.35 66.04 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4a95c6c8-8eec-4975-98d5-688b1ca5f589")
-		(property "Reference" "U12"
-			(at 264.16 87.8332 0)
+		(fields_autoplaced yes)
+		(uuid "5008221a-0839-40aa-a8d8-cd95e2231929")
+		(property "Reference" "U4"
+			(at 260.35 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "AP2204K-3.3"
-			(at 264.16 90.805 0)
+		(property "Value" "R-78B3.3-2.0"
+			(at 260.35 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Converter_DCDC:Converter_DCDC_RECOM_R-78B-2.0_THT"
+			(at 261.62 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
 				)
 				(justify left)
+				(hide yes)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-			(at 264.16 88.265 0)
+		(property "Datasheet" "https://www.recom-power.com/pdf/Innoline/R-78Bxx-2.0.pdf"
+			(at 260.35 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13818,51 +13656,28 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/AP2204.pdf"
-			(at 264.16 93.98 0)
+		(property "Description" "2A Step-Down DC/DC-Regulator, 4.75-32V input, 3.3V fixed Output Voltage, LM78xx replacement, -40°C to +85°C, SIP3"
+			(at 260.35 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
-		)
-		(property "Description" ""
-			(at 264.16 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Digikey" "296-35483-1-ND"
-			(at 264.16 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b268ca76-520c-4c69-91e3-cc437ed5a3c9")
 		)
 		(pin "2"
-			(uuid "8570910b-07c4-4a6d-b683-c9e383b7345e")
+			(uuid "00f1978d-53a1-4f1c-8364-c94204e13836")
 		)
 		(pin "3"
-			(uuid "632af9de-035e-4b1a-9e81-7489196892ba")
+			(uuid "65f538ff-4483-4071-8a2a-76b494650e11")
 		)
-		(pin "4"
-			(uuid "f4fee2ab-e809-43b3-9c2d-963b70109a33")
-		)
-		(pin "5"
-			(uuid "308f1558-1426-46af-bf38-8ec1dfd9fd3e")
+		(pin "1"
+			(uuid "0fb23f36-2419-4c14-a20b-d5be0257ed2f")
 		)
 		(instances
-			(project "td-deflect"
+			(project ""
 				(path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/00000000-0000-0000-0000-00005c37bef7"
-					(reference "U12")
+					(reference "U4")
 					(unit 1)
 				)
 			)
@@ -14444,6 +14259,79 @@
 			(project "td-deflect"
 				(path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/00000000-0000-0000-0000-00005c37bef7"
 					(reference "U25")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Regulator_Switching:R-78B3.3-2.0")
+		(at 264.16 93.98 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "61dd3c20-ddd7-48d7-bfa4-0ce5d9ae1ed2")
+		(property "Reference" "U5"
+			(at 264.16 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "R-78B3.3-2.0"
+			(at 264.16 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Converter_DCDC:Converter_DCDC_RECOM_R-78B-2.0_THT"
+			(at 265.43 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.recom-power.com/pdf/Innoline/R-78Bxx-2.0.pdf"
+			(at 264.16 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "2A Step-Down DC/DC-Regulator, 4.75-32V input, 3.3V fixed Output Voltage, LM78xx replacement, -40°C to +85°C, SIP3"
+			(at 264.16 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "425053b3-3ce7-4986-a4f4-79cb74abcb38")
+		)
+		(pin "3"
+			(uuid "711442dd-891c-4d0f-aceb-cb125e8a91a6")
+		)
+		(pin "1"
+			(uuid "4633cf67-68f8-46ea-b705-84aace3689fb")
+		)
+		(instances
+			(project "td-deflect"
+				(path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d/00000000-0000-0000-0000-00005c37bef7"
+					(reference "U5")
 					(unit 1)
 				)
 			)
