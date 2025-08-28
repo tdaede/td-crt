@@ -610,502 +610,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Device:Fuse"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "F"
-				(at 2.032 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "Fuse"
-				(at -1.905 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at -1.778 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Fuse"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "fuse"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "*Fuse*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "Fuse_0_1"
-				(rectangle
-					(start -0.762 -2.54)
-					(end 0.762 2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "Fuse_1_1"
-				(pin passive line
-					(at 0 3.81 270)
-					(length 1.27)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -3.81 90)
-					(length 1.27)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Device:L"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 1.016)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "L"
-				(at -1.27 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "L"
-				(at 1.905 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Inductor"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "inductor choke coil reactor magnetic"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Choke_* *Coil* Inductor_* L_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "L_0_1"
-				(arc
-					(start 0 2.54)
-					(mid 0.6323 1.905)
-					(end 0 1.27)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 1.27)
-					(mid 0.6323 0.635)
-					(end 0 0)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 0)
-					(mid 0.6323 -0.635)
-					(end 0 -1.27)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 -1.27)
-					(mid 0.6323 -1.905)
-					(end 0 -2.54)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "L_1_1"
-				(pin passive line
-					(at 0 3.81 270)
-					(length 1.27)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -3.81 90)
-					(length 1.27)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Device:L_Trim"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 1.016)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "L"
-				(at -1.905 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "L_Trim"
-				(at 3.175 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Variable inductor"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "inductor choke coil reactor magnetic"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Inductor_* L_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "L_Trim_0_1"
-				(polyline
-					(pts
-						(xy -1.27 -1.905) (xy 1.905 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 2.54)
-					(mid 0.6323 1.905)
-					(end 0 1.27)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 1.27)
-					(mid 0.6323 0.635)
-					(end 0 0)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 0)
-					(mid 0.6323 -0.635)
-					(end 0 -1.27)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 -1.27)
-					(mid 0.6323 -1.905)
-					(end 0 -2.54)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.905 2.54) (xy 1.016 2.159)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.905 2.54) (xy 1.778 1.651)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "L_Trim_1_1"
-				(pin passive line
-					(at 0 3.81 270)
-					(length 1.27)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -3.81 90)
-					(length 1.27)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Device:R"
 			(pin_numbers
 				(hide yes)
@@ -3652,17 +3156,6 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "saturable\nreactor"
-		(exclude_from_sim no)
-		(at 163.83 83.82 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "08490297-9a32-4a5a-828f-cecc37b72417")
-	)
 	(text "H.YOKE"
 		(exclude_from_sim no)
 		(at 127 68.58 0)
@@ -3674,17 +3167,6 @@
 		)
 		(uuid "6f7634d5-d753-4ed3-be65-3c43783d9987")
 	)
-	(text "H.LIN"
-		(exclude_from_sim no)
-		(at 165.1 80.01 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "7efc96bc-067c-4fb9-b711-8dc31cb256ea")
-	)
 	(text "C59 wrong footprint (1206)\nR69 check size\nC20, C42, C66 wrong footprint\n10k part number wrong\nF4, TH1 wrong footprint\nR8 goes to ground\nbigger caps on class D IRS2005S\nfaster MOSFETs on class D output\nadd clamping output\nswitch horizontal IRS2005 for something 250V rated\nswitch S caps to have pulse rating\nmore powerful 3.3V supply\nmore powerful 3.3VA supply\ndedicated LM1205 supply\nbig caps on 48V\nadd input voltage rail measurement\nswap to wurth inductors\nremove h fuse\nadd v fuse"
 		(exclude_from_sim no)
 		(at 146.685 53.34 0)
@@ -3695,17 +3177,6 @@
 			(justify left bottom)
 		)
 		(uuid "adfa841a-4603-4113-a370-71def130b886")
-	)
-	(text "todo: drop this idk"
-		(exclude_from_sim no)
-		(at 160.02 86.36 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "d65f5085-b0d3-47da-a3e9-896c00871bb2")
 	)
 	(junction
 		(at 264.16 114.3)
@@ -4037,16 +3508,6 @@
 	)
 	(wire
 		(pts
-			(xy 182.88 76.2) (xy 185.42 76.2)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "13a3f1fc-c8e8-450f-a8c9-104215b4e9de")
-	)
-	(wire
-		(pts
 			(xy 204.47 93.98) (xy 214.63 93.98)
 		)
 		(stroke
@@ -4317,7 +3778,7 @@
 	)
 	(wire
 		(pts
-			(xy 104.14 45.72) (xy 87.63 45.72)
+			(xy 87.63 45.72) (xy 132.08 45.72)
 		)
 		(stroke
 			(width 0)
@@ -4444,16 +3905,6 @@
 			(type solid)
 		)
 		(uuid "75f48925-723a-453f-94d3-b5c45095acc3")
-	)
-	(wire
-		(pts
-			(xy 124.46 76.2) (xy 128.27 76.2)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "76ddc566-2f36-46f7-8eed-0bf06f3e21f3")
 	)
 	(wire
 		(pts
@@ -4607,7 +4058,7 @@
 	)
 	(wire
 		(pts
-			(xy 130.81 76.2) (xy 160.02 76.2)
+			(xy 130.81 76.2) (xy 185.42 76.2)
 		)
 		(stroke
 			(width 0)
@@ -4694,16 +4145,6 @@
 			(type solid)
 		)
 		(uuid "c6b6bf62-0682-4545-ad4c-16ef77723269")
-	)
-	(wire
-		(pts
-			(xy 167.64 76.2) (xy 175.26 76.2)
-		)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(uuid "c90a3d1d-e02e-4128-a73c-a9ad8c8bbad9")
 	)
 	(wire
 		(pts
@@ -4837,6 +4278,16 @@
 	)
 	(wire
 		(pts
+			(xy 128.27 76.2) (xy 124.46 76.2)
+		)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(uuid "f28f31b5-4d97-4466-bf5d-836ca179e8dd")
+	)
+	(wire
+		(pts
 			(xy 217.17 116.84) (xy 227.33 116.84)
 		)
 		(stroke
@@ -4905,26 +4356,6 @@
 		)
 		(uuid "197cab30-1773-44f9-9a09-c7db4c9a9e90")
 	)
-	(label "h_coil_1"
-		(at 111.76 45.72 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "19f0fa3e-2076-4186-b4ce-48f9b8857d88")
-	)
-	(label "s_fuse"
-		(at 168.91 76.2 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "26efe636-57cf-4de1-ac9a-691435c8c4ee")
-	)
 	(label "h.ret"
 		(at 134.62 76.2 0)
 		(effects
@@ -4935,16 +4366,6 @@
 		)
 		(uuid "753afaa5-ff92-4877-8bdd-c072b2a183f3")
 	)
-	(label "h_coil_2"
-		(at 119.38 45.72 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "7a2a5bf4-4c75-4c43-84a5-38599509207d")
-	)
 	(label "S_cap_top"
 		(at 207.645 76.2 0)
 		(effects
@@ -4954,16 +4375,6 @@
 			(justify left bottom)
 		)
 		(uuid "cf780e7f-0baf-41bb-994d-c7d271bf6268")
-	)
-	(label "h_coil_3"
-		(at 127 45.72 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "db5f5264-9457-4dd2-bea9-0726828f71ef")
 	)
 	(global_label "HOT_IN"
 		(shape input)
@@ -5986,81 +5397,6 @@
 			(project "td-deflect"
 				(path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d"
 					(reference "R2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:L_Trim")
-		(at 163.83 76.2 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-00005d9dd15a")
-		(property "Reference" "L2"
-			(at 163.83 70.104 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "LTRIM"
-			(at 163.83 72.4154 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "td-deflect:LIN-3509"
-			(at 163.83 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 163.83 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 163.83 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Digikey" "DNP"
-			(at 163.83 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "752278ff-321a-414e-b449-9c0933ea1942")
-		)
-		(pin "2"
-			(uuid "a59cd9d2-b17d-4043-81e5-70291ad137d8")
-		)
-		(instances
-			(project "td-deflect"
-				(path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d"
-					(reference "L2")
 					(unit 1)
 				)
 			)
@@ -10144,158 +9480,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:Fuse")
-		(at 179.07 76.2 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-00005dd4f64b")
-		(property "Reference" "F2"
-			(at 179.07 71.1962 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Fuse"
-			(at 179.07 73.5076 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Fuse:Fuse_Schurter_UMT250"
-			(at 179.07 74.422 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 179.07 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 179.07 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Digikey" "486-3436-ND"
-			(at 179.07 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "21f86f23-d215-40b1-b9de-ba20b5c9299c")
-		)
-		(pin "2"
-			(uuid "0920c661-50f3-412b-b092-945e41c53a1a")
-		)
-		(instances
-			(project "td-deflect"
-				(path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d"
-					(reference "F2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:L")
-		(at 130.81 45.72 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "0384d26c-9fc0-430e-88cb-20015ba78d80")
-		(property "Reference" "L9"
-			(at 129.6416 44.3738 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "680uH"
-			(at 131.953 44.3738 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "td-deflect:Murata_6000B"
-			(at 130.81 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 130.81 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 130.81 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Digikey" "811-2466-ND"
-			(at 130.81 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "77980507-abd0-4a70-b866-02d8ea72a4d4")
-		)
-		(pin "2"
-			(uuid "d27084a8-1f83-4661-8036-03c616991192")
-		)
-		(instances
-			(project "td-deflect"
-				(path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d"
-					(reference "L9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 26.67 46.99 0)
 		(unit 1)
@@ -10354,160 +9538,6 @@
 			(project "td-deflect"
 				(path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d"
 					(reference "#PWR0162")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:L")
-		(at 123.19 45.72 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "0c77367a-9bf9-46eb-bdcb-84623ec3d15c")
-		(property "Reference" "L8"
-			(at 122.0216 44.3738 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "680uH"
-			(at 124.333 44.3738 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "td-deflect:Murata_6000B"
-			(at 123.19 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 123.19 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 123.19 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Digikey" "811-2466-ND"
-			(at 123.19 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "e6930030-9690-4db5-9e08-175c839eeea4")
-		)
-		(pin "2"
-			(uuid "c8a6bb3f-9afd-43f7-8f50-117baa613f34")
-		)
-		(instances
-			(project "td-deflect"
-				(path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d"
-					(reference "L8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:L")
-		(at 107.95 45.72 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "20bd3baf-8344-41c8-ae29-7991c8c44338")
-		(property "Reference" "L1"
-			(at 106.7816 44.3738 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "680uH"
-			(at 109.093 44.3738 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "td-deflect:Murata_6000B"
-			(at 107.95 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 107.95 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 107.95 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Digikey" "811-2466-ND"
-			(at 107.95 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "1e651216-17a2-4db5-a166-83d3849b8b3f")
-		)
-		(pin "2"
-			(uuid "10ec9aad-5eaf-48ce-8b57-087162e14db4")
-		)
-		(instances
-			(project "td-deflect"
-				(path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d"
-					(reference "L1")
 					(unit 1)
 				)
 			)
@@ -10583,6 +9613,76 @@
 			(project "td-deflect"
 				(path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d"
 					(reference "TP2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Pin")
+		(at 134.62 40.64 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3ca07eef-08d0-4e8d-8c23-b6bcb7932ce3")
+		(property "Reference" "J7"
+			(at 135.89 40.0049 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Conn_01x02_Pin"
+			(at 135.89 42.5449 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "td-deflect:monitor_10_8_2p"
+			(at 134.62 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 134.62 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 134.62 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0bfac4a5-9335-421d-b74a-7bef0b211e34")
+		)
+		(pin "2"
+			(uuid "91b6f796-2317-4dca-bf4a-c0a1350e27b7")
+		)
+		(instances
+			(project ""
+				(path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d"
+					(reference "J7")
 					(unit 1)
 				)
 			)
@@ -11375,83 +10475,6 @@
 			(project "td-deflect"
 				(path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d"
 					(reference "R65")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:L")
-		(at 115.57 45.72 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e53cfe9b-ae54-4e03-9b5c-16c6fd71089f")
-		(property "Reference" "L7"
-			(at 114.4016 44.3738 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "680uH"
-			(at 116.713 44.3738 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "td-deflect:Murata_6000B"
-			(at 115.57 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 115.57 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 115.57 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Digikey" "811-2466-ND"
-			(at 115.57 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "fa77cd37-bf72-470b-8c2a-b6aa909df92d")
-		)
-		(pin "2"
-			(uuid "4721ef27-2833-49ba-87b7-ac9ee98fcc3b")
-		)
-		(instances
-			(project "td-deflect"
-				(path "/55a1a5e1-4d11-4c3e-b2b4-b9d50ddc5f9d"
-					(reference "L7")
 					(unit 1)
 				)
 			)
