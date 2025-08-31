@@ -53,12 +53,7 @@
         }
       },
       "diff_pair_dimensions": [],
-      "drc_exclusions": [
-        [
-          "starved_thermal|-8620000|77000000|c42072c9-e0a4-4197-ba14-52c5ec8235bd|2309c0b3-fcb3-4bbe-9dcd-71d61a8bd91c|B.Cu",
-          ""
-        ]
-      ],
+      "drc_exclusions": [],
       "meta": {
         "filename": "board_design_settings.json",
         "version": 2
