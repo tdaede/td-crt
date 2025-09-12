@@ -9,7 +9,7 @@
 // tripping on startup.
 
 const SCAN_THRESHOLD: f32 = 0.1; // in real units
-const SCAN_MIN_FRAC: f32 = 0.3; // should be under 0.5
+const SCAN_MIN_FRAC: f32 = 0.2; // should be under 0.5
 const WINDOW: u32 = 512; // about two fields
 const SCAN_MIN: u32 = (WINDOW as f32 * SCAN_MIN_FRAC) as u32;
 
