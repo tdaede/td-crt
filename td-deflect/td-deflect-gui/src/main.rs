@@ -122,7 +122,7 @@ fn build_ui(app: &Application) {
     geometry_settings_grid.attach(&vertical_current_magnitude_label, 0, y_pos, 1, 1);
     let vertical_current_magnitude_adj = SpinButton::with_range(0.0, 2.0, 0.01);
     config_spin_widgets.push(&vertical_current_magnitude_adj);
-    vertical_current_magnitude_adj.set_value(0.45);
+    vertical_current_magnitude_adj.set_value(0.23);
     geometry_settings_grid.attach(&vertical_current_magnitude_adj, 1, y_pos, 1, 1);
     y_pos += 1;
 
@@ -138,7 +138,7 @@ fn build_ui(app: &Application) {
     geometry_settings_grid.attach(&Label::new(Some("V. Linearity")), 0, y_pos, 1, 1);
     let v_lin = Scale::with_range(Orientation::Horizontal, 0.0, 1.0, 0.01);
     config_scale_widgets.push(&v_lin);
-    v_lin.set_value(0.5);
+    v_lin.set_value(0.55);
     v_lin.set_width_request(200);
     geometry_settings_grid.attach(&v_lin, 1, y_pos, 1, 1);
     y_pos += 1;
@@ -169,7 +169,7 @@ fn build_ui(app: &Application) {
     input_settings_grid.attach(&Label::new(Some("H. Phase")), 0, y_pos, 1, 1);
     let h_phase = Scale::with_range(Orientation::Horizontal, -0.1, 0.1, 0.01);
     config_scale_widgets.push(&h_phase);
-    h_phase.set_value(0.0);
+    h_phase.set_value(0.05);
     h_phase.set_width_request(200);
     input_settings_grid.attach(&h_phase, 1, y_pos, 1, 1);
 
