@@ -547,7 +547,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "out/td-rgbinput-lm1205-v1.1/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
