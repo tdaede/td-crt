@@ -4657,7 +4657,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_Elec_6.3x5.8"
 			(at 164.7952 124.46 0)
 			(effects
 				(font
@@ -4683,7 +4683,7 @@
 				)
 			)
 		)
-		(property "Digikey" "490-18663-1-ND"
+		(property "Digikey" "565-4781-1-ND"
 			(at 163.83 120.65 0)
 			(effects
 				(font
@@ -4735,7 +4735,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_Elec_6.3x5.8"
 			(at 164.7952 85.09 0)
 			(effects
 				(font
@@ -4761,7 +4761,7 @@
 				)
 			)
 		)
-		(property "Digikey" "490-18663-1-ND"
+		(property "Digikey" "565-4781-1-ND"
 			(at 163.83 81.28 0)
 			(effects
 				(font
@@ -5451,7 +5451,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_Elec_6.3x7.7"
 			(at 147.0152 85.09 0)
 			(effects
 				(font
@@ -5477,7 +5477,7 @@
 				)
 			)
 		)
-		(property "Digikey" "445-14423-1-ND"
+		(property "Digikey" "565-HHXD500ARA150MF80GCT-ND"
 			(at 146.05 81.28 0)
 			(effects
 				(font
@@ -6667,7 +6667,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_Elec_6.3x7.7"
 			(at 147.0152 124.46 0)
 			(effects
 				(font
@@ -6693,7 +6693,7 @@
 				)
 			)
 		)
-		(property "Digikey" "445-14423-1-ND"
+		(property "Digikey" "565-HHXD500ARA150MF80GCT-ND"
 			(at 146.05 120.65 0)
 			(effects
 				(font
