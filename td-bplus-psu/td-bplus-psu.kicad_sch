@@ -4546,7 +4546,7 @@
 				)
 			)
 		)
-		(property "Digikey" ""
+		(property "Digikey" "BSC600N25NS3GATMA1CT-ND"
 			(at 101.6 36.83 0)
 			(effects
 				(font
@@ -6008,7 +6008,7 @@
 		(at 120.65 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -6071,7 +6071,7 @@
 		(at 100.965 86.995 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -6267,6 +6267,15 @@
 				(font
 					(size 1.27 1.27)
 				)
+			)
+		)
+		(property "Digikey" "10129379-908001BLF-ND"
+			(at 55.245 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
