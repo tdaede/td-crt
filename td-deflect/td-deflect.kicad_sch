@@ -3167,7 +3167,7 @@
 		)
 		(uuid "6f7634d5-d753-4ed3-be65-3c43783d9987")
 	)
-	(text "C59 wrong footprint (1206)\nR69 check size\nC20, C42, C66 wrong footprint\n10k part number wrong\nF4, TH1 wrong footprint\nR8 goes to ground\nbigger caps on class D IRS2005S\nfaster MOSFETs on class D output\nadd clamping output\nswitch horizontal IRS2005 for something 250V rated\nswitch S caps to have pulse rating\nmore powerful 3.3V supply\nmore powerful 3.3VA supply\ndedicated LM1205 supply\nbig caps on 48V\nadd input voltage rail measurement\nswap to wurth inductors\nremove h fuse\nadd v fuse"
+	(text "R69 check size\nfaster MOSFETs on class D output\nswitch horizontal IRS2005 for something 250V rated\nswitch S caps to have pulse rating\nbig caps on 48V\nswap to wurth inductors\nadd clamping output"
 		(exclude_from_sim no)
 		(at 146.685 53.34 0)
 		(effects
@@ -5285,7 +5285,7 @@
 				)
 			)
 		)
-		(property "Digikey" "1242-G3R450MT17J-ND"
+		(property "Digikey" "1242-G3R450MT17J-TRCT-ND"
 			(at 83.82 81.28 0)
 			(effects
 				(font
@@ -6746,7 +6746,7 @@
 				)
 			)
 		)
-		(property "Digikey" "311-1.00CRCT-ND"
+		(property "Digikey" "311-10.0KCRCT-ND"
 			(at 68.58 85.09 0)
 			(effects
 				(font
@@ -6887,7 +6887,7 @@
 				)
 			)
 		)
-		(property "Digikey" "311-1.00CRCT-ND"
+		(property "Digikey" "311-10.0KCRCT-ND"
 			(at 48.26 85.09 0)
 			(effects
 				(font
@@ -10212,7 +10212,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 27.6352 46.99 0)
 			(effects
 				(font

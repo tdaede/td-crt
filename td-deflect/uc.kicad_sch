@@ -7072,10 +7072,6 @@
 		(uuid "3387f677-4fde-435b-847c-d4896bb2d8a2")
 	)
 	(no_connect
-		(at 142.24 58.42)
-		(uuid "3c9b0387-0ce8-4f4e-9e3c-a55141abe9b9")
-	)
-	(no_connect
 		(at 114.3 40.64)
 		(uuid "463ecd21-8483-48b5-9270-e04b40e706bd")
 	)
@@ -9103,6 +9099,28 @@
 			)
 		)
 	)
+	(global_label "INPUT_VOLTAGE"
+		(shape input)
+		(at 142.24 58.42 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8f27b974-f95c-417b-9e99-490624b15b2a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 158.9644 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "V_LO_2"
 		(shape input)
 		(at 142.24 157.48 0)
@@ -10595,7 +10613,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 272.7452 73.66 0)
 			(effects
 				(font
@@ -11322,7 +11340,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Fuse:Fuse_0805_2012Metric"
+		(property "Footprint" "Fuse:Fuse_1206_3216Metric"
 			(at 83.82 189.865 0)
 			(effects
 				(font
@@ -11418,6 +11436,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x06, script generated"
+			(at 20.32 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "455-B6B-XH-A-ND"
 			(at 20.32 153.67 0)
 			(effects
 				(font
@@ -12572,6 +12599,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" "945-3040-ND"
+			(at 260.35 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "00f1978d-53a1-4f1c-8364-c94204e13836")
 		)
@@ -12617,7 +12653,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 276.5552 101.6 0)
 			(effects
 				(font
@@ -13154,6 +13190,15 @@
 			)
 		)
 		(property "Description" "2A Step-Down DC/DC-Regulator, 4.75-32V input, 3.3V fixed Output Voltage, LM78xx replacement, -40°C to +85°C, SIP3"
+			(at 264.16 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "945-3040-ND"
 			(at 264.16 93.98 0)
 			(effects
 				(font
@@ -15605,7 +15650,7 @@
 				)
 			)
 		)
-		(property "Digikey" "311-1.00CRCT-ND"
+		(property "Digikey" "311-10.0KCRCT-ND"
 			(at 90.17 41.91 0)
 			(effects
 				(font

@@ -572,6 +572,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" "455-2248-ND"
+			(at 127 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "3"
 			(uuid "81cc91b7-f408-4032-8e86-fef68588a531")
 		)
