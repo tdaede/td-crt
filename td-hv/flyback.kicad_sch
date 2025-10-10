@@ -10850,7 +10850,7 @@
 				)
 			)
 		)
-		(property "Digikey" ""
+		(property "Digikey" " 311-1.00KCRCT-ND"
 			(at 162.56 52.07 0)
 			(effects
 				(font
@@ -11765,7 +11765,7 @@
 				)
 			)
 		)
-		(property "Digikey" ""
+		(property "Digikey" " 311-1.00KCRCT-ND"
 			(at 144.78 85.09 0)
 			(effects
 				(font
@@ -12171,7 +12171,7 @@
 				)
 			)
 		)
-		(property "Digikey" ""
+		(property "Digikey" " 311-1.00KCRCT-ND"
 			(at 162.56 48.26 0)
 			(effects
 				(font
@@ -12679,7 +12679,7 @@
 				)
 			)
 		)
-		(property "Digikey" ""
+		(property "Digikey" " 311-1.00KCRCT-ND"
 			(at 138.43 76.2 0)
 			(effects
 				(font
@@ -13186,7 +13186,7 @@
 				)
 			)
 		)
-		(property "Digikey" ""
+		(property "Digikey" " 311-1.00KCRCT-ND"
 			(at 144.78 92.71 0)
 			(effects
 				(font
@@ -13262,7 +13262,7 @@
 				)
 			)
 		)
-		(property "Digikey" ""
+		(property "Digikey" " 311-10.0KCRCT-ND"
 			(at 144.78 82.55 0)
 			(effects
 				(font
@@ -13493,7 +13493,7 @@
 				)
 			)
 		)
-		(property "Digikey" ""
+		(property "Digikey" " 311-1.00KCRCT-ND"
 			(at 181.61 60.96 0)
 			(effects
 				(font
@@ -14250,6 +14250,15 @@
 			)
 		)
 		(property "Description" "Jumper, 2-pole, open"
+			(at 115.57 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "DNP"
 			(at 115.57 27.94 0)
 			(effects
 				(font
@@ -15516,7 +15525,7 @@
 				)
 			)
 		)
-		(property "Digikey" "478-3005-1-ND"
+		(property "Digikey" "478-4734-1-ND"
 			(at 144.78 54.61 0)
 			(effects
 				(font
