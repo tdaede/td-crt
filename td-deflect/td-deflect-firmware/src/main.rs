@@ -201,7 +201,7 @@ mod app {
         //syst.enable_counter();
         let crt_stats_live = CRTStats::default();
         let crt_state = CRTState::default();
-        let config = Config { crt: CRT_CONFIG_REALILSTIC_16_108, input: InputConfig { h_size: 0.90, h_phase: 0.05 } };
+        let config = Config { crt: CRT_CONFIG_NEC_KD_252, input: InputConfig { h_size: 0.90, h_phase: 0.05 } };
 
         // config queue for purposes of "double buffering" config
         static mut CONFIG_QUEUE: Queue<Config, 2> = Queue::new();
@@ -280,7 +280,8 @@ mod app {
         // vertical counter
         let vga_vsync = gpiob.idr().read().idr0().bit(); // vga sync input
         let separated_vsync = gpioa.idr().read().idr7().bit(); // composite sync input
-        let vsync = vga_vsync & separated_vsync;
+        //let vsync = vga_vsync & separated_vsync;
+        let vsync = separated_vsync;
         let odd = gpioc.idr().read().idr15().bit();
         // negative edge triggered
         let total_lines = 262;
@@ -301,8 +302,10 @@ mod app {
         } else {
             gpioe.odr().modify(|_,w| {w.odr7().bit(false)}); // blank image
         }
+        //gpioe.odr().modify(|_,w| {w.odr7().bit(true)}); // show image
+
         // convert scanline to a (+1, -1) range coordinate (+1 is top of screen)
-        let horizontal_pos_coordinate = (((*current_scanline) - center_line) as f32 + if odd { 0.0 } else { -0.5 }) / (total_lines as f32) * -2.0;
+        let horizontal_pos_coordinate = (((if *current_scanline > 248 { 0 } else { *current_scanline }) - center_line) as f32 + if odd { 0.0 } else { -0.5 }) / (total_lines as f32) * -2.0;
         let vertical_linearity = config.crt.vertical_linearity;
         let vertical_linearity_scale = 1.0 / libm::atanf(1.0 * vertical_linearity);
         let horizontal_coordinate_corrected = if vertical_linearity < 0.1 {
@@ -418,6 +421,7 @@ mod app {
         s_cap: 1,
     };
 
+    #[allow(unused)]
     static CRT_CONFIG_PANASONIC_CTN_1061R: CRTConfig = CRTConfig {
         v_mag_amps: 0.53,
         v_offset_amps: 0.0,
@@ -425,9 +429,17 @@ mod app {
         s_cap: 1,
     };
 
+    #[allow(unused)]
     static CRT_CONFIG_REALILSTIC_16_108: CRTConfig = CRTConfig {
         v_mag_amps: 0.23,
         v_offset_amps: 0.0,
+        vertical_linearity: 0.55,
+        s_cap: 1,
+    };
+
+    static CRT_CONFIG_NEC_KD_252: CRTConfig = CRTConfig {
+        v_mag_amps: 0.16,
+        v_offset_amps: 0.00,
         vertical_linearity: 0.55,
         s_cap: 1,
     };
