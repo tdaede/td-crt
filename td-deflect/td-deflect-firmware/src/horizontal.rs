@@ -72,7 +72,7 @@ impl HOTDriver {
     }
     fn set_period(&mut self, mut period: u32) {
         period = period.clamp(AHB_CLOCK/MAX_H_FREQ, AHB_CLOCK/MIN_H_FREQ);
-        let turn_off_time = period * 1 / 4;
+        let turn_off_time = period * 2 / 4;
         self.tp.arr().write(|w| { unsafe { w.arr().bits(period - 1) } });
         self.tp.ccr3().write(|w| { unsafe { w.ccr().bits(turn_off_time) } });
         self.h_pin_period = period as u16;

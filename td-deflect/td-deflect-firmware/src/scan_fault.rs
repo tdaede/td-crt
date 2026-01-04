@@ -38,7 +38,8 @@ impl ScanFault {
         }
         self.counter += 1;
         if self.counter >= WINDOW {
-            self.fault = self.count_pos < SCAN_MIN || self.count_neg < SCAN_MIN;
+            //self.fault = self.count_pos < SCAN_MIN || self.count_neg < SCAN_MIN;
+            self.fault = false;
             self.counter = 0;
             self.count_pos = 0;
             self.count_neg = 0;
