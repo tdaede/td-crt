@@ -5990,7 +5990,7 @@
 		)
 		(uuid "89b3b9b1-5c2f-45fe-9a22-504326012905")
 	)
-	(text "todo: 24V diode too low voltage\n12V feedback too high voltage\nswitch polarity of feedback"
+	(text "todo: 24V diode too low voltage\n12V feedback too high voltage\nswitch polarity of feedback\nwrong MOSFET part number (too small)"
 		(exclude_from_sim no)
 		(at 162.56 148.59 0)
 		(effects
