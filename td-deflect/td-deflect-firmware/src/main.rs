@@ -305,7 +305,7 @@ mod app {
         //gpioe.odr().modify(|_,w| {w.odr7().bit(true)}); // show image
 
         // convert scanline to a (+1, -1) range coordinate (+1 is top of screen)
-        let horizontal_pos_coordinate = (((if *current_scanline > 248 { 0 } else { *current_scanline }) - center_line) as f32 + if odd { 0.0 } else { -0.5 }) / (total_lines as f32) * -2.0;
+        let horizontal_pos_coordinate = (((if *current_scanline > 253 { 0 } else { *current_scanline }) - center_line) as f32 + if odd { 0.0 } else { -0.5 }) / (total_lines as f32) * -2.0;
         let vertical_linearity = config.crt.vertical_linearity;
         let vertical_linearity_scale = 1.0 / libm::atanf(1.0 * vertical_linearity);
         let horizontal_coordinate_corrected = if vertical_linearity < 0.1 {
