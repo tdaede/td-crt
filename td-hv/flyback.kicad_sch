@@ -11041,9 +11041,9 @@
 		(at 109.22 44.45 180)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "6af1a6a2-fc3d-4064-b76f-bfd4e7682bbe")
 		(property "Reference" "D2"
 			(at 109.22 38.9636 0)
@@ -15525,7 +15525,7 @@
 				)
 			)
 		)
-		(property "Digikey" "478-4734-1-ND"
+		(property "Digikey" "478-KGM43BCG3U470JVCT-ND"
 			(at 144.78 54.61 0)
 			(effects
 				(font
