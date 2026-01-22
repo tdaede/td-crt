@@ -9326,7 +9326,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "G3R450MT17J"
+		(property "Value" "IMBF170R650M1XTMA1"
 			(at 151.13 105.41 0)
 			(effects
 				(font
@@ -9345,7 +9345,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://genesicsemi.com/sic-mosfet/G3R450MT17J/G3R450MT17J.pdf"
+		(property "Datasheet" ""
 			(at 147.32 113.03 0)
 			(effects
 				(font
@@ -9363,7 +9363,7 @@
 				)
 			)
 		)
-		(property "Digikey" "1242-G3R450MT17J-ND"
+		(property "Digikey" "448-IMBF170R650M1XTMA1CT-ND"
 			(at 147.32 113.03 0)
 			(effects
 				(font
