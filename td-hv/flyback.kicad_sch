@@ -5990,7 +5990,7 @@
 		)
 		(uuid "89b3b9b1-5c2f-45fe-9a22-504326012905")
 	)
-	(text "todo: 24V diode too low voltage\n12V feedback too high voltage\nswitch polarity of feedback\nwrong MOSFET part number (too small)"
+	(text "todo: reconsider populated resistors"
 		(exclude_from_sim no)
 		(at 162.56 148.59 0)
 		(effects
@@ -8275,7 +8275,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "BSZ42DN25NS3GATMA1"
+		(property "Value" "BSC16DN25NS3GATMA1"
 			(at 129.6416 53.213 0)
 			(effects
 				(font
@@ -8313,7 +8313,7 @@
 				)
 			)
 		)
-		(property "Digikey" "BSZ42DN25NS3GATMA1CT-ND"
+		(property "Digikey" "BSC16DN25NS3GATMA1CT-ND"
 			(at 124.46 52.07 0)
 			(effects
 				(font
