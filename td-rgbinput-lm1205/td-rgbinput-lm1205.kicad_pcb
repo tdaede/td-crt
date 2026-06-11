@@ -435,7 +435,7 @@
 			(remove_unused_layers no)
 			(net 5 "GND")
 			(pintype "passive")
-			(uuid "3743ed35-bd8e-4c9e-8844-c1d942995e46")
+			(uuid "b22ba798-b981-4180-81b0-da0e50658ed5")
 		)
 		(pad "1" thru_hole rect
 			(at 0 0 270)
@@ -1028,7 +1028,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "3b632dfa-7608-4b3e-bf99-4e8982f1c9df")
+			(uuid "4fb3d078-c7ef-4c30-ac57-06202ce9688c")
 		)
 		(pad "1" thru_hole circle
 			(at -1.697056 1.697056)
@@ -1040,7 +1040,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "3b632dfa-7608-4b3e-bf99-4e8982f1c9df")
+			(uuid "1e3785e2-c7d7-4f6a-b5a9-b187a1daaea0")
 		)
 		(pad "1" thru_hole circle
 			(at 0 -2.4)
@@ -1052,7 +1052,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "3b632dfa-7608-4b3e-bf99-4e8982f1c9df")
+			(uuid "4cba8859-7afd-4ac3-b22a-f479ec98be65")
 		)
 		(pad "1" thru_hole circle
 			(at 0 0)
@@ -1064,7 +1064,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "3b632dfa-7608-4b3e-bf99-4e8982f1c9df")
+			(uuid "b1004e5f-9f89-497f-9aa6-4f26dc18979d")
 		)
 		(pad "1" thru_hole circle
 			(at 0 2.4)
@@ -1076,7 +1076,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "3b632dfa-7608-4b3e-bf99-4e8982f1c9df")
+			(uuid "c5acda81-4a79-4003-b130-b447a5e373fb")
 		)
 		(pad "1" thru_hole circle
 			(at 1.697056 -1.697056)
@@ -1088,7 +1088,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "3b632dfa-7608-4b3e-bf99-4e8982f1c9df")
+			(uuid "59e4ce33-bf7a-4b03-99e1-f73db4ad34f1")
 		)
 		(pad "1" thru_hole circle
 			(at 1.697056 1.697056)
@@ -1100,7 +1100,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "3b632dfa-7608-4b3e-bf99-4e8982f1c9df")
+			(uuid "9315ecdc-8568-4296-8633-02ad53625410")
 		)
 		(pad "1" thru_hole circle
 			(at 2.4 0)
@@ -1112,7 +1112,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "3b632dfa-7608-4b3e-bf99-4e8982f1c9df")
+			(uuid "61fc7cdf-7caa-4bf3-8515-6edd8f56d8b8")
 		)
 		(embedded_fonts no)
 	)
@@ -1229,7 +1229,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "8227809f-068a-445d-b894-09562b75b9aa")
+			(uuid "97e7ea1c-46eb-419b-9f9f-b347f255a1e0")
 		)
 		(pad "1" thru_hole circle
 			(at -1.697056 1.697056)
@@ -1241,7 +1241,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "8227809f-068a-445d-b894-09562b75b9aa")
+			(uuid "14be9493-6161-4d64-969d-0f4f27bd7305")
 		)
 		(pad "1" thru_hole circle
 			(at 0 -2.4)
@@ -1253,7 +1253,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "8227809f-068a-445d-b894-09562b75b9aa")
+			(uuid "df50dc09-6761-4fbd-9895-b18d189ccf3f")
 		)
 		(pad "1" thru_hole circle
 			(at 0 0)
@@ -1265,7 +1265,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "8227809f-068a-445d-b894-09562b75b9aa")
+			(uuid "934ec201-d0e5-4fb3-9bc3-328792ccad35")
 		)
 		(pad "1" thru_hole circle
 			(at 0 2.4)
@@ -1277,7 +1277,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "8227809f-068a-445d-b894-09562b75b9aa")
+			(uuid "9bd5913f-f24b-4e88-9059-6ad6ca12b450")
 		)
 		(pad "1" thru_hole circle
 			(at 1.697056 -1.697056)
@@ -1289,7 +1289,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "8227809f-068a-445d-b894-09562b75b9aa")
+			(uuid "c51bc85b-7fc4-423f-90bc-beaf789cd9c6")
 		)
 		(pad "1" thru_hole circle
 			(at 1.697056 1.697056)
@@ -1301,7 +1301,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "8227809f-068a-445d-b894-09562b75b9aa")
+			(uuid "bfc2f04e-135f-4b7d-b821-7a466249b266")
 		)
 		(pad "1" thru_hole circle
 			(at 2.4 0)
@@ -1313,7 +1313,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "8227809f-068a-445d-b894-09562b75b9aa")
+			(uuid "6488988b-e814-4403-9d86-0f060c430f01")
 		)
 		(embedded_fonts no)
 	)
@@ -1430,7 +1430,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "fe5aafb5-c76f-4cfa-b792-c540caf29fe4")
+			(uuid "eedc4ffb-1864-4288-9d31-1a7f093b62ce")
 		)
 		(pad "1" thru_hole circle
 			(at -1.697056 1.697056)
@@ -1442,7 +1442,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "fe5aafb5-c76f-4cfa-b792-c540caf29fe4")
+			(uuid "d5110614-12e6-4e3a-8f7a-c893fa9fa519")
 		)
 		(pad "1" thru_hole circle
 			(at 0 -2.4)
@@ -1454,7 +1454,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "fe5aafb5-c76f-4cfa-b792-c540caf29fe4")
+			(uuid "298dd96f-6b1e-4dc4-b12c-8247dc5dd2cc")
 		)
 		(pad "1" thru_hole circle
 			(at 0 0)
@@ -1466,7 +1466,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "fe5aafb5-c76f-4cfa-b792-c540caf29fe4")
+			(uuid "ee66392f-38d7-451c-a7a0-726444a09c1a")
 		)
 		(pad "1" thru_hole circle
 			(at 0 2.4)
@@ -1478,7 +1478,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "fe5aafb5-c76f-4cfa-b792-c540caf29fe4")
+			(uuid "a779f364-e7bc-484a-b95d-050fdf5dfdca")
 		)
 		(pad "1" thru_hole circle
 			(at 1.697056 -1.697056)
@@ -1490,7 +1490,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "fe5aafb5-c76f-4cfa-b792-c540caf29fe4")
+			(uuid "7705b4e5-5c4b-46c8-882a-c23e29f2bb15")
 		)
 		(pad "1" thru_hole circle
 			(at 1.697056 1.697056)
@@ -1502,7 +1502,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "fe5aafb5-c76f-4cfa-b792-c540caf29fe4")
+			(uuid "0623bd72-a90b-4644-94d2-2fe92b6851ef")
 		)
 		(pad "1" thru_hole circle
 			(at 2.4 0)
@@ -1514,7 +1514,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "fe5aafb5-c76f-4cfa-b792-c540caf29fe4")
+			(uuid "6e66a82f-2571-4c1b-a23d-52f5dfd2fb3b")
 		)
 		(embedded_fonts no)
 	)
@@ -1631,7 +1631,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "18db91af-d2b9-409a-bdf1-f9177089a3dd")
+			(uuid "5da6a5fc-c766-4a24-a9d3-6305dda3a1d9")
 		)
 		(pad "1" thru_hole circle
 			(at -1.697056 1.697056)
@@ -1643,7 +1643,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "18db91af-d2b9-409a-bdf1-f9177089a3dd")
+			(uuid "8884ec14-c4d0-4a95-9a3a-cb5b0fd36367")
 		)
 		(pad "1" thru_hole circle
 			(at 0 -2.4)
@@ -1655,7 +1655,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "18db91af-d2b9-409a-bdf1-f9177089a3dd")
+			(uuid "5c077ee9-cbad-42cf-a16c-02cc6cc64375")
 		)
 		(pad "1" thru_hole circle
 			(at 0 0)
@@ -1667,7 +1667,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "18db91af-d2b9-409a-bdf1-f9177089a3dd")
+			(uuid "18ac4c70-319b-4c23-b933-bba2b7eade01")
 		)
 		(pad "1" thru_hole circle
 			(at 0 2.4)
@@ -1679,7 +1679,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "18db91af-d2b9-409a-bdf1-f9177089a3dd")
+			(uuid "ab019bd9-e4c6-484a-a6c7-72284c38b6a8")
 		)
 		(pad "1" thru_hole circle
 			(at 1.697056 -1.697056)
@@ -1691,7 +1691,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "18db91af-d2b9-409a-bdf1-f9177089a3dd")
+			(uuid "07ad5f82-5190-417b-8c6f-09d0a7686991")
 		)
 		(pad "1" thru_hole circle
 			(at 1.697056 1.697056)
@@ -1703,7 +1703,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "18db91af-d2b9-409a-bdf1-f9177089a3dd")
+			(uuid "b13f78ef-978f-466b-b75e-9d5c7c3f52cf")
 		)
 		(pad "1" thru_hole circle
 			(at 2.4 0)
@@ -1715,7 +1715,7 @@
 			(pinfunction "1")
 			(pintype "input")
 			(zone_connect 2)
-			(uuid "18db91af-d2b9-409a-bdf1-f9177089a3dd")
+			(uuid "2ed5633f-a04a-42cf-bda1-b448f1d8686f")
 		)
 		(embedded_fonts no)
 	)
@@ -13178,7 +13178,7 @@
 			(net 72 "+12VA")
 			(pinfunction "VO")
 			(pintype "power_out")
-			(uuid "5b15251f-b456-4571-bf89-15218d2cd3c2")
+			(uuid "8fb33aa1-c8e4-41c8-b9a4-4fab9c9cf9a2")
 		)
 		(pad "3" smd roundrect
 			(at -3.15 2.3)

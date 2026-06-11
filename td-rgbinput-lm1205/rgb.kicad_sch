@@ -7909,7 +7909,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" " AE11024-ND "
+		(property "Digikey" "L77HDE15SD1CH4FVGA-ND"
 			(at 104.14 41.91 0)
 			(effects
 				(font
@@ -10106,6 +10106,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" "3M5481-ND"
+			(at 76.2 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "a7c06e81-5918-49a5-b913-f39abd03b673")
 		)
@@ -11515,6 +11524,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" "311-390CRCT-ND"
+			(at 171.45 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "66b9dbec-fdb7-44c0-98fb-27682795f4f8")
 		)
@@ -12479,6 +12497,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 161.29 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "311-390CRCT-ND"
 			(at 161.29 96.52 0)
 			(effects
 				(font
@@ -13456,6 +13483,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" "311-10.0CRCT-ND"
+			(at 130.81 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "bfaab2bf-918b-4eda-9add-902c7b96739e")
 		)
@@ -14154,6 +14190,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" "490-10516-1-ND"
+			(at 113.03 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "bdbd3c23-e83a-4f32-b144-c9fd772f255c")
 		)
@@ -14678,6 +14723,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 165.1 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "311-390CRCT-ND"
 			(at 165.1 106.68 0)
 			(effects
 				(font
@@ -15546,6 +15600,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 130.81 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "490-10516-1-ND"
 			(at 130.81 71.12 0)
 			(effects
 				(font

@@ -4392,6 +4392,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" "490-10516-1-ND"
+			(at 165.1 213.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "94d4a9af-07e5-4f5f-8ad7-7147922d577f")
 		)
@@ -4825,6 +4834,15 @@
 				(hide yes)
 			)
 		)
+		(property "Digikey" "AZ1117CH-ADJTRG1DICT-ND"
+			(at 179.07 209.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "aaa4d914-63e9-444c-b38e-bef7c2eaf51e")
 		)
@@ -5051,7 +5069,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digikey" "311-2.2KCRCT-ND"
+		(property "Digikey" "311-2.20KCRCT-ND"
 			(at 190.5 220.98 0)
 			(effects
 				(font
@@ -5326,6 +5344,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 201.93 217.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digikey" "490-10516-1-ND"
 			(at 201.93 217.17 0)
 			(effects
 				(font
