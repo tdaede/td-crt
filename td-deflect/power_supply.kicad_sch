@@ -6550,7 +6550,7 @@
 				)
 			)
 		)
-		(property "Digikey" "SRF1260-470MCT-ND"
+		(property "Digikey" "SRR1260-470MCT-ND"
 			(at 106.68 125.73 0)
 			(hide yes)
 			(show_name no)
@@ -8172,7 +8172,7 @@
 				)
 			)
 		)
-		(property "Digikey" "SRF1260-470MCT-ND"
+		(property "Digikey" "SRR1260-470MCT-ND"
 			(at 207.01 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -12800,7 +12800,7 @@
 				)
 			)
 		)
-		(property "Value" "1A"
+		(property "Value" "2A"
 			(at 236.22 100.33 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12810,7 +12810,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Fuse:Fuse_Schurter_UMT250"
+		(property "Footprint" "Fuse:Fuse_Schurter_UMZ250"
 			(at 236.22 105.918 90)
 			(hide yes)
 			(show_name no)
@@ -12842,7 +12842,7 @@
 				)
 			)
 		)
-		(property "Digikey" "486-3436-ND"
+		(property "Digikey" "486-2091-ND"
 			(at 236.22 104.14 0)
 			(hide yes)
 			(show_name no)
@@ -13014,7 +13014,7 @@
 				)
 			)
 		)
-		(property "Digikey" "732-5930-ND"
+		(property "Digikey" "732-5934-ND"
 			(at 170.18 31.75 0)
 			(hide yes)
 			(show_name no)

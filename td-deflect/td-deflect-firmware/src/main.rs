@@ -27,7 +27,7 @@ mod app {
     pub const AHB_CLOCK: u32 = 170_000_000;
     pub const APB2_CLOCK: u32 = AHB_CLOCK;
 
-    pub const MIN_H_FREQ: u32 = 15000;
+    pub const MIN_H_FREQ: u32 = 15500;
     pub const MAX_H_FREQ: u32 = 16000;
     #[allow(unused)]
     pub const MAX_H_PERIOD: u32 = AHB_CLOCK / MIN_H_FREQ;
@@ -193,7 +193,7 @@ mod app {
 
         let mut hot_driver = HOTDriver::new(s.TIM1, s.TIM4);
         let hsync_capture = HSyncCapture::new(s.TIM3);
-        hot_driver.set_frequency(15700);
+        hot_driver.set_frequency(15600);
 
         // configure the system timer to wrap around every second
         //syst.set_clock_source(SystClkSource::Core);
@@ -305,7 +305,7 @@ mod app {
         //gpioe.odr().modify(|_,w| {w.odr7().bit(true)}); // show image
 
         // convert scanline to a (+1, -1) range coordinate (+1 is top of screen)
-        let horizontal_pos_coordinate = (((if *current_scanline > 253 { 0 } else { *current_scanline }) - center_line) as f32 + if odd { 0.0 } else { -0.5 }) / (total_lines as f32) * -2.0;
+        let horizontal_pos_coordinate = (((if *current_scanline > 250 { 0 } else { *current_scanline }) - center_line) as f32 + if odd { 0.0 } else { -0.5 }) / (total_lines as f32) * -2.0;
         let vertical_linearity = config.crt.vertical_linearity;
         let vertical_linearity_scale = 1.0 / libm::atanf(1.0 * vertical_linearity);
         let horizontal_coordinate_corrected = if vertical_linearity < 0.1 {
@@ -438,7 +438,7 @@ mod app {
     };
 
     static CRT_CONFIG_NEC_KD_252: CRTConfig = CRTConfig {
-        v_mag_amps: 0.16,
+        v_mag_amps: 0.22,
         v_offset_amps: 0.00,
         vertical_linearity: 0.55,
         s_cap: 1,
