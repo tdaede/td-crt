@@ -2709,6 +2709,16 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "fix c23 for right size\nfix c2 pn"
+		(exclude_from_sim no)
+		(at 90.424 72.644 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "0b1a2040-1f99-4d05-8fea-610078d92221")
+	)
 	(text "todo: switch capacitors for surface mount"
 		(exclude_from_sim no)
 		(at 101.6 63.5 0)
