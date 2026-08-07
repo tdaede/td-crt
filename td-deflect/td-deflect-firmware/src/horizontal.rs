@@ -61,7 +61,7 @@ impl HOTDriver {
         self.accumulator += self.period - period_quantized as f32;
         self.set_period(period_quantized as u32);
         // update h pin duty
-        let max_change_per_iteration = 0.001;
+        let max_change_per_iteration = 0.01;
         self.current_duty = self.current_duty + (self.duty_setpoint - self.current_duty).clamp(-1.0*max_change_per_iteration, max_change_per_iteration);
         self.tp.ccr1().write(|w| { unsafe { w.ccr().bits((self.h_pin_period as f32 * self.current_duty) as u32)} });
         // trigger hv

@@ -32,6 +32,8 @@ pub struct CRTConfig {
     // s-capacitor value, 0 = highest capacitance
     #[serde(default)]
     pub s_cap: u8,
+    #[serde(default)]
+    pub h_pincushion: f32,
 }
 
 /// Configuration for a particular input

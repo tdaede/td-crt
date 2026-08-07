@@ -7,6 +7,7 @@ mod serial;
 mod v_class_d;
 mod scan_fault;
 
+use micromath::F32;
 use rtic::app;
 
 #[app(device = stm32g4::stm32g474, peripherals = true, dispatchers = [EXTI0, EXTI1])]
@@ -201,7 +202,7 @@ mod app {
         //syst.enable_counter();
         let crt_stats_live = CRTStats::default();
         let crt_state = CRTState::default();
-        let config = Config { crt: CRT_CONFIG_NEC_KD_252, input: InputConfig { h_size: 0.95, h_phase: 0.05 } };
+        let config = Config { crt: CRT_CONFIG_REALISTIC_16_108, input: InputConfig { h_size: 0.95, h_phase: 0.05 } };
 
         // config queue for purposes of "double buffering" config
         static mut CONFIG_QUEUE: Queue<Config, 2> = Queue::new();
@@ -271,7 +272,6 @@ mod app {
             //hsync_capture.apply_phase_feedforward(fb_quantized);
         }
 
-        hot_driver.duty_setpoint = config.input.h_size;
         hot_driver.update();
 
         let VERTICAL_MAX_AMPS = 1.0;
@@ -318,6 +318,14 @@ mod app {
         v_drive_classd.set_current(horizontal_amps);
         v_drive.update();
         v_drive_classd.update(1.0/15700.0); // TODO: use real timestep value
+
+        // pincushion correction
+        // cos(y) so that center of screen is 1.0 and top/bottom are 0
+        // modulation strength 0.0 is no correction, 1.0 is top/bottom are zero width
+        // clamp between 0.75 and 1.0 for sanity
+        // this is delayed one scanline for now as we set hot_driver after update() is called
+        let pincushion_modulation = f32::from(micromath::F32(horizontal_coordinate_corrected * core::f32::consts::PI * 0.5).cos() * config.crt.h_pincushion + 1.0 - config.crt.h_pincushion).clamp(0.75,1.0);
+        hot_driver.duty_setpoint = config.input.h_size * pincushion_modulation;
 
         // update stats
         crt_stats.h_input_period = input_period as i32;
@@ -419,6 +427,7 @@ mod app {
         v_offset_amps: 0.0,
         vertical_linearity: 0.55,
         s_cap: 1,
+        h_pincushion: 0.0,
     };
 
     #[allow(unused)]
@@ -427,14 +436,16 @@ mod app {
         v_offset_amps: 0.0,
         vertical_linearity: 0.55,
         s_cap: 1,
+        h_pincushion: 0.0,
     };
 
     #[allow(unused)]
-    static CRT_CONFIG_REALILSTIC_16_108: CRTConfig = CRTConfig {
+    static CRT_CONFIG_REALISTIC_16_108: CRTConfig = CRTConfig {
         v_mag_amps: 0.23,
         v_offset_amps: 0.0,
         vertical_linearity: 0.55,
         s_cap: 1,
+        h_pincushion: 0.01,
     };
 
     static CRT_CONFIG_NEC_KD_252: CRTConfig = CRTConfig {
@@ -442,6 +453,7 @@ mod app {
         v_offset_amps: 0.00,
         vertical_linearity: 0.55,
         s_cap: 1,
+        h_pincushion: 0.0,
     };
 
     /// Complete runtime configuration, both CRT config + input config
